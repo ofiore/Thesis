@@ -118,3 +118,58 @@ plot(simout_linear)
 
 ```
 
+##2019 vs 2022 Comparisons
+```{r}
+comp <- read.csv("../Data/2019vs2022.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(comp) <- c("Athlete", "Country", "NineteenH", "NineteenS", "NineteenF", "TwentyTwoH", "TwentyTwoS", "TwentyTwoF")
+#View(comp)
+```
+
+```{r}
+library(clusrank)
+t.test(comp$NineteenH, comp$TwentyTwoH, paired = TRUE)
+clusWilcox.test(comp$NineteenH, cluster=comp$TwentyTwoH, paired = TRUE, alternative = "greater")
+wilcox.test(comp$NineteenH, comp$TwentyTwoH, paired = TRUE)
+```
+
+
+```{r}
+t.test(comp$NineteenS, comp$TwentyTwoS, paired = TRUE)
+clusWilcox.test(comp$NineteenS, cluster=comp$TwentyTwoS, paired = TRUE, alternative = "greater")
+wilcox.test(comp$NineteenS, comp$TwentyTwoS, paired = TRUE)
+```
+
+
+```{}
+A matched pairs t test, clusrank package Wilcox test, and a standard Wilcox test all showed that the heat means differ by a significant amount. And two of the three semifinals means had an alpha less than 0.01.
+```
+
+
+
+```{r}
+nations <- read.csv("../Data/NatVSWorld.csv")
+colnames(nations) <- c("Athlete", "Country", "NatH", "NatS", "NatF", "WorldH", "WorldS", "WorldF")
+```
+
+```{r}
+library(clusrank)
+t.test(nations$NatH, nations$WorldH, paired = TRUE)
+clusWilcox.test(nations$NatH, cluster=nations$WorldH, paired = TRUE, alternative = "greater")
+wilcox.test(nations$NatH, nations$WorldH, paired = TRUE)
+```
+```{}
+These p values all significant at alpha = 0.05, but not at alpha = 0.01
+```
+
+```{r}
+library(clusrank)
+t.test(nations$NatS, nations$WorldS, paired = TRUE)
+clusWilcox.test(nations$NatS, cluster=nations$WorldS, paired = TRUE, alternative = "greater")
+wilcox.test(nations$NatS, nations$WorldS, paired = TRUE)
+```
+```{}
+These p values are all significant at alpha = 0.01
+```
+
+
