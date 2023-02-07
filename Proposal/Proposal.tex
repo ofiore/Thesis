@@ -1,0 +1,87 @@
+\documentclass[12pt]{article}
+
+%% preamble: Keep it clean; only include those you need
+\usepackage{amsmath}
+\usepackage[margin = 1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{natbib}
+
+% highlighting hyper links
+\usepackage[colorlinks=true, citecolor=blue]{hyperref}
+
+\title{Was Devon Allen Unjustly Disqualified at the World Track and Field Championships in 2022?}
+
+
+% Add author information below. Communicating author is indicated by an asterisk, the affiliation is shown by superscripted lower case letter if several affiliations need to be noted.
+\author{
+Owen Fiore
+}
+
+\pagestyle{empty}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+At the 2022 World Track Championships in Eugene Oregon, Devon Allen was disqualified in the
+Men’s 110 meter hurdle final after registering a reaction time of 0.099 seconds, 0.001 
+seconds faster than what is allowed.  Following the games, bloggers on the running website 
+LetsRun scrutinized the results and performed non-statistical analysis of the data \citep{Johnson}
+They found that the reaction time data from the 2022 World Track Championships seemed to be faster 
+compared to the other datasets they looked at, but did not perform any meaningful statistical 
+analysis of the data.  Devon Allen had previously ran the third fastest time in history when 
+he ran 12.84 earlier in 2022 and was considered to be one of the favorites to win \citep{Preview}.  His 
+disqualification thus prompted questions into whether the timing equipment used at the World
+Track Championships was accurate and whether or not Allen actually reacted as fast as the 
+timing equipment stated he did.
+
+\section{Specific Aims}
+I plan to investigate whether the timing equipment used at the Track and Field World Championships
+ produced reaction times different than what times typically are.  Since 1985, Seiko has timed 
+ every World Championships with 2022 being no exception\citep{Seiko}.  Thus it would be surprising to discover
+ if the timing equipment was producing faster than actual times as the same company was responsible
+ for timing the Championships.  By comparing the timing data from 2022 to other World Championship 
+ meets, it will be established whether 2022 was an outlier and whether Devon Allen was wrongly 
+ disqualified.
+
+\section{Data}
+
+The data set I will be looking at comes from the World Athletics Website which has recorded data
+for reaction times in the Men’s 110 meter hurdle since 1999. There are over 800 observations for
+reaction times in the heats, semi-finals, and finals for the hurdles since 1999 and there were
+67 in 2022.  I intend to look at variables such as year, stage of competition (heats vs finals),
+reaction time, total time, and if possible attempt to find environmental data looking at 
+temperature, humidity, and elevation.  The data can be found here: \citet{WAData}
+
+\section{Methods}
+I plan to use Tukey’s Honestly Significant Difference test to compare pairs of data by year
+going back to 1999 to see if any other World Track Championship had significantly different 
+results.  Using linear prediction regression in R, I intend to look at whether for each 
+championship whether the reaction times got faster in each successive stage of competition.
+By comparing data from the heats to the semifinals to the finals, I hope to get a better 
+understanding of any confounding variables.  There is also data available for the USA Track
+Championships which occurred in June of 2022.  By comparing runners who ran in both the USATF
+Championships and the World Championships, a matched pairs t test can be conducted.  Lastly, I
+will use a linear regression model that looks at reaction time and the following independent
+variables: Year, final time, stage of competition, and any data I can find on the weather at the
+meet.
+
+\section{Discussion}
+I hope to find data that shows that the 2022 World Championships reaction times were significantly
+lower than any other World Championship and that the most significant predictor in determining
+reaction time is the year the data was taken.  I have already looked at a very brief sample set
+comparing the data from 2019 to 2022 and found that the 2022 reaction times were statistically
+significantly faster than in 2019.  If my investigation results in evidence that suggests that
+Devon Allen was disqualified due to faulty data, and my work is published I hope it changes the
+IAAF ruling of immediately disqualifying all of those who false start, especially under such a
+small margin.  If the data is not what I expect, then I do not anticipate much change to occur as
+a result.
+
+
+\bibliographystyle{chicago}
+\bibliography{citations.bib}
+
+
+\end{document}
