@@ -1,0 +1,120 @@
+---
+title: "Models"
+author: "Owen Fiore"
+date: "2023-02-07"
+output: pdf_document
+---
+
+```{r}
+times <- read.csv("../Data/ThesisData.csv")
+colnames(times) <- c("Year", "Type", "Time", "RxnTime", "Gender", "Batch")
+```
+
+```{r}
+men_finals <- subset(times, Type == "F" & Gender == "M" & Time != 'DQ') # & Year < 2022)
+men_pooled <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & Time != 'DQ')
+```
+
+```{r}
+old_finals <- subset(times, Type == "F" & Gender == "M" & Time != 'DQ' & Year < 2022)
+old_pooled <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & Time != 'DQ' & Year < 2022)
+```
+
+##Models
+```{r}
+men_finals_yeareffect <- lmer(RxnTime ~ (1|Year), data = men_finals)
+men_pooled_yeareffect <- lmer(RxnTime ~ (1|Year), data = men_pooled)
+old_finals_yeareffect <- lmer(RxnTime ~ (1|Year), data = old_finals)
+old_pooled_yeareffect <- lmer(RxnTime ~ (1|Year), data = old_pooled)
+AIC(men_finals_yeareffect)
+AIC(old_finals_yeareffect)
+AIC(men_pooled_yeareffect)
+AIC(old_pooled_yeareffect)
+```
+
+```{}
+Thus this seems to support that the 2022 data should be included and that the semifinals and finals should be pooled together.
+```
+
+
+```{r}
+trial <- subset(times, Gender == "M" & Time != 'DQ')
+x <- lmer(RxnTime ~ (1|Year), data = trial)
+AIC(x)
+```
+
+```{}
+This shows that increasing the data set increases AIC, unsure what we want to use
+```
+
+
+```{r}
+#men_finals_randeffect <- lmer(RxnTime ~ 1, data = men_pooled)
+men_pooled_yeareffect <- lmer(RxnTime ~ (1|Year), data = men_pooled)
+men_pooled_randeffect <- glm(RxnTime ~ 1, data = men_pooled)
+
+anova(men_pooled_yeareffect, men_pooled_randeffect)
+
+```
+```{}
+As the year effect model is signficant at all alpha levels and the AIC is lower, the year effect is significant and should be considered in the model.  Now we compare the log model to the year effect model
+```
+
+```{r}
+men_pooled_yeareffect <- lmer(RxnTime ~ (1|Year), data = men_pooled)
+men_pooled_log_year <- lmer(log(RxnTime) ~ (1|Year), data = men_pooled)
+men_pooled_log <- glm(log(RxnTime) ~ 1, data = men_pooled)
+anova(men_pooled_yeareffect, men_pooled_log_year, men_pooled_log)
+```
+```{}
+The year effect model is better than both the log random effect model and the log year effect model.
+```
+
+```{r}
+library(lme4)
+men_pooled_gamma_year <- glmer(RxnTime ~ (1 | Year), data = men_pooled, family = Gamma)
+men_pooled_log_gamma_year <- glmer(RxnTime ~ (1 | Year), data = men_pooled, family = Gamma(link = "log"))
+men_pooled_yeareffect <- lmer(RxnTime ~ (1|Year), data = men_pooled)
+
+#Compare how much the link=log matters
+anova(men_pooled_gamma_year, men_pooled_log_gamma_year)
+
+#Compare gamma and linear
+anova(men_pooled_gamma_year, men_pooled_yeareffect)
+
+```
+```{}
+Whether or not the model contains "(link = "log")" seems to have very little effect on the strength of the model.  The gamma model seems to perform better than the linear model based on AIC, but due to the gamma model being more difficult to interpret, the linear mixed effects model seems sufficient.
+```
+
+
+##Simulations
+```{r}
+summary(men_pooled_gamma_year)
+qqnorm(resid(men_pooled_yeareffect))
+qqline(resid(men_pooled_yeareffect))
+qqGamma(resid(men_pooled_gamma_year))
+```
+
+```{r}
+library(qpToolkit)
+qqGamma(resid(men_pooled_gamma_year))
+```
+
+
+
+```{r}
+library(DHARMa)
+men_pooled_gamma_year <- glmer(RxnTime ~ (1 | Year), data = men_pooled, family = Gamma(link = "log"))
+summary(men_pooled_gamma_year)
+```
+```{r}
+simout_gamma <- simulateResiduals(men_pooled_gamma_year, n = 1000)
+simout_linear <- simulateResiduals(men_pooled_yeareffect, n = 1000)
+plot(simout_gamma)
+plot(simout_linear)
+#summary(simout)
+#str(simout)
+
+```
+
