@@ -32,6 +32,58 @@ AIC(men_pooled_yeareffect)
 AIC(old_pooled_yeareffect)
 ```
 
+```{r}
+men_finals_yeareffect <- lmer(RxnTime ~ (1|Year), data = men_finals)
+men_finals_one <- glm(RxnTime ~ 1, data = men_finals)
+anova(men_finals_one, men_finals_yeareffect)
+AIC(men_finals_one)
+AIC(men_finals_yeareffect)
+summary(men_finals_yeareffect)
+```
+```{r}
+logLik(men_finals_yeareffect)
+logLik(men_finals_one)
+```
+```{}
+For finals only data, the year effect is not helpful
+```
+
+```{r}
+men_finals_yeareffect_log <- lmer(log(RxnTime) ~ (1|Year), data = men_finals)
+men_finals_one_log <- glm(log(RxnTime) ~ 1, data = men_finals)
+AIC(men_finals_yeareffect_log)
+AIC(men_finals_one_log)
+```
+```{r}
+men_final_yeareffect_gamma <- glmer(RxnTime ~ (1|Year), data = men_finals, family = Gamma)
+men_final_one_gamma <- glm(RxnTime ~ 1, data = men_finals, family = Gamma)
+AIC(men_final_yeareffect_gamma)
+AIC(men_final_one_gamma)
+logLik(men_final_yeareffect_gamma)
+logLik(men_final_one_gamma)
+```
+```{}
+Should not fit with normal, gamma is better and shows that the year effect is helpful.
+Can try this again without last years data.
+```
+
+```{r}
+old_final_yeareffect_gamma <- glmer(RxnTime ~ (1|Year), data = old_finals, family = Gamma)
+old_final_one_gamma <- glm(RxnTime ~ 1, data = old_finals, family = Gamma)
+AIC(old_final_yeareffect_gamma)
+AIC(old_final_one_gamma)
+logLik(old_final_yeareffect_gamma)
+logLik(old_final_one_gamma)
+summary(old_final_yeareffect_gamma)
+summary(men_final_yeareffect_gamma)
+```
+
+```{}
+Simulate to see what prob of a time less than 0.1 second rxn time.
+```
+
+
+
 ```{}
 Thus this seems to support that the 2022 data should be included and that the semifinals and finals should be pooled together.
 ```
@@ -142,6 +194,9 @@ curve(dgamma(x, shape = 1 / sbaseline$dispersion,
              scale = exp(coef(baseline)) * sbaseline$dispersion),
       0.08, 0.22, add = TRUE, col = "blue") # fixed effect only
 ```
+```{}
+Every 1000 racers, we expect 7 to have a reaction time below 0.1 seconds.  If we want 1 out of every 1000
+```
 
 
 ##2019 vs 2022 Comparisons
@@ -164,6 +219,10 @@ wilcox.test(comp$NineteenH, comp$TwentyTwoH, paired = TRUE)
 t.test(comp$NineteenS, comp$TwentyTwoS, paired = TRUE)
 clusWilcox.test(comp$NineteenS, cluster=comp$TwentyTwoS, paired = TRUE, alternative = "greater")
 wilcox.test(comp$NineteenS, comp$TwentyTwoS, paired = TRUE)
+```
+```{}
+Cluster by 2019 and 2022
+Columns: Athlete, RxnTime, 2019/2022
 ```
 
 
