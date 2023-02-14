@@ -1,3 +1,35 @@
+Meeting Notes 2/14
+Put all the models in a table and include log-lik, AIC, summary
+Include estimate of random effect (variance)
+Use link=Log
+Keep same number of decimal places the same
+Change unit columns to be more readable
+Probability is not as extreme as if you include semifinals
+Pooled and not pooled gives different estimate
+Uncertainity of model parameter increases for the finals compared to pooled
+Generate parameters from normal approximation and then simulate and then pool
+
+Rename excel spreadsheet variables
+We show that including or not last years data makes a difference
+The athletes should not be getting faster, the device must be responsible
+Year effect and athlete improvement confound
+Conclusion: last year's data is not reliable
+Allen disqualified without good reason
+
+Datafest at Wesleyan, UConn is organizing teams (3-5 people) for contest
+1 day event
+
+
+
+
+
+
+
+
+
+
+
+
 Meeting 2/7
 Cant compare AIC with different data sets
 For each block look only at one data set
