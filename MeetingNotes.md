@@ -21,7 +21,17 @@ Repeat for Nationals vs Worlds
 Draft rec letter paragraphs to help
 
 
+Meeting 1/31
+Table of all results to summarize everything
+Rank test or permutation test see if everyone got faster
+First part is 2019 vs 2022 world championships and see if venue effect is significant
+Save graphs as pdf
+Do lots of analysis and then select what to report
+Fix github or start over
 
+Want to see:
+Final only and then pooled for each set: gamma, log normal, include w and w/o 2022 data. 2022 data may increase variance of random effect
+Want to see diagnostics, AIC, etc.
 
 
 
