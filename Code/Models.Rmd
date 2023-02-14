@@ -128,7 +128,7 @@ simfit <- function(men_pooled_gamma_year, n = 12000000) {
   x
 }
 sbaseline <- summary(baseline)
-print(sbaseline)
+#print(sbaseline)
 x <- simfit(men_pooled_gamma_year)
 mean(x < 0.1)
 quantile(x, prob = c(.00001, .0001, .0005, .001))
@@ -182,7 +182,8 @@ colnames(comp) <- c("Time", "Group", "Cluster")
 library(clusrank)
 #t.test(comp$NineteenH, comp$TwentyTwoH, paired = TRUE)
 clusWilcox.test(comp$Time, group=comp$Group, cluster=comp$Cluster, paired = TRUE, alternative = "greater", method = "ds")
-clusWilcox.test(comp$Time, group=comp$Cluster, cluster = comp$Group, paired = TRUE, alternative = "greater", method = "ds")
+clusWilcox.test(comp$Time, group=comp$Cluster, cluster = comp$Group, paired = TRUE, alternative = "greater", method = "rgl")
+clusWilcox.test(comp$Time, cluster = comp$Group, paired = TRUE, alternative = "greater", method = "ds")
 #wilcox.test(comp$NineteenH, comp$TwentyTwoH, paired = TRUE)
 ```
 
