@@ -1,3 +1,32 @@
+Meeting Notes 2/21
+Need to show that including year effect, model is better
+Show this with AIC 
+Show the standard deviation of random effect
+Generalized linear model does not have linear effect, GLMM does
+AIC, SE rand effect (only for mixed model)
+The random effect measures how much variation
+
+After working on conclusion, can repeat analysis for women's data to see if this supports our claim
+Tab under simulations should be moved under results, simulation just used to approximate the distribution
+
+Paper structure:
+Introduction: This is an interesting question but nothing has been done (blogs but no scholarly works), outline what to do
+> we did 2 types of analysis: fit GLMM model with and w/o last year, w and w/o year effect. These suggest that 0.1 is not that extreme compared to when you exclude last years data.  Suspect that last year's data is suspicious
+> Same athletes over different years and same athletes in the same year but at National vs World competition (data is smaller but rank based suggests that the results are significantly different) (3rd paragraph in intro this is my introduction)
+> Last paragraph of intro is road map of paper
+Section 2: GLMM gamma model. Present models and results.  Summarize what you find and lead into section 3. Talk about model selection
+Section 3: Reason to suspect that last year is bad (clustered data analysis) Find womens data for this
+Section 4: Conclusion and talk about women's data (repeat what was done for the men's data) and we expect to see similar patterns for women
+
+
+
+
+
+
+
+
+
+
 Meeting Notes 2/14
 Put all the models in a table and include log-lik, AIC, summary
 Include estimate of random effect (variance)
