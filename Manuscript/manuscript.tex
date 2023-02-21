@@ -397,11 +397,9 @@ When determining the most effective model to use, several differnt examples were
 explored across the 4 different data sets: a linear model without a year effect,
 linear model with year effect, a gamma model without a year effect, a gamma model
 with a year effect, a gamma model without a year effect and link set to log instead
-of the default which is 
-
-The main statistical model used in the paper is a gamma mixed effects model, which is
-in the family of Generalized Linear Mixed Model (GLMM). The GLMM comes from the R package 
-lme4, which hosts a variety of GLMM functions \citep{Rpkg:lme4}.  A GLMM is a type of model
+of the default which is gaussian.  The R package lme4 was very helpful with this
+as it supported the Generalized Linear Mixed Model (GLMM) which allowed both
+linear and gamma mized effects models to be built \citep{Rpkg:lme4}.A GLMM is a type of model
 that supports inputs that are from different distributions.  The model that we use is for the
 Gamma distribution for the fixed effects part of the model and a random effects part.  In
 the model used in the paper, the fixed effect comes in the form of an intercept, and then
@@ -425,7 +423,18 @@ Once the Gamma mixed effects model was chosen, it needed to be decided which com
 of effects to use.  It was possible to include a year effect, a batch effect, or a year
 and batch effect.  Density plots were created that simulated the probability of a mean
 density less than 0.1, which is the current threshold for a reaction time
-disqualification.  The density plots are shown below.
+disqualification.  The density plots are shown below.  The batch effect is very
+difficult to explain or interpret as it means that some heats of races were either
+faster or slower and that everyone in the batch reacted in a similar way.  Although
+it is possible that one athlete reacting faster could lead to others reacting
+similarly, this does not make much practical sense as the difference between
+heats that had fast and slow reaction times are all within 0.12 seconds of each
+other.  It is much easier however to explain the year effect.  The technology
+that World Athletics has used has differed since 1999 and theoretically the
+reaction time data from 2022 should be the best as the timing system should be
+state of the art.  Any other weather or climate related factors such as humidity,
+precipitation, elevation, etc would all be negated when looking at the batch
+effect, but are all factors that could potentially impact the year effect.
 
 \begin{figure}[h]
   \centering
@@ -568,7 +577,7 @@ time being below 0.1 seconds was as follows for the various different data sets:
    \hline
    Data Set & P RxnTime 0.1 \\ 
    \hline\hline
-   all finals gamma log & 0.000863 \\ 
+   all finals gamma log & 0.000864 \\ 
    \hline
    old finals gamma log & 0.000429 \\
    \hline
