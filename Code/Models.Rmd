@@ -179,37 +179,31 @@ colnames(comp) <- c("Time", "Athlete", "Year")
 #View(comp)
 ```
 
+```{}
+One thing that we discovered is that including group=Year does not effect the the z score or p value.  Changing the method from
+rgl to ds does effect z score.
+```
+
+
 ```{r}
 library(clusrank)
-#t.test(comp$NineteenH, comp$TwentyTwoH, paired = TRUE)
-#clusWilcox.test(comp$Time, group=comp$Group, cluster=comp$Cluster, paired = TRUE, alternative = "greater", method = "ds")
-clusWilcox.test(Time, group=Year, cluster = Athlete, paired = TRUE, alternative = "greater", method = "ds", data = comp)
-clusWilcox.test(Time, cluster = Athlete, paired = TRUE, alternative = "greater", method = "rgl", data = comp)
-#wilcox.test(comp$NineteenH, comp$TwentyTwoH, paired = TRUE)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp, paired = TRUE, alternative = "greater", method = "ds")
+clusWilcox.test(Time, cluster = Athlete, data = comp, paired = TRUE, alternative = "greater", method = "rgl")
 ```
-
-
-```{}
-Cluster by 2019 and 2022
-Columns: Athlete, RxnTime, 2019/2022
-```
-
-
 
 
 ```{r}
 nations <- read.csv("../Data/ClusrankNatvsWorld.csv")
-colnames(nations) <- c("Time", "Group", "Cluster")
+colnames(nations) <- c("Time", "Athlete", "Year")
 ```
 
 ```{r}
 library(clusrank)
-#t.test(nations$NatH, nations$WorldH, paired = TRUE)
-#clusWilcox.test(nations$Time, group=nations$Group, cluster=nations$Cluster,
-                #paired = TRUE, alternative = "greater", method = "ds")
-clusWilcox.test(nations$Time, group=nations$Cluster, cluster = nations$Group, 
-                paired = TRUE, alternative = "greater", method = "ds")
-#wilcox.test(nations$NatH, nations$WorldH, paired = TRUE)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations, paired = TRUE, alternative = "greater", method = "ds")
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations, paired = TRUE, alternative = "greater", method = "rgl")
 ```
 
+```{r}
+In both examples, rgl produced a smaller p value
+```
 
