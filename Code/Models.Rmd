@@ -140,6 +140,7 @@ curve(dgamma(x, shape = 1 / sbaseline$dispersion,
 ```
 
 ```{r}
+set.seed(1)
 simulation <- function(model, base){
   simfit <- function(model, n = 12000000) {
     vc <- as.data.frame(VarCorr(model))
@@ -161,7 +162,7 @@ simulation <- function(model, base){
                scale = exp(coef(base)) * sbase$dispersion), 
         0.08, 0.22, add = TRUE, col = "blue") # fixed effect only
 }
-simulation(old_pooled_year_gamma_log, old_pooled_one_gamma_log)
+simulation(men_finals_year_gamma_log, men_finals_one_gamma_log)
 ```
 
 
@@ -174,16 +175,16 @@ Every 1000 racers, we expect 7 to have a reaction time below 0.1 seconds.  If we
 ```{r}
 comp <- read.csv("../Data/Clusrank2019vs2022.csv")
 #"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
-colnames(comp) <- c("Time", "Group", "Cluster")
+colnames(comp) <- c("Time", "Athlete", "Year")
 #View(comp)
 ```
 
 ```{r}
 library(clusrank)
 #t.test(comp$NineteenH, comp$TwentyTwoH, paired = TRUE)
-clusWilcox.test(comp$Time, group=comp$Group, cluster=comp$Cluster, paired = TRUE, alternative = "greater", method = "ds")
-clusWilcox.test(comp$Time, group=comp$Cluster, cluster = comp$Group, paired = TRUE, alternative = "greater", method = "rgl")
-clusWilcox.test(comp$Time, cluster = comp$Group, paired = TRUE, alternative = "greater", method = "ds")
+#clusWilcox.test(comp$Time, group=comp$Group, cluster=comp$Cluster, paired = TRUE, alternative = "greater", method = "ds")
+clusWilcox.test(Time, group=Year, cluster = Athlete, paired = TRUE, alternative = "greater", method = "ds", data = comp)
+clusWilcox.test(Time, cluster = Athlete, paired = TRUE, alternative = "greater", method = "rgl", data = comp)
 #wilcox.test(comp$NineteenH, comp$TwentyTwoH, paired = TRUE)
 ```
 
@@ -204,8 +205,8 @@ colnames(nations) <- c("Time", "Group", "Cluster")
 ```{r}
 library(clusrank)
 #t.test(nations$NatH, nations$WorldH, paired = TRUE)
-clusWilcox.test(nations$Time, group=nations$Group, cluster=nations$Cluster,
-                paired = TRUE, alternative = "greater", method = "ds")
+#clusWilcox.test(nations$Time, group=nations$Group, cluster=nations$Cluster,
+                #paired = TRUE, alternative = "greater", method = "ds")
 clusWilcox.test(nations$Time, group=nations$Cluster, cluster = nations$Group, 
                 paired = TRUE, alternative = "greater", method = "ds")
 #wilcox.test(nations$NatH, nations$WorldH, paired = TRUE)
