@@ -233,8 +233,171 @@ time for the respective athletes in seconds.
   \end{center}
 
 
-\section{Methods}
+\section{Methods and Models}
 \label{sec:methods}
+
+
+All Men final's Data
+\begin{center}
+  \begin{tabular}{|c | c | c | c | c | c | c |} 
+   \hline\hline
+   Model & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
+   \hline
+   linear one & -472.7 & 238.3 & 0.1484 & 0.0019 & N/A & N/A \\ 
+   \hline
+   linear year & -468.7 & 237.4 & 0.1481 & 0.0030 & 7.762e-05 & 2.457e-04 \\
+   \hline
+   men finals one gamma & -477.3 & 240.7 & 6.738 & 0.0844 & N/A & N/A \\
+   \hline
+   men finals year gamma & -491.1 & 248.5 & 6.8121 & 0.1895 & 0.1148 & 0.0112 \\
+   \hline
+   men finals one gamma log & -477.3 & 240.7 & -1.908 & 0.0125 & N/A & N/A \\
+   \hline
+   men finals year gamma log & -491.0 & 248.5 & -1.914 & 0.0280 & 0.0025 & 0.0112 \\ [0.5ex]
+   \hline
+  \end{tabular}
+\end{center}
+
+Pre-2022 final's data
+\begin{center}
+  \begin{tabular}{|c | c | c | c | c | c | c |} 
+   \hline\hline
+   Model & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
+   \hline
+   linear one & -450.7 & 227.4 & 0.1495 & 0.0019 & N/A & N/A \\
+   \hline
+   linear year & -444.1 & 225.0 & 0.1496 & 0.0028 & 5.691e-05 & 2.470e-04 \\ 
+   \hline
+   gamma one & -455.8 & 229.9 & 6.687 & 0.0834 & N/A & N/A \\
+   \hline
+   gamma year & -465.1 & 235.5 & 6.714 & 0.1674 & 0.0859 & 0.0109 \\
+   \hline
+   gamma one log & -455.8 & 229.9 & -1.900 & 0.0125 & N/A & N/A \\
+   \hline
+   gamma year log & -465.0 & 235.5 & -1.901 & 0.0251 & 0.0019 & 0.0109 \\ [0.5ex]
+   \hline
+  \end{tabular}
+  \end{center}
+
+All Men's semi finals and finals data
+\begin{center}
+  \begin{tabular}{|c | c | c | c | c | c | c |} 
+   \hline
+   Model & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
+   \hline\hline
+   linear one & -1667 & 835.5 & 0.1529 & 0.0014 & N/A & N/A \\
+   \hline
+   linear year & -1713 & 859.3 & 0.1541 & 0.0040 & 1.719e-04 & 5.926e-04 \\ 
+   \hline
+   gamma one & -1756 & 880.2 & 6.554 & 0.0598 & N/A & N/A \\
+   \hline
+   gamma year & -1848 & 926.9 & 6.553 & 0.2269 & 0.1305 & 0.0234 \\
+   \hline
+   gamma one log & -1756 & 880.2 & -1.880 & 0.0091 & N/A & N/A \\
+   \hline
+   gamma year log & -1848 & 927.0 & -1.869 & 0.0348 & 0.0031 & 0.0235 \\ [0.5ex]
+   \hline
+  \end{tabular}
+  \end{center}
+
+Pre-2022 Men's semi finals and finals data
+\begin{center}
+  \begin{tabular}{|c | c | c | c | c | c | c |} 
+   \hline
+   Model & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
+   \hline\hline
+   linear one & -1539 & 771.5 & 0.1544 & 0.0015 & N/A & N/A \\
+   \hline
+   linear year & -1564 & 785.4 & 0.1562 & 0.0037 & 1.280e-04 & 6.273e-04 \\ 
+   \hline
+   gamma one & -1626 & 814.9 & 6.475 & 0.0608 & N/A & N/A \\
+   \hline
+   gamma year & -1688 & 846.8 & 6.426 & 0.1923 & 0.0989 & 0.0243 \\
+   \hline
+   gamma one log & -1626 & 814.9 & -1.868 & 0.0094 & N/A & N/A \\
+   \hline
+   gamma year log & -1687 & 846.6 & -1.853 & 0.0305 & 0.0024 & 0.0243 \\ [0.5ex]
+   \hline
+  \end{tabular}
+  \end{center}
+
+
+
+Sorted By Model instead:
+Linear Model with no year effect
+\begin{center}
+  \begin{tabular}{|c | c | c | c | c | c | c |} 
+   \hline
+   Dataset & AIC & Log Likelihood & Int effect est & Int se \\ [0.5ex] 
+   \hline\hline
+   All Finals & -472.7 & 238.3 & 0.1484 & 0.0019 \\
+   \hline
+   Older Finals & -450.7 & 227.4 & 0.1495 & 0.0019 \\ 
+   \hline
+   All Pooled & -1667 & 835.5 & 0.1529 & 0.0014 \\
+   \hline
+   Older Pooled & -1539 & 771.5 & 0.1544 & 0.0015 \\
+   \hline
+  \end{tabular}
+  \end{center}
+
+Linear model with year effect
+\begin{center}
+  \begin{tabular}{|c | c | c | c | c | c | c |} 
+   \hline
+   Dataset & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
+   \hline\hline
+   All Finals & -468.7 & 237.4 & 0.1481 & 0.0030 & 7.762e-05 & 2.457e-04 \\
+   \hline
+   Older Finals & -444.1 & 225.0 & 0.1496 & 0.0028 & 5.691e-05 & 2.470e-04 \\ 
+   \hline
+   All Pooled & -1713 & 859.3 & 0.1541 & 0.0040 & 1.719e-04 & 5.926e-04 \\
+   \hline
+   Older Pooled & -1564 & 785.4 & 0.1562 & 0.0037 & 1.280e-04 & 6.273e-04 \\
+   \hline
+  \end{tabular}
+  \end{center}
+
+Gamma model with year effect
+\begin{center}
+  \begin{tabular}{|c | c | c | c | c | c | c |} 
+   \hline
+   Dataset & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
+   \hline\hline
+   All Finals & -491.1 & 248.5 & 6.8121 & 0.1895 & 0.1148 & 0.0112 \\
+   \hline
+   Older Finals & -465.1 & 235.5 & 6.714 & 0.1674 & 0.0859 & 0.0109 \\ 
+   \hline
+   All Pooled & -1848 & 926.9 & 6.553 & 0.2269 & 0.1305 & 0.0234 \\
+   \hline
+   Older Pooled & -1688 & 846.8 & 6.426 & 0.1923 & 0.0989 & 0.0243 \\
+   \hline
+  \end{tabular}
+  \end{center}
+
+Gamma model with year effect and link=log
+\begin{center}
+  \begin{tabular}{|c | c | c | c | c | c | c |} 
+   \hline
+   Dataset & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
+   \hline\hline
+   All Finals & -491.0 & 248.5 & -1.914 & 0.0280 & 0.0025 & 0.0112 \\
+   \hline
+   Older Finals & -465.0 & 235.5 & -1.901 & 0.0251 & 0.0019 & 0.0109 \\ 
+   \hline
+   All Pooled & -1848 & 927.0 & -1.869 & 0.0348 & 0.0031 & 0.0235 \\
+   \hline
+   Older Pooled & -1687 & 846.6 & -1.853 & 0.0305 & 0.0024 & 0.0243 \\
+   \hline
+  \end{tabular}
+  \end{center}
+
+
+When determining the most effective model to use, several differnt examples were
+explored across the 4 different data sets: a linear model without a year effect,
+linear model with year effect, a gamma model without a year effect, a gamma model
+with a year effect, a gamma model without a year effect and link set to log instead
+of the default which is 
 
 The main statistical model used in the paper is a gamma mixed effects model, which is
 in the family of Generalized Linear Mixed Model (GLMM). The GLMM comes from the R package 
@@ -254,6 +417,8 @@ equipped to deal with high outliers.  The graph below shows the skewed outliers:
   \includegraphics[scale = 0.6]{Skew}
   \label{fig:Skew}
 \end{figure}
+
+
 
 
 Once the Gamma mixed effects model was chosen, it needed to be decided which combination
@@ -403,13 +568,13 @@ time being below 0.1 seconds was as follows for the various different data sets:
    \hline
    Data Set & P RxnTime 0.1 \\ 
    \hline\hline
-   all finals gamma log & 0.000856 \\ 
+   all finals gamma log & 0.000863 \\ 
    \hline
-   old finals gamma log & 0.000425 \\
+   old finals gamma log & 0.000429 \\
    \hline
-   all pooled gamma log & 0.00684 \\
+   all pooled gamma log & 0.006847 \\
    \hline
-   old pooled gamma log & 0.00569 \\
+   old pooled gamma log & 0.005749 \\
   \end{tabular}
   \end{center}
 
