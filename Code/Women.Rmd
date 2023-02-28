@@ -1,0 +1,107 @@
+---
+title: "Women"
+author: "Owen Fiore"
+date: "2023-02-28"
+output: pdf_document
+---
+
+```{r}
+times <- read.csv("../Data/ThesisData.csv")
+colnames(times) <- c("Year", "Type", "Time", "RxnTime", "Gender", "Batch")
+```
+
+```{r}
+women_finals <- subset(times, Type == "F" & Gender == "F" & Time != 'DQ') # & Year < 2022)
+women_pooled <- subset(times, (Type == "F" | Type == "S") & Gender == "F" & Time != 'DQ')
+```
+
+```{r}
+women_old_finals <- subset(times, Type == "F" & Gender == "F" & Time != 'DQ' & Year < 2022)
+women_old_pooled <- subset(times, (Type == "F" | Type == "S") & Gender == "F" & Time != 'DQ' & Year < 2022)
+```
+
+```{r}
+library(lme4)
+women_finals_one <- glm(RxnTime ~ 1, data = women_finals)
+women_finals_year <- lmer(RxnTime ~ (1|Year), data = women_finals)
+women_finals_one_gamma <- glm(RxnTime ~ 1, data = women_finals, family = Gamma)
+women_finals_year_gamma <- glmer(RxnTime ~ (1|Year), data = women_finals, family = Gamma)
+women_finals_one_gamma_log <- glm(RxnTime ~ 1, data = women_finals, family = Gamma(link = "log"))
+women_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = women_finals, family = Gamma(link = "log"))
+
+paste("Linear without year effect has AIC of", AIC(women_finals_one), "and log-lik of", logLik(women_finals_one))
+paste("Linear with year effect has AIC of", AIC(women_finals_year), "and log-lik of", logLik(women_finals_year))
+paste("Gamma without year effect has AIC of", AIC(women_finals_one_gamma), "and log-lik of", logLik(women_finals_one_gamma))
+paste("Gamma with year effect has AIC of", AIC(women_finals_year_gamma), "and log-lik of", logLik(women_finals_year_gamma))
+paste("Gamma and log without year effect has AIC of", AIC(women_finals_one_gamma_log), "and log-lik of", logLik(women_finals_one_gamma_log))
+paste("Gamma and log with year effect has AIC of", AIC(women_finals_year_gamma_log), "and log-lik of", logLik(women_finals_year_gamma_log))
+```
+
+
+```{r}
+library(lme4)
+women_old_finals_one <- glm(RxnTime ~ 1, data = women_old_finals)
+women_old_finals_year <- lmer(RxnTime ~ (1|Year), data = women_old_finals)
+women_old_finals_one_gamma <- glm(RxnTime ~ 1, data = women_old_finals, family = Gamma)
+women_old_finals_year_gamma <- glmer(RxnTime ~ (1|Year), data = women_old_finals, family = Gamma)
+women_old_finals_one_gamma_log <- glm(RxnTime ~ 1, data = women_old_finals, family = Gamma(link = "log"))
+women_old_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = women_old_finals, family = Gamma(link = "log"))
+
+paste("Linear without year effect has AIC of", AIC(women_old_finals_one), "and log-lik of", logLik(women_old_finals_one))
+paste("Linear with year effect has AIC of", AIC(women_old_finals_year), "and log-lik of", logLik(women_old_finals_year))
+paste("Gamma without year effect has AIC of", AIC(women_old_finals_one_gamma), "and log-lik of", logLik(women_old_finals_one_gamma))
+paste("Gamma with year effect has AIC of", AIC(women_old_finals_year_gamma), "and log-lik of", logLik(women_old_finals_year_gamma))
+paste("Gamma and log without year effect has AIC of", AIC(women_old_finals_one_gamma_log), "and log-lik of", logLik(women_old_finals_one_gamma_log))
+paste("Gamma and log with year effect has AIC of", AIC(women_old_finals_year_gamma_log), "and log-lik of", logLik(women_old_finals_year_gamma_log))
+```
+
+
+```{r}
+library(lme4)
+women_pooled_one <- glm(RxnTime ~ 1, data = women_pooled)
+women_pooled_year <- lmer(RxnTime ~ (1|Year), data = women_pooled)
+women_pooled_one_gamma <- glm(RxnTime ~ 1, data = women_pooled, family = Gamma)
+women_pooled_year_gamma <- glmer(RxnTime ~ (1|Year), data = women_pooled, family = Gamma)
+women_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = women_pooled, family = Gamma(link = "log"))
+women_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = women_pooled, family = Gamma(link = "log"))
+
+paste("Linear without year effect has AIC of", AIC(women_pooled_one), "and log-lik of", logLik(women_pooled_one))
+paste("Linear with year effect has AIC of", AIC(women_pooled_year), "and log-lik of", logLik(women_pooled_year))
+paste("Gamma without year effect has AIC of", AIC(women_pooled_one_gamma), "and log-lik of", logLik(women_pooled_one_gamma))
+paste("Gamma with year effect has AIC of", AIC(women_pooled_year_gamma), "and log-lik of", logLik(women_pooled_year_gamma))
+paste("Gamma and log without year effect has AIC of", AIC(women_pooled_one_gamma_log), "and log-lik of", logLik(women_pooled_one_gamma_log))
+paste("Gamma and log with year effect has AIC of", AIC(women_pooled_year_gamma_log), "and log-lik of", logLik(women_pooled_year_gamma_log))
+```
+
+```{r}
+library(lme4)
+women_old_pooled_one <- glm(RxnTime ~ 1, data = women_old_pooled)
+women_old_pooled_year <- lmer(RxnTime ~ (1|Year), data = women_old_pooled)
+women_old_pooled_one_gamma <- glm(RxnTime ~ 1, data = women_old_pooled, family = Gamma)
+women_old_pooled_year_gamma <- glmer(RxnTime ~ (1|Year), data = women_old_pooled, family = Gamma)
+women_old_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = women_old_pooled, family = Gamma(link = "log"))
+women_old_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = women_old_pooled, family = Gamma(link = "log"))
+
+paste("Linear without year effect has AIC of", AIC(women_old_pooled_one), "and log-lik of", logLik(women_old_pooled_one))
+paste("Linear with year effect has AIC of", AIC(women_old_pooled_year), "and log-lik of", logLik(women_old_pooled_year))
+paste("Gamma without year effect has AIC of", AIC(women_old_pooled_one_gamma), "and log-lik of", logLik(women_old_pooled_one_gamma))
+paste("Gamma with year effect has AIC of", AIC(women_old_pooled_year_gamma), "and log-lik of", logLik(women_old_pooled_year_gamma))
+paste("Gamma and log without year effect has AIC of", AIC(women_old_pooled_one_gamma_log), "and log-lik of", logLik(women_old_pooled_one_gamma_log))
+paste("Gamma and log with year effect has AIC of", AIC(women_old_pooled_year_gamma_log), "and log-lik of", logLik(women_old_pooled_year_gamma_log))
+```
+
+```{r}
+boxplot(RxnTime ~ Year, data=women_finals)
+```
+```{r}
+women_nations <- read.csv("../Data/WomenClusrank2019vs2022.csv")
+colnames(women_nations) <- c("Time", "Athlete", "Year")
+```
+
+```{r}
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_nations, paired = TRUE, alternative = "greater", method = "ds")
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_nations, paired = TRUE, alternative = "greater", method = "rgl")
+```
+
+
