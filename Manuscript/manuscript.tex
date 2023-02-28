@@ -92,14 +92,13 @@ Other scholarly papers have discussed track and field reaction times but not in 
 context of whether the minimum reaction time barrier is too low or whether or not timing
 systems were accurate.  Outside of the blog posts from LetsRun.com, there have not been
 any published papers regarding Devon Allen's disqualification in particular.  This is not
-neccessarily suprising given that the World Track and Field Championships occurred only 
-four months ago.
+neccessarily suprising given that his disqualification occurred only last August.
 
 The contribution of this paper is to question whether or not Seiko's timing data
 was accurate and thus if Devon Allen was disqualified more so because of faulty
 equipment rather than reacting illegally fast.  There is little at this point
 that could be done to rectify any potential mis-qualification other than to try
-to prevent it from happening again.  THis matter needs to be addressed because Devon Allen's 
+to prevent it from happening again.  This matter needs to be addressed because Devon Allen's 
 disqulification could be a problem that could continue to re-appear.  If athletes
 are reacting fast enough that the timing system thinks that they are reacting
 illegally fast, then World Athletics needs to address this and possibly change
@@ -233,8 +232,6 @@ time for the respective athletes in seconds.
   \end{center}
 
 
-\section{Methods and Models}
-\label{sec:methods}
 
 
 All Men final's Data
@@ -343,56 +340,58 @@ Linear Model with no year effect
 
 Linear model with year effect
 \begin{center}
-  \begin{tabular}{|c | c | c | c | c | c | c |} 
+  \begin{tabular}{|c | c | c | c | c | c | c | c |} 
    \hline
-   Dataset & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
+   Dataset & AIC & Year se & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
    \hline\hline
-   All Finals & -468.7 & 237.4 & 0.1481 & 0.0030 & 7.762e-05 & 2.457e-04 \\
+   All Finals & -468.7 & 0.0088 & 237.4 & 0.1481 & 0.0030 & 7.762e-05 & 2.457e-04 \\
    \hline
-   Older Finals & -444.1 & 225.0 & 0.1496 & 0.0028 & 5.691e-05 & 2.470e-04 \\ 
+   Older Finals & -444.1 & 0.0075 & 225.0 & 0.1496 & 0.0028 & 5.691e-05 & 2.470e-04 \\ 
    \hline
-   All Pooled & -1713 & 859.3 & 0.1541 & 0.0040 & 1.719e-04 & 5.926e-04 \\
+   All Pooled & -1713 & 0.131 & 859.3 & 0.1541 & 0.0040 & 1.719e-04 & 5.926e-04 \\
    \hline
-   Older Pooled & -1564 & 785.4 & 0.1562 & 0.0037 & 1.280e-04 & 6.273e-04 \\
+   Older Pooled & -1564 & 0.113 & 785.4 & 0.1562 & 0.0037 & 1.280e-04 & 6.273e-04 \\
    \hline
   \end{tabular}
   \end{center}
 
 Gamma model with year effect
 \begin{center}
-  \begin{tabular}{|c | c | c | c | c | c | c |} 
+  \begin{tabular}{|c | c | c | c | c | c | c | c |} 
    \hline
-   Dataset & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
+   Dataset & AIC & Year se & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
    \hline\hline
-   All Finals & -491.1 & 248.5 & 6.8121 & 0.1895 & 0.1148 & 0.0112 \\
+   All Finals & -491.1 & 0.3388 & 248.5 & 6.8121 & 0.1895 & 0.1148 & 0.0112 \\
    \hline
-   Older Finals & -465.1 & 235.5 & 6.714 & 0.1674 & 0.0859 & 0.0109 \\ 
+   Older Finals & -465.1 & 0.2930 & 235.5 & 6.714 & 0.1674 & 0.0859 & 0.0109 \\ 
    \hline
-   All Pooled & -1848 & 926.9 & 6.553 & 0.2269 & 0.1305 & 0.0234 \\
+   All Pooled & -1848 & 0.3612 & 926.9 & 6.553 & 0.2269 & 0.1305 & 0.0234 \\
    \hline
-   Older Pooled & -1688 & 846.8 & 6.426 & 0.1923 & 0.0989 & 0.0243 \\
+   Older Pooled & -1688 & 0.3145 & 846.8 & 6.426 & 0.1923 & 0.0989 & 0.0243 \\
    \hline
   \end{tabular}
   \end{center}
 
 Gamma model with year effect and link=log
 \begin{center}
-  \begin{tabular}{|c | c | c | c | c | c | c |} 
+  \begin{tabular}{|c | c | c | c | c | c | c | c |} 
    \hline
-   Dataset & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
+   Dataset & AIC & Year se & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
    \hline\hline
-   All Finals & -491.0 & 248.5 & -1.914 & 0.0280 & 0.0025 & 0.0112 \\
+   All Finals & -491.0 & 0.0504 & 248.5 & -1.914 & 0.0280 & 0.0025 & 0.0112 \\
    \hline
-   Older Finals & -465.0 & 235.5 & -1.901 & 0.0251 & 0.0019 & 0.0109 \\ 
+   Older Finals & -465.0 & 0.0439 & 235.5 & -1.901 & 0.0251 & 0.0019 & 0.0109 \\ 
    \hline
-   All Pooled & -1848 & 927.0 & -1.869 & 0.0348 & 0.0031 & 0.0235 \\
+   All Pooled & -1848 & 0.0554 & 927.0 & -1.869 & 0.0348 & 0.0031 & 0.0235 \\
    \hline
-   Older Pooled & -1687 & 846.6 & -1.853 & 0.0305 & 0.0024 & 0.0243 \\
+   Older Pooled & -1687 & 0.0495 & 846.6 & -1.853 & 0.0305 & 0.0024 & 0.0243 \\
    \hline
   \end{tabular}
   \end{center}
 
 
+
+\section{GLMM Gamma Model}
 When determining the most effective model to use, several differnt examples were
 explored across the 4 different data sets: a linear model without a year effect,
 linear model with year effect, a gamma model without a year effect, a gamma model
@@ -436,6 +435,15 @@ state of the art.  Any other weather or climate related factors such as humidity
 precipitation, elevation, etc would all be negated when looking at the batch
 effect, but are all factors that could potentially impact the year effect.
 
+In terms of the data that was used, it is worth noting that the standard error
+of the intercept was higher for all 6 comparisons of the data: finals data and 
+pooled data for the linear model, gamma model, gamma and log model for when
+2022 was included versus when it was not.  What this shows is that the addition
+of 2022 to the linear model increased the model's variation and that the addition
+of 2022 resulted in a worse model.  Although this is more of a qualitative analysis,
+this is further evidence that 2022 was a significant year in the role it played
+in altering the gamma model.
+
 \begin{figure}[h]
   \centering
   \begin{minipage}{0.45\textwidth}
@@ -463,6 +471,19 @@ effect, but are all factors that could potentially impact the year effect.
       \caption{Density plot using pooled men's data and both year and batch effect}
   \end{minipage}
 \end{figure}
+
+
+\section{2019 and National Data}
+This problem of whether or not the sensor was faulty can be further explored in
+two ways. First we can look at the reaction times of athletes who competed at the
+World Track and Field Championship in both 2019 and 2022 and compare the times,
+and secondly we can look at how athletes performed compared to how they did at
+their national/qualifiers meet.  We would expect that athletes of this caliber,
+who are world class athletes to not improve significantly from one year to the
+next, but that is not neccessarily the results that were found.  
+
+
+
 
 
 There are several different data sets that could be used and explored in determining 
