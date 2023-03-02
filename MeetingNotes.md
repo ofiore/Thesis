@@ -1,3 +1,30 @@
+Meeting Notes 3/2
+Ds Method is better
+Use rank sum but remove "Pair = true"
+Keep only gamma link=log
+Only compare AIC for within datasets and make a table showing with and without random effect
+Then forget about random effect and present results: models with random effect
+Show addition of 2022 makes a difference
+Talk about p values and what the chance of 1 of 1000 etc to be disqualified (this all goes in section 2)
+Section 3 talks about clustered data tests to verify whether there is a difference
+In discussion/conclusion talk about women's data (100 meters?)
+Remove horizontal lines and use 3494W writing tips repo
+Latex code can be generated using xtable to export data frame from R to latex
+Call it venue effect, last years data is influential
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Meeting Notes 2/21
 Need to show that including year effect, model is better
 Show this with AIC 
