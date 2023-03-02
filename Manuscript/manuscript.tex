@@ -474,13 +474,55 @@ in altering the gamma model.
 
 
 \section{2019 and National Data}
-This problem of whether or not the sensor was faulty can be further explored in
+This problem of whether the sensor was faulty can be further explored in
 two ways. First we can look at the reaction times of athletes who competed at the
 World Track and Field Championship in both 2019 and 2022 and compare the times,
 and secondly we can look at how athletes performed compared to how they did at
 their national/qualifiers meet.  We would expect that athletes of this caliber,
-who are world class athletes to not improve significantly from one year to the
-next, but that is not neccessarily the results that were found.  
+who are world-class athletes, to not improve significantly from one year to the
+next, but that is not necessarily the results that were found.  The R package
+"clusrank" was used to perform a clustered Wilcoxon signed-rank test.  This was
+chosen over a typical t test so as to avoid any assumptions about the distribution
+of population means.  The clusrank package allows clusters to be formed, which
+in this case are for each athlete.  The data containing each athlete's name,
+nationality, and reaction times for the 2019 and 2022 World Championship can be
+found in the csv file labeled "2019vs2022".  This data was transformed to "Clusrank2019vs2022"
+so that it better fits the clusrank package.  Each athlete was given a non-meaningful
+ID (An ID of 1 does not indicate that this athlete is better or worse than any
+other athlete).  Additionally, the "Year" column is used to determine what year
+the time was registered with "1" indicating 2019 and "2" indicating 2022.
+
+Using the "clusWilcox.test" function, a paired and clustered Wilcoxon signed-rank
+test was performed wtih the cluster set to the be the Athlete and group set to Year.
+Two different methods were used: "rgl" which is (Prof Yan should help with this)
+Paired was set to be "true" to perform a matched pairs test, and the alternative
+hypothesis was set to be "greater" as we want to know if the 2019 reaction times
+were larger than the 2022 times by a significant margin.
+
+When the clusrank analysis was performed, the "ds" method produced a z score of
+3.5271 and p value of 0.0002101 and the "rgl" method produced a z score of 3.665
+and a p value of 0.0001237.  These values are for a one-sided test and show that
+the mean reaction time on average in 2019 was larger than the mean reaction time
+in 2022 for athletes who competed in both championships.
+
+Another important data set that was investigated was the 2022 national competition
+data.  In order to send between 1-4 athletes to the World Championships, almost
+every athlete had to qualify by proving they are elite at the national level.
+Thus, data was compiled on athletes who competed at the 2022 World Track and 
+Field Championships on what these athletes also ran at their country's national
+championship.  If there was any argument that athletes have improved their reaction
+time from 2019 to 2022, it should now be considered nearly null, as the national
+competitions took place between June and July 2022 and the World Championships
+were in August.  The equipment used to measure reaction time cannot be guaranteed
+to be the same from national to international competition, but the time span between
+meets has been reduced considerably.  Repeating the data collection steps and
+again performing a clustered analysis for a matched pairs Wilcoxon signed-rank test
+results in two new z scores and p values.  The "ds" method produced a z score of
+3.6755 and p value of 0.0001187 and the "rgl" method produced a z score of 3.7618
+and a p value of 8.434e-05. These results are highly significant and show that
+the times at the national stage of competition were significantly higher than
+the reaction times at the World Championships.
+
 
 
 
@@ -547,7 +589,7 @@ disqualifications. 2011 and 2013 had the highest average reaction time in the po
 data and were the two years after the rule change.  What this suggests is that there could have been a psychological effect of the stricter policy that resulted in athletes being more cautious and reacting slower than they had in the previous two years under the more lax guidelines from 2007 to 2009 in order to avoid a false start and thus a disqualification.
 In Batch 41 particularly two runners did not finish, and two runners reacted extremely slow: 0.327 and 0.397 (Remember that Devon Allen's reaction time was
 0.099 seconds in the 2022 Championship final and 0.101 in the 2022 semifinal).  Removing this batch and others could greatly improve the strength of the model.  However, while
-it is a high outlier, there is not sufficient information available as to why the
+it is a high outlier, there is insufficient information available as to why the
 reaction times are so high, and no basis for why it should be improved other than because
 it is an outlier.
 
@@ -558,25 +600,25 @@ it is an outlier.
 \end{figure}
 
 The figure below plots the average reaction time by year for the pooled men's data since
-1999.  The circle in the bottom right is for 2022, which is signifcantly lower than the
+1999.  The circle in the bottom right is for 2022, which is significantly lower than the
 data points for the previous three years, and is substially lower than the data points
 for 2011 and 2013.  This graph supports the conclusion that the timing system from 2022
 had some sort of error that caused the reaction times to be so much lower.  Assuming there
 was not an issue with the system, the large variation is confusing because there is little explanation
-as to why there is so much of a drop off in reaction time from 2013 to 2015 or the spike
+as to why there is so much of a dropoff in reaction time from 2013 to 2015 or the spike
 from 2001 to 2003.
 
-Devon Allen's disqulification at the World Track and Field Championships was
+Devon Allen's disqualification at the World Track and Field Championships was
 possibly the result of both a faulty timing equipment and Devon Allen
 reacting extremely quickly to the start.  The code and data from R showed that
 the 2022 World Track and Field Championships were a low outlier compared to
-every other year in terms of average reaction time.  Addtionally, it was shown
+every other year in terms of average reaction time.  Additionally, it was shown
 through a gamma mixed effects model that there are significant year and batch
 effects that greatly impact reaction time.  However, this practically does not make much sense
 as there is no reason for so much random variation without much of a trend.
 There has not been a consistent decrease or increase since 1999, much of the data
 for reaction times has been random and unpredictable.  Thus while it seems easy
-to conclude that Devon Allen was wrongly disqualified, that may not neccessarily
+to conclude that Devon Allen was wrongly disqualified, that may not necessarily
 be the case.  If there are issues with reaction time such as athletes approaching the 0.10 
 second barrier again at the next World Track Championship (August 2023), then World Athletics 
 needs to adjust that threshold and allow for faster reaction times so that athletes with superb 
