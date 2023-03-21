@@ -1,3 +1,50 @@
+Meeting Notes 3/21
+> Introduction, Data: Talk about each dataset: world championships and the matched
+pairs athletes for 2019vs2022 and National Vs world
+> Explain how data is useful
+>Methods section for GLMM, clustered data comparison (2 subsections)
+>One way anova with random effect don't need to include the linear algebra formulas
+yij = mu + alpha*i + epsiloni is the linear mixed effects model
+i is the year, j is player
+yij follows gamma distribution
+Show that the linear mixed effects model is not as good as gamma model. Talk about this
+For gamma model: yij ~ gamma dist with mean(mu+alphai) and the variance is found
+ in simulations code.  Gamma dist has shape and scale but can reparameterize
+ to be in terms of mu and sd
+ > For gamma distribution the variance is equal to mean squared and then there is
+ a scale parameter (Prof Yan can edit this but still work on it)
+ Results section:
+ > Establish that normal model is inferior to gamma model
+ > Then gamma with random effect is better than gamma without random effect
+ > Gamma family has different links, link does not make much of difference but 
+ we use link=log
+ > Now focus on Gamma with random effect and estimate the probability of something 
+ below 0.1
+ > With and without 2022 data the results are different. p value for 0.1 and
+ other thresholds.  For a given probabilty find the threshold
+ > Change instances of "year effect" to "venue effect"
+ Hyptothesis about whether 2022 makes a differrence, makes us wonder about device
+ effect, and then lead this into the comparispon of atheltes who competed twice
+ > Don't mention names of data file this is academic paper
+ > Results has 3 analysis: gamma model, with and without 2022 data, clustered
+ rank sum tests: same atheletes diff year and same atheletes same year
+ >Discussion: discuss limitations of work
+ >Include tables based on what I talk about and what makes sense, AIC cant be
+ compared across data sets
+ > Don't need table if there is not a lot of data.
+ > Look at heats and include boxplots showing all data in the data section
+ >Remove figures
+ > Use width = textwidth, don't scale them
+ > Soft references to other parts of the paper
+ > Cite more references and update bib file, find google scholar papers that
+ are cited by articles
+
+
+
+
+
+
+
 Meeting Notes 3/2
 Ds Method is better
 Use rank sum but remove "Pair = true"
