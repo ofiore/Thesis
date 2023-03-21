@@ -178,17 +178,7 @@ reverse chronologically by year (Batch 1 is a preliminary Heat of 2022 and Batch
 111 corresponds to the 1999 finals). The data that looked at in the paper
 is best visualized using a scatterplot and box plot. Figure~\ref{fig:DataBoxPlot}
 below shows the box plot data.
-\begin{figure}[h]
-  \centering 
-  \includegraphics[scale = 0.5]{DataBoxPlot}
-  \label{fig:DataBoxPlot}
-\end{figure}
 
-\begin{figure}[h]
-  \centering 
-  \includegraphics[scale = 0.5]{DataScatterPlot}
-  \label{fig:DataScatterPlot}
-\end{figure}
 
 
 
@@ -215,7 +205,7 @@ Championships, "N/A" was used for any athlete that did not compete and thus
 did not register a reaction time.  All numbers listed in the table are the reaction
 time for the respective athletes in seconds. 
 
-\iffalse
+
 \begin{center}
   \begin{tabular}{||c | c c c | c c c||} 
    \hline
@@ -389,7 +379,7 @@ Gamma model with year effect and link=log
    \hline
   \end{tabular}
   \end{center}
-\fi
+
 
 AIC with and without random effect, Gamma and log model on all semifinal and finals data
 \begin{center}
@@ -445,11 +435,7 @@ why some years have athletes with faster reaction times than others.
 In the code, the 
 link parameter under Gamma() was changed to be "log" as logarithmic functions are better 
 equipped to deal with high outliers.  The graph below shows the skewed outliers: ~\ref{fig:Skew}.
-\begin{figure}[h]
-  \centering 
-  \includegraphics[scale = 0.6]{Skew}
-  \label{fig:Skew}
-\end{figure}
+
 
 The effect of adding link = "log" is that
 
@@ -480,33 +466,7 @@ of 2022 resulted in a worse model.  Although this is more of a qualitative analy
 this is further evidence that 2022 was a significant year in the role it played
 in altering the gamma model.
 
-\begin{figure}[h]
-  \centering
-  \begin{minipage}{0.45\textwidth}
-      \centering
-      \includegraphics[width=0.9\textwidth]{Men_Density_Year} % first figure itself
-      \caption{Density plot using pooled men's data and the year effect}
-  \end{minipage}\hfill
-  \begin{minipage}{0.45\textwidth}
-      \centering
-      \includegraphics[width=0.9\textwidth]{Women_Density_Year} % second figure itself
-      \caption{Density plot using pooled women's data and the year effect}
-  \end{minipage}
-\end{figure}
 
-\begin{figure}[h]
-  \centering
-  \begin{minipage}{0.45\textwidth}
-      \centering
-      \includegraphics[width=0.9\textwidth]{Men_Density_Batch} % first figure itself
-      \caption{Density plot using pooled men's data and the batch effect}
-  \end{minipage}\hfill
-  \begin{minipage}{0.45\textwidth}
-      \centering
-      \includegraphics[width=0.9\textwidth]{Men_Density_Both} % second figure itself
-      \caption{Density plot using pooled men's data and both year and batch effect}
-  \end{minipage}
-\end{figure}
 
 
 \section{Further Analysis}
@@ -597,11 +557,7 @@ and a possibly faulty sensor.
  
 
 
-\begin{figure}[h]
-  \centering 
-  \includegraphics[scale = 0.6]{TBY}
-  \label{fig:TBY}
-\end{figure}
+
 
 The figure below plots the average reaction time by year for the pooled men's data since
 1999.  The circle in the bottom right is for 2022, which is significantly lower than the
