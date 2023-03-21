@@ -194,7 +194,7 @@ below shows the box plot data.
 
 One of the most interesting things found was that the reaction times from the USA
 athletes in the World Championship 110 meter hurdles, was that they were significantly
-faster than at the USA Track Championships.  From June 23-26 2022, USA held it's Track
+faster than at the USA Track Championships.  From June 23-26 2022, USA held its Track
 and Field Championship to decide who to send to the World Championships at Hayward 
 Field, the exact same venue as used for the World Track and Field Championship a month 
 later.  Thus, a baseline is able to be established for the four USA athletes who 
@@ -434,11 +434,13 @@ linear model with year effect, a gamma model without a year effect, a gamma mode
 with a year effect, a gamma model without a year effect and link set to log instead
 of the default which is Gaussian.  The R package lme4 was very helpful with this
 as it supported the Generalized Linear Mixed Model (GLMM) which allowed both
-linear and gamma mixed effects models to be built \citep{Rpkg:lme4}. A GLMM is a type of model
+linear models with various distributions to be modeled\citep{Rpkg:lme4}. A GLMM is a type of model
 that supports inputs that are from different distributions.  The model that we use is for the
 Gamma distribution for the fixed effects part of the model and a random effects part.  In
 the model used in the paper, the fixed effect comes in the form of an intercept, and then
-there is a random effect which in this case we will call the venue effect.
+there is a random effect which in this case we will call the venue effect.  The
+venue effect is responsible for the variation between years and tries to explain
+why some years have athletes with faster reaction times than others.
 
 In the code, the 
 link parameter under Gamma() was changed to be "log" as logarithmic functions are better 
@@ -449,7 +451,7 @@ equipped to deal with high outliers.  The graph below shows the skewed outliers:
   \label{fig:Skew}
 \end{figure}
 
-
+The effect of adding link = "log" is that
 
 
 Once the Gamma mixed effects model was chosen, it needed to be decided which combination
@@ -562,7 +564,7 @@ again performing a clustered analysis for a Wilcoxon ranked sum test
 results in two new z scores and p values.  The "ds" method produced a z score of
 3.6069 and p value of 0.000155.  This result is highly significant and shows that
 the times at the national stage of competition were significantly higher than
-the reaction times at the World Championships.
+the reaction times at the World Championships even for an alpha level of 0.001.
 
 There is not a reasonable explanation for this.  It is inconceivable that so many
 athletes would improve such a significant amount in such a small amount of time.
@@ -619,29 +621,13 @@ such as the Track and Field World Championship. Additionally, Seiko may want to
 do more research on their timing systems to see if climate factors can impact
 the precision of the accuracy of the equipment. 
 
-Devon Allen's disqualification at the World Track and Field Championships was
-possibly the result of both a faulty timing equipment and Devon Allen
-reacting extremely quickly to the start.  The code and data from R showed that
-the 2022 World Track and Field Championships were a low outlier compared to
-every other year in terms of average reaction time.  Additionally, it was shown
-through a gamma mixed effects model that there are significant year and batch
-effects that greatly impact reaction time.  However, this practically does not make much sense
-as there is no reason for so much random variation without much of a trend.
-There has not been a consistent decrease or increase since 1999, much of the data
-for reaction times has been random and unpredictable.  Thus while it seems easy
-to conclude that Devon Allen was wrongly disqualified, that may not necessarily
-be the case.  If there are issues with reaction time such as athletes approaching the 0.10 
-second barrier again at the next World Track Championship (August 2023), then World Athletics 
-needs to adjust that threshold and allow for faster reaction times so that athletes with superb 
-reflexes are not penalized like how Allen was in 2022.  World Athletics and Seiko 
-may want to do further testing of their own to determine what is a human's physically
-fastest reaction time, and if they choose to do so, they should start with Devon
-Allen.
 
 
 
-A simulation was performed on the gamma model with the year effect and link set
-to "log". At a size of n=12,000,000, the calculated probability of a reaction
+
+To try and approximate the distribution of the reaction times, R code was written
+to try and estimate the probabilites of observing a reaction time as extreme as
+0.1 seconds.At a size of n=12,000,000, the calculated probability of a reaction
 time being below 0.1 seconds was as follows for the various different data sets:
 
 \begin{center}
@@ -667,8 +653,32 @@ times every 2 years (The World Championship is biennial), every 588 years there
 should be a time as extreme as Allen's.  This seems extremely unlikely, and thus
 it seems like there may be an additional explanation for the fast reaction times.
 
+It is interesting that the probability of observing a reaction time below 0.1
+seconds increases drastically for the finals data and increases by a smaller margin
+for the pooled data set after 2022 is included in the data set.  By including 2022
+in the data, the chances of observing an extreme time are increased, showing that
+2022 is a high outlier for reaction times compared to other years.
 
 
+
+Devon Allen's disqualification at the World Track and Field Championships was
+possibly the result of both a faulty timing equipment and Devon Allen
+reacting extremely quickly to the start.  The code and data from R showed that
+the 2022 World Track and Field Championships were a low outlier compared to
+every other year in terms of average reaction time.  Additionally, it was shown
+through a gamma mixed effects model that there are significant year and batch
+effects that greatly impact reaction time.  However, this practically does not make much sense
+as there is no reason for so much random variation without much of a trend.
+There has not been a consistent decrease or increase since 1999, much of the data
+for reaction times has been random and unpredictable.  Thus while it seems easy
+to conclude that Devon Allen was wrongly disqualified, that may not necessarily
+be the case.  If there are issues with reaction time such as athletes approaching the 0.10 
+second barrier again at the next World Track Championship (August 2023), then World Athletics 
+needs to adjust that threshold and allow for faster reaction times so that athletes with superb 
+reflexes are not penalized like how Allen was in 2022.  World Athletics and Seiko 
+may want to do further testing of their own to determine what is a human's physically
+fastest reaction time, and if they choose to do so, they should start with Devon
+Allen.
 
 
 
