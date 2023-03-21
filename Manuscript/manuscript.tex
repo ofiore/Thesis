@@ -14,6 +14,7 @@
 \usepackage{pdfpages}
 \usepackage[pagewise]{lineno}
 \usepackage{mwe}
+\usepackage{comment}
 %\linenumbers*[1]
 % %% patches to make lineno work better with amsmath
 \newcommand*\patchAmsMathEnvironmentForLineno[1]{%
@@ -97,7 +98,7 @@ neccessarily suprising given that his disqualification occurred only last August
 The contribution of this paper is to question whether or not Seiko's timing data
 was accurate and thus if Devon Allen was disqualified more so because of faulty
 equipment rather than reacting illegally fast.  There is little at this point
-that could be done to rectify any potential mis-qualification other than to try
+that could be done to rectify any potential mis-disqualification other than to try
 to prevent it from happening again.  This matter needs to be addressed because Devon Allen's 
 disqulification could be a problem that could continue to re-appear.  If athletes
 are reacting fast enough that the timing system thinks that they are reacting
@@ -113,8 +114,7 @@ they deserve a contract.  Thus the significance of a disqualification, especiall
 of a major event such as the World Track and Field Championships, are very
 consequential.  
 
-\section{Background}
-\label{sec:Background}
+
 Since 1985 Seiko Holding Corporations has served every World Athletics Championship
 as the official timer \citep{Seiko}.  Since 1985, the technology and the ability
 to accurately predict measurements: long jump distances, false starts, total time,
@@ -148,16 +148,16 @@ that allowed one warning false start before a sprinter was disqualified \citep{F
 essentially gave sprinters a second chance and reduced the penalty for a false start.  There were 
 18 male and 7 female false starts at the 2007 World Championships, 18 male and 7 female starts at 
 the 2009 World Championships. Starting in 2011, the rule was scrapped, and the old policy which 
-automatically disqualifies runners who false start was reinsituted.  The effect? At the 2011 World
+automatically disqualifies runners who false start was reinstituted.  The effect? At the 2011 World
 Championship there were 6 male disqualifications and 4 female disqualifications \citep{False-Start}. 
 By returning to the harsher policy and cracking down on false starts, World Athletics had reduced the
 number of false starts by two thirds. This was desirable for World Athletics as false starts can 
 make already long track meets more tedious, both for athletes and viewers watching the 
-television broadcast.\citep{Pilianidis}
+television broadcast.  Since 2011, IAAF has instituted the one false start rule.\citep{Pilianidis}
 
-\section{Data}
-\label{sec:Data}
-Data was copied from the World Athletics website and pasted into an excel
+\section{GLMM Model}
+\label{sec:GLMM}
+Data was copied from the World Athletics website and pasted into an Excel
 spreadsheet. The data covers the men's 110 meter hurdles and the women's 100
 meter hurdles from 1999 to 2022.  The variable of prediction interest is reaction
 time, and the predicting variables are year, stage of competition (heats, 
@@ -215,6 +215,7 @@ Championships, "N/A" was used for any athlete that did not compete and thus
 did not register a reaction time.  All numbers listed in the table are the reaction
 time for the respective athletes in seconds. 
 
+\iffalse
 \begin{center}
   \begin{tabular}{||c | c c c | c c c||} 
    \hline
@@ -388,25 +389,58 @@ Gamma model with year effect and link=log
    \hline
   \end{tabular}
   \end{center}
+\fi
+
+AIC with and without random effect, Gamma and log model on all semifinal and finals data
+\begin{center}
+  \begin{tabular}{|c | c|}
+    \hline
+    Random Effect? & AIC \\
+    No & -1756 \\
+    Yes & -1848 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+Addition of 2022 on Gamma and log model on semifinal and finals data
+\begin{center}
+  \begin{tabular}{|c | c|}
+    \hline
+    Dataset & Year Effect Standard Error \\
+    1999-2019 & 0.0495 \\
+    1999-2022 & 0.0554 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+All summary statistics for Gamma and log model on all semifinal and finals data
+\begin{center}
+  \begin{tabular}{| c | c | c | c | c |}
+    \hline
+    AIC & BIC & logLik & Random Effect standard dev & Residual standard dev \\
+    -1847 & -1836 & 927.0 & 0.0031 & 0.0235 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+    
 
 
 
 \section{GLMM Gamma Model}
-When determining the most effective model to use, several differnt examples were
+When determining the most effective model to use, several examples were
 explored across the 4 different data sets: a linear model without a year effect,
 linear model with year effect, a gamma model without a year effect, a gamma model
 with a year effect, a gamma model without a year effect and link set to log instead
-of the default which is gaussian.  The R package lme4 was very helpful with this
+of the default which is Gaussian.  The R package lme4 was very helpful with this
 as it supported the Generalized Linear Mixed Model (GLMM) which allowed both
-linear and gamma mized effects models to be built \citep{Rpkg:lme4}.A GLMM is a type of model
+linear and gamma mixed effects models to be built \citep{Rpkg:lme4}. A GLMM is a type of model
 that supports inputs that are from different distributions.  The model that we use is for the
 Gamma distribution for the fixed effects part of the model and a random effects part.  In
 the model used in the paper, the fixed effect comes in the form of an intercept, and then
-either a year effect, batch effect, or both are used.  Initially a linear mixed effects
-model was attempted to be implemented, but due to a right hand skew in the reaction times, 
-a gamma distribution seemed better equipped to model the data (The rightskew is not 
-particularly suprising as it is not possible to register a reaction time below 0.0 
-seconds, resulting in a lower bound but no upper bound for outliers). In the code, the 
+there is a random effect which in this case we will call the venue effect.
+
+In the code, the 
 link parameter under Gamma() was changed to be "log" as logarithmic functions are better 
 equipped to deal with high outliers.  The graph below shows the skewed outliers: ~\ref{fig:Skew}.
 \begin{figure}[h]
@@ -424,21 +458,21 @@ and batch effect.  Density plots were created that simulated the probability of 
 density less than 0.1, which is the current threshold for a reaction time
 disqualification.  The density plots are shown below.  The batch effect is very
 difficult to explain or interpret as it means that some heats of races were either
-faster or slower and that everyone in the batch reacted in a similar way.  Although
+faster or slower and that everyone in the batch reacted similarly.  Although
 it is possible that one athlete reacting faster could lead to others reacting
 similarly, this does not make much practical sense as the difference between
 heats that had fast and slow reaction times are all within 0.12 seconds of each
-other.  It is much easier however to explain the year effect.  The technology
+other.  It is much easier however to explain the venue effect.  The technology
 that World Athletics has used has differed since 1999 and theoretically the
 reaction time data from 2022 should be the best as the timing system should be
 state of the art.  Any other weather or climate related factors such as humidity,
-precipitation, elevation, etc would all be negated when looking at the batch
-effect, but are all factors that could potentially impact the year effect.
+precipitation, elevation, etc. would all be negated when looking at the batch
+effect, but are all factors that could potentially impact the venue effect.  
 
 In terms of the data that was used, it is worth noting that the standard error
 of the intercept was higher for all 6 comparisons of the data: finals data and 
 pooled data for the linear model, gamma model, gamma and log model for when
-2022 was included versus when it was not.  What this shows is that the addition
+2022 was included versus when it was not.  This shows that the addition
 of 2022 to the linear model increased the model's variation and that the addition
 of 2022 resulted in a worse model.  Although this is more of a qualitative analysis,
 this is further evidence that 2022 was a significant year in the role it played
@@ -473,7 +507,7 @@ in altering the gamma model.
 \end{figure}
 
 
-\section{2019 and National Data}
+\section{Further Analysis}
 This problem of whether the sensor was faulty can be further explored in
 two ways. First we can look at the reaction times of athletes who competed at the
 World Track and Field Championship in both 2019 and 2022 and compare the times,
@@ -481,7 +515,7 @@ and secondly we can look at how athletes performed compared to how they did at
 their national/qualifiers meet.  We would expect that athletes of this caliber,
 who are world-class athletes, to not improve significantly from one year to the
 next, but that is not necessarily the results that were found.  The R package
-"clusrank" was used to perform a clustered Wilcoxon signed-rank test.  This was
+"clusrank" was used to perform a clustered Wilcoxon rank sum test.  This was
 chosen over a typical t test so as to avoid any assumptions about the distribution
 of population means.  The clusrank package allows clusters to be formed, which
 in this case are for each athlete.  The data containing each athlete's name,
@@ -492,18 +526,23 @@ ID (An ID of 1 does not indicate that this athlete is better or worse than any
 other athlete).  Additionally, the "Year" column is used to determine what year
 the time was registered with "1" indicating 2019 and "2" indicating 2022.
 
-Using the "clusWilcox.test" function, a paired and clustered Wilcoxon signed-rank
-test was performed wtih the cluster set to the be the Athlete and group set to Year.
-Two different methods were used: "rgl" which is (Prof Yan should help with this)
-Paired was set to be "true" to perform a matched pairs test, and the alternative
-hypothesis was set to be "greater" as we want to know if the 2019 reaction times
-were larger than the 2022 times by a significant margin.
+%Citations needed
+Using the "clusWilcox.test" function, a grouped and clustered Wilcoxon rank sum
+test was performed wtih the cluster set to be the Athlete and group set to Year.
+The method was set to be "ds" which is used for the Data and Satten method, which
+is preferable when the cluster sizes are informative.  We do not care that some
+athletes made it further in either competition than another or that it should
+not matter how elite an athlete is at the 110 meter hurdles once we get to the
+national international competition level.  Cluster sizes vary from 2 observations
+to 6.
 
-When the clusrank analysis was performed, the "ds" method produced a z score of
-3.5271 and p value of 0.0002101 and the "rgl" method produced a z score of 3.665
-and a p value of 0.0001237.  These values are for a one-sided test and show that
+When the clusrank rank sum test was performed, the "ds" method produced a z score of
+2.9751 and p value of 0.001464.  This value is for a one-sided test and show that
 the mean reaction time on average in 2019 was larger than the mean reaction time
-in 2022 for athletes who competed in both championships.
+in 2022 for athletes who competed in both championships at an alpha level of 0.01.
+This provides good evidence that athletes who competed in both 2019 and 2022 got
+faster during that timespan.
+
 
 Another important data set that was investigated was the 2022 national competition
 data.  In order to send between 1-4 athletes to the World Championships, almost
@@ -513,35 +552,28 @@ Field Championships on what these athletes also ran at their country's national
 championship.  If there was any argument that athletes have improved their reaction
 time from 2019 to 2022, it should now be considered nearly null, as the national
 competitions took place between June and July 2022 and the World Championships
-were in August.  The equipment used to measure reaction time cannot be guaranteed
+were in August.  Thus it should be expected that elite athletes such as these
+will not get reasonably faster in such a short time span.
+
+The equipment used to measure reaction time cannot be guaranteed
 to be the same from national to international competition, but the time span between
 meets has been reduced considerably.  Repeating the data collection steps and
-again performing a clustered analysis for a matched pairs Wilcoxon signed-rank test
+again performing a clustered analysis for a Wilcoxon ranked sum test
 results in two new z scores and p values.  The "ds" method produced a z score of
-3.6755 and p value of 0.0001187 and the "rgl" method produced a z score of 3.7618
-and a p value of 8.434e-05. These results are highly significant and show that
+3.6069 and p value of 0.000155.  This result is highly significant and shows that
 the times at the national stage of competition were significantly higher than
 the reaction times at the World Championships.
 
+There is not a reasonable explanation for this.  It is inconceivable that so many
+athletes would improve such a significant amount in such a small amount of time.
+6 countries are represented in this comparison, which drastically decreases the
+chances of this issue being caused by one specific country.  The United States
+athlete's improvement in times was discussed earlier in the paper, but this data
+%Use a reference in this part
+shows that on average there was improvement for British, Polish, French, Brazilian,
+and Spanish athletes.
 
 
-
-
-
-There are several different data sets that could be used and explored in determining 
-whether or not Devon Allen was unjustly disqualified.  One of the best examples of this
-is the women's 100 meter hurdles. Although the distance of the race is 10 meters shorter
-than the men's race, the reaction time data is still important and can be used to
-essentially double the data size.  However, one of the largest issues with this is that on average, men are able to react quicker than women.  A study from the 2008 Beijing Olympics found that the p value of comparing the mean fastest reaction time between men and women was below 0.001 and the differnce is in part because of the greater force threshold men are able to exert on the starting blocks \citep{Lipps}. The data from including both men and women could follow a bimodal distribution which would be difficult to model and not helpful for determining if Devon Allen's reaction time was the result of a faulty system or if it is an argument
-for changing the 0.10 second minimum barrier that currently exists.  Thus it was decided
-to look at men's and women's data separately.  Another decision that was made was to look
-at the data from the semifinals and finals together but from the heats or preliminary rounds.  The reason for this was because it was reasoned that in the finals athletes may
-be a little more anxious, more "jumpy" and that under stress and they would react faster.
-Additionally, exceptionally strong atheletes may not race as hard in the early heats in
-order to reduce the risk for injury and to save themselves for the later stages of
-competition that matter more. While the preliminary rounds also provide a bulk of the total observations, they are not as relevant to Allen's disqualification, which occured during the finals.  Thus, the decision was made to look at data from the men's semifinals
-and finals in a "pooled" data set.
-%%%Include picture 
 
 
 
@@ -560,38 +592,8 @@ Thus the 0.099 reaction time may not have been a product of Devon Allen
 predicting the start of the race but rather a combination of a quick reaction 
 and a possibly faulty sensor.
 
-While this sample is too small in order
-to perform a meaningful matched pairs t test, or other similar method, it is apparent
-that Allen, Cunningham, and Holloway's times are faster at the World Track and Field
-Championship compared to the United States.  There does not appear to be a particular
-reason for this, as at the World Track and Field Championship, no two United States
-athetes were in the same batch in any race.
+ 
 
-An anova test that compared the mixed effects model for only a batch effect with the
-model that included both a batch and year effect produced a p value of 0.01059, meaning
-that the model with both mixed effects was stronger, but not significantly so.  However,
-when looking at the density plots, the probability of observing a reaction time of below
-0.1 was found to be approximately zero when looking at the model that inclued both effects,
-but the probability was 0.0066 when only the batch effect was included.  Based on the density
-plot and how close the both effects model was to being statistically signficant at an alpha
-value of 0.05, the model with both the batch and year effect was chosen to be analyzed further.
-The random effects: Batch and Year both had relatively small variances: 0.003455 and 0.001714
-respectively.  For the fixed effect the estimate was -1.87968 and the p value was less than
-$2\cdot10{-16}$, which is extremely small.  The model can reparameterize the gamma distribution,
-which is calculated by $e^{-1.87968}$ which is equal to 0.152.  The variance of the gamma
-distribution is 0.0329 from the R output.  Thus a gamma distribution can be created from
-this, and the probability of a reaction time below 0.1 is essentially zero.  
-
-The model accuracy improves when certain batches are removed from the data.  Batch 41 in
-particular has extremely high reaction times.  This outlier can likely be explained by a
-few different causes.  Batch 41 is a semifinals heat of the 2013 World Championship.  2013 had the highest average reaction time from the pooled data set.  2013 was also the second world championship after the rule change that imposed the one strike policy on
-disqualifications. 2011 and 2013 had the highest average reaction time in the pooled
-data and were the two years after the rule change.  What this suggests is that there could have been a psychological effect of the stricter policy that resulted in athletes being more cautious and reacting slower than they had in the previous two years under the more lax guidelines from 2007 to 2009 in order to avoid a false start and thus a disqualification.
-In Batch 41 particularly two runners did not finish, and two runners reacted extremely slow: 0.327 and 0.397 (Remember that Devon Allen's reaction time was
-0.099 seconds in the 2022 Championship final and 0.101 in the 2022 semifinal).  Removing this batch and others could greatly improve the strength of the model.  However, while
-it is a high outlier, there is insufficient information available as to why the
-reaction times are so high, and no basis for why it should be improved other than because
-it is an outlier.
 
 \begin{figure}[h]
   \centering 
@@ -606,7 +608,16 @@ for 2011 and 2013.  This graph supports the conclusion that the timing system fr
 had some sort of error that caused the reaction times to be so much lower.  Assuming there
 was not an issue with the system, the large variation is confusing because there is little explanation
 as to why there is so much of a dropoff in reaction time from 2013 to 2015 or the spike
-from 2001 to 2003.
+from 2001 to 2003.  The variation from year to year is slightly concerning in the
+sense that if there is a strong year effect then there is strong variation between
+years.  This is not desirable and what this could possibly suggest is that
+there is a lot of randomness in how athletes react or that there is at least one
+other factor that affects reaction time. If the timing systems are succeptible to
+external factors that affect how athletes react, then this is something that 
+IAAF may want to consider when they select cities to host an important event 
+such as the Track and Field World Championship. Additionally, Seiko may want to 
+do more research on their timing systems to see if climate factors can impact
+the precision of the accuracy of the equipment. 
 
 Devon Allen's disqualification at the World Track and Field Championships was
 possibly the result of both a faulty timing equipment and Devon Allen
@@ -628,8 +639,6 @@ fastest reaction time, and if they choose to do so, they should start with Devon
 Allen.
 
 
-\section{Simulations}
-\label{sec:simulation}
 
 A simulation was performed on the gamma model with the year effect and link set
 to "log". At a size of n=12,000,000, the calculated probability of a reaction
@@ -655,11 +664,12 @@ simulated results) of observing a reaction time below 0.01 seconds in the men's
 finals.  That means that we would expect a time below the threshold to occur
 once every 2,352 starts.  Considering there are roughly 8 men's finals reaction
 times every 2 years (The World Championship is biennial), every 588 years there
-should be a time as extreme as Allen's.  This seems extremely unlikely and thus
-it seems like there may be an additonal explanantion for the fast reaction times.
+should be a time as extreme as Allen's.  This seems extremely unlikely, and thus
+it seems like there may be an additional explanation for the fast reaction times.
 
-If IAAF wanted the probability for a false start to be once every 100 years,
-then they should change the false start barrier to 
+
+
+
 
 
 \section{Appendix}
