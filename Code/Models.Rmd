@@ -188,8 +188,8 @@ rgl to ds does effect z score.
 
 ```{r}
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp, paired = TRUE, alternative = "greater", method = "ds")
-clusWilcox.test(Time, cluster = Athlete, data = comp, paired = TRUE, alternative = "greater", method = "rgl")
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp, alternative = "greater", method = "ds")
+#clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp, alternative = "greater", method = "rgl")
 #pairwise.clusWilcox.test(comp$Time, group= comp$Year, cluster = comp$Athlete, alternative = "greater", method = "rgl")
 ```
 
@@ -201,8 +201,9 @@ colnames(nations) <- c("Time", "Athlete", "Year")
 
 ```{r}
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations, paired = TRUE, alternative = "greater", method = "ds")
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations, paired = TRUE, alternative = "greater", method = "rgl")
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations, alternative = "greater", method = "ds")
+#clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations, paired = TRUE, alternative = "greater", method = "rgl")
+
 ```
 
 ```{}
@@ -213,5 +214,14 @@ In both examples, rgl produced a smaller p value
 mini <- min(aggregate(times$RxnTime, list(times$Batch), FUN =mean)$x)
 maxi <- max(aggregate(times$RxnTime, list(times$Batch), FUN =mean)$x)
 cat(maxi - mini)
+```
+
+```{r}
+library(xtable)
+xtable(men_pooled_year_gamma_log)
+```
+```{r}
+library(memisc)
+mtable(men_pooled_year_gamma_log)
 ```
 
