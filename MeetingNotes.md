@@ -1,7 +1,8 @@
-Meeting Notes 3/21
-> Introduction, Data: Talk about each dataset: world championships and the matched
+# Meeting Notes 3/21
+
++ Introduction, Data: Talk about each dataset: world championships and the matched
 pairs athletes for 2019vs2022 and National Vs world
-> Explain how data is useful
++ Explain how data is useful
 >Methods section for GLMM, clustered data comparison (2 subsections)
 >One way anova with random effect don't need to include the linear algebra formulas
 yij = mu + alpha*i + epsiloni is the linear mixed effects model
@@ -42,10 +43,7 @@ For gamma model: yij ~ gamma dist with mean(mu+alphai) and the variance is found
 
 
 
-
-
-
-Meeting Notes 3/2
+# Meeting Notes 3/2
 Ds Method is better
 Use rank sum but remove "Pair = true"
 Keep only gamma link=log
