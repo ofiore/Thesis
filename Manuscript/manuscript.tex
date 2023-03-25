@@ -63,7 +63,6 @@
 \begin{document}
 \maketitle
 
-\doublespace
 
 \begin{abstract}
   At the 2022 World Track Championships in Eugene Oregon, Devon Allen was disqualified in the
@@ -78,14 +77,16 @@
   Track Championships was accurate and whether or not Allen actually reacted as fast as the 
   timing equipment stated he did.
 
+  \jy{Avoid references in abstract.}
+  
+  \jy{This is only the background. An abstract also needs to summarize the contributions.}
 %\bigskip
 \noindent\sc{Keywords}:
 Devon Allen, Reaction Time, Seiko, 2022 World Track and Field Championships 
 
 \end{abstract}
 
-
-\jy{Avoid references in abstract.}
+\doublespace
 
 \jy{The bib file needs quality control. The bib keys need to have a consistent
   style. I suggest using the keys from google scholar.}
@@ -93,6 +94,8 @@ Devon Allen, Reaction Time, Seiko, 2022 World Track and Field Championships
 \jy{Practice my writing tips in the stat-wriging notes: chapter 2 on
   latex. E.g., no vertical/horizontal lines in professional tables. Use the
   tables in my template.}
+
+\jy{Turn on column numbers in your editor to keep line width under 80.}
 
 \section{Introduction}
 \label{sec:intro}
@@ -102,6 +105,14 @@ Devon Allen, Reaction Time, Seiko, 2022 World Track and Field Championships
   events and discussions on the internet. Then dig into the relevant
   literature. Finally outline the contributions of this work.
 }
+
+
+\jy{use the following structure and flow:
+  1) A paragraph to tell the story;
+  2) A paragraph on informal statistical analyses on the internet/social media;
+  3) A paragraph on scholarly articles on reaction time in the literature;
+  4) A paragraph on what's new: methods; results.
+  5) A paragraph of roadmap.}
 
 Other scholarly papers have discussed track and field reaction times but not in the
 context of whether the minimum reaction time barrier is too low or whether or not timing
@@ -168,6 +179,35 @@ By returning to the harsher policy and cracking down on false starts, World Athl
 number of false starts by two thirds. This was desirable for World Athletics as false starts can 
 make already long track meets more tedious, both for athletes and viewers watching the 
 television broadcast.  Since 2011, IAAF has instituted the one false start rule.\citep{Pilianidis}
+
+\section{Data} \label{sec:data}
+
+\jy{Describe you data types; give details on sources; introduce notations for
+  both types of data
+  present exploratory plots.}
+
+
+\section{Methods} \label{sec:meth}
+
+\jy{set up the models/methods using the notations from last section; cite the
+  right references.}
+
+\subsection{GLMM}
+
+\jy{explain the gamma model in details}
+
+\subsection{Rank-based comparison for Clustered}
+
+
+\section{Results}
+
+\jy{Presents and discuss the results here}
+
+\section{Concluding Remarks}
+
+\jy{summarize your findings; discuss limitations and possible future works.}
+
+
 
 \section{GLMM Model}
 \label{sec:GLMM}
