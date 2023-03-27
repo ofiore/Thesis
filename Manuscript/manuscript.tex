@@ -127,7 +127,7 @@ Devon Allen, Reaction Time, Seiko, 2022 World Track and Field Championships
   5) A paragraph of roadmap.}
 
 
-
+1)
 After coming in third in the 110 meter hurdles at the United States Track and 
 Field Championships in Eugene Oregon at the end of June, Allen was expected to 
 be a contender for the World Championships, which were scheduled for two months 
@@ -145,21 +145,61 @@ seconds slower he would have been allowed to compete and been spared waiting
 another two years until the next World Track and Field Championship.
 %Do I need to cite a video?
 
-
+2) and 3)
 Other scholarly papers have discussed track and field reaction times but not in the
-context of whether the minimum reaction time barrier is too low or whether or not timing
-systems were accurate.  Outside of the blog posts from LetsRun.com, there have not been
+context of whether the minimum reaction time barrier is too low or whether timing
+systems were accurate.  Outside the blog posts from LetsRun.com, there have not been
 any published papers regarding Devon Allen's disqualification in particular.  This is not
-necessarily suprising given that his disqualification occurred only last August.
+necessarily surprising given that his disqualification occurred only last August.
 Letsrun is a website that is part message board and part news.  The message board,
 which functions similarly to Reddit is very active during important running
 events, which include during the finals of major events such as
 the Olympics and the World Track and Field Championships.  However, it is the
 news section of the website that generated articles such as "Was Devon Allen
 Screwed? There's At Least a 99\% That He Was" and "The Data Keeps Pouring In and
-It Continues to Look Bad For World Athletics and Great For Devon Allen".
+It Continues to Look Bad For World Athletics and Great For Devon Allen".  Robert
+Johnson, who created and runs the Letsrun website argued that there was an error
+with the timing equipment at the 2022 Track and Field World Championship and
+cited graphs, statistics such as median reaction time, and a reference to a study
+published in cooperation with IAAF in 2009 questioning the validity of the 0.1 
+second reaction barrier.  The paper analyzed sprinters reaction times
+and the biological processes that went into reacting to the starting gun and
+concluded that athletes can react in as low as 0.08 seconds. It even recommended
+to IAAF that the disqualification barrier be decreased to allow sprinters to
+react faster, and suggested 0.08 or 0.085 seconds as possible new thresholds.
+Additionally, it was recommmended to IAAF that high speed cameras be used to
+change the reaction time criteria from pushing off on the block to body movement.
+This could provide a more accurate representation of reaction time, and thus the
+possibility of a false disqualification would be lowered \citep{Komi}.
+Despite the study, IAAF has not changed the reaction barrier since it was
+implemented at the 1999 World Track and Field Championships.  It is confusing
+as to why IAAF would commission a study only to disregard the results and not
+make the necessary changes.  It is unknown how many athletes since 2009 could
+have potentially benefited from this, but it is probable that there are others
+besides Allen who were disqualified.
+
 %Should I include how I read LetsRun and talk about any personal experiences
 %I have using it?
+
+4)
+This paper will try to model the data using a 
+When determining the most effective model to use, several examples were
+explored across the 4 different data sets: a linear model without a year effect,
+linear model with year effect, a gamma model without a year effect, a gamma model
+with a year effect, a gamma model without a year effect and link set to log instead
+of the default which is Gaussian.  The R package lme4 was very helpful with this
+as it supported the Generalized Linear Mixed Model (GLMM) which allowed both
+linear models with various distributions to be modeled\citep{Rpkg:lme4}. A GLMM is a type of model
+that supports inputs that are from different distributions.  The model that we use is for the
+Gamma distribution for the fixed effects part of the model and a random effects part.  In
+the model used in the paper, the fixed effect comes in the form of an intercept, and then
+there is a random effect which in this case we will call the venue effect.  The
+venue effect is responsible for the variation between years and tries to explain
+why some years have athletes with faster reaction times than others.
+
+In the code, the 
+link parameter under Gamma() was changed to be "log" as logarithmic functions are better 
+equipped to deal with high outliers.  
 
 
 The contribution of this paper is to question whether or not Seiko's timing data
@@ -508,26 +548,9 @@ All summary statistics for Gamma and log model on all semifinal and finals data
 
 
 \section{GLMM Gamma Model}
-When determining the most effective model to use, several examples were
-explored across the 4 different data sets: a linear model without a year effect,
-linear model with year effect, a gamma model without a year effect, a gamma model
-with a year effect, a gamma model without a year effect and link set to log instead
-of the default which is Gaussian.  The R package lme4 was very helpful with this
-as it supported the Generalized Linear Mixed Model (GLMM) which allowed both
-linear models with various distributions to be modeled\citep{Rpkg:lme4}. A GLMM is a type of model
-that supports inputs that are from different distributions.  The model that we use is for the
-Gamma distribution for the fixed effects part of the model and a random effects part.  In
-the model used in the paper, the fixed effect comes in the form of an intercept, and then
-there is a random effect which in this case we will call the venue effect.  The
-venue effect is responsible for the variation between years and tries to explain
-why some years have athletes with faster reaction times than others.
-
-In the code, the 
-link parameter under Gamma() was changed to be "log" as logarithmic functions are better 
-equipped to deal with high outliers.  The graph below shows the skewed outliers: ~\ref{fig:Skew}.
 
 
-The effect of adding link = "log" is that
+
 
 
 Once the Gamma mixed effects model was chosen, it needed to be decided which combination
