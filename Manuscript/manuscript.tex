@@ -269,6 +269,7 @@ to 2022, Seiko again upgraded its technology but for its jump management system.
 \jy{Describe you data types; give details on sources; introduce notations for
   both types of data
   present exploratory plots.}
+
 Something that is extremely important to note in the Data is the inconsistency of World Athletics 
 in terms of how they penalize false starts.  From 2007-2009, the IAAF (the former name for World 
 Athletics, and the governing body for the World Track and Field Champions) instituted a rule change
@@ -284,31 +285,6 @@ make already long track meets more tedious, both for athletes and viewers watchi
 television broadcast.  Since 2011, IAAF has instituted the one false start rule
 \citep{Pilianidis}.
 
-
-\section{Methods} \label{sec:meth}
-
-\jy{set up the models/methods using the notations from last section; cite the
-  right references.}
-
-\subsection{GLMM}
-
-\jy{explain the gamma model in details}
-
-\subsection{Rank-based comparison for Clustered}
-
-
-\section{Results}
-
-\jy{Presents and discuss the results here}
-
-\section{Concluding Remarks}
-
-\jy{summarize your findings; discuss limitations and possible future works.}
-
-
-
-\section{GLMM Model}
-\label{sec:GLMM}
 Data was copied from the World Athletics website and pasted into an Excel
 spreadsheet. The data covers the men's 110 meter hurdles and the women's 100
 meter hurdles from 1999 to 2022.  The variable of prediction interest is reaction
@@ -328,15 +304,89 @@ result in other runners reacting quickly).  There is no statistical signficance 
 how the batches were labeled, they were ordered chronologically by meet but
 reverse chronologically by year (Batch 1 is a preliminary Heat of 2022 and Batch
 111 corresponds to the 1999 finals). The data that looked at in the paper
-is best visualized using a scatterplot and box plot. Figure~\ref{fig:DataBoxPlot}
-below shows the box plot data.
+is best visualized using a box plot. Figure~\ref{fig:DataBoxPlot}.  Included are
+box plots of the reaction times of the men's semi finals and finals pooled
+together and just the finals.
+
+\begin{figure}[h]
+  \centering 
+  \includegraphics{DataBoxPlot}
+  \label{fig:DataBoxPlot}
+\end{figure}
+
+\begin{figure}[h]
+  \centering 
+  \includegraphics{BoxplotFinals}
+  \label{fig:BoxplotFinals}
+\end{figure}
+
+
+\section{Methods} \label{sec:meth}
+
+\jy{set up the models/methods using the notations from last section; cite the
+  right references.}
+
+\subsection{GLMM}
+A gamma mixed linear effects model was chosen as the best model to model the data.
+Many models were tried and compared to determine what the strongest model.  For
+a fixed data set such as the men's pooled data including 2022, the models with
+the venue effect included performed better than the models without the venue
+effect for each set of comparable models; as indicated by the lower AIC and
+higher log likelihood.  Thus, the venue effect is significant and should be
+included in the model.  It can also be established that a gamma distribution
+better models the data than linear data from comparing the linear model with
+venue effect and them gamma model with a venue effect.  The final decision that
+was made in model selection was to include link = log in the model.  Despite
+%Does this part need to be changed?
+doing very little to alter the AIC or log likelihood, the log scale was included
+in order to try and better deal with high outliers. %Include Residuals plot?
 
 
 
+All Men's semi finals and finals data
+\begin{center}
+  \begin{tabular}{|c  c  c  c  c  c  c |}
+   \hline 
+   Model & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
+   \hline\hline
+   linear one & -1667 & 835.5 & 0.1529 & 0.0014 & N/A & N/A \\
+   \hline
+   linear year & -1713 & 859.3 & 0.1541 & 0.0040 & 1.719e-04 & 5.926e-04 \\ 
+   \hline
+   gamma one & -1756 & 880.2 & 6.554 & 0.0598 & N/A & N/A \\
+   \hline
+   gamma year & -1848 & 926.9 & 6.553 & 0.2269 & 0.1305 & 0.0234 \\
+   \hline
+   gamma one log & -1756 & 880.2 & -1.880 & 0.0091 & N/A & N/A \\
+   \hline
+   gamma year log & -1848 & 927.0 & -1.869 & 0.0348 & 0.0031 & 0.0235 \\ [0.5ex]
+   \hline
+  \end{tabular}
+  \end{center}
 
-One of the most interesting things found was that the reaction times from the USA
-athletes in the World Championship 110 meter hurdles, was that they were significantly
-faster than at the USA Track Championships.  From June 23-26 2022, USA held its Track
+Once the Gamma mixed effects model was chosen, it needed to be decided which combination
+of effects to use.  It was possible to include a venue effect, a batch effect, or a year
+and batch effect.  Density plots were created that simulated the probability of a mean
+density less than 0.1, which is the current threshold for a reaction time
+disqualification.  The density plots are shown below.  The batch effect is very
+difficult to explain or interpret as it means that some heats of races were either
+faster or slower and that everyone in the batch reacted similarly.  Although
+it is possible that one athlete reacting faster could lead to others reacting
+similarly, this does not make much practical sense as the difference between
+heats that had fast and slow reaction times are all within 0.12 seconds of each
+other.  It is much easier however to explain the venue effect.  The technology
+that World Athletics has used has differed since 1999 and theoretically the
+reaction time data from 2022 should be the best as the timing system should be
+state of the art.  Any other weather or climate related factors such as humidity,
+precipitation, elevation, etc. would all be negated when looking at the batch
+effect, but are all factors that could potentially impact the venue effect.  
+
+
+
+\subsection{Rank-based comparison for Clustered}
+This section was motivated from a qualitative analysis that started by looking
+at how United States athletes reacted at the 2022 United States Track and Field
+Championships. From June 23-26 2022, USA held its Track
 and Field Championship to decide who to send to the World Championships at Hayward 
 Field, the exact same venue as used for the World Track and Field Championship a month 
 later.  Thus, a baseline is able to be established for the four USA athletes who 
@@ -374,9 +424,141 @@ time for the respective athletes in seconds.
   \end{tabular}
   \end{center}
 
+This dataset is quite small to perform any formal statistical analysis on, but
+the data was expanded to include data for athletes who competed at national
+competitions (many of which were held from May-July of 2022).  Once the data
+was collected, each athlete was designated to be a cluster and the stage of
+competition (national or international) was specified to be the group.  Next,
+a Clustered Wilcoxon rank sum test was performed using the clusrank R package
+\citep{Clusrank}.  Using a clustered rank sum test was chosen over a typical t 
+test so as to avoid any assumptions about the distribution of population means.  
+
+%Citations needed
+Using the "clusWilcox.test" function, a grouped and clustered Wilcoxon rank sum
+test was performed wtih the cluster set to be the Athlete and group set to Year.
+The method was set to be "ds" which is used for the Data and Satten method, which
+is preferable when the cluster sizes are informative \citep{Clusrank}.  We do not care that some
+athletes made it further in either competition than another or that it should
+not matter how elite an athlete is at the 110 meter hurdles once we get to the
+national international competition level.  Cluster sizes vary from 2 observations
+to 6.
+
+When the clusrank rank sum test was performed, the "ds" method produced a z score of
+2.9751 and p value of 0.001464.  This value is for a one-sided test and show that
+the mean reaction time on average in 2019 was larger than the mean reaction time
+in 2022 for athletes who competed in both championships at an alpha level of 0.01.
+This provides good evidence that athletes who competed in both 2019 and 2022 got
+faster during that timespan.
+
+
+Repeating the data collection steps and
+again performing a clustered analysis for a Wilcoxon ranked sum test
+results in two new z scores and p values.  The "ds" method produced a z score of
+3.6069 and p value of 0.000155.  This result is highly significant and shows that
+the times at the national stage of competition were significantly higher than
+the reaction times at the World Championships even for an alpha level of 0.001.
+
+
+\section{Results}
+\jy{summarize your findings; discuss limitations and possible future works.}
+
+To try and approximate the distribution of the reaction times, R code was written
+to try and estimate the probabilities of observing a reaction time as extreme as
+0.1 seconds. At a size of n=12,000,000, the calculated probability of a reaction
+time being below 0.1 seconds was as follows for the various different data sets:
+
+\begin{center}
+  \begin{tabular}{|c c|} 
+   \hline
+   Data Set & Probability RxnTime < 0.1 \\ 
+   \hline\hline
+   all finals gamma log & 0.000864 \\ 
+   \hline
+   old finals gamma log & 0.000429 \\
+   \hline
+   all pooled gamma log & 0.006847 \\
+   \hline
+   old pooled gamma log & 0.005749 \\
+  \end{tabular}
+  \end{center}
+
+Prior to the 2022 World Championship, there was a 0.0425\% chance (based on the
+simulated results) of observing a reaction time below 0.01 seconds in the men's
+finals.  That means that we would expect a time below the threshold to occur
+once every 2,352 starts.  Considering there are roughly 8 men's finals reaction
+times every 2 years (The World Championship is biennial), every 588 years there
+should be a time as extreme as Allen's.  This seems extremely unlikely, and thus
+it seems like there may be an additional explanation for the fast reaction times.
+
+It is interesting that the probability of observing a reaction time below 0.1
+seconds increases drastically for the finals data and increases by a smaller margin
+for the pooled data set after 2022 is included in the data set.  By including 2022
+in the data, the chances of observing an extreme time are increased, showing that
+2022 is a high outlier for reaction times compared to other years.
+
+It is worth noting that changing the reaction time barrier from 0.1 seconds to
+0.08 seconds drastically reduces the chances of observing a reaction time that
+would break the barrier.  For the dataset of all finals data, the probability
+associated with observing a reaction time below 0.08 seconds was $6.67\cdot10{-7}$.
+If IAAF were to change the reaction time the way that \citet{Komi}'s paper
+suggests, the probability would be so much lower that athletes would likely not
+have a case to make when arguing against a disqualification.
+
+
+The p values produced by the clustered rank sum tests were 0.000155 for the
+same athletes competing in the same year, and 0.001464 for the same athletes in
+different years.  To put it simply, there is not a reasonable explanation for 
+this.  
+It is inconceivable that so many athletes would improve such a significant
+amount in such a small amount of time. 6 countries are represented in this 
+comparison, which drastically decreases the chances of this issue being caused by
+one specific country.  The United States athlete's improvement in times was
+discussed earlier in the paper, but this data shows that on average there was
+%Use a reference in this part
+improvement for British, Polish, French, Brazilian, and Spanish athletes.
+
+
+It is worth noting that in the semi-finals of the World Track and
+Field Championships; Allen's reaction time was 0.101 which is only 0.001 above
+the legal limit.  What this suggests is that Allen may have strong reflexes
+and be able to react extremely well to the sound of the gun.  It seems unlikely that
+Allen would be able to correctly predict the gun with such precision two times in a row,
+which is the exact reason that the 0.10 second reaction time disqualification barrier was
+imposed in the first place.  But Allen showed that at the Championship he was able to
+react extremely fast two times, which may suggest skill rather than luck. Devon Allen is a very good athlete, as evidenced by his football career at the University of Oregon
+and making it onto the Philadelphia Eagles practice squad this past year \citep{Hurley}.
+Thus the 0.099 reaction time may not have been a product of Devon Allen
+predicting the start of the race but rather a combination of a quick reaction 
+and a possibly faulty sensor.
+
+Devon Allen's disqualification at the World Track and Field Championships was
+possibly the result of both a faulty timing equipment and Devon Allen
+reacting extremely quickly to the start.  The code and data from R showed that
+the 2022 World Track and Field Championships were a low outlier compared to
+every other year in terms of average reaction time.  Additionally, it was shown
+through a gamma mixed effects model that there are significant year and batch
+effects that greatly impact reaction time.  However, this practically does not make much sense
+as there is no reason for so much random variation without much of a trend.
+There has not been a consistent decrease or increase since 1999, much of the data
+for reaction times has been random and unpredictable.  Thus while it seems easy
+to conclude that Devon Allen was wrongly disqualified, that may not necessarily
+be the case.  If there are issues with reaction time such as athletes approaching the 0.10 
+second barrier again at the next World Track Championship (August 2023), then World Athletics 
+needs to adjust that threshold and allow for faster reaction times so that athletes with superb 
+reflexes are not penalized like how Allen was in 2022.  World Athletics and Seiko 
+may want to do further testing of their own to determine what is a human's physically
+fastest reaction time, and if they choose to do so, they should start with Devon
+Allen.
 
 
 
+\section{Appendix}
+\label{sec:appendix}
+%Put downloadable data spreadsheet
+Here is World Athletics website with the data: \url{https://www.worldathletics.org/results/world-athletics-championships}.
+Here is the data for the USA Track and Field Championships: \url{https://www.flashresults.com/2022_Meets/Outdoor/06-23_USATF/}
+
+Here are important statistics grouped by both model and data set:
 All Men final's Data
 \begin{center}
   \begin{tabular}{|c | c | c | c | c | c | c |} 
@@ -419,23 +601,19 @@ Pre-2022 final's data
   \end{tabular}
   \end{center}
 
-All Men's semi finals and finals data
+All Men's semifinal and finals data
 \begin{center}
-  \begin{tabular}{|c | c | c | c | c | c | c |} 
+  \begin{tabular}{||c | c c c | c c c||} 
    \hline
-   Model & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
+   Athlete & USA H & USA S & USA F & World H & World S & World F \\ [0.5ex] 
    \hline\hline
-   linear one & -1667 & 835.5 & 0.1529 & 0.0014 & N/A & N/A \\
+   Devon Allen & 0.201 & 0.153 & 0.160 & 0.123 & 0.101 & 0.099 \\ 
    \hline
-   linear year & -1713 & 859.3 & 0.1541 & 0.0040 & 1.719e-04 & 5.926e-04 \\ 
+   Trey Cunningham & 0.186 & 0.185 & 0.182 & 0.115 & 0.120 & 0.109 \\
    \hline
-   gamma one & -1756 & 880.2 & 6.554 & 0.0598 & N/A & N/A \\
+   Grant Holloway & 0.192 & 0.190 & N/A & 0.147 & 0.128 & 0.124 \\
    \hline
-   gamma year & -1848 & 926.9 & 6.553 & 0.2269 & 0.1305 & 0.0234 \\
-   \hline
-   gamma one log & -1756 & 880.2 & -1.880 & 0.0091 & N/A & N/A \\
-   \hline
-   gamma year log & -1848 & 927.0 & -1.869 & 0.0348 & 0.0031 & 0.0235 \\ [0.5ex]
+   Daniel Roberts & 0.181 & 0.200 & 0.183 & 0.179 & N/A & N/A \\ [0.5ex]
    \hline
   \end{tabular}
   \end{center}
@@ -531,235 +709,6 @@ Gamma model with venue effect and link=log
    \hline
   \end{tabular}
   \end{center}
-
-
-AIC with and without random effect, Gamma and log model on all semifinal and finals data
-\begin{center}
-  \begin{tabular}{|c | c|}
-    \hline
-    Random Effect? & AIC \\
-    No & -1756 \\
-    Yes & -1848 \\
-    \hline
-  \end{tabular}
-\end{center}
-
-Addition of 2022 on Gamma and log model on semifinal and finals data
-\begin{center}
-  \begin{tabular}{|c | c|}
-    \hline
-    Dataset & venue effect Standard Error \\
-    1999-2019 & 0.0495 \\
-    1999-2022 & 0.0554 \\
-    \hline
-  \end{tabular}
-\end{center}
-
-All summary statistics for Gamma and log model on all semifinal and finals data
-\begin{center}
-  \begin{tabular}{| c | c | c | c | c |}
-    \hline
-    AIC & BIC & logLik & Random Effect standard dev & Residual standard dev \\
-    -1847 & -1836 & 927.0 & 0.0031 & 0.0235 \\
-    \hline
-  \end{tabular}
-\end{center}
-
-    
-
-
-
-\section{GLMM Gamma Model}
-
-
-
-
-
-Once the Gamma mixed effects model was chosen, it needed to be decided which combination
-of effects to use.  It was possible to include a venue effect, a batch effect, or a year
-and batch effect.  Density plots were created that simulated the probability of a mean
-density less than 0.1, which is the current threshold for a reaction time
-disqualification.  The density plots are shown below.  The batch effect is very
-difficult to explain or interpret as it means that some heats of races were either
-faster or slower and that everyone in the batch reacted similarly.  Although
-it is possible that one athlete reacting faster could lead to others reacting
-similarly, this does not make much practical sense as the difference between
-heats that had fast and slow reaction times are all within 0.12 seconds of each
-other.  It is much easier however to explain the venue effect.  The technology
-that World Athletics has used has differed since 1999 and theoretically the
-reaction time data from 2022 should be the best as the timing system should be
-state of the art.  Any other weather or climate related factors such as humidity,
-precipitation, elevation, etc. would all be negated when looking at the batch
-effect, but are all factors that could potentially impact the venue effect.  
-
-In terms of the data that was used, it is worth noting that the standard error
-of the intercept was higher for all 6 comparisons of the data: finals data and 
-pooled data for the linear model, gamma model, gamma and log model for when
-2022 was included versus when it was not.  This shows that the addition
-of 2022 to the linear model increased the model's variation and that the addition
-of 2022 resulted in a worse model.  Although this is more of a qualitative analysis,
-this is further evidence that 2022 was a significant year in the role it played
-in altering the gamma model.
-
-
-
-
-\section{Further Analysis}
-, but that is not necessarily the results that were found.  The R package
-"clusrank" was used to perform a clustered Wilcoxon rank sum test.  This was
-chosen over a typical t test so as to avoid any assumptions about the distribution
-of population means.  The clusrank package allows clusters to be formed, which
-in this case are for each athlete.  The data containing each athlete's name,
-nationality, and reaction times for the 2019 and 2022 World Championship can be
-found in the csv file labeled "2019vs2022".  This data was transformed to "Clusrank2019vs2022"
-so that it better fits the clusrank package.  Each athlete was given a non-meaningful
-ID (An ID of 1 does not indicate that this athlete is better or worse than any
-other athlete).  Additionally, the "Year" column is used to determine what year
-the time was registered with "1" indicating 2019 and "2" indicating 2022.
-
-%Citations needed
-Using the "clusWilcox.test" function, a grouped and clustered Wilcoxon rank sum
-test was performed wtih the cluster set to be the Athlete and group set to Year.
-The method was set to be "ds" which is used for the Data and Satten method, which
-is preferable when the cluster sizes are informative.  We do not care that some
-athletes made it further in either competition than another or that it should
-not matter how elite an athlete is at the 110 meter hurdles once we get to the
-national international competition level.  Cluster sizes vary from 2 observations
-to 6.
-
-When the clusrank rank sum test was performed, the "ds" method produced a z score of
-2.9751 and p value of 0.001464.  This value is for a one-sided test and show that
-the mean reaction time on average in 2019 was larger than the mean reaction time
-in 2022 for athletes who competed in both championships at an alpha level of 0.01.
-This provides good evidence that athletes who competed in both 2019 and 2022 got
-faster during that timespan.
-
-
-  Repeating the data collection steps and
-again performing a clustered analysis for a Wilcoxon ranked sum test
-results in two new z scores and p values.  The "ds" method produced a z score of
-3.6069 and p value of 0.000155.  This result is highly significant and shows that
-the times at the national stage of competition were significantly higher than
-the reaction times at the World Championships even for an alpha level of 0.001.
-
-There is not a reasonable explanation for this.  It is inconceivable that so many
-athletes would improve such a significant amount in such a small amount of time.
-6 countries are represented in this comparison, which drastically decreases the
-chances of this issue being caused by one specific country.  The United States
-athlete's improvement in times was discussed earlier in the paper, but this data
-%Use a reference in this part
-shows that on average there was improvement for British, Polish, French, Brazilian,
-and Spanish athletes.
-
-
-
-
-
-\section{Conclusion}
-\label{sec:conclusion}
-It is worth noting that in the semi-finals of the World Track and
-Field Championships; Allen's reaction time was 0.101 which is only 0.001 above
-the legal limit.  What this suggests is that Allen may have strong reflexes
-and be able to react extremely well to the sound of the gun.  It seems unlikely that
-Allen would be able to correctly predict the gun with such precision two times in a row,
-which is the exact reason that the 0.10 second reaction time disqualification barrier was
-imposed in the first place.  But Allen showed that at the Championship he was able to
-react extremely fast two times, which may suggest skill rather than luck. Devon Allen is a very good athlete, as evidenced by his football career at the University of Oregon
-and making it onto the Philadelphia Eagles practice squad this past year \citep{Hurley}.
-Thus the 0.099 reaction time may not have been a product of Devon Allen
-predicting the start of the race but rather a combination of a quick reaction 
-and a possibly faulty sensor.
-
- 
-
-
-
-
-The figure below plots the average reaction time by year for the pooled men's data since
-1999.  The circle in the bottom right is for 2022, which is significantly lower than the
-data points for the previous three years, and is substially lower than the data points
-for 2011 and 2013.  This graph supports the conclusion that the timing system from 2022
-had some sort of error that caused the reaction times to be so much lower.  Assuming there
-was not an issue with the system, the large variation is confusing because there is little explanation
-as to why there is so much of a dropoff in reaction time from 2013 to 2015 or the spike
-from 2001 to 2003.  The variation from year to year is slightly concerning in the
-sense that if there is a strong venue effect then there is strong variation between
-years.  This is not desirable and what this could possibly suggest is that
-there is a lot of randomness in how athletes react or that there is at least one
-other factor that affects reaction time. If the timing systems are succeptible to
-external factors that affect how athletes react, then this is something that 
-IAAF may want to consider when they select cities to host an important event 
-such as the Track and Field World Championship. Additionally, Seiko may want to 
-do more research on their timing systems to see if climate factors can impact
-the precision of the accuracy of the equipment. 
-
-
-
-
-
-To try and approximate the distribution of the reaction times, R code was written
-to try and estimate the probabilites of observing a reaction time as extreme as
-0.1 seconds.At a size of n=12,000,000, the calculated probability of a reaction
-time being below 0.1 seconds was as follows for the various different data sets:
-
-\begin{center}
-  \begin{tabular}{||c|c||} 
-   \hline
-   Data Set & P RxnTime 0.1 \\ 
-   \hline\hline
-   all finals gamma log & 0.000864 \\ 
-   \hline
-   old finals gamma log & 0.000429 \\
-   \hline
-   all pooled gamma log & 0.006847 \\
-   \hline
-   old pooled gamma log & 0.005749 \\
-  \end{tabular}
-  \end{center}
-
-Prior to the 2022 World Championship, there was a 0.0425\% chance (based on the
-simulated results) of observing a reaction time below 0.01 seconds in the men's
-finals.  That means that we would expect a time below the threshold to occur
-once every 2,352 starts.  Considering there are roughly 8 men's finals reaction
-times every 2 years (The World Championship is biennial), every 588 years there
-should be a time as extreme as Allen's.  This seems extremely unlikely, and thus
-it seems like there may be an additional explanation for the fast reaction times.
-
-It is interesting that the probability of observing a reaction time below 0.1
-seconds increases drastically for the finals data and increases by a smaller margin
-for the pooled data set after 2022 is included in the data set.  By including 2022
-in the data, the chances of observing an extreme time are increased, showing that
-2022 is a high outlier for reaction times compared to other years.
-
-
-
-Devon Allen's disqualification at the World Track and Field Championships was
-possibly the result of both a faulty timing equipment and Devon Allen
-reacting extremely quickly to the start.  The code and data from R showed that
-the 2022 World Track and Field Championships were a low outlier compared to
-every other year in terms of average reaction time.  Additionally, it was shown
-through a gamma mixed effects model that there are significant year and batch
-effects that greatly impact reaction time.  However, this practically does not make much sense
-as there is no reason for so much random variation without much of a trend.
-There has not been a consistent decrease or increase since 1999, much of the data
-for reaction times has been random and unpredictable.  Thus while it seems easy
-to conclude that Devon Allen was wrongly disqualified, that may not necessarily
-be the case.  If there are issues with reaction time such as athletes approaching the 0.10 
-second barrier again at the next World Track Championship (August 2023), then World Athletics 
-needs to adjust that threshold and allow for faster reaction times so that athletes with superb 
-reflexes are not penalized like how Allen was in 2022.  World Athletics and Seiko 
-may want to do further testing of their own to determine what is a human's physically
-fastest reaction time, and if they choose to do so, they should start with Devon
-Allen.
-
-
-
-\section{Appendix}
-\label{sec:appendix}
-%Put downloadable data spreadsheet
-Here is World Athletics website with the data: \url{https://www.worldathletics.org/results/world-athletics-championships}.
-Here is the data for the USA Track and Field Championships: \url{https://www.flashresults.com/2022_Meets/Outdoor/06-23_USATF/}
-
 
 \bibliographystyle{chicago}
 \bibliography{citations.bib}
