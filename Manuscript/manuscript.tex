@@ -63,7 +63,9 @@
 \begin{document}
 \maketitle
 
-
+%Abstract should be 200 words
+%Devon Allen was disqualified in 2022... discussions about dq, talk methods and 
+%models, venue effect, and conclusion
 \begin{abstract}
   At the 2022 World Track Championships in Eugene Oregon, Devon Allen was disqualified in the
   Men's 110 meter hurdle final after registering a reaction time of 0.099 seconds, 0.001 
@@ -71,19 +73,17 @@
   LetsRun scrutinized the results and performed non-statistical analysis of the data.
   They found that the reaction time data from the 2022 World Track Championships seemed to be faster 
   compared to the other datasets they looked at, but did not perform any meaningful statistical 
-  analysis of the data.  Devon Allen had previously ran the third fastest time in history when 
+  analysis of the data.  Devon Allen had previously run the third-fastest time in history when 
   he ran 12.84 earlier in 2022 and was considered to be one of the favorites to win.  His 
   disqualification thus prompted questions into whether the timing equipment used at the World
-  Track Championships was accurate and whether or not Allen actually reacted as fast as the 
-  timing equipment stated he did.
-
-  This paper questions the reaction time disqualification barrier, which is
+  Track Championships was accurate and whether Allen actually reacted as fast as the 
+  timing equipment stated he did. This paper questions the reaction time disqualification barrier, which is
   currently 0.1 seconds to determine whether this is a reasonable threshold as
   well as look at data that calls into question whether the timing equipment
   used at the 2022 Track and Field World Championships was faulty.
   There is little at this point that could be done to rectify any potential 
   mis-disqualification other than to try to prevent it from happening again.  
-  This matter needs to be addressed because Devon Allen's disqulification could 
+  This matter needs to be addressed because Devon Allen's disqualification could 
   be a problem that could continue to re-appear.  If athletes
   are reacting fast enough that the timing system thinks that they are reacting
   illegally fast, then World Athletics needs to address this and possibly change
@@ -143,7 +143,7 @@ they found out that Allen was disqualified, angry at the result.  Allen himself
 appeared frustrated and angered with the result. Had he reacted just 0.001 
 seconds slower he would have been allowed to compete and been spared waiting
 another two years until the next World Track and Field Championship.
-%Do I need to cite a video?
+%Can talk about youtube video and put the link in text here
 
 2) and 3)
 Other scholarly papers have discussed track and field reaction times but not in the
@@ -177,6 +177,14 @@ as to why IAAF would commission a study only to disregard the results and not
 make the necessary changes.  It is unknown how many athletes since 2009 could
 have potentially benefited from this, but it is probable that there are others
 besides Allen who were disqualified.
+%Reaction time barrier has been examined before: cite reviews
+%Then go into specifics and talk about people who wanted to change barrier
+%General reviews are important
+%People have studied the biological processes, cite a few references
+%How barrier is picked by regulator
+%Read abstract and into and summarize into about one sentence what each paper contributes
+%1 and 2 can be merged but 3 need to stand alone
+
 
 %Should I include how I read LetsRun and talk about any personal experiences
 %I have using it?
@@ -217,11 +225,14 @@ elite athletes such as these will not get reasonably faster in such a short time
 span. The equipment used to measure reaction time cannot be guaranteed to be
 the same from national to international competition, but the time span between
 meets has been reduced considerably.
-
+%Simplify contribution to one paragraph: collect data and formal statistical
+%analysis such as model used
+%Move a lot of this to methods section
 5)
+%Follow Anthony's work, explicit references as to what each section does
 
-
-
+%Seiko section should go in the Results section.  From results it seems reasonable
+%question the data and talk about Seiko
 The contribution of this paper is to question whether or not Seiko's timing data
 was accurate and thus if Devon Allen was disqualified more so because of faulty
 equipment rather than reacting illegally fast.  Currently the barrier is 0.10 seconds, any time
@@ -270,6 +281,11 @@ to 2022, Seiko again upgraded its technology but for its jump management system.
   both types of data
   present exploratory plots.}
 
+  %yij denotes ith years and j is observation in year
+  %yij will have clustered i and we use random effect to account for this
+  %When model is presented talk about how I modeled yij
+  %Zij where player is i and cluster, group is year and j
+  %Test hypothesis that reaction times are the same vs that they are not
 Something that is extremely important to note in the Data is the inconsistency of World Athletics 
 in terms of how they penalize false starts.  From 2007-2009, the IAAF (the former name for World 
 Athletics, and the governing body for the World Track and Field Champions) instituted a rule change
@@ -307,7 +323,8 @@ reverse chronologically by year (Batch 1 is a preliminary Heat of 2022 and Batch
 is best visualized using a box plot. Figure~\ref{fig:DataBoxPlot}.  Included are
 box plots of the reaction times of the men's semi finals and finals pooled
 together and just the finals.
-
+%Fix quotations
+%Dont need the titles will add captions, use width =5, height = 3 in aspect ratio
 \begin{figure}[h]
   \centering 
   \includegraphics{DataBoxPlot}
@@ -327,6 +344,7 @@ together and just the finals.
   right references.}
 
 \subsection{GLMM}
+%Include latex math symbols for the equations
 A gamma mixed linear effects model was chosen as the best model to model the data.
 Many models were tried and compared to determine what the strongest model.  For
 a fixed data set such as the men's pooled data including 2022, the models with
@@ -341,8 +359,10 @@ was made in model selection was to include link = log in the model.  Despite
 doing very little to alter the AIC or log likelihood, the log scale was included
 in order to try and better deal with high outliers. %Include Residuals plot?
 
+%Throughout exploratory analysis, gamma provides better AIC
+%Spend paragraph on after fitting the model how to figure out 0.1 p value
 
-
+%Table should go to the results section
 All Men's semi finals and finals data
 \begin{center}
   \begin{tabular}{|c  c  c  c  c  c  c |}
@@ -384,6 +404,7 @@ effect, but are all factors that could potentially impact the venue effect.
 
 
 \subsection{Rank-based comparison for Clustered}
+%This should go to data section
 This section was motivated from a qualitative analysis that started by looking
 at how United States athletes reacted at the 2022 United States Track and Field
 Championships. From June 23-26 2022, USA held its Track
@@ -409,7 +430,7 @@ time for the respective athletes in seconds.
 
 
 \begin{center}
-  \begin{tabular}{||c | c c c | c c c||} 
+  \begin{tabular}{|c c c c c c c|} 
    \hline
    Athlete & USA H & USA S & USA F & World H & World S & World F \\ [0.5ex] 
    \hline\hline
@@ -434,8 +455,11 @@ a Clustered Wilcoxon rank sum test was performed using the clusrank R package
 test so as to avoid any assumptions about the distribution of population means.  
 
 %Citations needed
+%Include math formulas and the test statistic
+%Equation of test statistic is from papers cited by clusrank. Asymptootic dist
+%Was found by __ referecne and the implementation is from the clusrank R package
 Using the "clusWilcox.test" function, a grouped and clustered Wilcoxon rank sum
-test was performed wtih the cluster set to be the Athlete and group set to Year.
+test was performed with the cluster set to be the Athlete and group set to Year.
 The method was set to be "ds" which is used for the Data and Satten method, which
 is preferable when the cluster sizes are informative \citep{Clusrank}.  We do not care that some
 athletes made it further in either competition than another or that it should
@@ -462,6 +486,9 @@ the reaction times at the World Championships even for an alpha level of 0.001.
 \section{Results}
 \jy{summarize your findings; discuss limitations and possible future works.}
 
+%This should go in the method section, generate from fitted model explain what
+%The R code does.  Simulate from fitted model. Use distribution of model to 
+%Figure out the p value of reaction time less than 0.1
 To try and approximate the distribution of the reaction times, R code was written
 to try and estimate the probabilities of observing a reaction time as extreme as
 0.1 seconds. At a size of n=12,000,000, the calculated probability of a reaction
@@ -504,6 +531,17 @@ If IAAF were to change the reaction time the way that \citet{Komi}'s paper
 suggests, the probability would be so much lower that athletes would likely not
 have a case to make when arguing against a disqualification.
 
+%Section 4.1: Gamma model results show the fitting with and without 2022,
+%talk about p values and thresholds from the simulations (do not include the
+%results in the methods section).  Discussion should show that random effect
+%and standard error increase and that 2022 is special.  Now talk about Seiko
+%timing equipment
+
+%Section 4.2 is motivated by seiko timing and look at same athletes across
+%multiple types of competition: 2019 and national
+
+%Discussion/Conclusion is beyond results.  Limitations, what type of data we
+%hope to have.
 
 The p values produced by the clustered rank sum tests were 0.000155 for the
 same athletes competing in the same year, and 0.001464 for the same athletes in
@@ -525,7 +563,8 @@ and be able to react extremely well to the sound of the gun.  It seems unlikely 
 Allen would be able to correctly predict the gun with such precision two times in a row,
 which is the exact reason that the 0.10 second reaction time disqualification barrier was
 imposed in the first place.  But Allen showed that at the Championship he was able to
-react extremely fast two times, which may suggest skill rather than luck. Devon Allen is a very good athlete, as evidenced by his football career at the University of Oregon
+react extremely fast two times, which may suggest skill rather than luck. Devon 
+Allen is a very good athlete, as evidenced by his football career at the University of Oregon
 and making it onto the Philadelphia Eagles practice squad this past year \citep{Hurley}.
 Thus the 0.099 reaction time may not have been a product of Devon Allen
 predicting the start of the race but rather a combination of a quick reaction 
