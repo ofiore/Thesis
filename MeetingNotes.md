@@ -1,3 +1,7 @@
+# Meeting Notes 3/28
+In line with the manuscript
+
+
 # Meeting Notes 3/21
 
 + Introduction, Data: Talk about each dataset: world championships and the matched
