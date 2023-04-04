@@ -1,3 +1,33 @@
+# Meeting Notes 4/4
+Find more papers (10+)
+Review scholarly literature and include in paragraph 3 of intro
+Look at related works and include references
+Fix question marks
+2 blank lines to seperate paragraphs
+Fix section references
+Fix the glmm model latex and explain what everything means
+Remove X
+Data should be where got data and should
+Remove the title in R
+Specify the size in R not latex
+1 figure 2 panels for boxplot in R
+Put the formula in the Methods section
+Move the simulation data table to results
+In methods section talk about how the distribution has mixed form and that
+the best way to get percentile is to generate a large sample and then use this
+to estimate the probability
+Change 12 million to 10 million
+Seperate method and application of method for ex: method is generate large sample
+application of method: we use 10 mil
+Present results in subsections: including and not including the last year.
+Methods are same regardless how you pick data, this motivates next section
+Any conclusions from tests go in results
+Discussion is about any limitations, future work, etc
+Put the results after the end-document so they arent compiled
+Clean references
+Discussion is where we talk about Allen's disqualification
+
+
 # Meeting Notes 3/28
 In line with the manuscript
 
