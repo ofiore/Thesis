@@ -140,7 +140,7 @@ they found out that Allen was disqualified, angry at the result.  Had Allen
 reacted just 0.001 seconds slower he would have been allowed to compete and been 
 spared waiting another two years until the next World Track and Field Championship.
 
-2) and 3)
+2)
 Outside the blog posts from LetsRun.com, there have not been any published
 papers regarding Devon Allen's disqualification in particular.  This is not
 particularly surprising given that his disqualification occurred only last August.
@@ -156,6 +156,7 @@ with the timing equipment at the 2022 Track and Field World Championship and
 cited graphs, statistics such as median reaction time, and compared the reaction
 times at the 2022 Track and Field World Championship.  
 
+3)
 In 2009, the International Association of Athletics Federations (Also referred to
 as IAAF or World Athletics), which is the governing board for international running
 competitions, commissioned a study into changing the reaction time barrier.
@@ -172,9 +173,8 @@ react faster, and suggested 0.08 or 0.085 seconds as possible new thresholds.
 Additionally, it was recommended to IAAF that high speed cameras be used to
 change the reaction time criteria from pushing off on the block to body movement.
 This could provide a more accurate representation of reaction time, and thus the
-possibility of a false disqualification would be lowered \citep{Komi}.  
-  A
-follow-up study from 2012 by Pilianidis, Mantzouranis, and Kasabalis found
+possibility of a false disqualification would be lowered \citep{komi2009iaaf}.  
+A follow-up study from 2012 by Pilianidis, Mantzouranis, and Kasabalis found
 significant differences between reaction times at several world championships
 between 1997 and 2009 for the men's 110 meter hurdles.  Another important
 conclusion was that for reaction times did not decrease over the twelve years
@@ -259,6 +259,16 @@ by questioning the reaction time barrier.
 \jy{Describe you data types; give details on sources; introduce notations for
   both types of data
   present exploratory plots.}
+
+  \begin{equation}
+    Y_{ij} = \beta_0 + \beta_1 X_{ij} + \gamma_i + \epsilon_{ij}
+    \end{equation}
+    
+    where $Y_{ij}$ is the response variable for observation $j$ in year $i$, 
+    $X_{ij}$ is the predictor variable for observation $j$ in year $i$, 
+    $\beta_0$ is the intercept, $\beta_1$ is the coefficient for $X_{ij}$, 
+    $\gamma_i$ is the random effect term for year $i$, and $\epsilon_{ij}$ 
+    is the error term for observation $j$ in year $i$.
 
   %yij denotes ith years and j is observation in year
   %yij will have clustered i and we use random effect to account for this
@@ -445,7 +455,6 @@ time being below 0.1 seconds was as follows for the various different data sets:
 
 The test statistic of the DS method of the Wilcoxon rank-sum statistic is:
 $Z = \frac{S - E(S)}{\sqrt{\hat{\text{Var}}(S)}}$ where 
-$S = \mathbb{E}[W^* | X, \delta]$,
 $W^* = \frac{1}{N} + \sum_{i=1}^{N} \delta_{i}^{*} R_{i}^{*}$, $R_{i}^{*}$ is
 the rank of $X_{i}^{*}$.
 The asymptomatic distribution of the Wilcoxon rank-sum statistic was found by
