@@ -306,8 +306,8 @@ together and just the finals.
 %Dont need the titles will add captions, use width =5, height = 3 in aspect ratio
 \begin{figure}[h]
   \centering 
-  \includegraphics{DataBoxPlot}
-  \label{fig:DataBoxPlot}
+  \includegraphics[width=\textwidth,height=4in]{DataBoxPlot}
+  \caption{Boxplot of semifinals and finals data}\label{fig:DataBoxPlot}
 \end{figure}
 
 \begin{figure}[h]
@@ -316,74 +316,6 @@ together and just the finals.
   \label{fig:BoxplotFinals}
 \end{figure}
 
-
-\section{Methods} \label{sec:meth}
-
-\jy{set up the models/methods using the notations from last section; cite the
-  right references.}
-
-\subsection{GLMM}
-%Include latex math symbols for the equations
-A gamma mixed linear effects model was chosen as the best model to model the data.
-Many models were tried and compared to determine what the strongest model.  For
-a fixed data set such as the men's pooled data including 2022, the models with
-the venue effect included performed better than the models without the venue
-effect for each set of comparable models; as indicated by the lower AIC and
-higher log likelihood.  Thus, the venue effect is significant and should be
-included in the model.  It can also be established that a gamma distribution
-better models the data than linear data from comparing the linear model with
-venue effect and them gamma model with a venue effect.  The final decision that
-was made in model selection was to include link = log in the model.  Despite
-%Does this part need to be changed?
-doing very little to alter the AIC or log likelihood, the log scale was included
-in order to try and better deal with high outliers. %Include Residuals plot?
-
-%Throughout exploratory analysis, gamma provides better AIC
-%Spend paragraph on after fitting the model how to figure out 0.1 p value
-
-%Table should go to the results section
-All Men's semi finals and finals data
-\begin{center}
-  \begin{tabular}{|c  c  c  c  c  c  c |}
-   \hline 
-   Model & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
-   \hline\hline
-   linear one & -1667 & 835.5 & 0.1529 & 0.0014 & N/A & N/A \\
-   \hline
-   linear year & -1713 & 859.3 & 0.1541 & 0.0040 & 1.719e-04 & 5.926e-04 \\ 
-   \hline
-   gamma one & -1756 & 880.2 & 6.554 & 0.0598 & N/A & N/A \\
-   \hline
-   gamma year & -1848 & 926.9 & 6.553 & 0.2269 & 0.1305 & 0.0234 \\
-   \hline
-   gamma one log & -1756 & 880.2 & -1.880 & 0.0091 & N/A & N/A \\
-   \hline
-   gamma year log & -1848 & 927.0 & -1.869 & 0.0348 & 0.0031 & 0.0235 \\ [0.5ex]
-   \hline
-  \end{tabular}
-  \end{center}
-
-Once the Gamma mixed effects model was chosen, it needed to be decided which combination
-of effects to use.  It was possible to include a venue effect, a batch effect, or a year
-and batch effect.  Density plots were created that simulated the probability of a mean
-density less than 0.1, which is the current threshold for a reaction time
-disqualification.  The density plots are shown below.  The batch effect is very
-difficult to explain or interpret as it means that some heats of races were either
-faster or slower and that everyone in the batch reacted similarly.  Although
-it is possible that one athlete reacting faster could lead to others reacting
-similarly, this does not make much practical sense as the difference between
-heats that had fast and slow reaction times are all within 0.12 seconds of each
-other.  It is much easier however to explain the venue effect.  The technology
-that World Athletics has used has differed since 1999 and theoretically the
-reaction time data from 2022 should be the best as the timing system should be
-state of the art.  Any other weather or climate related factors such as humidity,
-precipitation, elevation, etc. would all be negated when looking at the batch
-effect, but are all factors that could potentially impact the venue effect.  
-
-
-
-\subsection{Rank-based comparison for Clustered}
-%This should go to data section
 This section was motivated from a qualitative analysis that started by looking
 at how United States athletes reacted at the 2022 United States Track and Field
 Championships. From June 23-26 2022, USA held its Track
@@ -428,19 +360,103 @@ This dataset is quite small to perform any formal statistical analysis on, but
 the data was expanded to include data for athletes who competed at national
 competitions (many of which were held from May-July of 2022).  Once the data
 was collected, each athlete was designated to be a cluster and the stage of
-competition (national or international) was specified to be the group.  Next,
-a Clustered Wilcoxon rank sum test was performed using the clusrank R package
-\citep{Clusrank}.  Using a clustered rank sum test was chosen over a typical t 
-test so as to avoid any assumptions about the distribution of population means.  
+competition (national or international) was specified to be the group. 
+
+\section{Methods} \label{sec:meth}
+
+\jy{set up the models/methods using the notations from last section; cite the
+  right references.}
+
+\subsection{GLMM}
+%Include latex math symbols for the equations
+A gamma mixed linear effects model was chosen as the best model to model the data.
+Many models were tried and compared to determine what the strongest model.  For
+a fixed data set such as the men's pooled data including 2022, the models with
+the venue effect included performed better than the models without the venue
+effect for each set of comparable models; as indicated by the lower AIC and
+higher log likelihood.  Thus, the venue effect is significant and should be
+included in the model.  It can also be established that a gamma distribution
+better models the data than linear data from comparing the linear model with
+venue effect and them gamma model with a venue effect.  The final decision that
+was made in model selection was to include link = log in the model.  Despite
+doing very little to alter the AIC or log likelihood, the log scale was included
+in order to try and better deal with high outliers. %Include Residuals plot?
+
+%Throughout exploratory analysis, gamma provides better AIC
+%Spend paragraph on after fitting the model how to figure out 0.1 p value
+
+
+
+Once the Gamma mixed effects model was chosen, it needed to be decided which combination
+of effects to use.  It was possible to include a venue effect, a batch effect, or a year
+and batch effect.  Density plots were created that simulated the probability of a mean
+density less than 0.1, which is the current threshold for a reaction time
+disqualification.  The density plots are shown below.  The batch effect is very
+difficult to explain or interpret as it means that some heats of races were either
+faster or slower and that everyone in the batch reacted similarly.  Although
+it is possible that one athlete reacting faster could lead to others reacting
+similarly, this does not make much practical sense as the difference between
+heats that had fast and slow reaction times are all within 0.12 seconds of each
+other.  It is much easier however to explain the venue effect.  The technology
+that World Athletics has used has differed since 1999 and theoretically the
+reaction time data from 2022 should be the best as the timing system should be
+state of the art.  Any other weather or climate related factors such as humidity,
+precipitation, elevation, etc. would all be negated when looking at the batch
+effect, but are all factors that could potentially impact the venue effect.  
+
+
+%T, generate from fitted model explain what
+%The R code does.  Simulate from fitted model. Use distribution of model to 
+%Figure out the p value of reaction time less than 0.1
+To try and approximate the distribution of the reaction times, R code was written
+to try and estimate the probabilities of observing a reaction time as extreme as
+0.1 seconds.  The code re-paramertizes the gamma distribution to be in terms of
+$\mu$ and shape rather than by $\alpha$ and $\beta$.
+
+At a size of n=12,000,000, the calculated probability of a reaction
+time being below 0.1 seconds was as follows for the various different data sets:
+
+\begin{center}
+  \begin{tabular}{|c c|} 
+   \hline
+   Data Set & Probability RxnTime < 0.1 \\ 
+   \hline\hline
+   all finals gamma log & 0.000864 \\ 
+   \hline
+   old finals gamma log & 0.000429 \\
+   \hline
+   all pooled gamma log & 0.006847 \\
+   \hline
+   old pooled gamma log & 0.005749 \\
+  \end{tabular}
+  \end{center}
+
+
+
+
+\subsection{Rank-based comparison for Clustered}
+
 
 %Citations needed
 %Include math formulas and the test statistic
 %Equation of test statistic is from papers cited by clusrank. Asymptootic dist
 %Was found by __ referecne and the implementation is from the clusrank R package
+
+
+The test statistic of the DS method of the Wilcoxon rank-sum statistic is:
+$Z = \frac{S - E(S)}{\sqrt{\hat{\text{Var}}(S)}}$ where 
+$S = \mathbb{E}[W^* | X, \delta]$,
+$W^* = \frac{1}{N} + \sum_{i=1}^{N} \delta_{i}^{*} R_{i}^{*}$, $R_{i}^{*}$ is
+the rank of $X_{i}^{*}$.
+The asymptomatic distribution of the Wilcoxon rank-sum statistic was found by
+\citet{datta2005rank} and the R package "clusrank" allows for its implementation.
+\citep{jiang2017wilcoxon}.
+
+
 Using the "clusWilcox.test" function, a grouped and clustered Wilcoxon rank sum
 test was performed with the cluster set to be the Athlete and group set to Year.
-The method was set to be "ds" which is used for the Data and Satten method, which
-is preferable when the cluster sizes are informative \citep{Clusrank}.  We do not care that some
+The method was set to be "DS" which is used for the Data and Satten method, which
+is preferable when the cluster sizes are informative \citep{jiang2017wilcoxon}.  We do not care that some
 athletes made it further in either competition than another or that it should
 not matter how elite an athlete is at the 110 meter hurdles once we get to the
 national international competition level.  Cluster sizes vary from 2 observations
@@ -465,29 +481,33 @@ the reaction times at the World Championships even for an alpha level of 0.001.
 \section{Results}
 \jy{summarize your findings; discuss limitations and possible future works.}
 
-%This should go in the method section, generate from fitted model explain what
-%The R code does.  Simulate from fitted model. Use distribution of model to 
-%Figure out the p value of reaction time less than 0.1
-To try and approximate the distribution of the reaction times, R code was written
-to try and estimate the probabilities of observing a reaction time as extreme as
-0.1 seconds. At a size of n=12,000,000, the calculated probability of a reaction
-time being below 0.1 seconds was as follows for the various different data sets:
-
+%Table should go to the results section
+All Men's semi finals and finals data
 \begin{center}
-  \begin{tabular}{|c c|} 
-   \hline
-   Data Set & Probability RxnTime < 0.1 \\ 
+  \begin{tabular}{|c  c  c  c  c  c  c |}
+   \hline 
+   Model & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
    \hline\hline
-   all finals gamma log & 0.000864 \\ 
+   linear one & -1667 & 835.5 & 0.1529 & 0.0014 & N/A & N/A \\
    \hline
-   old finals gamma log & 0.000429 \\
+   linear year & -1713 & 859.3 & 0.1541 & 0.0040 & 1.719e-04 & 5.926e-04 \\ 
    \hline
-   all pooled gamma log & 0.006847 \\
+   gamma one & -1756 & 880.2 & 6.554 & 0.0598 & N/A & N/A \\
    \hline
-   old pooled gamma log & 0.005749 \\
+   gamma year & -1848 & 926.9 & 6.553 & 0.2269 & 0.1305 & 0.0234 \\
+   \hline
+   gamma one log & -1756 & 880.2 & -1.880 & 0.0091 & N/A & N/A \\
+   \hline
+   gamma year log & -1848 & 927.0 & -1.869 & 0.0348 & 0.0031 & 0.0235 \\ [0.5ex]
+   \hline
   \end{tabular}
   \end{center}
-
+%Section 4.1: Gamma model results show the fitting with and without 2022,
+%talk about p values and thresholds from the simulations (do not include the
+%results in the methods section). 
+Using the gamma function with link set to log (whose summary statistics can be
+found in the last row of the above table), the probability of the function being
+less than 0.1 seconds can be calculated to see if Allen's disqualification was an anomaly.
 Prior to the 2022 World Championship, there was a 0.0425\% chance (based on the
 simulated results) of observing a reaction time below 0.01 seconds in the men's
 finals.  That means that we would expect a time below the threshold to occur
@@ -510,11 +530,35 @@ If IAAF were to change the reaction time the way that \citet{Komi}'s paper
 suggests, the probability would be so much lower that athletes would likely not
 have a case to make when arguing against a disqualification.
 
-%Section 4.1: Gamma model results show the fitting with and without 2022,
-%talk about p values and thresholds from the simulations (do not include the
-%results in the methods section).  Discussion should show that random effect
+%Discussion should show that random effect
 %and standard error increase and that 2022 is special.  Now talk about Seiko
 %timing equipment
+
+%Citation needed in this section
+Since 1985 Seiko Holding Corporations has served every World Athletics Championship
+as the official timer \citep{Seiko}.  Since 1985, the technology and the ability
+to accurately predict measurements: long jump distances, false starts, total time,
+reaction time, etc. have all dramatically improved.  Seiko did not start tracking
+reaction time as an official measurement until 1999 in the men's and women's 100 meter
+hurdles.  Seiko regularly updates their equipment so that they provide cutting edge
+technology to the World Track and Field Championships, the highest stakes in the world
+of running outside of the Olympics. Seiko's technology for detecting reaction 
+times relies on the pressure that athletes
+exert on the plate when they push off.  Their systems measure the time differential
+between when the "gun" goes off to start the race and when the pressure changes 
+\citep{Seiko}  If an athlete has a reaction time under 0.10 seconds, it is deemed a 
+false start as it is considered that no athlete can react so quickly 
+\citep{Seiko-Timing}.  Thus, a reaction time of for example 0.05, suggests that 
+the athlete predicted the gun and it was luck that caused their abnormally high 
+time.  At the World Championship level, World Athletics and Seiko want to remove 
+that element of luck and thus impose the 0.1 second barrier. In 2013, Seiko 
+upgraded their timing equipment for sprinting events (100 meter hurdles falls 
+under this category) \citep{WorldAthletics_2013}.  Since 1999, the highest reaction 
+times in the men's 110-meter hurdle were recorded in 2013.  That is not to say that the higher 
+times were caused by Seiko's equipment, but the two may be related.  It is worth noting that prior
+to 2022, Seiko again upgraded its technology but for its jump management system.
+
+
 
 %Section 4.2 is motivated by seiko timing and look at same athletes across
 %multiple types of competition: 2019 and national
@@ -522,11 +566,12 @@ have a case to make when arguing against a disqualification.
 %Discussion/Conclusion is beyond results.  Limitations, what type of data we
 %hope to have.
 
-The p values produced by the clustered rank sum tests were 0.000155 for the
-same athletes competing in the same year, and 0.001464 for the same athletes in
-different years.  To put it simply, there is not a reasonable explanation for 
-this.  
-It is inconceivable that so many athletes would improve such a significant
+For the comparison between athletes who competed in 2019 and 2022, the p value
+was 0.001464.  As Seiko timed both events, there should not be a signficant
+difference if the timing equipment in both instances was working correctly.
+Additionally, the p value was 0.000155 for the same athletes competing in the 
+same year  To put it simply, there is not a reasonable explanation for 
+this. It is inconceivable that so many athletes would improve such a significant
 amount in such a small amount of time. 6 countries are represented in this 
 comparison, which drastically decreases the chances of this issue being caused by
 one specific country.  The United States athlete's improvement in times was
@@ -535,6 +580,7 @@ discussed earlier in the paper, but this data shows that on average there was
 improvement for British, Polish, French, Brazilian, and Spanish athletes.
 
 
+%Wrap up and Conclusion
 It is worth noting that in the semi-finals of the World Track and
 Field Championships; Allen's reaction time was 0.101 which is only 0.001 above
 the legal limit.  What this suggests is that Allen may have strong reflexes
@@ -563,36 +609,10 @@ to conclude that Devon Allen was wrongly disqualified, that may not necessarily
 be the case.  If there are issues with reaction time such as athletes approaching the 0.10 
 second barrier again at the next World Track Championship (August 2023), then World Athletics 
 needs to adjust that threshold and allow for faster reaction times so that athletes with superb 
-reflexes are not penalized like how Allen was in 2022.  World Athletics and Seiko 
-may want to do further testing of their own to determine what is a human's physically
-fastest reaction time, and if they choose to do so, they should start with Devon
-Allen.
+reflexes are not penalized like how Allen was in 2022.  World Athletics did not
+do anything about \citet{komi2009iaaf}'s study, but perhaps they should now so
+that the story of Devon Allen is not repeated.
 
-Since 1985 Seiko Holding Corporations has served every World Athletics Championship
-as the official timer \citep{Seiko}.  Since 1985, the technology and the ability
-to accurately predict measurements: long jump distances, false starts, total time,
-reaction time, etc. have all dramatically improved.  Seiko did not start tracking
-reaction time as an official measurement until 1999 in the men's and women's 100 meter
-hurdles.  Seiko regularly updates their equipment so that they provide cutting edge
-technology to the World Track and Field Championships, the highest stakes in the world
-of running outside of the Olympics.
-
-%Citation needed in this section
-Seiko's technology for detecting reaction times relies on the pressure that athletes
-exert on the plate when they push off.  Their systems measure the time differential
-between when the "gun" goes off to start the race and when the pressure changes 
-\citep{Seiko}  If an athlete has a reaction time under 0.10 seconds, it is deemed a 
-false start as it is considered that no athlete can react so quickly \citep{Seiko-Timing}.  
-Thus, a reaction time of for example 0.05, suggests that the athlete predicted the gun and it
-was luck that caused their abnormally high time.  At the World Championship level,
-World Athletics and Seiko want to remove that element of luck and thus impose the 0.1
-second barrier.
-
-In 2013, Seiko upgraded their timing equipment for sprinting events (100 meter hurdles
-falls under this catergory) \citep{WorldAthletics_2013}.  Since 1999, the highest reaction 
-times in the men's 100 meter hurdle were recorded in 2013.  That is not to say that the higher 
-times were caused by Seiko's equipment, but the two may be related.  It is worth noting that prior
-to 2022, Seiko again upgraded its technology but for its jump management system.
 
 
 \section{Appendix}
