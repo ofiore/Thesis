@@ -122,7 +122,7 @@ Devon Allen, Reaction Time, Seiko, 2022 World Track and Field Championships
   5) A paragraph of roadmap.}
 
 
-1)
+%1
 After coming in third in the 110 meter hurdles at the United States Track and 
 Field Championships in Eugene Oregon at the end of June, Allen was expected to 
 be a contender for the World Championships, which were scheduled for two months 
@@ -141,7 +141,7 @@ they found out that Allen was disqualified, angry at the result.  Had Allen
 reacted just 0.001 seconds slower he would have been allowed to compete and been 
 spared waiting another two years until the next World Track and Field Championship.
 
-2)
+%2
 Outside the blog posts from LetsRun.com, there have not been any published
 papers regarding Devon Allen's disqualification in particular.  This is not
 particularly surprising given that his disqualification occurred only last August.
@@ -157,7 +157,7 @@ with the timing equipment at the 2022 Track and Field World Championship and
 cited graphs, statistics such as median reaction time, and compared the reaction
 times at the 2022 Track and Field World Championship.  
 
-3)
+%3
 In 2009, the International Association of Athletics Federations (Also referred to
 as IAAF or World Athletics), which is the governing board for international running
 competitions, commissioned a study into changing the reaction time barrier.
@@ -179,16 +179,17 @@ A follow-up study from 2012 by Pilianidis, Mantzouranis, and Kasabalis found
 significant differences between reaction times at several world championships
 between 1997 and 2009 for the men's 110 meter hurdles.  Another important
 conclusion was that for reaction times did not decrease over the twelve years
-covered by the research in the study \citep{pilianidis2012start}.  This will
-be important when considering the results in section \ref{sec:Results}.
+covered by the research in the study \citep{pilianidis2012start}.  However, not
+all studies have been in favor of a decrease in the reaction time barrier.
+Brosnan in 2016 argues for increasing the reaction time barrier to 0.115 seconds,
+and cited evidence from European Championships and World Championships in his
+article \citep{brosnan2017effects}.  A study looking at the 2008 Olympics
+likewise supported the conclusion that athletes could not react in as little as
+0.1 seconds \citep{lipps2011implications}.
+%About timing
+It has been concluded that
 
 
-Despite the study, IAAF has not changed the reaction barrier since it was
-implemented at the 1999 World Track and Field Championships.  It is confusing
-as to why IAAF would commission a study only to disregard the results and not
-make the necessary changes.  It is unknown how many athletes since 2009 could
-have potentially benefited from this, but it is probable that there are others
-besides Allen who were disqualified.
 %Reaction time barrier has been examined before: cite reviews
 %Then go into specifics and talk about people who wanted to change barrier
 %General reviews are important
@@ -198,7 +199,7 @@ besides Allen who were disqualified.
 %1 and 2 can be merged but 3 need to stand alone
 
 
-4)
+%4
 One of the first objectives of the paper is to try to model the data, which is
 the reaction times of every non-disqualification since the 1999 World Championships. 
 When determining the most effective model to use, several variations were
@@ -213,7 +214,6 @@ the gamma distribution. The fixed effect comes in the form of an intercept, and 
 random effect will be called the venue effect and is reflective of how significant
 the changes in the reaction time is for each venue, i.e. the venue effect is 
 responsible for the variation between years. 
-
 Another objective of this paper is to compare data for athletes who have competed
 at additional competitions to see how their reaction times compare from previous
 competitions to this one. First we can look at the reaction times of athletes who competed at the
@@ -237,7 +237,8 @@ meets has been reduced considerably.
 %Simplify contribution to one paragraph: collect data and formal statistical
 %analysis such as model used
 %Move a lot of this to methods section
-5)
+
+%5
 The rest of this paper is as follows: Section~\ref{sec:Data} describes how data was
 collected and begins to detail the GLMM model which is further developed in the
 Section~\ref{sec:Methods}.  The signed-rank test analysis for the same athletes is
@@ -263,7 +264,7 @@ by questioning the reaction time barrier.
 
   \begin{equation}
     Y_{ij} = \beta_0 + \beta_1 X_{ij} + \gamma_i + \epsilon_{ij}
-    \end{equation}
+  \end{equation}
     
     where $Y_{ij}$ is the response variable for observation $j$ in year $i$, 
     $X_{ij}$ is the predictor variable for observation $j$ in year $i$, 
@@ -310,23 +311,23 @@ result in other runners reacting quickly).  There is no statistical signficance 
 how the batches were labeled, they were ordered chronologically by meet but
 reverse chronologically by year (Batch 1 is a preliminary Heat of 2022 and Batch
 111 corresponds to the 1999 finals). The data that looked at in the paper
-is best visualized using a box plot. Figure~\ref{fig:DataBoxPlot}.  Included are
+is best visualized using a box plot as show in Figure~\ref{fig:Boxplots}.  Included are
 box plots of the reaction times of the men's semi finals and finals pooled
-together and just the finals.
+together and just the finals.  It is clear that the 2022 boxplot for both the
+men's finals and semifinals data is lower (indicating a faster reaction time)
+than in previous years.  The median for the men's pooled data in 2022 was 0.129
+and the median for the men's final data in 2022 was 0.126.  For comparison,
+Brosnan found reaction times of 0.156 seconds for men when looking at data from
+1999 to 2014 \citep{brosnan2017effects}.
 %Fix quotations
 %Dont need the titles will add captions, use width =5, height = 3 in aspect ratio
-\begin{figure}[h]
-  \centering 
-  \includegraphics[width=\textwidth,height=4in]{DataBoxPlot}
-  \caption{Boxplot of semifinals and finals data}\label{fig:DataBoxPlot}
-\end{figure}
-\jy{The plot was stretched. Don't. Get their sizes right before generating them.}
 
-\jy{Remove title from the figures. Make the figure captions self-contained.}
 \begin{figure}[h]
-  \centering 
-  \includegraphics{BoxplotFinals}
-  \label{fig:BoxplotFinals}
+  \centering
+  \includegraphics{Finals_Pooled_Boxplot}
+  \label{fig:Boxplots}
+  \caption{The reaction times from 2019 to 2022 for the men's final (top) and
+  the men's semifinals and finals (bottom)}
 \end{figure}
 
 This section was motivated from a qualitative analysis that started by looking
@@ -630,6 +631,14 @@ that the story of Devon Allen is not repeated.
 Here is World Athletics website with the data: \url{https://www.worldathletics.org/results/world-athletics-championships}.
 Here is the data for the USA Track and Field Championships: \url{https://www.flashresults.com/2022_Meets/Outdoor/06-23_USATF/}
 
+
+
+\bibliographystyle{chicago}
+\bibliography{citations.bib}
+
+
+\end{document}
+
 Here are important statistics grouped by both model and data set:
 All Men final's Data
 \begin{center}
@@ -781,9 +790,3 @@ Gamma model with venue effect and link=log
    \hline
   \end{tabular}
   \end{center}
-
-\bibliographystyle{chicago}
-\bibliography{citations.bib}
-
-
-\end{document}
