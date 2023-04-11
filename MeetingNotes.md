@@ -1,3 +1,37 @@
+# Meeting Notes 4/11
+Include pdf reference with link, include last referrenced date
+Change the language regarding the references
+We want to say that times don't change between heats and finals
+Add references folder to make it easy to find stuff
+Update the keywords from writing repo
+Change bibtex keywords for non journals
+Every reference needs author, title, year, etc.
+Journal should be in journal style: Sports Sciences need to be capitalized.
+Use curly braces to protect names, titles, etc.
+Break up literature review into smaller paragraphs
+Fix the ?? marks on page 6
+In the data section, show there is 2 types of data: semifinals and finals
+Since 2011, there is a ? mark
+To cite 3 papers in one sentence: put all 3 in the same citep
+Break up all long paragraphs: in data section
+Say exlicityly two types of data: 2 subsections, the GLMM and the ranked comparison
+Can include all 15 nationals vs international competition
+Fix the lines on the table
+Do subsections for data, methods, results
+Cite the correct package
+Move the clusrank p values to the results sectoin 
+Change n = 10mil to math latex
+If we wanted to have a mis disqualfication once every 100
+Find lower quantiles of the distribution
+
+
+
+
+
+
+
+
+
 # Meeting Notes 4/4
 Find more papers (10+)
 Review scholarly literature and include in paragraph 3 of intro
