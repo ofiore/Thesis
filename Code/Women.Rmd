@@ -100,8 +100,9 @@ colnames(women_nations) <- c("Time", "Athlete", "Year")
 
 ```{r}
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_nations, paired = TRUE, alternative = "greater", method = "ds")
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_nations, paired = TRUE, alternative = "greater", method = "rgl")
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_nations, alternative = "greater", method = "ds")
+#clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_nations, alternative = "greater", method = "rgl")
+#clusWilcox.test(Time ~ Year + cluster(Athlete), data = women_nations, alternative = "greater", method = "ds")
 ```
 
 
