@@ -144,7 +144,7 @@ pdf(file = "Men_Density_Both.pdf")
 fit2 <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = men_pooled, family = Gamma(link = "log"))
 fit0 <- glm(RxnTime ~ 1, data = men_pooled, family = Gamma(link = "log"))
 sfit0 <- summary(fit0)
-simfit <- function(fit2, n = 12000000) {
+simfit <- function(fit2, n = 10000000) {
   vc <- as.data.frame(VarCorr(fit2))
   ## mu <- exp(coef(fit2)$Year[,]) ## using fitted random effects only
   z <- rnorm(n, sd = vc$sdcor[1]) #$ using generated random effects
@@ -165,6 +165,7 @@ curve(dgamma(x, shape = 1 / sfit0$dispersion,
 legend("right", title = "Probability mean less than", legend = " 0.1 is 0")
 dev.off()
 ```
+
 ```{r}
 set.seed(1)
 library(lme4)
@@ -172,7 +173,7 @@ pdf(file = "Women_Density_Year.pdf")
 fit2 <- glmer(RxnTime ~ (1 | Year), data = women_pooled, family = Gamma(link = "log"))
 fit0 <- glm(RxnTime ~ 1, data = women_pooled, family = Gamma(link = "log"))
 sfit0 <- summary(fit0)
-simfit <- function(fit2, n = 12000000) {
+simfit <- function(fit2, n = 10000000) {
   vc <- as.data.frame(VarCorr(fit2))
   ## mu <- exp(coef(fit2)$Year[,]) ## using fitted random effects only
   z <- rnorm(n, sd = vc$sdcor[1]) #$ using generated random effects
@@ -193,6 +194,8 @@ curve(dgamma(x, shape = 1 / sfit0$dispersion,
 legend("right", title = "Probability mean less than", legend = " 0.1 is 0.0042296")
 dev.off()
 ```
+
+
 ```{r}
 year_effect <- glmer(RxnTime ~ (1 | Year), data = men_pooled, family = Gamma(link = "log"))
 batch_effect <- glmer(RxnTime ~ (1 | Batch), data = men_pooled, family = Gamma(link = "log"))
@@ -207,8 +210,39 @@ t.test(men_pooled$RxnTime[men_pooled$Year==2019],men_pooled$RxnTime[men_pooled$Y
 ```
 
 ```{r}
+opar <- par()
+par(mfrow = c(1,2))
 pdf(file = "BoxplotFinals.pdf")
-boxplot(RxnTime ~ Year, data = men_finals, xlab = "Year", ylab = "Reaction Time in seconds", main = "Men's Final Reaction Time Boxplot Data")
+boxplot(RxnTime ~ Year, data = men_finals, xlab = "Year", ylab = "Reaction Time in seconds")
+boxplot(RxnTime ~ Year, data = men_finals, xlab = "Year", ylab = "Reaction Time in seconds")
 dev.off()
+par(opar)
+```
+
+```{r}
+#ggplot(data = win, aes(x = strength_diff)) + geom_boxplot() + theme_minimal()
+ggplot(data = men_finals, aes(x=Year, y = RxnTime)) + geom_boxplot() + theme_minimal()
+```
+
+```{r}
+library(gridExtra)
+library(ggplot2)
+final <- ggplot(men_finals, aes(x = Year, y = RxnTime, group = Year)) +
+  geom_boxplot(fill = "lightblue", color = "darkblue") +
+  labs(x = "Year", y = "Reaction Time (s)") +
+       scale_y_continuous(limits = c(0.1, 0.225),
+                            breaks = seq(0.1, 0.225, 0.025)) +
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2023),
+                                              breaks = seq(1997, 2022, 2))
+
+pooled <- ggplot(men_pooled, aes(x = Year, y = RxnTime, group = Year)) +
+  geom_boxplot(fill = "orange1", color = "orangered4") +
+  labs(x = "Year", y = "Reaction Time (s)") +
+       scale_y_continuous(limits = c(0.1, 0.225),
+                            breaks = seq(0.1, 0.225, 0.025)) +
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2023),
+                                              breaks = seq(1997, 2022, 2))
+both <- grid.arrange(final,pooled, ncol=1)
+ggsave(filename="Finals_Pooled_Boxplot.pdf", path = "../Manuscript", plot=both, height = 6, width = 6)
 ```
 
