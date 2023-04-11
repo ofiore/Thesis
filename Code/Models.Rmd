@@ -154,7 +154,7 @@ simulation <- function(model, base){
   sbase <- summary(base)
   #print(sbase)
   x <- simfit(model)
-  print(mean(x < 0.1))
+  print(mean(x < 0.08))
   print(quantile(x, prob = c(.00001, .0001, .0005, .001)))
   ## compare with and without random effect
   plot(density(x)) # with random effect
@@ -162,7 +162,7 @@ simulation <- function(model, base){
                scale = exp(coef(base)) * sbase$dispersion), 
         0.08, 0.22, add = TRUE, col = "blue") # fixed effect only
 }
-simulation(old_pooled_year_gamma_log, old_pooled_one_gamma_log)
+simulation(men_finals_year_gamma_log, men_finals_one_gamma_log)
 ```
 
 
