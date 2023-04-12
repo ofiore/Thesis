@@ -89,7 +89,7 @@ Championship}
   \jy{This is only the background. An abstract also needs to summarize the contributions.}
 %\bigskip
 \noindent\sc{Keywords}:
-Devon Allen, Reaction Time, Seiko, 2022 World Track and Field Championships 
+Reaction Time, Seiko, 
 
 \end{abstract}
 
@@ -134,7 +134,7 @@ considered to be a favorite for the 110 meter hurdle after running 12.84 seconds
 in early June; only 0.04 seconds away from the world record \citep{Preview}.
 Thus his disqualification by reacting in 0.099 seconds instead of 0.01 was met
 with shock from both Allen and fans alike.  NBC, who was broadcasting the
-championships in the United States, later uploaded a video to their Youtube
+championships in the United States, later uploaded a video to their YouTube
 channel that show the disqualification and can be found here:
 \url{https://www.youtube.com/watch?v=D6NXTMo-1yM}. The crowd erupted with jeers when
 they found out that Allen was disqualified, angry at the result.  Had Allen 
@@ -242,9 +242,9 @@ competition, but the time span between meets has been reduced considerably.
 The rest of this paper is as follows: Section~\ref{sec:Data} describes how data was
 collected and begins to detail the GLMM model which is further developed in the
 Section~\ref{sec:Methods}.  The signed-rank test analysis for the same athletes is
-also included in the Section~\ref{sec:Methods}.  The Section~\ref{sec:Results}
+also included in Section~\ref{sec:Methods}.  Section~\ref{sec:Results}
 section provides the probabilities from the methods section and the paper ends 
-by questioning the reaction time barrier.  Lastly, the section~\ref{sec:Discussion}
+by questioning the reaction time barrier.  Lastly, section~\ref{sec:Discussion}
 discusses the impact and limitations of the paper.
 
 
@@ -258,14 +258,14 @@ Something that is extremely important to note in the Data is the inconsistency
 of World Athletics in terms of how they penalize false starts.  From 2007-2009,
 the IAAF (the former name for World Athletics, and the governing body for the 
 World Track and Field Champions) instituted a rule change that allowed one 
-warning false start before a sprinter was disqualified \citep{False-Start}  This 
+warning false start before a sprinter was disqualified \citep{iaaf2009falsestart}  This 
 essentially gave sprinters a second chance and reduced the penalty for a false 
 start.  There were 18 male and 7 female false starts at the 2007 World 
 Championships, 18 male and 7 female starts at the 2009 World Championships. 
 Starting in 2011, the rule was scrapped, and the old policy which automatically 
 disqualifies runners who false start was reinstituted.  The effect? At the 2011 
 World Championship there were 6 male disqualifications and 4 female 
-disqualifications \citep{False-Start}. By returning to the harsher policy and 
+disqualifications \citep{iaaf2009falsestart}. By returning to the harsher policy and 
 cracking down on false starts, World Athletics had reduced the number of 
 false starts by two thirds. One study that looked at different false start
 rules that IAAF has imposed from 1997 to 2009 and found that the reaction 
@@ -273,17 +273,17 @@ times when there was less leniency improved by a statistically significant amoun
 \citep{haugen2013effect}. This was desirable for World Athletics as false starts can 
 make already long track meets more tedious, both for athletes and viewers watching the 
 television broadcast.  Since 2011, IAAF has instituted the one false start rule
-\citep{Pilianidis}.  However, we chose not to include women's data in this
+\citep{iaaf2009falsestart}.  However, we chose not to include women's data in this
 paper due to the numerous papers citing difference in reaction times in men and
-women's reaction times: \citet{lipps2011implications}, \citet{babicc2009reaction}
-\citet{panoutsakopoulos2020gender}.
+women's reaction times: \citep{lipps2011implications, babicc2009reaction,
+panoutsakopoulos2020gender}
 
-Data was copied from the World Athletics website and pasted into an Excel
-spreadsheet. The data covers the men's 110 meter hurdles and the women's 100
-meter hurdles from 1999 to 2022.  The variable of prediction interest is reaction
-time, and the predicting variables are year, stage of competition (heats, 
-semifinal, final), total time, and gender.  The data can be found in the
-appendix~\ref{sec:Appendix} 
+\subsection{GLMM}
+Data was taken from the World Athletics and covers the men's 110 meter hurdles 
+and the women's 100 meter hurdles from 1999 to 2022.  The variable of prediction 
+interest is reaction time, and the predicting variables are year, stage of 
+competition (heats, semifinal, final), total time, and gender.  
+The data can be found in the appendix~\ref{sec:Appendix} 
 Factors such as name, country, and identification number were
 not considered important for the purposes of this research besides the times for
 Devon Allen and the other United States athletes mentioned above.  The variable "Stage"
@@ -303,7 +303,7 @@ finals pooled together.  We will refer to the latter as the "pooled data"
 throughout the paper.  The heats or preliminary rounds were not studied because
 athletes react faster as the competition progresses.  Athletes react faster in
 the finals than the semifinals which are faster than the heats 
-\ref{zhang2021correlation}.  If we want to determine if Allen's reaction time
+\citep{zhang2021correlation}.  If we want to determine if Allen's reaction time
 is reasonable, then we thus need to look at the men's final data, with the men's
 pooled data being included in order to increase the sample size.  In 2022, there
 were only five data points due to two disqualifications and one athlete who 
@@ -323,9 +323,11 @@ Brosnan found reaction times of 0.156 seconds for men when looking at data from
   \includegraphics{Finals_Pooled_Boxplot}
   \label{fig:Boxplots}
   \caption{The reaction times from 2019 to 2022 for the men's final (top) and
-  the men's semifinals and finals (bottom)}
+  the men's semifinals and finals (bottom).}
 \end{figure}
 
+
+\subsection{Rank based Comparisons}
 This section was motivated from a qualitative analysis that started by looking
 at how United States athletes reacted at the 2022 United States Track and Field
 Championships. From June 23-26 2022, USA held its Track
@@ -467,20 +469,7 @@ not matter how elite an athlete is at the 110 meter hurdles once we get to the
 national international competition level.  Cluster sizes vary from 2 observations
 to 6.
 
-When the clusrank rank sum test was performed, the "ds" method produced a z score of
-2.9751 and p value of 0.001464.  This value is for a one-sided test and show that
-the mean reaction time on average in 2019 was larger than the mean reaction time
-in 2022 for athletes who competed in both championships at an alpha level of 0.01.
-This provides good evidence that athletes who competed in both 2019 and 2022 got
-faster during that timespan.
 
-
-Repeating the data collection steps and
-again performing a clustered analysis for a Wilcoxon ranked sum test
-results in two new z scores and p values.  The "ds" method produced a z score of
-3.6069 and p value of 0.000155.  This result is highly significant and shows that
-the times at the national stage of competition were significantly higher than
-the reaction times at the World Championships even for an alpha level of 0.001.
 
 
 \section{Results} \label{sec:Results}
@@ -529,8 +518,8 @@ in the data, the chances of observing an extreme time are increased, showing tha
 It is worth noting that changing the reaction time barrier from 0.1 seconds to
 0.08 seconds drastically reduces the chances of observing a reaction time that
 would break the barrier.  For the dataset of all finals data, the probability
-associated with observing a reaction time below 0.08 seconds was $6\cdot10{-7}$.
-If IAAF were to change the reaction time the way that \citet{Komi}'s paper
+associated with observing a reaction time below 0.08 seconds was $6\cdot10^{-7}$.
+If IAAF were to change the reaction time the way that \citet{komi2009iaaf}'s paper
 suggests, the probability would be so much lower that athletes would likely not
 have a case to make when arguing against a disqualification.
 
@@ -570,11 +559,24 @@ to 2022, Seiko again upgraded its technology but for its jump management system.
 %Discussion/Conclusion is beyond results.  Limitations, what type of data we
 %hope to have.
 
-For the comparison between athletes who competed in 2019 and 2022, the p value
-was 0.001464.  As Seiko timed both events, there should not be a signficant
+When the clusrank rank sum test was performed, the "ds" method produced a z score of
+2.9751 and p value of 0.001464.  This value is for a one-sided test and show that
+the mean reaction time on average in 2019 was larger than the mean reaction time
+in 2022 for athletes who competed in both championships at an alpha level of 0.01.
+This provides good evidence that athletes who competed in both 2019 and 2022 got
+faster during that timespan.
+
+
+Repeating the data collection steps and
+again performing a clustered analysis for a Wilcoxon ranked sum test
+results in two new z scores and p values.  The "ds" method produced a z score of
+3.6069 and p value of 0.000155.  This result is highly significant and shows that
+the times at the national stage of competition were significantly higher than
+the reaction times at the World Championships even for an alpha level of 0.001.
+
+As Seiko timed both events, there should not be a signficant
 difference if the timing equipment in both instances was working correctly.
-Additionally, the p value was 0.000155 for the same athletes competing in the 
-same year  To put it simply, there is not a reasonable explanation for 
+  To put it simply, there is not a reasonable explanation for 
 this. It is inconceivable that so many athletes would improve such a significant
 amount in such a small amount of time. 6 countries are represented in this 
 comparison, which drastically decreases the chances of this issue being caused by
@@ -589,12 +591,12 @@ improvement for British, Polish, French, Brazilian, and Spanish athletes.
 One conclusion from \citet{zhang2021correlation}'s analysis was that athletes
 reaction times improved from 2011 to 2019.  However this study does not consider 
 data from 1999 to 2009, and over this timespan athletes get slower and then
-faster.  A boxplot~\ref{fig:Boxplot} shows that for the men's pooled data, the 
+faster.  A boxplot~\ref{fig:Boxplots} shows that for the men's pooled data, the 
 year with the fastest median reaction time before 2022 was 1999.  Thus, this 
 reject's Zhang's conclusion that athletes are getting faster because they were 
 fast over twenty years ago. One possible explanation for why 2011 had such
 high variation was because of the IAAF rule discussed earlier that increased the
-penalty of a false start to an instant disqualification \citep{False-Start}.
+penalty of a false start to an instant disqualification \citep{iaaf2009falsestart}.
 Athletes may have been overly cautious to false start and may have consciously
 or sub-consciously reacted slower as a result.  Instead, a more appropriate 
 conclusion may be that there is a lot of variability in reaction times and that
