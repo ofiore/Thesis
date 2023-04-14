@@ -83,12 +83,8 @@ Championship}
   This matter needs to be addressed because Devon Allen's disqualification could 
   be a problem that could continue to re-appear in future world championships.
 
-  \jy{Avoid references in abstract.}
-
-  
-  \jy{This is only the background. An abstract also needs to summarize the contributions.}
-%\bigskip
-\noindent\sc{Keywords}:
+\bigskip
+\noindent{\sc Keywords}:
 Reaction Time, Seiko, 
 
 \end{abstract}
@@ -108,12 +104,6 @@ Reaction Time, Seiko,
 \label{sec:intro}
 
 
-\jy{Not a good opening. Could start by telling the story, recapping the major
-  events and discussions on the internet. Then dig into the relevant
-  literature. Finally outline the contributions of this work.
-}
-
-
 \jy{use the following structure and flow:
   1) A paragraph to tell the story;
   2) A paragraph on informal statistical analyses on the internet/social media;
@@ -122,6 +112,7 @@ Reaction Time, Seiko,
   5) A paragraph of roadmap.}
 
 
+\jy{could condense a bit}
 %1
 After coming in third in the 110 meter hurdles at the United States Track and 
 Field Championships in Eugene Oregon at the end of June, Allen was expected to 
@@ -149,7 +140,7 @@ Thus, faster reaction times lead to faster overall times; which is the goal of
 every sprinter who steps onto the track.
 
 %2
-Outside the blog posts from LetsRun.com, there have not been any published
+Outside the blog posts from \url{www.LetsRun.com}, there have not been any published
 papers regarding Devon Allen's disqualification in particular.  This is not
 particularly surprising given that his disqualification occurred only last August.
 Letsrun is a website that is part message board and part news.  The message board,
@@ -164,23 +155,26 @@ with the timing equipment at the 2022 Track and Field World Championship and
 cited graphs, statistics such as median reaction time, and compared the reaction
 times at the 2022 Track and Field World Championship.  
 
+
+\jy{break into two paragraphs}
 %3
 In 2009, the International Association of Athletics Federations (Also referred to
 as IAAF or World Athletics), which is the governing board for international running
-competitions, commissioned a study into changing the reaction time barrier.
+competitions, commissioned a study into changing the reaction time barrier \citep{reference?}.
 The paper analyzed sprinters reaction times and the biological processes 
 that went into reacting to the starting gun and concluded 
-that athletes can react in as low as 0.08 seconds.  One study by Pain looked at
+that athletes can react in as low as 0.08 seconds.   \citet{pain2007sprint} looked at
 reaction times for nine male athletes and analyzed their reaction times.  The
 fastest athlete of the nine, had on average (even with their two fastest time 
 removed) a reaction time of 0.087 seconds and a standard deviation of 0.004
 seconds.  Two other athletes were able to react similarly when under certain
-muscular tightening conditions \citep{pain2007sprint}. Another study commissioned
+muscular tightening conditions. Another study commissioned
+\jy{Is this the same study at the beginning of this paragraph?}
 by IAAF concluded that the disqualification barrier be decreased to allow sprinters to
 react faster, and suggested 0.08 or 0.085 seconds as possible new thresholds.
 Additionally, it was recommended to IAAF that high speed cameras be used to
 change the reaction time criteria from pushing off on the block to body movement.
-\citep{komi2009iaaf} This could provide a more accurate representation of 
+\citep{komi2009iaaf}. This could provide a more accurate representation of 
 reaction time, and thus the possibility of a false disqualification would be lowered.
 The possibility of using a video-based medium has been proved to be a reliable
 measure of reaction time \citep{mudric2015evaluation}.
@@ -191,6 +185,7 @@ conclusion was that for reaction times did not decrease over the twelve years
 covered by the research in the study \citep{pilianidis2012start}.  This contradicts
 what was found in a 2021 study that concluded the year of competition has a
 significant effect on reaction times \citep{zhang2021correlation}.  Zhang's
+\jy{Not Zhang's. There are coauthors. Consider using citet when appropriate in this paragraph.}
 analysis looked at data from the 2011-2019 World Championships across multiple
 sprint events and concluded that from 2011 to 2019, athletes reaction times got
 faster. However, not  all studies have been in favor of a decrease in the
@@ -211,6 +206,7 @@ and in his physical peak.
 %How barrier is picked by regulator
 
 %4
+\jy{I think you have one objective but two methods to approach it.}
 One of the first objectives of the paper is to try to model the data, which is
 the reaction times of every non-disqualification since the 1999 World Championships. 
 The model we use is a linear model, following a gamma distribution with a random
@@ -278,7 +274,7 @@ paper due to the numerous papers citing difference in reaction times in men and
 women's reaction times: \citep{lipps2011implications, babicc2009reaction,
 panoutsakopoulos2020gender}
 
-\subsection{GLMM}
+\subsection{World Championship}
 Data was taken from the World Athletics and covers the men's 110 meter hurdles 
 and the women's 100 meter hurdles from 1999 to 2022.  The variable of prediction 
 interest is reaction time, and the predicting variables are year, stage of 
@@ -286,11 +282,11 @@ competition (heats, semifinal, final), total time, and gender.
 The data can be found in the appendix~\ref{sec:Appendix} 
 Factors such as name, country, and identification number were
 not considered important for the purposes of this research besides the times for
-Devon Allen and the other United States athletes mentioned above.  The variable "Stage"
-refers to whether the observation occurred during the "heats" (Preliminary round) which
-is denoted by "H" in the data, "S" for "semifinals" (Of which there are either 2 or 3 
-heats each year), and "F" for finals. The variable "Gender" has levels "M" and "F" 
-which stand for "male" and "female" respectively.  The variable "Batch" takes a 
+Devon Allen and the other United States athletes mentioned above.  The variable ``Stage"
+refers to whether the observation occurred during the ``heats" (Preliminary round) which
+is denoted by ``H" in the data, ``S" for ``semifinals" (Of which there are either 2 or 3 
+heats each year), and ``F" for finals. The variable ``Gender" has levels ``M" and ``F" 
+which stand for ``male" and ``female" respectively.  The variable ``Batch" takes a 
 numerical value and every heat of every round from 1999 to 2022 was assigned it's
 own number.  This was added because of suspected issues that reaction time may be
 correlated with other runners reacting quickly (one runner reacting quickly may
@@ -299,7 +295,7 @@ how the batches were labeled, they were ordered chronologically by meet but
 reverse chronologically by year (Batch 1 is a preliminary Heat of 2022 and Batch
 111 corresponds to the 1999 finals). Included are
 box plots of the reaction times of the men's finals and the men's semifinals and
-finals pooled together.  We will refer to the latter as the "pooled data"
+finals pooled together.  We will refer to the latter as the ``pooled data"
 throughout the paper.  The heats or preliminary rounds were not studied because
 athletes react faster as the competition progresses.  Athletes react faster in
 the finals than the semifinals which are faster than the heats 
@@ -327,7 +323,7 @@ Brosnan found reaction times of 0.156 seconds for men when looking at data from
 \end{figure}
 
 
-\subsection{Rank based Comparisons}
+\subsection{Beyond World Championship}
 This section was motivated from a qualitative analysis that started by looking
 at how United States athletes reacted at the 2022 United States Track and Field
 Championships. From June 23-26 2022, USA held its Track
@@ -344,16 +340,17 @@ Field Championship compared to the USA Track and Field Championship as were his
 teammates.  This comparison suggests that the timing system used between the two
 meets may have been meaningfully different to the point where Devon Allen was
 disqualified more because of faulty equipment rather than because he reacted
+\jy{cross-reference to the table by its label}
 too quickly.  This table below highlights the difference in reaction times for
-Devon Allen, Trey Cunningham, Grant Holloway, and Daniel Roberts. "USA" denotes
-the USA Track and Field Championships, "World" denotes the World Track and Field
-Championships, "N/A" was used for any athlete that did not compete and thus
+Devon Allen, Trey Cunningham, Grant Holloway, and Daniel Roberts. ``USA" denotes
+the USA Track and Field Championships, ``World" denotes the World Track and Field
+Championships, ``N/A" was used for any athlete that did not compete and thus
 did not register a reaction time.  All numbers listed in the table are the reaction
 time for the respective athletes in seconds. 
 
 
 \begin{center}
-  \begin{tabular}{|c c c c c c c|} 
+  \begin{tabular}{c c c c c c c} 
    \toprule
    Athlete & USA H & USA S & USA F & World H & World S & World F \\ [0.5ex] 
    \midrule
@@ -442,7 +439,7 @@ seconds in order to gauge if that is a reasonable disqualification barrier.
 
 
 
-\subsection{Rank-based comparison for Clustered}
+\subsection{Rank-based Comparison}
 
 
 %Citations needed
@@ -451,38 +448,42 @@ seconds in order to gauge if that is a reasonable disqualification barrier.
 %Was found by __ referecne and the implementation is from the clusrank R package
 
 
+\jy{Undefined notations}
 The test statistic of the DS method of the Wilcoxon rank-sum statistic is:
 $Z = \frac{S - E(S)}{\sqrt{\hat{\text{Var}}(S)}}$ where 
 $W^* = \frac{1}{N} + \sum_{i=1}^{N} \delta_{i}^{*} R_{i}^{*}$, $R_{i}^{*}$ is
 the rank of $X_{i}^{*}$.
 The asymptomatic distribution of the Wilcoxon rank-sum statistic was found by
-\citet{datta2005rank} and the R package "clusrank" allows for its implementation.
+\citet{datta2005rank} and the R package ``clusrank" allows for its implementation.
 \citep{jiang2017wilcoxon}.
 
 
-Using the "clusWilcox.test" function, a grouped and clustered Wilcoxon rank sum
-test was performed with the cluster set to be the Athlete and group set to Year.
-The method was set to be "DS" which is used for the Data and Satten method, which
-is preferable when the cluster sizes are informative \citep{jiang2017wilcoxon}.  We do not care that some
+Using the \texttt{clusWilcox.test()} function, a Wilcoxon rank sum
+test was performed with the cluster set to be the Athlete and group set to Year
+using the DS method. The DS method is preferable when the cluster sizes are
+informative \citep{jiang2017wilcoxon}. \jy{explain. More data means faster
+  reaction time?}
+We do not care that some
 athletes made it further in either competition than another or that it should
 not matter how elite an athlete is at the 110 meter hurdles once we get to the
 national international competition level.  Cluster sizes vary from 2 observations
 to 6.
 
 
-
-
 \section{Results} \label{sec:Results}
-\jy{summarize your findings; discuss limitations and possible future works.}
 
-
-\subsection{GLMM Results}
+\subsection{GLMM}
 %Section 4.1: Gamma model results show the fitting with and without 2022,
 %talk about p values and thresholds from the simulations (do not include the
-%results in the methods section). 
-At a size of n=10,000,000, the calculated probability of a reaction
-time being below 0.1 seconds was as follows for the various different data sets:
+%results in the methods section).
 
+\jy{present the estimated parameters first before deriving the p-value using the
+  estimated parameters. The difference in variance of the random effects using
+  different data motivated the rank-based study.}
+
+At a size of $n=10,000,000$, the calculated probability of a reaction
+time being below 0.1 seconds was as follows for the various different data sets:
+\jy{label the table and reference to it; clean it up}
 \begin{center}
   \begin{tabular}{|c c|} 
    \hline
@@ -509,11 +510,13 @@ times every 2 years (The World Championship is biennial), every 569 years there
 should be a time as extreme as Allen's.  This seems extremely unlikely, and thus
 it seems like there may be an additional explanation for the fast reaction times.
 
+
 It is interesting that the probability of observing a reaction time below 0.1
 seconds increases drastically for the finals data and increases by a smaller margin
 for the pooled data set after 2022 is included in the data set.  By including 2022
 in the data, the chances of observing an extreme time are increased, showing that
 2022 is a high outlier for reaction times compared to other years.
+
 
 It is worth noting that changing the reaction time barrier from 0.1 seconds to
 0.08 seconds drastically reduces the chances of observing a reaction time that
@@ -538,7 +541,7 @@ technology to the World Track and Field Championships, the highest stakes in the
 of running outside of the Olympics. Seiko's technology for detecting reaction 
 times relies on the pressure that athletes
 exert on the plate when they push off.  Their systems measure the time differential
-between when the "gun" goes off to start the race and when the pressure changes 
+between when the ``gun" goes off to start the race and when the pressure changes 
 \citep{Seiko}  If an athlete has a reaction time under 0.10 seconds, it is deemed a 
 false start as it is considered that no athlete can react so quickly 
 \citep{Seiko-Timing}.  Thus, a reaction time of for example 0.05, suggests that 
@@ -552,14 +555,14 @@ times were caused by Seiko's equipment, but the two may be related.  It is worth
 to 2022, Seiko again upgraded its technology but for its jump management system.
 
 
-\subsection{Rank Comparison Results}
+\subsection{Rank-based Comparison}
 %Section 4.2 is motivated by seiko timing and look at same athletes across
 %multiple types of competition: 2019 and national
 
 %Discussion/Conclusion is beyond results.  Limitations, what type of data we
 %hope to have.
 
-When the clusrank rank sum test was performed, the "ds" method produced a z score of
+When the clusrank rank sum test was performed, the ``ds" method produced a z score of
 2.9751 and p value of 0.001464.  This value is for a one-sided test and show that
 the mean reaction time on average in 2019 was larger than the mean reaction time
 in 2022 for athletes who competed in both championships at an alpha level of 0.01.
@@ -569,7 +572,7 @@ faster during that timespan.
 
 Repeating the data collection steps and
 again performing a clustered analysis for a Wilcoxon ranked sum test
-results in two new z scores and p values.  The "ds" method produced a z score of
+results in two new z scores and p values.  The ``ds" method produced a z score of
 3.6069 and p value of 0.000155.  This result is highly significant and shows that
 the times at the national stage of competition were significantly higher than
 the reaction times at the World Championships even for an alpha level of 0.001.
