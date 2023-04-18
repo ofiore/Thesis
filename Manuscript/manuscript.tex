@@ -204,7 +204,7 @@ and in his physical peak.
 One of the first objectives of the paper is to try to model the data, which is
 the reaction times of every non-disqualification since the 1999 World Championships. 
 The model we use is a linear model, following a gamma distribution with a random
-effect, which will be referred to as the year effect.  The year effect is
+effect, which will be referred to as the venue effect.  The venue effect is
 reflective of how significant the changes in the reaction time is for each venue,
 i.e. the venue effect is  responsible for the variation between years.  
 Another objective of this paper is to compare data for athletes who have competed
@@ -340,7 +340,7 @@ teammates.  This comparison suggests that the timing system used between the two
 meets may have been meaningfully different to the point where Devon Allen was
 disqualified more because of faulty equipment rather than because he reacted
 \jy{cross-reference to the table by its label}
-too quickly.  Table~\ref{USAvsWorld} below highlights the difference in reaction times for
+too quickly.  Table~\ref{fig:USAvsWorld} below highlights the difference in reaction times for
 Devon Allen, Trey Cunningham, Grant Holloway, and Daniel Roberts. ``USA" denotes
 the USA Track and Field Championships, ``World" denotes the World Track and Field
 Championships, ``N/A" was used for any athlete that did not compete and thus
@@ -375,8 +375,8 @@ competition (national or international) was specified to be the group.
 
 \subsection{GLMM}
 %Include latex math symbols for the equations
-The R package \citet{lme4} allows various linear mixed effects models to be
-created, and was the primary modeling package used for our data analysis.
+The R package lme3 allows various linear mixed effects models to be created, and 
+was the primary modeling package used for our data analysis \citep{lme4}.
 A gamma mixed linear effects model was chosen as the best model to model the data.
 Many models were tried and compared to determine what the strongest model.  For
 a fixed data set such as the men's pooled data including 2022, the models with
@@ -404,7 +404,7 @@ reaction time data from 2022 should be the best as the timing system should be
 state of the art.  Any other weather or climate related factors such as humidity,
 precipitation, elevation, etc. would all be negated when looking at the batch
 effect, but are all factors that could potentially impact the venue effect.
-Thus, we decided to inclue only the year effect in the GLMM, which is presented
+Thus, we decided to inclue only the venue effect in the GLMM, which is presented
 as:
 
 \begin{equation}
@@ -474,7 +474,7 @@ to 6.
 
 \section{Results} \label{sec:Results}
 
-\subsection{GLMM}
+\subsection{GLMM} \label{subsec:Results_GLMM}
 %Section 4.1: Gamma model results show the fitting with and without 2022,
 %talk about p values and thresholds from the simulations (do not include the
 %results in the methods section).
@@ -482,6 +482,28 @@ to 6.
 \jy{present the estimated parameters first before deriving the p-value using the
   estimated parameters. The difference in variance of the random effects using
   different data motivated the rank-based study.}
+
+As shown in table~\ref{fig:Gamma_parameters}, the standard error of the year
+effect increases for both the men's final and men's pooled data sets when
+including 2022.  The men's final data venue effect error increased from 0.439
+to 0.504 and from 0.0495 to 0.0554 for the men's pooled data.  This demonstrates
+that the inclusion of 2022 increased the randomness of the data and motivates
+the rank-based study~\ref{subsec:Results_Rank}.
+
+  Gamma model with venue effect and link=log
+  \begin{center}
+    \begin{tabular}{c  c  c  c  c  c  c } 
+     \toprule
+     Dataset & Venue standard error & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
+     \midrule
+     Older Finals & 0.0439 & -1.901 & 0.0251 & 0.0019 & 0.0109 \\
+     All Finals & 0.0504 & -1.914 & 0.0280 & 0.0025 & 0.0112 \\
+     Older Pooled & 0.0495 & -1.853 & 0.0305 & 0.0024 & 0.0243 \\
+     All Pooled & 0.0554 & -1.869 & 0.0348 & 0.0031 & 0.0235 \\
+     \bottomrule
+     \label{fig:Gamma_parameters}
+    \end{tabular}
+    \end{center}
 
 At a size of $n=10,000,000$, the calculated probability of a reaction
 time being below 0.1 seconds was as follows for the various different data sets:
@@ -496,15 +518,16 @@ time being below 0.1 seconds was as follows for the various different data sets:
    all pooled gamma log & 0.006865 \\
    old pooled gamma log & 0.005761 \\
    \bottomrule
+   \label{fig:Sim_probability}
   \end{tabular}
   \end{center}
 
-Using the gamma function with link set to log (whose summary statistics can be
-found in the last row of the above table), the probability of the function being
+Using the gamma function with link set to log, the probability of the function being
 less than 0.1 seconds can be calculated to see if Allen's disqualification was an anomaly.
 Prior to the 2022 World Championship, there was a 0.0439\% chance (based on the
 simulated results) of observing a reaction time below 0.01 seconds in the men's
-finals.  That means that we would expect a time below the threshold to occur
+finals as shown in table~\ref{fig:Sim_probability}.
+That means that we would expect a time below the threshold to occur
 once every 2,277 starts.  Considering there are roughly 8 men's finals reaction
 times every 2 years (The World Championship is biennial), every 569 years there
 should be a time as extreme as Allen's.  This seems extremely unlikely, and thus
@@ -555,7 +578,7 @@ times were caused by Seiko's equipment, but the two may be related.  It is worth
 to 2022, Seiko again upgraded its technology but for its jump management system.
 
 
-\subsection{Rank-based Comparison}
+\subsection{Rank-based Comparison} \label{subsec:Results_Rank}
 %Section 4.2 is motivated by seiko timing and look at same athletes across
 %multiple types of competition: 2019 and national
 
@@ -577,7 +600,7 @@ results in two new z scores and p values.  The ``ds" method produced a z score o
 the times at the national stage of competition were significantly higher than
 the reaction times at the World Championships even for an alpha level of 0.001.
 
-As Seiko timed both events, there should not be a signficant
+As Seiko timed both events, there should not be a significant
 difference if the timing equipment in both instances was working correctly.
   To put it simply, there is not a reasonable explanation for 
 this. It is inconceivable that so many athletes would improve such a significant
