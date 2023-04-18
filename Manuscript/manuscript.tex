@@ -408,13 +408,11 @@ precipitation, elevation, etc. would all be negated when looking at the batch
 effect, but are all factors that could potentially impact the venue effect.
 Thus, we decided to inclue only the venue effect in the GLMM, which is presented
 as:
-
 \begin{equation}
   \label{eq:GLMM}
-  Y_{ij} = \beta_0 + \gamma_i + \epsilon_{ij}
+  Y_{ij} = \beta_0 + \gamma_i + \epsilon_{ij},
 \end{equation}
-  
-Where $Y_{ij}$ is the response variable for observation $j$ in year $i$, , 
+where $Y_{ij}$ is the response variable for observation $j$ in year $i$, 
 $\beta_0$ is the intercept, $\gamma_i$ is the random effect term for year $i$, 
 and $\epsilon_{ij}$ is the error term for observation $j$ in year $i$.
 
