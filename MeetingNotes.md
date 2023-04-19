@@ -1,3 +1,19 @@
+# Meetings Notes 3/18
+Double subscript for group and cluster?
+Define what S, W, other variables are
+Why is DS better: cluster size refers to how many data points for each athlete
+As data is national and world championship, if someone appeared in both that
+means that the athlete is very good, that is why ds is better.  Cluster size
+is informative.  Need to explain why this is preferable.  Larger cluster size
+indicates that they reached finals more and may be faster/better
+
+dont Combine tables for the probability section
+Negative sign put in math mode
+Put year as 2023 and the author as, need to give last accessed date, put author as Seiko
+Choose a p, and then calculate reaction time barrier in 2 other columns
+
+
+
 # Meeting Notes 4/11
 Include pdf reference with link, include last referrenced date
 Change the language regarding the references
