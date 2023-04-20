@@ -345,11 +345,10 @@ disqualified more because of faulty equipment rather than because he reacted
 too quickly.  Table~\ref{fig:USAvsWorld} below highlights the difference in reaction times for
 Devon Allen, Trey Cunningham, Grant Holloway, and Daniel Roberts. ``USA" denotes
 the USA Track and Field Championships, ``World" denotes the World Track and Field
-Championships, ``N/A" was used for any athlete that did not compete and thus
-did not register a reaction time.  All numbers listed in the table are the reaction
+Championships,   All numbers listed in the table are the reaction
 time for the respective athletes in seconds. 
 
-
+\begin{table}
 \begin{center}
   \begin{tabular}{c c c c c c c} 
    \toprule
@@ -360,9 +359,14 @@ time for the respective athletes in seconds.
    Grant Holloway & 0.192 & 0.190 & N/A & 0.147 & 0.128 & 0.124 \\
    Daniel Roberts & 0.181 & 0.200 & 0.183 & 0.179 & N/A & N/A \\ [0.5ex]
    \bottomrule
-   \label{fig:USAvsWorld}
   \end{tabular}
+  \label{fig:USAvsWorld}
+  \caption{Rection times for four United States Athletes at the 2022 USA Track
+  and Field World Championships and the 2022 World Track and Field Championship.
+  ``N/A" was used for any athlete that did not compete and thus did not register 
+  a reaction time.}
   \end{center}
+\end{table}
 
 This dataset is quite small to perform any formal statistical analysis on, but
 the data was expanded to include data for athletes who competed at national
@@ -454,22 +458,39 @@ seconds in order to gauge if that is a reasonable disqualification barrier.
 The test statistic of the DS method of the Wilcoxon rank-sum statistic is:
 $Z = \frac{S - E(S)}{\sqrt{\hat{\text{Var}}(S)}}$ where 
 $W^* = \frac{1}{N} + \sum_{i=1}^{N} \delta_{i}^{*} R_{i}^{*}$, $R_{i}^{*}$ is
-the rank of $X_{i}^{*}$.
+the rank of $X_{i}^{*}$. S is given as $S = \mathbb{E}[W^* | X, \delta]$ and
+$E(S) = E(W^*) = \frac{1}{2} \sum_{i=1}^{N} \frac{n_i}{N}$.
 The asymptomatic distribution of the Wilcoxon rank-sum statistic was found by
 \citet{datta2005rank} and the R package ``clusrank" allows for its implementation.
 \citep{jiang2017wilcoxon}.
+---Please see manuscript around line 464 for comments regarding this section---
+
+%I included additional statistics from the paper, I am unsure of how in depth
+%This explanation needs to be
+
+
+%$F_{i}(x) = \frac{1}{n_i} \sum_{k=1}^{n_i} \mathbb{I}(X_{i,k} \leq x)$
+
+%$F_{i}(x-) = \frac{1}{n_i} \sum_{k=1}^{n_i} \mathbb{I}(X_{i,k} < x)$
+
+%$S = \frac{1}{N + 1} \sum_{i=1}^{N}  \sum_{k=1}^{n_i} \frac{\delta_{ik}}{n_i} \left[ 1 + \frac{1}{2} \sum_{j \neq i} \frac{1}{n_j}
+%\left( F_j(X_{ik}) + F_j(X_{ik-}) \right) \right]$
+
+
+
+
 
 
 Using the \texttt{clusWilcox.test()} function, a Wilcoxon rank sum
 test was performed with the cluster set to be the Athlete and group set to Year
 using the DS method. The DS method is preferable when the cluster sizes are
-informative \citep{jiang2017wilcoxon}. \jy{explain. More data means faster
-  reaction time?}
-We do not care that some
-athletes made it further in either competition than another or that it should
-not matter how elite an athlete is at the 110 meter hurdles once we get to the
-national international competition level.  Cluster sizes vary from 2 observations
-to 6.
+informative \citep{jiang2017wilcoxon}.  In this case, athletes who have more
+data are generally thought to be faster, as they have made it further in the
+competition.  Clusters range from two to six, with two indicating that at each
+competition they only made it to the heats, but a cluster size of six indicates
+that they made the finals in both competitions.  While the number of times
+athletes compete is based off their overall time not their reaction time, the
+two are correlated \citep{delalija2008reaction}.
 
 
 \section{Results} \label{sec:Results}
@@ -483,50 +504,54 @@ to 6.
   estimated parameters. The difference in variance of the random effects using
   different data motivated the rank-based study.}
 
-As shown in table~\ref{fig:Gamma_parameters}, the standard error of the year
+As shown in table~\ref{tab:Gamma_parameters}, the standard error of the year
 effect increases for both the men's final and men's pooled data sets when
 including 2022.  The men's final data venue effect error increased from 0.439
 to 0.504 and from 0.0495 to 0.0554 for the men's pooled data.  This demonstrates
 that the inclusion of 2022 increased the randomness of the data and motivates
 the rank-based study~\ref{subsec:Results_Rank}.
 
-  Gamma model with venue effect and link=log
-  \begin{center}
-    \begin{tabular}{c  c  c  c  c  c  c } 
-     \toprule
-     Dataset & Venue standard error & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
-     \midrule
-     Older Finals & 0.0439 & -1.901 & 0.0251 & 0.0019 & 0.0109 \\
-     All Finals & 0.0504 & -1.914 & 0.0280 & 0.0025 & 0.0112 \\
-     Older Pooled & 0.0495 & -1.853 & 0.0305 & 0.0024 & 0.0243 \\
-     All Pooled & 0.0554 & -1.869 & 0.0348 & 0.0031 & 0.0235 \\
-     \bottomrule
-     \label{fig:Gamma_parameters}
-    \end{tabular}
-    \end{center}
+\begin{table}
+  \centering
+  \begin{tabular}{c c c c c c}
+      \toprule
+      Dataset & Venue standard error & Int effect est & Int se & Int var & Resid Var \\
+      \midrule
+      Older Finals & 0.0439 & $-1.901$ & 0.0251 & 0.0019 & 0.0109 \\
+      All Finals & 0.0504 & $-1.914$ & 0.0280 & 0.0025 & 0.0112 \\
+      Older Pooled & 0.0495 & $-1.853$ & 0.0305 & 0.0024 & 0.0243 \\
+      All Pooled & 0.0554 & $-1.869$ & 0.0348 & 0.0031 & 0.0235 \\
+      \bottomrule
+  \end{tabular}
+  \caption{Summary statistics for the GLMM on various data sets}
+  \label{tab:Gamma_parameters}
+\end{table}
 
 At a size of $n=10,000,000$, the calculated probability of a reaction
 time being below 0.1 seconds was as follows for the various different data sets:
 \jy{label the table and reference to it; clean it up}
-\begin{center}
-  \begin{tabular}{c c} 
+\begin{table}
+  \centering
+  \begin{tabular}{c c c c} 
    \toprule
-   Data Set & Probability RxnTime $<$ 0.1 \\ 
+   Data Set & P(RxnTime $<$ 0.1) & P(RxnTime $<$ 0.09) & P(RxnTime $<$ 0.08) \\ 
    \midrule
-   all finals gamma log & 0.000856 \\ 
-   old finals gamma log & 0.000439 \\
-   all pooled gamma log & 0.006865 \\
-   old pooled gamma log & 0.005761 \\
+   all finals gamma log & $8.56\cdot10^{-4}$ & $4.1\cdot10^{-5}$ & $6.0\cdot10^{-7}$ \\ 
+   old finals gamma log & $4.39\cdot10^{-4}$ & $1.63\cdot10^{-5}$ & $2.0\cdot10^{-5}$ \\
+   all pooled gamma log & $6.86\cdot10^{-3}$ & $1.21\cdot10^{-3}$ & $1.3\cdot10^{-4}$ \\
+   old pooled gamma log & $5.76\cdot10^{-3}$ & $9.93\cdot10^{-4}$ & $1.0\cdot10^{-4}$\\
    \bottomrule
-   \label{fig:Sim_probability}
   \end{tabular}
-  \end{center}
+  \caption{Probabilities of observing reaction times less than 0.1, 0.09, and
+  0.08 for various data sets}
+  \label{tab:Sim_probability}
+\end{table}
 
 Using the gamma function with link set to log, the probability of the function being
 less than 0.1 seconds can be calculated to see if Allen's disqualification was an anomaly.
 Prior to the 2022 World Championship, there was a 0.0439\% chance (based on the
 simulated results) of observing a reaction time below 0.01 seconds in the men's
-finals as shown in table~\ref{fig:Sim_probability}.
+finals as shown in table~\ref{tab:Sim_probability}.
 That means that we would expect a time below the threshold to occur
 once every 2,277 starts.  Considering there are roughly 8 men's finals reaction
 times every 2 years (The World Championship is biennial), every 569 years there
@@ -541,7 +566,7 @@ in the data, the chances of observing an extreme time are increased, showing tha
 2022 is a high outlier for reaction times compared to other years.
 
 
-It is worth noting that changing the reaction time barrier from 0.1 seconds to
+Table ~\ref{tab:Sim_probability} shows that changing the reaction time barrier from 0.1 seconds to
 0.08 seconds drastically reduces the chances of observing a reaction time that
 would break the barrier.  For the dataset of all finals data, the probability
 associated with observing a reaction time below 0.08 seconds was $6\cdot10^{-7}$.
