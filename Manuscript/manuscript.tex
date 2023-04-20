@@ -91,12 +91,10 @@ Reaction Time, Seiko,
 
 \doublespace
 
-\jy{The bib file needs quality control. The bib keys need to have a consistent
-  style. I suggest using the keys from google scholar.}
+\jy{The bib file needs quality control. Practice my writing tips in the
+  stat-wriging notes: chapter 2 on latex/bibtex.}
 
-\jy{Practice my writing tips in the stat-wriging notes: chapter 2 on
-  latex. E.g., no vertical/horizontal lines in professional tables. Use the
-  tables in my template.}
+\jy{Go over the reference section to see what need to be changed in the bib source}
 
 \jy{Turn on column numbers in your editor to keep line width under 80.}
 
@@ -104,18 +102,8 @@ Reaction Time, Seiko,
 \label{sec:intro}
 
 
-\jy{use the following structure and flow:
-  1) A paragraph to tell the story;
-  2) A paragraph on informal statistical analysis on the internet/social media;
-  3) A paragraph on scholarly articles on reaction time in the literature;
-  4) A paragraph on what's new: methods; results.
-  5) A paragraph of roadmap.}
-
-
-\jy{could condense a bit}
-%1
 After coming in third in the 110 meter hurdles at the United States Track and 
-Field Championships in Eugene Oregon at the end of June, Allen was expected to 
+Field Championships in Eugene Oregon at the end of June, Devin Allen was expected to
 be a contender for the World Championships, which were scheduled for two months 
 later, also in Eugene. At the World Championships, Allen made it through the 
 heats and semifinals to reach the finals while posting reaction times of 0.123
@@ -136,14 +124,14 @@ been shown to affect the overall time of the race \citep{delalija2008reaction}.
 Thus, faster reaction times lead to faster overall times; which is the goal of
 every sprinter who steps onto the track.
 
-%2
-Outside the blog posts from \url{www.LetsRun.com}, there have not been any published
-papers regarding Devon Allen's disqualification in particular.  This is not
-particularly surprising given that his disqualification occurred only last August.
-Letsrun is a website that is part message board and part news.  The message board,
+
+Allen's disqualification has been discussed extensively in online communities
+such as \url{www.LetsRun.com}, a website that is part message board and part
+news. The message board,
 which functions similarly to Reddit is very active during important running
 events, which include during the finals of major events such as
 the Olympics and the World Track and Field Championships.  However, it is the
+\jy{cite these blog articles formally}
 news section of the website that generated articles such as ``Was Devon Allen
 Screwed? There's At Least a 99\% That He Was" and ``The Data Keeps Pouring In and
 It Continues to Look Bad For World Athletics and Great For Devon Allen".  Robert
@@ -153,27 +141,27 @@ cited graphs, statistics such as median reaction time, and compared the reaction
 times at the 2022 Track and Field World Championship \citep{johnson2022devon}. 
 
 
-\jy{break into two paragraphs}
-%3
-Other studies have looked at minimum reaction times such as \citet{pain2007sprint}  which looked at
+Reaction time in sprint and hurdle events has been studied by many authors.
+\citet{pain2007sprint} looked at
 reaction times for nine male athletes and analyzed their reaction times.  The
 fastest athlete of the nine, had on average (even with their two fastest time 
 removed) a reaction time of 0.087 seconds and a standard deviation of 0.004
 seconds.  Two other athletes were able to react similarly when under certain
-muscular tightening conditions.  In 2009, IAAF commissioned a study to examine
-the disqualification barrier. It was concluded that the disqualification 
+muscular tightening conditions.  In a study commissioned by IAAF,
+\jy{define acronym at first occurrence}
+\citep{komi2009iaaf} recommended that the disqualification 
 barrier be decreased to allow sprinters to
 react faster, and suggested 0.08 or 0.085 seconds as possible new thresholds.
 Additionally, it was recommended to IAAF that high speed cameras be used to
-change the reaction time criteria from pushing off on the block to body movement.
-\citep{komi2009iaaf}. This could provide a more accurate representation of 
+change the reaction time criteria from pushing off on the block to body
+movement. This could provide a more accurate representation of 
 reaction time, and thus the possibility of a false disqualification would be lowered.
 The possibility of using a video-based medium has been proved to be a reliable
 measure of reaction time \citep{mudric2015evaluation}.
 
-\jy{Not Zhang's. There are coauthors. Consider using citet when appropriate in this paragraph.}
 
-A 2012 follow-up study to Komi's by \citet*{pilianidis2012start} found
+\jy{Could be condensed}
+\citet{pilianidis2012start} found
 significant differences between reaction times at several world championships
 between 1997 and 2009 for the men's 110 meter hurdles.  Another important
 conclusion was that for reaction times did not decrease over the twelve years
@@ -197,19 +185,15 @@ between the ages of 26 and 29 \citep{tonnessen2013reaction}.  This is notable
 because Allen was 27 years old at the 2022 Track and Field World Championship 
 and in his physical peak.
 
-%How barrier is picked by regulator
 
-%4
-\jy{I think you have one objective but two methods to approach it.}
+\jy{language needs to be formalized and condensed.}
 The objective to this paper is to analyze the reaction times at the 2022
 World Track and Field Championship to check for any abnormalities, and we approach
 this two different ways.  Our first method is to try to model the data, which is
 the reaction times of every non-disqualification since the 1999 World Championships. 
-The model we use is a linear model, following a gamma distribution with a random
-effect, which will be referred to as the venue effect.  The venue effect is
-reflective of how significant the changes in the reaction time is for each venue,
-i.e. the venue effect is  responsible for the variation between years.  
-The second method of this paper is to compare data for athletes who have competed
+The model we use is a gamma linear mixed-effects model with a random effect
+accounting for the venue (or year) effect. 
+The second method is to compare data for athletes who have competed
 at additional competitions to see how their reaction times compare from previous
 competitions to this one. First we can look at the reaction times of athletes who
 competed at the World Track and Field Championship in both 2019 and 2022 and
@@ -226,13 +210,10 @@ and the World Championships were in August. The equipment used to measure reacti
 time cannot be guaranteed to be the same from national to international
 competition, but the time span between meets has been reduced considerably.
 
-%Simplify contribution to one paragraph: collect data and formal statistical
-%analysis such as model used
-%Move a lot of this to methods section
 
-%5
 The rest of this paper is as follows: Section~\ref{sec:Data} describes how data was
-collected and begins to detail the GLMM model which is further developed in the
+collected and begins to detail the generalized linear mixed-effect (GLMM)
+model which is further developed in the
 Section~\ref{sec:Methods}.  The signed-rank test analysis for the same athletes is
 also included in Section~\ref{sec:Methods}.  Section~\ref{sec:Results}
 section provides the probabilities from the methods section and the paper ends 
@@ -242,9 +223,6 @@ discusses the impact and limitations of the paper.
 
 \section{Data} \label{sec:Data}
 
-\jy{Describe you data types; give details on sources; introduce notations for
-  both types of data
-  present exploratory plots.}
 There are two types of data that is explored throughout this paper: data from
 1999-2022 for every world championship, and data from athletes who competed
 at both the 2019 and 2022 World Championships and 2022 national competitions
@@ -252,6 +230,16 @@ and the 2022 World Championship.  The first data set is used for the GLMM portio
 of the paper, while the second data set is used for the rank based comparisons.
 
 \subsection{World Championship}
+
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics{Finals_Pooled_Boxplot}
+  \caption{The reaction times from 2019 to 2022 for the men's final (top) and
+  the men's semifinals and finals (bottom).}
+  \label{fig:Boxplots}
+\end{figure}
+
 Data was taken from the World Athletics and covers the men's 110 meter hurdles 
 and the women's 100 meter hurdles from 1999 to 2022.  The variable of prediction 
 interest is reaction time, and the predicting variables are year, stage of 
@@ -289,8 +277,9 @@ and the median for the men's final data in 2022 was 0.126.  For comparison,
 Brosnan found reaction times of 0.156 seconds for men when looking at data from
 1999 to 2014 \citep{brosnan2017effects}.
 
-Something that is extremely important to note in the Data is the inconsistency 
-of World Athletics in terms of how they penalize false starts.  From 2007-2009,
+
+Something that is extremely important to note in the data is the inconsistency 
+of World Athletics in terms of how they penalize false starts.  From 2007--2009,
 the IAAF (the former name for World Athletics, and the governing body for the 
 World Track and Field Champions) instituted a rule change that allowed one 
 warning false start before a sprinter was disqualified \citep{iaaf2009falsestart}  This 
@@ -312,16 +301,6 @@ television broadcast.  Since 2011, IAAF has instituted the one false start rule
 paper due to the numerous papers citing difference in reaction times in men and
 women's reaction times: \citep{lipps2011implications, babicc2009reaction,
 panoutsakopoulos2020gender}
-%Fix quotations
-%Dont need the titles will add captions, use width =5, height = 3 in aspect ratio
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics{Finals_Pooled_Boxplot}
-  \label{fig:Boxplots}
-  \caption{The reaction times from 2019 to 2022 for the men's final (top) and
-  the men's semifinals and finals (bottom).}
-\end{figure}
 
 
 \subsection{Beyond World Championship}
@@ -372,12 +351,32 @@ competition (national or international) was specified to be the group.
 
 \section{Methods} \label{sec:Methods}
 
-\jy{set up the models/methods using the notations from last section; cite the
-  right references.}
+The World Championship data and the data beyond the World Champisonship were
+analysed with GLMM and rank-based approaches, respectively.
 
 \subsection{GLMM}
-%Include latex math symbols for the equations
-The R package lme3 allows various linear mixed effects models to be created, and 
+Based on an exploratory analysis, the GLMM model that we chose was a gamma
+mixed-effect model for the reaction times from the World Championship. The
+normal error model on the log-scale was found to be inferior to the gamma model.
+Let $Y_{ij}$ be the reaction time of observation~$j$ in year~$i$.
+Conditional on a venue effect $z_i$ of year~i,  $Y_{ij}$ is modeled by a
+gamma distribution with mean
+\[
+\mu_{i} = \alpha + z_i,
+\]
+and variance
+\[
+\sigma_i
+\]
+...
+\jy{need to add assumptions ...}
+
+
+
+
+
+
+The R package \texttt{lme4} allows various linear mixed effects models to be created, and 
 was the primary modeling package used for our data analysis \citep{lme4}.
 A gamma mixed linear effects model was chosen as the best model to model the data.
 Many models were tried and compared to determine what the strongest model.  For
@@ -406,21 +405,7 @@ reaction time data from 2022 should be the best as the timing system should be
 state of the art.  Any other weather or climate related factors such as humidity,
 precipitation, elevation, etc. would all be negated when looking at the batch
 effect, but are all factors that could potentially impact the venue effect.
-Thus, we decided to inclue only the venue effect in the GLMM, which is presented
-as:
-\begin{equation}
-  \label{eq:GLMM}
-  Y_{ij} = \beta_0 + \gamma_i + \epsilon_{ij},
-\end{equation}
-where $Y_{ij}$ is the response variable for observation $j$ in year $i$, 
-$\beta_0$ is the intercept, $\gamma_i$ is the random effect term for year $i$, 
-and $\epsilon_{ij}$ is the error term for observation $j$ in year $i$.
 
-%yij denotes ith years and j is observation in year
-%yij will have clustered i and we use random effect to account for this
-%When model is presented talk about how I modeled yij
-%Zij where player is i and cluster, group is year and j
-%Test hypothesis that reaction times are the same vs that they are not
 
 %Throughout exploratory analysis, gamma provides better AIC
 %Spend paragraph on after fitting the model how to figure out 0.1 p value
