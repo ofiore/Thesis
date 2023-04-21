@@ -321,7 +321,7 @@ teammates.  This comparison suggests that the timing system used between the two
 meets may have been meaningfully different to the point where Devon Allen was
 disqualified more because of faulty equipment rather than because he reacted
 \jy{cross-reference to the table by its label}
-too quickly.  Table~\ref{fig:USAvsWorld} below highlights the difference in reaction times for
+too quickly.  Table~\ref{fig:USAvsWorld} highlights the difference in reaction times for
 Devon Allen, Trey Cunningham, Grant Holloway, and Daniel Roberts. ``USA" denotes
 the USA Track and Field Championships, ``World" denotes the World Track and Field
 Championships,   All numbers listed in the table are the reaction
@@ -346,6 +346,8 @@ time for the respective athletes in seconds.
   a reaction time.}
   \end{center}
 \end{table}
+
+\jy{You have two such datasets in the analysis. Use one paragraph for each.}
 
 This dataset is quite small to perform any formal statistical analysis on, but
 the data was expanded to include data for athletes who competed at national
@@ -414,44 +416,47 @@ effect, but are all factors that could potentially impact the venue effect.
 \subsection{Rank-based Comparison}
 
 
+To test the conjecture that the 2022 World Champion timing device may have led
+to faster recorded reaction times, we compare the reaction times of the same
+athletes who have attended both the 2022 World Champion and other competitions.
+In this setting, we have clustered data with subunit grouping. In particular,
+each athlete is a cluster and the multiple reaction times from the same athlete
+can be from either the 2022 World Championship or otherwise.
+Let $X_{ij}$ be the $j$th reaction time of athelete~$i$, $i = 1, \ldots, n$,
+$j = 1, \ldots, m_i$ where $m_i$ is the number of observations from
+athelete~$i$. Let $\delta_{ij}$ be the group indicator of $X_{ij}$; $\delta_{ij}
+= 1$ if $X_{IJ}$ is in group~1 and $\delta_{ij} = 0$ otherwise. Atheletes are
+assumed to be independent, while subunit observations from the same athelete are
+not. The null hypothesis $H_0$ to be tested is that there is no difference
+between the two groups; i.e., the distribution of $X_{ij}$ remains the same
+regardless of the group indicator $\delta_{ij}$.
 
-\jy{Undefined notations}
-The test statistic of the DS method of the Wilcoxon rank-sum statistic is:
-$Z = \frac{S - E(S)}{\sqrt{\hat{\text{Var}}(S)}}$ where 
-$W^* = \frac{1}{N} + \sum_{i=1}^{N} \delta_{i}^{*} R_{i}^{*}$, $R_{i}^{*}$ is
-the rank of $X_{i}^{*}$. S is given as $S = \mathbb{E}[W^* | X, \delta]$ and
-$E(S) = E(W^*) = \frac{1}{2} \sum_{i=1}^{N} \frac{n_i}{N}$.
-The asymptomatic distribution of the Wilcoxon rank-sum statistic was found by
-\citet{datta2005rank} and the R package ``clusrank" allows for its implementation.
+
+\citet{datta2005rank} proposed an extension of the Wilcoxon rank-sum test to
+clustered data with subnit-level grouping. The test is designed based on a
+within-cluster resampling principle. Consider randomly picking one observation
+from each cluster to form a pseudo-sample. Let $X_i^*$ be a random pick from the
+$i$th cluster in the pseudo-sample and $\delta_i^*$ its group indicator. The
+Wilcoxon rank-sum statistic for the pseudo-sample is
+\[
+W^* = \frac{1}{n + 1} + \sum_{i=1}^{n} \delta_{i}^{*} R_{i}^{*},
+\]
+where $R_{i}^{*}$ is the rank of $X_{i}^{*}$ in the psudo-sample.
+The test statistic $S$ is the average of $W^*$ averaged over all possible
+pseudo-samples conditioning on the observed data and group indicators.
+The mean and variance of $S$ under $H_0$ can be derived so that $S$ can be
+standardized to form a statistic $Z$ which follows standard normal distribution
+asymptotically \citep[p.910]{datta2005rank}. An implementation of this method is
+available from the \texttt{clusWilcox.test()} function with
+\texttt{method = 'ds'} from R package \texttt{clusrank}
 \citep{jiang2017wilcoxon}.
----Please see manuscript around line 464 for comments regarding this section---
-
-%I included additional statistics from the paper, I am unsure of how in depth
-%This explanation needs to be
-
-
-%$F_{i}(x) = \frac{1}{n_i} \sum_{k=1}^{n_i} \mathbb{I}(X_{i,k} \leq x)$
-
-%$F_{i}(x-) = \frac{1}{n_i} \sum_{k=1}^{n_i} \mathbb{I}(X_{i,k} < x)$
-
-%$S = \frac{1}{N + 1} \sum_{i=1}^{N}  \sum_{k=1}^{n_i} \frac{\delta_{ik}}{n_i} \left[ 1 + \frac{1}{2} \sum_{j \neq i} \frac{1}{n_j}
-%\left( F_j(X_{ik}) + F_j(X_{ik-}) \right) \right]$
-
-
-
-
-
-
-Using the \texttt{clusWilcox.test()} function, a Wilcoxon rank sum
-test was performed with the cluster set to be the Athlete and group set to Year
-using the DS method. The DS method is preferable when the cluster sizes are
-informative \citep{jiang2017wilcoxon}.  In this case, athletes who have more
-data are generally thought to be faster, as they have made it further in the
-competition.  Clusters range from two to six, with two indicating that at each
-competition they only made it to the heats, but a cluster size of six indicates
-that they made the finals in both competitions.  While the number of times
-athletes compete is based off their overall time not their reaction time, the
-two are correlated \citep{delalija2008reaction}.
+%% In this case, athletes who have more
+%% data are generally thought to be faster, as they have made it further in the
+%% competition.  Clusters range from two to six, with two indicating that at each
+%% competition they only made it to the heats, but a cluster size of six indicates
+%% that they made the finals in both competitions.  While the number of times
+%% athletes compete is based off their overall time not their reaction time, the
+%% two are correlated \citep{delalija2008reaction}.
 
 
 \section{Results} \label{sec:Results}
@@ -683,6 +688,8 @@ For the pooled data set
   \end{tabular}
   \end{center}
 
+
+\jy{Go over the references to see clues to clean in the bib source}
 \bibliographystyle{chicago}
 \bibliography{citations.bib}
 
