@@ -359,47 +359,47 @@ The World Championship data and the data beyond the World Champisonship were
 analysed with GLMM and rank-based approaches, respectively.
 
 \subsection{GLMM}
-Based on an exploratory analysis, the GLMM model that we chose was a gamma
-mixed-effect model for the reaction times from the World Championship. The
-normal error model on the log-scale was found to be inferior to the gamma model.
+Based on an exploratory analysis using the GLMM model for the reaction times
+from the World Championship, the final model that we chose was a gamma
+mixed-effect model. As suggested by the log-likelihood and the Akaike Information
+Criterion (AIC), the normal error model on the log-scale was found to be
+much inferior to the gamma model which better captures the skewness of the
+data. A random effect for the venue or year was also found to be necessary.
 Let $Y_{ij}$ be the reaction time of observation~$j$ in year~$i$.
-Conditional on a venue effect $z_i$ of year~i,  $Y_{ij}$ is modeled by a
-gamma distribution with mean
+Conditional on a venue effect $z_i$ of year~i,  $Y_{ij}$ is modeled by 
+gamma distribution. In the classic generlized linear model (GLM) sense,
+$Y_{ij}$ has conditional mean
 \[
-\mu_{i} = \alpha + z_i,
+g\{E(Y_{ij} | z_i)\} = \alpha + z_i,
 \]
-and variance
-\[
-\sigma_i
-\]
-...
-\jy{need to add assumptions ...}
+and dispersion parameter $\phi$, where $g$ is a known link function and
+$z_i$ is a normally distributed random effect with mean zero and
+variance~$\sigma^2$. The link function $g$ can be the logarithm function to
+ensure the positivity of the conditional mean.
+The gamma mixed-effect model can be fit with the \texttt{glmer()} function in R
+package \texttt{lme4} \citep{lme4}.
 
 
+To better understand this model, we can identify the gamma model in terms of the
+commonly used shape and scale parameters. For a gamma distribution with
+shape~$a$ and scale~$b$, we have mean $\mu = ab$ and variance $v = ab^2$. The
+variance as a function of the mean $\mu$ in the GLM sense is
+$v(\mu) = \mu^2 / a$, which implies that the dispersion parameter
+$\phi = 1 / a$. Therefore, for the gamma mixed-effect model, the conditional
+gamma distribution of the reaction time $Y_{ij}$ given the venue effect $z_i$
+has shape $a = 1 / \phi$ and scale $b = g^{-1}(\alpha + z_i) \phi$. The marginal
+distribution of $Y_{ij}$ is a scale-mixture of gamma distributions, which can be
+easily simulated from once the parameters are estimated. A large number of
+random numbers generated from the fitted mixture distribution can be used to
+approimate the probability of observing a reaction time faster than any given
+threshold.  We want the probability of a reaction time being less than 0.1
+seconds in order to gauge if that is a reasonable disqualification barrier.
 
 
-
-
-The R package \texttt{lme4} allows various linear mixed effects models to be created, and 
-was the primary modeling package used for our data analysis \citep{lme4}.
-A gamma mixed linear effects model was chosen as the best model to model the data.
-Many models were tried and compared to determine what the strongest model.  For
-a fixed data set such as the men's pooled data including 2022, the models with
-the venue effect included performed better than the models without the venue
-effect for each set of comparable models; as indicated by the lower AIC and
-higher log likelihood.  Thus, the venue effect is significant and should be
-included in the model.  It can also be established that a gamma distribution
-better models the data than linear data from comparing the linear model with
-venue effect and them gamma model with a venue effect.  The final decision that
-was made in model selection was to include link = log in the model.  Despite
-doing very little to alter the AIC or log likelihood, the log scale was included
-in order to try and better deal with high outliers. %Include Residuals plot?
-
-Once the Gamma mixed effects model was chosen, it needed to be decided which combination
-of effects to use.  It was possible to include a venue effect, a batch effect, 
-or a year and batch effect.  The batch effect is very
+As for the random effect, it was possible to include as well a race effect.
+From our exploration, however, the race effect is very
 difficult to explain or interpret as it means that some heats of races were either
-faster or slower and that everyone in the batch reacted similarly.  Although
+faster or slower and that everyone in the race reacted similarly.  Although
 it is possible that one athlete reacting faster could lead to others reacting
 similarly, this does not make much practical sense as the difference between
 heats that had fast and slow reaction times are all within 0.12 seconds of each
@@ -407,36 +407,12 @@ other.  It is much easier however to explain the venue effect.  The technology
 that World Athletics has used has differed since 1999 and theoretically the
 reaction time data from 2022 should be the best as the timing system should be
 state of the art.  Any other weather or climate related factors such as humidity,
-precipitation, elevation, etc. would all be negated when looking at the batch
+precipitation, elevation, etc. would all be negated when looking at the race
 effect, but are all factors that could potentially impact the venue effect.
-
-
-%Throughout exploratory analysis, gamma provides better AIC
-%Spend paragraph on after fitting the model how to figure out 0.1 p value
-As the GLMM model has mixed form, the best way to try to gauge the probability
-of observing a reaction time is to simulate the distribution of times using a 
-large sample.  In order to approximate the distribution, R code was written to 
-try and estimate the probabilities of observing a reaction time as extreme as
-0.1 seconds.  The code re-paramertizes the gamma distribution to be in terms of
-$\mu$ and shape rather than by $\alpha$ and $\beta$.  From the code, it is
-possible to calculate the probability of observing a reaction time faster than
-a given time.  We want the probability of a reaction time being less than 0.1
-seconds in order to gauge if that is a reasonable disqualification barrier.
-
-
-%T, generate from fitted model explain what
-%The R code does.  Simulate from fitted model. Use distribution of model to 
-%Figure out the p value of reaction time less than 0.1
-
 
 
 \subsection{Rank-based Comparison}
 
-
-%Citations needed
-%Include math formulas and the test statistic
-%Equation of test statistic is from papers cited by clusrank. Asymptootic dist
-%Was found by __ referecne and the implementation is from the clusrank R package
 
 
 \jy{Undefined notations}
@@ -657,7 +633,7 @@ possibly the result of both a faulty timing equipment and Devon Allen
 reacting extremely quickly to the start.  The code and data from R showed that
 the 2022 World Track and Field Championships were a low outlier compared to
 every other year in terms of average reaction time.  Additionally, it was shown
-through a gamma mixed effects model that there are significant year and batch
+through a gamma mixed effects model that there are significant year and race
 effects that greatly impact reaction time.  However, this practically does not make much sense
 as there is no reason for so much random variation without much of a trend.
 There has not been a consistent decrease or increase since 1999, much of the data
