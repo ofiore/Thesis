@@ -462,13 +462,9 @@ available from the \texttt{clusWilcox.test()} function with
 \section{Results} \label{sec:Results}
 
 \subsection{GLMM} \label{subsec:Results_GLMM}
-%Section 4.1: Gamma model results show the fitting with and without 2022,
-%talk about p values and thresholds from the simulations (do not include the
-%results in the methods section).
 
-\jy{present the estimated parameters first before deriving the p-value using the
-  estimated parameters. The difference in variance of the random effects using
-  different data motivated the rank-based study.}
+\jy{motivate first why you want to run the analysis with and without the 2022 data.}
+
 
 As shown in table~\ref{tab:Gamma_parameters}, the standard error of the year
 effect increases for both the men's final and men's pooled data sets when
@@ -477,6 +473,7 @@ to 0.504 and from 0.0495 to 0.0554 for the men's pooled data.  This demonstrates
 that the inclusion of 2022 increased the randomness of the data and motivates
 the rank-based study~\ref{subsec:Results_Rank}.
 
+\jy{Close captions with a period.}
 \begin{table}
   \centering
   \begin{tabular}{c c c c c c}
@@ -502,10 +499,10 @@ time being below 0.1 seconds was as follows for the various different data sets:
    \toprule
    Data Set & P(RxnTime $<$ 0.1) & P(RxnTime $<$ 0.09) & P(RxnTime $<$ 0.08) \\ 
    \midrule
-   all finals gamma log & $8.56\cdot10^{-4}$ & $4.1\cdot10^{-5}$ & $6.0\cdot10^{-7}$ \\ 
-   old finals gamma log & $4.39\cdot10^{-4}$ & $1.63\cdot10^{-5}$ & $2.0\cdot10^{-5}$ \\
-   all pooled gamma log & $6.86\cdot10^{-3}$ & $1.21\cdot10^{-3}$ & $1.3\cdot10^{-4}$ \\
-   old pooled gamma log & $5.76\cdot10^{-3}$ & $9.93\cdot10^{-4}$ & $1.0\cdot10^{-4}$\\
+   all finals & $8.56\cdot10^{-4}$ & $4.1\cdot10^{-5}$ & $6.0\cdot10^{-7}$ \\ 
+   old finals & $4.39\cdot10^{-4}$ & $1.63\cdot10^{-5}$ & $2.0\cdot10^{-5}$ \\
+   all pooled & $6.86\cdot10^{-3}$ & $1.21\cdot10^{-3}$ & $1.3\cdot10^{-4}$ \\
+   old pooled & $5.76\cdot10^{-3}$ & $9.93\cdot10^{-4}$ & $1.0\cdot10^{-4}$\\
    \bottomrule
   \end{tabular}
   \caption{Probabilities of observing reaction times less than 0.1, 0.09, and
@@ -570,11 +567,11 @@ to 2022, Seiko again upgraded its technology but for its jump management system.
 
 
 \subsection{Rank-based Comparison} \label{subsec:Results_Rank}
-%Section 4.2 is motivated by seiko timing and look at same athletes across
-%multiple types of competition: 2019 and national
 
-%Discussion/Conclusion is beyond results.  Limitations, what type of data we
-%hope to have.
+
+\jy{motivate first; describe the data (what are the grouping variables in the
+  two data sets? use one paragraph for each.}
+
 
 When the clusrank rank sum test was performed, the ``ds" method produced a z score of
 2.9751 and p value of 0.001464.  This value is for a one-sided test and show that
@@ -599,7 +596,7 @@ amount in such a small amount of time. 6 countries are represented in this
 comparison, which drastically decreases the chances of this issue being caused by
 one specific country.  The United States athlete's improvement in times was
 discussed earlier in the paper, but this data shows that on average there was
-%Use a reference in this part
+\jy{any reference?}
 improvement for British, Polish, French, Brazilian, and Spanish athletes.
 
 
@@ -664,29 +661,12 @@ hurdle were the same.
 \section{Appendix}
 \label{sec:Appendix}
 %Put downloadable data spreadsheet
-Here is World Athletics website with the data: \url{https://www.worldathletics.org/results/world-athletics-championships}.
+The World Championship data is available from the World Athletics website:
+\url{https://www.worldathletics.org/results/world-athletics-championships}.
+
+\jy{You have countries beyond USA}
 Here is the data for the USA Track and Field Championships: \url{https://www.flashresults.com/2022_Meets/Outdoor/06-23_USATF/}
 
-For the pooled data set
-\begin{center}
-  \begin{tabular}{|c  c  c  c  c  c  c |}
-   \hline 
-   Model & AIC & Log Likelihood & Int effect est & Int se & Int var & Resid Var \\ [0.5ex] 
-   \hline\hline
-   linear one & -1667 & 835.5 & 0.1529 & 0.0014 & N/A & N/A \\
-   \hline
-   linear year & -1713 & 859.3 & 0.1541 & 0.0040 & 1.719e-04 & 5.926e-04 \\ 
-   \hline
-   gamma one & -1756 & 880.2 & 6.554 & 0.0598 & N/A & N/A \\
-   \hline
-   gamma year & -1848 & 926.9 & 6.553 & 0.2269 & 0.1305 & 0.0234 \\
-   \hline
-   gamma one log & -1756 & 880.2 & -1.880 & 0.0091 & N/A & N/A \\
-   \hline
-   gamma year log & -1848 & 927.0 & -1.869 & 0.0348 & 0.0031 & 0.0235 \\ [0.5ex]
-   \hline
-  \end{tabular}
-  \end{center}
 
 
 \jy{Go over the references to see clues to clean in the bib source}
