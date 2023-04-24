@@ -126,7 +126,6 @@ simfit <- function(men_pooled_gamma_year, n = 12000000) {
   mu <- exp(fixef(men_pooled_gamma_year) + z)
   shape <- 1 / vc$vcov[2]
   x <- rgamma(n, shape = shape, scale = mu / shape)
-  x
 }
 sbaseline <- summary(baseline)
 #print(sbaseline)
@@ -143,7 +142,7 @@ curve(dgamma(x, shape = 1 / sbaseline$dispersion,
 ```{r}
 set.seed(1)
 simulation <- function(model, base){
-  simfit <- function(model, n = 12000000) {
+    simfit <- function(model, n = 10000000) {
     vc <- as.data.frame(VarCorr(model))
     ## mu <- exp(coef(model)$Year[,]) ## using fitted random effects only
     z <- rnorm(n, sd = vc$sdcor[1]) #$ using generated random effects
@@ -155,7 +154,7 @@ simulation <- function(model, base){
   sbase <- summary(base)
   #print(sbase)
   x <- simfit(model)
-  print(mean(x < 0.1))
+  print(mean(x < 0.08))
   print(quantile(x, prob = c(.00001, .0001, .0005, .001)))
   ## compare with and without random effect
   plot(density(x)) # with random effect
@@ -163,7 +162,7 @@ simulation <- function(model, base){
                scale = exp(coef(base)) * sbase$dispersion), 
         0.08, 0.22, add = TRUE, col = "blue") # fixed effect only
 }
-simulation(men_old_finals_year_gamma_log, men_old_finals_one_gamma_log)
+simulation(men_finals_year_gamma_log, men_finals_one_gamma_log)
 ```
 
 
