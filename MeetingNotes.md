@@ -1,4 +1,43 @@
-# Meetings Notes 3/18
+# Meeting Notes 4/25
+Maybe paper less conversational, more scholarly
+Just say that there are gender differences so not going to pool
+Break paragraph into 2022 vs 2019 and 2022 vs national
+Discuss results in table, and show that the standard error increases.  This is
+sigma-hat, -1.901 is alpha, sigma is standard deviation of random effect
+Report alpha first. 2nd col is alpha hat, 3rd is sigma hat
+Keep the intercept standard error col but need to keep resid var, remove int var
+Need to include shape parameter: phi
+Alpha is mean
+can also report dispersion parameter
+Call the columns by their greek letters
+Log = link so everything is positive
+alpha means that if you exponentiate alpha+z that gives you mean of the gamma dist
+can also parameterize gamma dist by mean and variance
+Look at varcorr or phi is 0.02345
+
+Get rid of 0.09, look at for probability level what time: 2 columns. 1/1000 and
+maybe something else (5/1000, 1/10000, etc)
+Need to be more descriptive and introduce the datasets in section 4.2.  Need to
+have 1 paragraph for each data type.  There is strong evidence that 2022 is diff
+
+For this data there is signficant difference, easier to remove, but still need
+a conclusion.  Same athletes shouldnt get better, then its weird that they do
+what we observe is unlikely to happen, this is evidence against timing device is
+the same
+Document data in data folder, can document in paper where you got data.  Mention
+in introduction where we got the data
+
+every citations needs year,
+
+For Ken, remove comments and clean everything up
+
+
+
+
+
+
+
+# Meetings Notes 4/18
 Double subscript for group and cluster?
 Define what S, W, other variables are
 Why is DS better: cluster size refers to how many data points for each athlete
