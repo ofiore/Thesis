@@ -47,6 +47,7 @@
 
 \newcommand{\jy}[1]{\textcolor{blue}{JY: #1}}
 \newcommand{\eds}[1]{\textcolor{red}{EDS: (#1)}}
+\newcommand{\of}[1]{\textcolor{violet}{OF: #1}}
 
 
 \title{On Devon Allen's Disqualification at the 2022 Track and Field World
@@ -131,7 +132,7 @@ False Start, Hurdles, Reaction Time, Seiko, 2022 World Track and Field Champions
 
 
 %1)
-Devon Allen, \eds{a student (or an alumnus)?} of the University of Oregon in 
+Devon Allen, an alumnus of the University of Oregon in 
 Eugene, Oregon, was
 expected to be a contender for the 2022 World Track and Field Championships 110 
 meter hurdle.  After running the event in 12.84 seconds in early June 2022 
@@ -147,7 +148,9 @@ compete in the 2022 World Track and Field Championships again in Eugene in Augus
 At the World Championships, Allen made it through the 
 heats and semifinals to reach the finals while posting reaction times of 0.123
 in the heats \eds{if more than one heat, include all of them or the average;
-if only one heat, change to singular form} and 0.101 in the semifinal.  
+if only one heat, change to singular form}
+\of{There are roughly 5 heats, but each athlete only competes in one heat} 
+and 0.101 in the semifinal.  
 %Allen, who attended the University of Oregon also in Eugene, 
 %(the location of US World Championship 
 %\eds{US World? remove World?} and the World Championship) 
@@ -163,11 +166,9 @@ channel that showed the disqualification; it can be found here:
 when they found out that Allen was disqualified, angry at the result.  Had Allen 
 reacted just 0.001 seconds slower he would have been allowed to compete and been 
 spared waiting another two years until the next World Track and Field Championship.
-An investigation into reaction times is also important because reaction times have
-been shown to affect the overall time of the race \citep{delalija2008reaction}.
-Thus, faster reaction times lead to faster overall times; which is the goal of
-every sprinter who steps onto the track.
+
 \eds{final two sentence seems out of place here; consider moving elsewhere?}
+\of{Moved to the end of paragraph 4 of introduction}
 
 %2)
 Allen's disqualification has been discussed extensively in online communities
@@ -263,12 +264,16 @@ besides Allen who were disqualified.
 \jy{language needs to be formalized and condensed.}
 The objective to this paper is to analyze the reaction times at the 2022
 World Track and Field Championship to check for any abnormalities, and we approach
-this two different ways.  Our first method is to try to model the data, which is
+this two different ways.  First we try to model the data, which is
 the reaction times of every non-disqualification since the 1999 World Championships. 
 The model we use is a gamma linear mixed-effects model with a random effect
 accounting for the venue (or year) effect. 
 The second method is to compare reaction times for athletes who have competed
 at additional competitions to the 2022 World Track and Field Championship. 
+Our investigation into reaction times is important because reaction times have
+been shown to affect the overall time of the race \citep{delalija2008reaction}.
+Thus, faster reaction times lead to faster overall times; which is the goal of
+every sprinter who steps onto the track.
 %\eds{I recommend moving the rest of this paragraph to Section 2.2 as I don't
 %think it is critical for readers to know all the details here.}
 %First we can compare the reaction times of athletes who
