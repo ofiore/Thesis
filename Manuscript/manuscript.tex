@@ -163,9 +163,10 @@ channel that showed the disqualification; it can be found here:
 \url{https://www.youtube.com/watch?v=D6NXTMo-1yM}. The crowd erupted with jeers 
 when they found out that Allen was disqualified, angry at the result.  Had Allen 
 reacted just 0.001 seconds slower he would have been allowed to compete and been 
-spared waiting another two years until the next World Track and Field Championship.
+spared waiting until the next World Track and Field Championship.
 \eds{you mention in the final section that the next world championship is in 
 2023, so he won't need to wait two years if that is true}
+\of{Resolved}
 %\eds{final two sentence seems out of place here; consider moving elsewhere?}
 %\of{Moved to the end of paragraph 4 of introduction}
 
@@ -183,15 +184,15 @@ with the timing equipment at the 2022 Track and Field World Championship and
 cited graphs, computed simple statistics such as median reaction times, and 
 compared the reaction times at the 2022 World Track and Field Championship to 
 other competitions
-such as the USA Track and Field Championships and other World Championships.
+such as the United States Track and Field Championships and other World Championships.
 The comparisons lacked formal statistical analysis, however. 
-The alleged 99.95\% chance Allen was wrong \eds{can we use different word 
+The alleged 99.95\% chance Allen was wronged \eds{can we use different word 
 instead of wrong?  at fault?  However, should that be 0.05\% chance at fault?}
-came from the fact that the lowest average reaction times for the men's 100 meter,
-men's 110 meter hurdle, and women's 100 meter competitions held between 2003 and 
-2022 each \eds{?} occurred at the 2022 World 
-Championships.  Johnson claimed that the probability of this
-happening was $\frac{1}{13} \cdot \frac{1}{13} \cdot \frac{1}{13} = 0.05\%$
+\of{Changed to "wronged"}
+came from Johnson claiming there is a $(1/13)^3$ that the fastest reaction
+times came during the same championship for the men's 100 meter,
+men's 110 meter hurdle, and women's 100 meter for 13 competitions held between 2003 and 
+2022 \eds{?} \of{Cleaned up but may need additional work}
 \citep{johnson2022was}.
 %\eds{compared the reaction times at the 2022 World Track and Field  Championship 
 %to what? Also restate here that no formal statistical analyses have been done.}
@@ -275,7 +276,8 @@ this two different ways.  First we model the data, which is
 the reaction times of every non-disqualification since the 1999 World 
 Championships, using a gamma linear mixed-effects model with a random effect 
 accounting for the venue (or year). \eds{are you using covariates?  Data section
-implies that you are, but Results section does not} 
+implies that you are, but Results section does not}
+\of{Cleaned up confusion about covariates, but no none were used in the paper} 
 Based on the fitted model, we can then estimate the probability of a reaction 
 time being below a certain threshold (e.g., 0.1). 
 Second, we compare reaction times for athletes who have competed
@@ -317,6 +319,7 @@ by questioning the reaction time barrier.  Lastly, Section~\ref{sec:Discussion}
 discusses the impact and limitations of the paper.
 \eds{capitalize first letter when referring to a numbered section, table, figure, 
 etc. ``Section 4 provides...'' vs. ``The next section provides...''}
+\of{I think capitalization should be all set: all are in form of ``Section i''}
 
 
 \section{Data} \label{sec:Data}
@@ -342,19 +345,20 @@ of the paper, while the second data set is used for the rank-based comparisons.
 
 Data was taken from the World Athletics 
 %\eds{is there a website you can cite here?}
-and covers the men's 110 meter hurdles 
-and the women's 100 meter hurdles from 1999 to 2022.  \eds{see earlier comment - 
+and covers the men's 110 meter hurdles from 1999 to 2022; and can be found in
+the Appendix~\ref{sec:Appendix}.   \eds{see earlier comment - 
 are you using any of these as covariates?}
-The data source can be found in the Appendix.%~\ref{sec:Appendix}. 
-Factors such as name, 
-country, and identification number were not considered important for the 
-purposes of this research besides the times for Devon Allen and the other 
-United States athletes mentioned above. \eds{not sure which other US athletes 
-you are referring to in the previous sentence} 
+\of{removed covariate confusion, talk about womens a couple sentences down} 
+We chose not to include women's data in this
+paper due to the numerous papers citing difference in reaction times in men and
+women's reaction times: \citep{lipps2011implications, babicc2009reaction,
+panoutsakopoulos2020gender}
 The variable ``Stage" refers to whether the observation occurred during a 
 %heat (preliminary round)  
-preliminary heat denoted by ``H", semifinal heat (of which there are either two
-or three each year) denoted by ``S", or final heat denoted by ``F". The variable 
+semifinal heat (of which there are either two
+or three each year) denoted by ``S", or final heat denoted by ``F".
+The preliminary heats were not studied because athletes react faster as the 
+competition progresses \citep[e.g.,][]{zhang2021correlation}. The variable 
 ``Gender" has levels ``M" and ``F" for ``male" and ``female" respectively.  The
 variable ``Batch" takes a 
 numerical value and every heat of every round from 1999 to 2022 was assigned it's
@@ -370,44 +374,46 @@ For analysis purposes, we will often pool reaction times of men's final and
 men's semifinal heats together and refer to this data as the ``pooled data"
 %We will refer to the latter as the ``pooled data"
 throughout the paper.  %The heats or preliminary rounds were not studied because
-The preliminary heats were not studied because athletes react faster as the 
-competition progresses \citep[e.g.,][]{zhang2021correlation}. % Athletes react 
+ % Athletes react 
 %faster in the finals than the semifinals which are faster than the heats 
 %\citep{zhang2021correlation}.  
 \eds{if you are really not using ``H'' data at all, it does not appear necessary
 to spend time defining earlier.  You could just say directly when you define 
 stage that you only consider semifinals and finals and cite the Zhang paper for 
 rationale}
-If we want to determine if Allen's reaction time
-was reasonable, then we thus need to look at the men's final data, with the men's
-pooled data being included in order to increase the sample size.  
-\eds{previous sentence is not clear; pooled data already includes final data}
-In 2022, there
+\of{Ok I updated this.  Should I delete the batch variable too?  Although I don't
+use it, I do reference it in the methods section}
+The pooled data increases the sample size which is advantageous because in some
+years there are very few finals observations.  For example, in 2022 there
 were only five data points due to two disqualifications and one athlete who 
-qualified but did not compete.
+did not compete.
 The data under consideration is best visualized using side-by-side box plots, as
 shown in Figure~\ref{fig:Boxplots}.  It is clear that the 2022 box plot for both 
 the men's finals and semifinals data is lower (indicating faster reaction times)
 than in previous years.  The median for the men's pooled data in 2022 was 0.129
 and the median for the men's final data in 2022 was 0.126.  For comparison,
-\citet{brosnan2017effects} found reaction times of 0.156 seconds \eds{mean?  median?} for men when looking at data from 1999 to 2014.
+\citet{brosnan2017effects} found median reaction times of 0.156 seconds \eds{mean?  median?} 
+\of{Resolved}
+for men when looking at data from 1999 to 2014.
 
 
 \eds{I wonder if this paragraph would be better placed in the introduction?}
+\of{I think it could fit in the brief section between the start of the Data section
+and the GLMM subsection in the paragraph starting with "There are two types..."}
 Something that is extremely important to note in the data is the inconsistency 
 of World Athletics in terms of how they penalize false starts.  From 2007--2009,
 the IAAF (the former name for World Athletics, and the governing body for the 
 World Track and Field Champions) instituted a rule change that allowed one 
-warning false start before a sprinter was disqualified 
-\citep{iaaf2009falsestart}.  This 
-essentially gave sprinters a second chance and reduced the penalty for a false 
-start.  There were 18 male and 7 female false starts at the 2007 World 
+warning false start before a sprinter was disqualified \citep{iaaf2009falsestart}. 
+This was desirable for World Athletics as false starts can make already long 
+track meets more tedious, both for athletes and viewers watching the television 
+broadcast.  There were 18 male and 7 female false starts at the 2007 World 
 Championships, and 18 male and 7 female starts at the 2009 World Championships. 
 Starting in 2011, the rule was scrapped, and the old policy which automatically 
 disqualifies runners who false start was reinstated. By returning to the harsher 
-policy and cracking down on false starts, World Athletics had reduced the number 
-of false starts by two thirds \eds{for men, not overall} in 2011 (6 male and 4 female disqualifications 
-\citep{iaaf2009falsestart}).
+policy and cracking down on false starts, World Athletics had reduced men's 
+false starts by two thirds \eds{for men, not overall} \of{Better?} in 2011 (6 male and 4 female disqualifications) 
+\citep{iaaf2009falsestart}.
 %The effect? At the 2011 
 %World Championship there were 6 male disqualifications and 4 female 
 %disqualifications \citep{iaaf2009falsestart}.  
@@ -417,34 +423,33 @@ of false starts by two thirds \eds{for men, not overall} in 2011 (6 male and 4 f
 %\citep{haugen2013effect}. 
 \citet{haugen2013effect} examined the effect of different false start
 rules that IAAF has imposed from 1997 to 2009 and found statistically 
-significant improvement in reaction times under harsher rules.
+significant improvement in reaction times under more lenient rules.
 \eds{is that right?  it seems counterintuitive to me}
-This was desirable for World Athletics as false starts can make already long 
-track meets more tedious, both for athletes and viewers watching the 
-television broadcast.  
+\of{Yes you are correct, I updated the language.}
+  
 \eds{I am not sure the previous sentence follows from the one preceding it. Why
- does World Athletics find faster reaction times desireable?  Do you mean that
+ does World Athletics find faster reaction times desirable?  Do you mean that
 they find fewer false starts desirable?}
-Since 2011, IAAF has instituted the one false start rule
-\citep{iaaf2009falsestart}. However, we chose not to include women's data in this
-paper due to the numerous papers citing difference in reaction times in men and
-women's reaction times: \citep{lipps2011implications, babicc2009reaction,
-panoutsakopoulos2020gender}  \eds{Two comments about the previous sentence: 1. 
+
+\eds{Two comments about the previous sentence: 1. 
 it does not logically follow the previous sentence as there is no mention of 
 gender, and 2. if you are not using women's data, don't spend time talking about 
 it at the beginning of the data section.  Similar to my comment about 
 preliminary heats, you can move this sentence to the beginning of the Data 
 section to provide a rationale for why you do not include data for women.} 
+\of{Updates: I moved any talk about women's data to start of Data section, I think
+it flows much better now}
 
 
 \subsection{Beyond World Championship}\label{sec:databeyond}
 The motivation for looking beyond World Championship data came from an 
-initial qualitative \eds{exploratory instead of qualitative?}
+exploratory \eds{exploratory instead of qualitative?} \of{I agree; fixed}
 analysis examining how United States athletes reacted at the 
 2022 United States Track and Field Championships.
 \eds{be consistent with how you refer to the US championship:
-``United States Track and Field Championships" and ``USA Track and Field 
+``United States Track and Field Championships" and ``United States Track and Field 
 Championships" are both being used; please pick one and use that throughout}
+\of{Resolved; changed all USA to United States.}
 %This section was motivated from a qualitative analysis that started by looking
 %at how United States athletes reacted at the 2022 United States Track and Field
 %Championships. 
@@ -453,41 +458,41 @@ and Field Championship at Hayward
 Field in Eugene, Oregon to decide who to send to the World Championships 
 being held at the same venue in August. %the exact same venue as used 
 %for the World Track and Field Championship a month later.  
-%Thus, a baseline is able to be established for the four USA athletes who 
-Thus, we can establish a baseline for the four USA athletes who 
+%Thus, a baseline is able to be established for the four United States athletes who 
+Thus, we can establish a baseline for the four United States athletes who 
 competed in at least one round of both events: Trey Cunningham, Daniel Roberts, 
 Grant Holloway, and Devon Allen. Every athlete reacted faster in all the World 
-Track and Field Championship races compared to the USA Track and Field 
-Championship races. Devon Allen raced three times at the USA Track and
+Track and Field Championship races compared to the United States Track and Field 
+Championship races. Devon Allen raced three times at the United States Track and
 Field Championship and three times at the World Track and Field Championship. 
-His reaction times were significantly faster in the World Track and
-Field Championship compared to the USA Track and Field Championship as were his
+His reaction times were substantially faster in the World Track and
+Field Championship compared to the United States Track and Field Championship as were his
 teammates. \eds{statistically significantly faster? If you used a statistical 
 test, it should not be described in this section.  If you didn't use a 
 statistical test, you should replace the word `significantly' with something 
-else (substantially?)} 
+else (substantially?)} \of{Replaced signficantly with substantially}
 This comparison suggests that the timing system used between the two
 meets may have been meaningfully different to the point where Devon Allen was
 disqualified more because of faulty equipment rather than because he reacted
 too quickly.  Table~\ref{fig:USAvsWorld} highlights the difference in reaction 
 times for Devon Allen, Trey Cunningham, Grant Holloway, and Daniel Roberts. 
-%``USA" denotes
-%the USA Track and Field Championships, ``World" denotes the World Track and Field
+%``United States" denotes
+%the United States Track and Field Championships, ``World" denotes the World Track and Field
 %Championships. All numbers listed in the table are the reaction
 %time for the respective athletes in seconds. 
 
 \begin{table}
 \begin{center}
   \caption{Reaction times (in seconds) for four United States Athletes at the 
-	2022 USA Track
-  and Field World Championships (``USA") and the 2022 World Track and Field 
+	2022 United States Track
+  and Field World Championships (``United States") and the 2022 World Track and Field 
 	Championships (``World"); H denotes preliminary heat, S denotes semifinal, and 
 	F denotes final.
   ``N/A" was used for any athlete that did not compete and thus did not register 
   a reaction time. }
   \begin{tabular}{c c c c c c c} 
    \toprule
-	 & \multicolumn{3}{c}{USA} & \multicolumn{3}{c}{World} \\
+	 & \multicolumn{3}{c}{United States} & \multicolumn{3}{c}{World} \\
 	\cmidrule(lr){2-4}
     \cmidrule(lr){5-7}
    Athlete &  H &  S &  F &  H &  S &  F \\ [0.5ex] 
@@ -502,6 +507,10 @@ times for Devon Allen, Trey Cunningham, Grant Holloway, and Daniel Roberts.
   
   \end{center}
 \end{table}
+
+\of{Im not sure how to fix this but the spacing between the lines of the
+table is different than the rest of the paper}
+
 
 \jy{You have two such datasets in the analysis. Use one paragraph for each.}
 \of{Split it into 2 sections, do you still want me to do something else?}
@@ -567,7 +576,7 @@ $\phi = 1 / a$. Therefore, for the gamma mixed-effect model, the conditional
 gamma distribution of the reaction time $Y_{ij}$ given the venue effect $z_i$
 has shape $a = 1 / \phi$ and scale $b = g^{-1}(\alpha + z_i) \phi$. The marginal
 distribution of $Y_{ij}$ is a scale-mixture of gamma distributions, which can be
-easily simulated from once the parameters are estimated. A large number of
+easily simulated from once the parameters are estimated. Many
 random numbers generated from the fitted mixture distribution can be used to
 approximate the probability of observing a reaction time faster than any given
 threshold.  We are specifically interested in the probability of a reaction time
@@ -575,8 +584,10 @@ threshold.  We are specifically interested in the probability of a reaction time
 disqualification barrier.
 
 
-As for the random effect, it was possible to include a race 
-\eds{heat? when I first read this, I thought you meant race as in ethnicity} 
+As for the random effect, it was possible to include a heat 
+\eds{heat? when I first read this, I thought you meant race as in ethnicity}
+\of{Yes I think heat or batch effect works better, especially now that I have
+removed most talk about heat from the data section} 
 effect, as well.
 From our exploration, however, the race effect is very difficult to explain or 
 interpret as it means that some heats of races were either
@@ -770,8 +781,8 @@ false start as it is considered that no athlete can react so quickly
 the athlete predicted the gun and it was luck that caused their abnormally high 
 time.  At the World Championship level, World Athletics and Seiko want to remove 
 that element of luck and thus impose the 0.1 second barrier. In 2013, Seiko 
-upgraded their timing equipment for sprinting events (100 meter hurdles falls 
-under this category) \citep{wa2013backtage} \eds{110 for men?}. Since 1999, the
+upgraded their timing equipment for sprinting events (110 meter hurdles falls 
+under this category) \citep{wa2013backtage} \eds{110 for men?} \of{Fixed}. Since 1999, the
  highest \eds{highest as in fastest or slowest? Neither seems consistent with 
 the boxplots in Figure 1} reaction 
 times in the men's 110-meter hurdle were recorded in 2013.  That is not to say
@@ -911,8 +922,8 @@ that the story of Devon Allen is not repeated.
 The World Championship data is available from the World Athletics website:
 \url{https://www.worldathletics.org/results/world-athletics-championships}.
 
-\jy{You have countries beyond USA}
-The USA Track and Field Championships data is available at: 
+\jy{You have countries beyond United States}
+The United States Track and Field Championships data is available at: 
 \url{https://www.flashresults.com/2022_Meets/Outdoor/06-23_USATF/}
 
 
@@ -971,7 +982,7 @@ All Men's semifinal and finals data
 \begin{center}
   \begin{tabular}{||c | c c c | c c c||} 
    \hline
-   Athlete & USA H & USA S & USA F & World H & World S & World F \\ [0.5ex] 
+   Athlete & United States H & United States S & United States F & World H & World S & World F \\ [0.5ex] 
    \hline\hline
    Devon Allen & 0.201 & 0.153 & 0.160 & 0.123 & 0.101 & 0.099 \\ 
    \hline
