@@ -90,11 +90,7 @@ disqualification based on allowable reaction time
 %problem that could 
 will continue to be an issue in future world championships.
 
-%\jy{Avoid references in abstract.}
-  
-\jy{This is only the background. An abstract also needs to summarize the 
-contributions.}
-%\bigskip
+
 %\eds{removed Devon Allen from keywords because his name is already in title
 %and replaced with others}
 
@@ -105,7 +101,8 @@ I opted to go with this. Also used plural Championships. Feel free to switch
 order or use singular if one or both of these is 
 preferred for some reason.  }
 
-\noindent\sc{Keywords}:
+
+\bigskip\noindent\sc{Keywords}:
 False Start, Hurdles, Reaction Time, Seiko 
 
 \end{abstract}
@@ -117,27 +114,10 @@ False Start, Hurdles, Reaction Time, Seiko
 
 \jy{Go over the reference section to see what need to be changed in the bib source}
 
-\jy{Turn on column numbers in your editor to keep line width under 80.}
-
 \section{Introduction}
 \label{sec:intro}
 
 
-\jy{Not a good opening. Could start by telling the story, recapping the major
-  events and discussions on the internet. Then dig into the relevant
-  literature. Finally outline the contributions of this work.
-}
-
-
-\jy{use the following structure and flow:
-  1) A paragraph to tell the story;
-  2) A paragraph on informal statistical analyses on the internet/social media;
-  3) A paragraph on scholarly articles on reaction time in the literature;
-  4) A paragraph on what's new: methods; results.
-  5) A paragraph of roadmap.}
-
-
-%1)
 Devon Allen, an alumnus of the University of Oregon in 
 Eugene, Oregon, was
 expected to be a contender for the 2022 World Track and Field Championships 110 
@@ -227,7 +207,6 @@ The possibility of using a video-based medium has been proved to be a reliable
 measure of reaction time \citep{mudric2015evaluation}.
 
 
-\jy{Could be condensed}
 \citet{pilianidis2012start} found
 significant differences between reaction times at several world championships
 between 1997 and 2009 for the men's 110 meter hurdles.  Another important
@@ -270,7 +249,6 @@ besides Allen who were disqualified.
 %1 and 2 can be merged but 3 need to stand alone
 
 %4)
-\jy{language needs to be formalized and condensed.}
 The objective to this paper is to analyze the reaction times at the 2022 World 
 Track and Field Championship to check for any abnormalities, and we approach
 this two different ways.  First we model the data, which is
@@ -514,10 +492,6 @@ table is different than the rest of the paper}
 command; don't worry about it!} 
 
 
-\jy{You have two such datasets in the analysis. Use one paragraph for each.}
-\of{Split it into 2 sections, do you still want me to do something else?}
-
-
 This dataset is too small to perform any meaningful statistical analysis, but
 the data was expanded to include reaction times for athletes who competed at 
 national competitions (many of which were held from May-July of 2022). Once the 
@@ -549,7 +523,8 @@ much inferior to the gamma model which better captures the skewness of the
 data. A random effect for the venue or year was also found to be necessary.
 Let $Y_{ij}$ be the reaction time of observation~$j$ in year~$i$.
 \eds{we know that many of the athletes compete in multiple world championships,
-how is this athlete clustering being accounted for here?}
+  how is this athlete clustering being accounted for here?}
+\jy{We could add an athlete random effect too, if the players are identified in the data.}
 Conditional on a venue effect $z_i$ of year~i,  $Y_{ij}$ is modeled by 
 gamma distribution. In the classic generalized linear model (GLM) sense,
 $Y_{ij}$ has conditional mean
