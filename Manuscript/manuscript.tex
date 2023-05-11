@@ -135,7 +135,7 @@ At the World Championships, Allen made it through the preliminary
 heats and semifinals to reach the final heat while posting reaction times of 
 0.123 in his preliminary heat and 0.101 in his semifinal.  
 %Allen, who attended the University of Oregon also in Eugene, 
-%(the location of US World Championship 
+%(the location of US World Championships 
 %\eds{US World? remove World?} and the World Championship) 
 %was
 %considered to be a favorite for the 110 meter hurdle after running 12.84 seconds
@@ -161,23 +161,24 @@ the Olympics and the World Track and Field Championships.  However, it is the
 news section of the website that generated articles such as \citet{johnson2022data}
 and \citet{johnson2022was} from  Robert Johnson, who created and runs 
 the LetsRun website.  He argued that there was an error
-with the timing equipment at the 2022 World Track and Field Championship and
+with the timing equipment at the 2022 World Track and Field Championships and
 cited graphs, computed simple statistics such as median reaction times, and 
-compared the reaction times at the 2022 World Track and Field Championship to 
+compared the reaction times at the 2022 World Track and Field Championships to 
 other competitions
 such as the United States Track and Field Championships and other World Championships.
 The comparisons lacked formal statistical analysis, however. 
 The alleged 99.95\% chance Allen was wronged 
 came from Johnson claiming there is a $(1/13)^3$ chance that the fastest 
 reaction times over the past 13 competitions of the men's 100 meter, men's 110 
-meter hurdle, and women's 100 meter would all come from the same championship 
+meter hurdle, and women's 100 meter would all come from the same year. 
 \citep{johnson2022was}.
 %came from Johnson claiming there is a $(1/13)^3$ chance that the fastest 
-%reaction times came during the same championship for the men's 100 meter,
+%reaction times came during the same championships for the men's 100 meter,
 %men's 110 meter hurdle, and women's 100 meter for 13 competitions held between 2003 and 2022 
 %\of{Cleaned up but may need additional work}
 \of{Cleaned this up a little but still a little messy.}
 \eds{is this better? (and still correct?)}
+\of{Yes, I think it looks good}
 
 %3)
 %The International Association of Athletics Federations (also referred to
@@ -250,7 +251,7 @@ besides Allen who were disqualified.
 
 %4)
 The objective to this paper is to analyze the reaction times at the 2022 World 
-Track and Field Championship to check for any abnormalities, and we approach
+Track and Field Championships to check for any abnormalities, and we approach
 this two different ways.  First we model the data, which is
 the reaction times of every non-disqualification since the 1999 World 
 Championships, using a gamma linear mixed-effects model with a random effect 
@@ -273,8 +274,8 @@ every sprinter who steps onto the track.
 %\eds{I recommend moving the rest of this paragraph to Section 2.2 as I don't
 %think it is critical for readers to know all the details here.}
 %First we can compare the reaction times of athletes who
-%competed at the World Track and Field Championship in both 2019 and 2022, and 
-%second we can compare how athletes performed at the 2022 championship relative 
+%competed at the World Track and Field Championships in both 2019 and 2022, and 
+%second we can compare how athletes performed at the 2022 championships relative 
 %to their national/qualifiers meet. In order to reduce any chances
 %of athletes improving reaction time, we can also look at data from qualifying meets.
 %Almost every athlete had to qualify by proving they are elite at the national level, 
@@ -308,6 +309,9 @@ Championships or a 2022 national competition typically held within three months
 of the 2022 World Championships). 
 \eds{is this true? are you still using the 2019 world championships data for the
 rank-based analyses, or only the national competitions?}
+\of{Yes the ranked based comparison has 2 subsections: 2022 national vs 2022
+international and 2019 international vs 2022 international.  Should I instead say
+that there are three types of data across 2 sections or something like that?}
 The first data set is used for the GLMM analyses described in 
 Section~\ref{sec:glmm}, while the second collection of data is used for the 
 rank-based comparisons described in Section~\ref{sec:rank}.
@@ -402,7 +406,7 @@ policy and cracking down on false starts, World Athletics had reduced men's
 false starts by two thirds in 2011 (6 male and 4 female disqualifications) 
 \citep{iaaf2009falsestart}.
 %The effect? At the 2011 
-%World Championship there were 6 male disqualifications and 4 female 
+%World Championships there were 6 male disqualifications and 4 female 
 %disqualifications \citep{iaaf2009falsestart}.  
 %One study that looked at different false start rules that IAAF has
 %imposed from 1997 to 2009 and found that the reaction times when there was less 
@@ -437,14 +441,14 @@ From June 23-26 2022, the United States held its Track
 and Field Championships at Hayward 
 Field in Eugene, Oregon to decide who to send to the World Championships 
 being held at the same venue in August. %the exact same venue as used 
-%for the World Track and Field Championship a month later.  
+%for the World Track and Field Championships a month later.  
 %Thus, a baseline is able to be established for the four United States athletes who 
 Thus, we can establish a baseline for the four United States athletes who 
 competed in at least one round of both events: Trey Cunningham, Daniel Roberts, 
 Grant Holloway, and Devon Allen. Every athlete reacted faster in all the World 
-Track and Field Championship races compared to the United States Track and Field 
-Championship races. Devon Allen raced three times at the United States Track and
-Field Championship and three times at the World Track and Field Championships. 
+Track and Field Championships races compared to the United States Track and Field 
+Championships races. Devon Allen raced three times at the United States Track and
+Field Championships and three times at the World Track and Field Championships. 
 His reaction times were substantially faster in the World Track and
 Field Championships compared to the United States Track and Field Championships 
 as were his
@@ -507,12 +511,14 @@ athletes/clusters?}
 
 \section{Methods} \label{sec:Methods}
 
-The %World Championship data and the data eyond the World Championship 
+The %World Championships data and the data eyond the World Championships 
 data described in Sections~\ref{sec:dataworld} and~\ref{sec:databeyond} were
 analysed with GLMM and rank-based methods, respectively.
 \eds{need consistency with ``Championship" or ``Championships - I am not sure 
 which one is correct.  I am using Championships (plural) but
 change everything to singular if that is preferred}
+\of{I believe that championships is correct, I have changed all instances of
+championship to championships}
 
 \subsection{GLMM}\label{sec:glmm}
 Based on an exploratory analysis using the GLMM model for the reaction times
@@ -644,7 +650,7 @@ data to see if it makes a difference?}
 %% athletes compete is based off their overall time not their reaction time, the
 %% two are correlated \citep{delalija2008reaction}.
 %% Group is either designated to be 1 or 2, with 1 corresponding to either the
-%% national level data or the previous world championship data and 2 corresponding
+%% national level data or the previous world championships data and 2 corresponding
 %% to the 2022 data.
 
 
@@ -751,7 +757,7 @@ have a case to make when arguing against a disqualification.
 
 %Citation needed in this section
 Since 1985 Seiko Holding Corporations has served every World Athletics 
-Championship as the official timer \citep{wa2022seiko}.  Since 1985, the 
+Championships as the official timer \citep{wa2022seiko}.  Since 1985, the 
 technology and the ability
 to accurately predict measurements: long jump distances, false starts, total 
 time, reaction time, etc. have all dramatically improved.  Seiko did not start 
@@ -854,12 +860,12 @@ and be able to react extremely well to the sound of the gun. It seems unlikely
 that Allen would be able to correctly predict the gun with such precision two 
 times in a row, which is the exact reason that the 0.1 second reaction time 
 disqualification barrier was
-imposed in the first place. Allen showed at the Championship he was able to
-react extremely fast two times, which may suggest skill rather than luck. Devon 
+imposed in the first place. Thus having a quick reaction time multiple times
+may indicate skill rather than luck. Devon 
 Allen is a very good athlete, as evidenced by his football career at the 
 University of Oregon
 and making it onto the Philadelphia Eagles practice squad this past year 
-\citep{hurley2022eagles}. Thus, the 0.099 reaction time may not have been 
+\citep{hurley2022eagles}. The 0.099 reaction time may not have been 
 a product of Devon Allen predicting the start of the race but rather a 
 combination of a quick reaction and a possibly faulty sensor.
 
