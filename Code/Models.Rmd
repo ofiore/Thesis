@@ -150,7 +150,7 @@ simulation <- function(model, base){
     shape <- 1 / vc$vcov[2]
     x <- rgamma(n, shape = shape, scale = mu / shape)
     x
-  }
+    }
   sbase <- summary(base)
   #print(sbase)
   x <- simfit(model)
@@ -162,7 +162,7 @@ simulation <- function(model, base){
                scale = exp(coef(base)) * sbase$dispersion), 
         0.08, 0.22, add = TRUE, col = "blue") # fixed effect only
 }
-simulation(men_finals_year_gamma_log, men_finals_one_gamma_log)
+simulation(old_pooled_year_gamma_log, old_pooled_one_gamma_log)
 ```
 
 
@@ -215,12 +215,33 @@ maxi <- max(aggregate(times$RxnTime, list(times$Batch), FUN =mean)$x)
 cat(maxi - mini)
 ```
 
+#Trying out identity link
 ```{r}
-library(xtable)
-xtable(men_pooled_year_gamma_log)
+men_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_finals, family = Gamma(link = "log"))
+t1 <- glmer(RxnTime ~ (1|Year), data = men_finals, family = Gamma(link = "identity"))
+paste("Gamma and log with year effect has AIC of", AIC(men_finals_year_gamma_log), "and log-lik of", logLik(men_finals_year_gamma_log))
+paste("Linear without year effect has AIC of", AIC(t1), "and log-lik of", logLik(t1))
 ```
+
 ```{r}
-library(memisc)
-mtable(men_pooled_year_gamma_log)
+men_old_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_finals, family = Gamma(link = "log"))
+t2 <- glmer(RxnTime ~ (1|Year), data = men_old_finals, family = Gamma(link = "identity"))
+paste("Linear without year effect has AIC of", AIC(men_old_finals_year_gamma_log), "and log-lik of", logLik(men_old_finals_year_gamma_log))
+paste("Linear without year effect has AIC of", AIC(t2), "and log-lik of", logLik(t2))
+```
+
+```{r}
+men_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_pooled, family = Gamma(link = "log"))
+t3 <- glmer(RxnTime ~ (1|Year), data = men_pooled, family = Gamma(link = "identity"))
+paste("Gamma and log with year effect has AIC of", AIC(men_pooled_year_gamma_log), "and log-lik of", logLik(men_pooled_year_gamma_log))
+paste("Linear without year effect has AIC of", AIC(t3), "and log-lik of", logLik(t3))
+```
+
+```{r}
+men_old_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_pooled, family = Gamma(link = "log"))
+t4 <- glmer(RxnTime ~ (1|Year), data = men_old_pooled, family = Gamma(link = "identity"))
+paste("Gamma and log with year effect has AIC of", AIC(men_old_pooled_year_gamma_log), "and log-lik of", logLik(men_old_pooled_year_gamma_log))
+paste("Linear without year effect has AIC of", AIC(t4), "and log-lik of", logLik(t4))
+
 ```
 
