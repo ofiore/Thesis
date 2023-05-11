@@ -540,7 +540,9 @@ Gamma family with an identity link works well for their reaction-time data.
 It doesn't seem like a good idea in general because it is likely that some 
 negative predicted responses will occur either during model fitting or in the 
 final model, but the internet seems to favor this link so a reviewer may ask 
-about it too.}
+about it too.} \of{I have added code at the bottom of Code/Models.Rmd that
+compared the link = "identity" and link="log" for each dataset.  I found that
+the link=log was marginally better.}
 We include a random effect for venue because the technology
 that World Athletics has used has differed since 1999, and theoretically the
 reaction time data from 2022 should be the best as the timing system should be
@@ -770,8 +772,8 @@ time.  At the World Championships level, World Athletics and Seiko want to remov
 that element of luck and thus impose the 0.1 second barrier. In 2013, Seiko 
 upgraded their timing equipment for sprinting events (110 meter hurdles falls 
 under this category) \citep{wa2013backtage}. Since 1999, the
- highest \eds{highest as in fastest or slowest? Neither seems consistent with 
-the boxplots in Figure 1} reaction 
+slowest \eds{highest as in fastest or slowest? Neither seems consistent with 
+the boxplots in Figure 1} \of{Resolved} reaction 
 times in the men's 110-meter hurdle were recorded in 2013.  That is not to say
  that the higher 
 times were caused by Seiko's equipment, but the two may be related.  It is worth 
