@@ -651,7 +651,7 @@ The mean and variance of $S$ under $H_0$ can be derived so that $S$ can be
 standardized to form a statistic $Z$ which follows standard normal distribution
 asymptotically \citep[p.910]{datta2005rank}. An implementation of this method is
 available from the \texttt{clusWilcox.test()} function with
-\texttt{method = ``ds'} from R package \texttt{clusrank}
+\texttt{method = `ds'} from R package \texttt{clusrank}
 \citep{jiang2017wilcoxon}.
 \eds{are you including preliminary heat data as possible within cluster 
 observations in this analysis?  Based on your 
@@ -893,18 +893,15 @@ the 2022 World Track and Field Championships were a low outlier compared to
 every other year in terms of average reaction time.  Additionally, it was shown
 through a gamma mixed effects model that there are significant year and race
 effects \eds{remove race effects?} that greatly impact reaction time.  
-However, this practically does not make much sense
-as there is no reason for so much random variation without much of a trend.
-There has not been a consistent decrease or increase since 1999, and much of the 
-data
-for reaction times has been random and unpredictable. 
+
 \eds{I would suggest removing the last two sentences, as they would suggest your
  modeling with GLMM is not good}.  
+\of{I agree and they have been removed}
 
 This paper does not consider data from the women's 100 meter hurdle, and although
 that was initially because of concerns over reaction time differences in men and
 women, exploratory analysis showed that 2022 was at best only
-slightly faster relative to other championships going back to 2022 
+slightly faster relative to other championships going back to 2003 
 \eds{check year}. \eds{this seems to contradict the Robert Johnson conclusion in 
 the intro, unless he only considered sprint and not hurdles?} Likewise,
 the rank-based comparisons resulted in p values that were not significant.  The
