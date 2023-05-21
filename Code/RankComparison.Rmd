@@ -9,7 +9,7 @@ output: pdf_document
 inter <- read.csv("../Data/2019vs2022.csv")
 
 #nine is used for 2019 and two is used for 2022.  H, S, F are used to denote the heats, semifinals, and finals.
-colnames(inter) <- c("Athlete", "Country", "nineH", "nineS", "nineF", "twoH", "twoS", "twoF")
+colnames(inter) <- c("Athlete", "Country", "2019H", "2019S", "2019F", "2022H", "2022S", "2022F")
 ```
 
 ```{r}
@@ -29,7 +29,7 @@ library(ggplot2)
 means_df <- data.frame(variable = names(means), mean = means)
 
 # Define the grouping of bars
-groupings <- list(c("nineH", "twoH"), c("nineS", "twoS"), c("nineF", "twoF"))
+groupings <- list(c("2019H", "2022H"), c("2019S", "2022S"), c("2019F", "2022F"))
 
 # Convert variable to a factor with desired order
 means_df$variable <- factor(means_df$variable, levels = unlist(groupings))
@@ -38,8 +38,9 @@ means_df$variable <- factor(means_df$variable, levels = unlist(groupings))
 ggplot(means_df, aes(x = variable, y = mean, fill = variable)) +
   geom_bar(stat = "identity", position = "dodge") +
   scale_fill_manual(values = c("sienna2", "tan", "sienna2", "tan", "sienna2", "tan")) +
-  labs(x = "Variable", y = "Mean", title = "Grouped Bar Graph") +
+  labs(y = "Mean Reaction Time", x ="") +
   theme_minimal() +
   theme(legend.position = "none")
+ggsave(filename="2019vs2022BarGraph.pdf", path = "../Manuscript", height=4, width=6)
 ```
 
