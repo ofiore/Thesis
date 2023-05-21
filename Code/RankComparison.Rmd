@@ -1,0 +1,45 @@
+---
+title: "Descriptive_Stats"
+author: "Owen Fiore"
+date: "2023-05-21"
+output: pdf_document
+---
+
+```{r}
+inter <- read.csv("../Data/2019vs2022.csv")
+
+#nine is used for 2019 and two is used for 2022.  H, S, F are used to denote the heats, semifinals, and finals.
+colnames(inter) <- c("Athlete", "Country", "nineH", "nineS", "nineF", "twoH", "twoS", "twoF")
+```
+
+```{r}
+my_sums <- colSums(!is.na(inter))
+print(my_sums)
+barplot(my_sums)
+```
+
+```{r}
+means <- sapply(inter[,3:ncol(inter)], mean, na.rm = TRUE)
+print(means)
+
+```
+
+```{r}
+library(ggplot2)
+means_df <- data.frame(variable = names(means), mean = means)
+
+# Define the grouping of bars
+groupings <- list(c("nineH", "twoH"), c("nineS", "twoS"), c("nineF", "twoF"))
+
+# Convert variable to a factor with desired order
+means_df$variable <- factor(means_df$variable, levels = unlist(groupings))
+
+# Create the bar graph
+ggplot(means_df, aes(x = variable, y = mean, fill = variable)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_manual(values = c("sienna2", "tan", "sienna2", "tan", "sienna2", "tan")) +
+  labs(x = "Variable", y = "Mean", title = "Grouped Bar Graph") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
