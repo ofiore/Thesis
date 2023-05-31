@@ -87,7 +87,7 @@ reaction time will continue to be an issue in future world championships.
 
 
 
-\bigskip\noindent\sc{Keywords}:
+\bigskip\noindent{\sc Keywords}:
 False Start, Hurdles, Reaction Time, Seiko 
 
 \end{abstract}
@@ -444,6 +444,9 @@ competition, but the time span between meets has been reduced considerably.
 \of{I included this here for now, but feel free to change the location.  I will
 add references to it and explanation of it along with some descriptive statistics about
 the size and mean/median,std dev, size of the data.}
+\jy{Show dot plots which would give the distribution; without uncertainty
+  measure, the mean does not tell much.}
+
 
 \section{Methods} \label{sec:Methods}
 
@@ -462,7 +465,9 @@ which makes intuitive sense given the discussion in Section~\ref{sec:dataworld}.
 Let $Y_{ij}$ be the reaction time of observation~$j$ in year~$i$.
 \eds{we know that many of the athletes compete in multiple world championships,
   how is this athlete clustering being accounted for here?}
-\jy{We could add an athlete random effect too, if the players are identified in the data.}
+\jy{We could add an athlete random effect too, if the players are identified in
+  the data.}
+\jy{Owen, do we have athlete id in the data?}
 Conditional on a venue effect $z_i$ of year~i,  $Y_{ij}$ is modeled by 
 gamma distribution. In the classic generalized linear model (GLM) sense,
 $Y_{ij}$ has conditional mean
@@ -515,7 +520,9 @@ would be more compelling for its non-use than its difficulty in interpretation.}
 \of{We found that including the race effect resulted in the venue effect not
 being significant, and thus Prof Yan suggested that we don't include it.  I am
 wondering if this is even worth mentioning? Prof Yan, what do you think?} 
-
+\jy{We can revisit the results. It is not surprising that venue effect is no
+  longer significant after the batch effect was included. We could do the same
+  analysis with the batch-random-effect model.}
 
 \subsection{Rank-based Comparison}\label{sec:rank}
 
@@ -729,14 +736,8 @@ no results presented here}
 
 \subsection{Rank-based Comparison} \label{subsec:Results_Rank}
 
-
-\jy{motivate first; describe the data (what are the grouping variables in the
-  two data sets? use one paragraph for each.}
-\of{Shouldnt describing the grouping variables go more in the data or methods 
-section?  Currently, there is some writing about this but it is commented out. It
-can be found in section 3.2}
-
-
+\jy{Remind the readers what the analysis was about: two-group comparison with
+  group being ....}
 
 When the clusrank rank sum test was performed, the ``ds" method produced a z score of
 2.9751 and p value of 0.001464.  \eds{what is the ds method?} 
