@@ -697,6 +697,18 @@ If IAAF \eds{or World Athletics?} were to change the reaction time the way that
 suggests, the probability would be so much lower that athletes would likely not
 have a case to make when arguing against a disqualification.
 
+We can use the same model but alter our interpretation slightly to select a 
+reaction time barrier given the probability of observing a time less than the 
+barrier.  For example, if we want a 0.1\% chance of observing an illegally fast 
+reaction time for the men's pooled dataset that includes 2022, then the reaction
+time barrier should be 0.089 seconds, as shown in Table~\ref{tab:Sim_time}.  We
+can repeat this calculation for each dataset and for various probability levels,
+for example a probability of 0.0001 (one disqualification for every 10,000 starts)
+results in a reaction time barrier of 0.079 for the men's pooled dataset.  
+Tables~\ref{tab:Sim_time} shows that the inclusion of 2022 results in a lower
+reaction time barrier, further showing the claims above that the reaction times
+in 2022 were low.
+
 %Discussion should show that random effect
 %and standard error increase and that 2022 is special.  Now talk about Seiko
 %timing equipment
@@ -738,6 +750,13 @@ no results presented here}
 
 \jy{Remind the readers what the analysis was about: two-group comparison with
   group being ....}
+
+The rank based methods described in Section~\ref{sec:rank} are used
+to determine if the reaction times for athletes who had competed at other 
+championships differed significantly from the 2022 World Championships.  We can
+use the 2019 World Championships and the 2022 national-level championships as a 
+precedent to see how athletes performance changed across different championships.
+
 
 When the clusrank rank sum test was performed, the ``ds" method produced a z score of
 2.9751 and p value of 0.001464.  \eds{what is the ds method?} 
