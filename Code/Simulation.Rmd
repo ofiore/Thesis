@@ -6,9 +6,7 @@ output: pdf_document
 ---
 
 ```{}
-The probability of observing a reaction time less than 0.01 is 0.0068649
-The probability of observing a reaction time less than 0.095 is 0.0030386
-The probability of observing a reaction time less than 0.09 is 0.00121
+
 
 
 If we want to pick the barrier based on the reaction time a barrier of 0.08905, 1 in every 1001.603
@@ -36,7 +34,7 @@ simulation <- function(model, base, RxnTime){
   sbase <- summary(base)
   #print(sbase)
   x <- simfit(model)
-  print(1/mean(x < RxnTime))
+  print(mean(x < RxnTime))
   print(quantile(x, prob = c(.00001, .0001, .0005, .001)))
   ## compare with and without random effect
   plot(density(x)) # with random effect
@@ -46,6 +44,9 @@ simulation <- function(model, base, RxnTime){
 }
 simulation(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.089)
 ```
+
+
+
 
 ```{r}
 library(lme4)
@@ -91,19 +92,17 @@ simulation <- function(model, base, prob) {
   sbase <- summary(base)
   x <- simfit(model)
   print(quantile(x, probs = prob))
-
-  plot(density(x), main = "Density Plot", xlab = "RxnTime", ylab = "Density")
-  curve(dgamma(x, shape = 1 / sbase$dispersion, scale = exp(coef(base)) * sbase$dispersion), 
-        from = min(x), to = max(x), add = TRUE, col = "blue")
 }
 
-simulation(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.001)
+#simulation(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.001)
 ```
 
-
-
-```{}
-Currently mean(x < 0.089) returns a proportion of x values that are less than 0.089
-We instead want to set the proportion to be some set value, ex: 0.001
+```{r}
+set.seed(1)
+simulation(old_finals_year_gamma_log, old_finals_one_gamma_log, 0.0001)
+simulation(men_finals_year_gamma_log, men_finals_one_gamma_log, 0.0001)
+simulation(old_pooled_year_gamma_log, old_pooled_one_gamma_log, 0.0001)
+simulation(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.0001)
 ```
+
 

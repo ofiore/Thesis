@@ -23,4 +23,11 @@ qqnorm(ranef(batch)$Batch[,1])
 qqnorm(resid(one_effect), main = "Without Batch Effect")
 #anova(one_effect, two_effect)
 ```
+```{r}
+nested <- glmer(RxnTime ~ (1|Year) + (1|Batch:Year), data=men_pooled, family = Gamma(link="log"))
+anova(nested, one_effect)
+batch_year <- glmer(RxnTime ~ (1|Batch:Year), data=men_pooled, family = Gamma(link="log"))
+anova(batch_year, nested)
+ranef(nested)
+```
 
