@@ -242,7 +242,8 @@ pooled <- ggplot(men_pooled, aes(x = Year, y = RxnTime, group = Year)) +
                             breaks = seq(0.1, 0.225, 0.025)) +
   expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2023),
                                               breaks = seq(1997, 2022, 2))
-both <- grid.arrange(final,pooled, ncol=1)
-ggsave(filename="Finals_Pooled_Boxplot.pdf", path = "../Manuscript", plot=both, height = 6, width = 6)
+#both <- grid.arrange(final,pooled, ncol=1)
+grid.arrange(final,pooled, ncol=1)
+#ggsave(filename="Finals_Pooled_Boxplot.pdf", path = "../Manuscript", plot=both, height = 6, width = 6)
 ```
 
