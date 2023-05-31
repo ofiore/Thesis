@@ -1,0 +1,26 @@
+---
+title: "Random_Effects"
+author: "Owen Fiore"
+date: "2023-05-31"
+output: pdf_document
+---
+
+```{r}
+two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = men_pooled, family = Gamma(link = "log"))
+one_effect <- glmer(RxnTime ~ (1 | Year) , data = men_pooled, family = Gamma(link = "log"))
+no_effect <- glm(RxnTime ~ 1, data = men_pooled, family = Gamma(link = "log"))
+batch <- glmer(RxnTime ~ (1 | Batch) , data = men_pooled, family = Gamma(link = "log"))
+anova(batch, two_effect)
+print("------------------")
+anova(one_effect, two_effect)
+print("--------------")
+par(mfrow=c(1,1))
+qqnorm(resid(two_effect))
+par(mfrow=c(2,1))
+qqnorm(ranef(two_effect)$Year[,1])
+qqnorm(ranef(two_effect)$Batch[,1])
+qqnorm(ranef(batch)$Batch[,1])
+qqnorm(resid(one_effect), main = "Without Batch Effect")
+#anova(one_effect, two_effect)
+```
+
