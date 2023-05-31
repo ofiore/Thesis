@@ -302,7 +302,11 @@ throughout the paper.
 The pooled data increases the sample size which is advantageous because in some
 years there are very few final heat observations.  For example, in 2022 there
 were only five data points due to two disqualifications and one athlete who 
-did not compete.
+did not compete.  We also look at data that does not include 2022 with year values
+between 1999 and 2019.  Thus, we have four datasets with their respective naming
+in parentheses: the final's data from 1999 to 2019 (Old Finals), final's data 
+from 2019 to 2022 (All Finals), pooled data from 1999 to 2019 (Old Pooled), and 
+pooled data from 1999 to 2022 (All Pooled).
 
 The data under consideration is best visualized using side-by-side boxplots, as
 shown in Figure~\ref{fig:Boxplots}.  It is clear that the reaction times in the 
@@ -507,7 +511,10 @@ heats that had fast and slow reaction times are all within 0.12 seconds of each
 other. 
 \eds{Did you try it and find that the effect was not needed?  If yes,
 I would include that here.  That argument 
-would be more compelling for its non-use than its difficulty in interpretation.} 
+would be more compelling for its non-use than its difficulty in interpretation.}
+\of{We found that including the race effect resulted in the venue effect not
+being significant, and thus Prof Yan suggested that we don't include it.  I am
+wondering if this is even worth mentioning? Prof Yan, what do you think?} 
 
 
 \subsection{Rank-based Comparison}\label{sec:rank}
@@ -554,6 +561,11 @@ observations in this analysis?  Based on your
 discussion in Section 2.1 about how they are not comparable, it may not be fair 
 to include them here?  Or perhaps do the analysis with and without prelim heat
 data to see if it makes a difference?}
+\of{Yes I am including prelminary heat data.  The primary reason is that there
+would be few datapoints otherwise.  I ran the numbes without prelims, the number
+of observations dropped from 65 to 26 and the number of clusters from 15 to 9, the
+p value increased from 0.000155 to 0.007332.
+The calculations are at the bottom of RankComparison.Rmd}
 
 
 \section{Results} \label{sec:Results}
@@ -564,15 +576,14 @@ data to see if it makes a difference?}
 
 \of{Add something like this to the start of the paragraph?}
 We may want to consider using all four data sets for this problem because
-comparing all the data to the data excluding 2022 can give us a qualitative
-assessment of how impactful 2022 was.
+comparing all the data to the data excluding 2022 can give us an
+assessment of how impactful 2022 was. We hope to see that by including 2022,
+the probability of observing a significantly low reaction time increases. 
 \eds{Agree with JY, but you need to describe what these four datasets are.}
-
+\of{I added a description of the four datasets in the Data paragraph right below
+where it says <Thus, we have four datasets>}
 Table~\ref{tab:Gamma_parameters} summarizes the results from the gamma model 
-from different data sets.
-
-
-As shown in Table~\ref{tab:Gamma_parameters}, the standard error of the year
+from different data sets and shows the standard error of the year
 effect increases for both the men's final and men's pooled data sets when
 including 2022.  The men's final data venue effect error increased from 0.439
 to 0.504 and from 0.0495 to 0.0554 for the men's pooled data.  This demonstrates
@@ -582,47 +593,73 @@ the rank-based study (see Section~\ref{subsec:Results_Rank}).
 \jy{Close captions with a period.}
 \begin{table}
   \centering
-  \caption{Summary statistics for the GLMM on various data sets. 
-	\eds{Int=intercept?}}
+  \caption{Summary statistics for the GLMM on various data sets.} 
   \begin{tabular}{c c c c c c}
       \toprule
       Dataset & Venue standard error & Int effect est & Int se & Int var & Resid Var \\
       \midrule
-      Older Finals & 0.0439 & $-1.901$ & 0.0251 & 0.0019 & 0.0109 \\
+      Old Finals & 0.0439 & $-1.901$ & 0.0251 & 0.0019 & 0.0109 \\
       All Finals & 0.0504 & $-1.914$ & 0.0280 & 0.0025 & 0.0112 \\
-      Older Pooled & 0.0495 & $-1.853$ & 0.0305 & 0.0024 & 0.0243 \\
+      Old Pooled & 0.0495 & $-1.853$ & 0.0305 & 0.0024 & 0.0243 \\
       All Pooled & 0.0554 & $-1.869$ & 0.0348 & 0.0031 & 0.0235 \\
       \bottomrule
   \end{tabular}
   \label{tab:Gamma_parameters}
 \end{table}
 
-\eds{be consistent with the order of the rows between 
-Tables~\ref{tab:Gamma_parameters} and~\ref{tab:Sim_probability}}
 
 \jy{label the table and reference to it; clean it up}
 \begin{table}
   \centering
-  \caption{Probabilities of observing reaction times less than 0.1, 0.09, and
+  \caption{Probabilities of observing reaction times less than 0.1, 0.08, and
   0.08 for various data sets.}
   \begin{tabular}{c c c c} 
    \toprule
-   Data Set & P(RxnTime $<$ 0.1) & P(RxnTime $<$ 0.09) & P(RxnTime $<$ 0.08) \\ 
+   Data Set & P(RxnTime $<$ 0.1) & P(RxnTime $<$ 0.08) \\ 
    \midrule
-   all finals & $8.56\cdot10^{-4}$ & $4.1\cdot10^{-5}$ & $6.0\cdot10^{-7}$ \\ 
-   old finals & $4.39\cdot10^{-4}$ & $1.63\cdot10^{-5}$ & $2.0\cdot10^{-5}$ \\
-   all pooled & $6.86\cdot10^{-3}$ & $1.21\cdot10^{-3}$ & $1.3\cdot10^{-4}$ \\
-   old pooled & $5.76\cdot10^{-3}$ & $9.93\cdot10^{-4}$ & $1.0\cdot10^{-4}$\\
+   Old Finals & $4.39\cdot10^{-4}$ & $2.0\cdot10^{-5}$ \\
+   All Finals & $8.56\cdot10^{-4}$ & $6.0\cdot10^{-7}$ \\
+   Old Pooled & $5.76\cdot10^{-3}$ & $1.0\cdot10^{-4}$ \\ 
+   All Pooled & $6.86\cdot10^{-3}$ & $1.3\cdot10^{-4}$ \\
    \bottomrule
   \end{tabular}
   \label{tab:Sim_probability}
 \end{table}
 
+\begin{table}
+  \centering
+  \caption{Suggested reaction time barriers based on probability of observing
+  a time less the barrier. \of{Not sure if this makes sense}}
+  \begin{tabular}{c c c c} 
+   \toprule
+   Data Set & P(RxnTime $<$ x = .001) & P(RxnTime $<$ x = 0.0001) \\ 
+   \midrule
+   Old Finals & $4.39\cdot10^{-4}$ & $2.0\cdot10^{-5}$ \\
+   All Finals & $8.56\cdot10^{-4}$ & $6.0\cdot10^{-7}$ \\
+   Old Pooled & $5.76\cdot10^{-3}$ & $1.0\cdot10^{-4}$ \\ 
+   All Pooled & $6.86\cdot10^{-3}$ & $1.3\cdot10^{-4}$ \\
+   \bottomrule
+  \end{tabular}
+  \label{tab:ExpectedValues}
+\end{table}
+
+
 Using the gamma function with link set to log, the probability of the reaction 
 time being less than 0.1 seconds can be calculated to see if Allen's 
-disqualification was an anomaly. \eds{explain how simulation was used here.}
-At a size of $n=10,000,000$ \eds{use different letter as $n$ was already used 
-for number of athletes, $B?$}, the calculated probabilities of a reaction time 
+disqualification was an anomaly. 
+\eds{explain how simulation was used here.} \of{The methods section already
+details how the calculations are performed, can you please elaborate what you
+are exactly looking for.}
+Calculations were performed in R using the methods described in 
+section~\ref{sec:glmm} with the use of the \citet{lme4} package.
+
+
+At a size of $n=10,000,000$, \eds{use different letter as $n$ was already used 
+for number of athletes, $B?$} \of{Could I just say "At a size of 10,000,000"? 
+Otherwise I am fine with using "B" instead of "n"}
+
+
+The calculated probabilities of a reaction time 
 being below 0.1 seconds for the various different data sets are shown in 
 Table~\ref{tab:Sim_probability}. Prior to the 2022 World Championships, there was 
 a 0.0439\% chance (based on the
