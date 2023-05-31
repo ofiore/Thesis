@@ -44,3 +44,23 @@ ggplot(means_df, aes(x = variable, y = mean, fill = variable)) +
 ggsave(filename="2019vs2022BarGraph.pdf", path = "../Manuscript", height=4, width=6)
 ```
 
+```{r}
+nations <- read.csv("../Data/ClusrankNatvsWorld.csv")
+colnames(nations) <- c("Time", "Athlete", "Year")
+```
+
+```{r}
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations, alternative = "greater", method = "ds")
+```
+
+```{r}
+nations_noprelim <- read.csv("../Data/Clusrank2019vs2022PrelimsOnly.csv")
+colnames(nations_noprelim) <- c("Time", "Athlete", "Year")
+``` 
+
+```{r}
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations_noprelim, alternative = "greater", method = "ds")
+```
+
