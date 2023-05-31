@@ -1,3 +1,23 @@
+# Meeting Notes 5/31
+Things I want to talk about:
+Athlete effect, various language stuff, inclusion of prelims in rank based comparisons,
+Moving paragraphs
+
+To do:
+Update the simulation code to include second random effect and do the time analysis
+2022 batch effects are all negative
+- will not include athlete effect for now
+Justify the inclusion of the heats in the rank analysis
+Change orange/tan bar graph to dots to show spread
+Keep the sprinters/hurdles
+
+
+
+
+
+
+
+
 # Meeting Notes 4/25
 Maybe paper less conversational, more scholarly
 Just say that there are gender differences so not going to pool
