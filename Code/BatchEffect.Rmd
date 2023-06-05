@@ -6,6 +6,7 @@ output: pdf_document
 ---
 
 ```{r}
+library(lme4)
 two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = men_pooled, family = Gamma(link = "log"))
 one_effect <- glmer(RxnTime ~ (1 | Year) , data = men_pooled, family = Gamma(link = "log"))
 no_effect <- glm(RxnTime ~ 1, data = men_pooled, family = Gamma(link = "log"))
@@ -23,11 +24,46 @@ qqnorm(ranef(batch)$Batch[,1])
 qqnorm(resid(one_effect), main = "Without Batch Effect")
 #anova(one_effect, two_effect)
 ```
+
 ```{r}
 nested <- glmer(RxnTime ~ (1|Year) + (1|Batch:Year), data=men_pooled, family = Gamma(link="log"))
 anova(nested, one_effect)
 batch_year <- glmer(RxnTime ~ (1|Batch:Year), data=men_pooled, family = Gamma(link="log"))
 anova(batch_year, nested)
-ranef(nested)
+#ranef(nested)
 ```
+
+```{r}
+simulation <- function(model, base, RxnTime) {
+  simfit <- function(model, n = 10000000) {
+    vc <- as.data.frame(VarCorr(model))
+    z1 <- rnorm(n, sd = vc$sdcor[1])  # random effects for Year
+    z2 <- rnorm(n, sd = vc$sdcor[2])  # random effects for Batch
+    mu <- exp(fixef(model) + z1 + z2)
+    shape <- 1 / vc$vcov[2]
+    x <- rgamma(n, shape = shape, scale = mu / shape)
+    x
+  }
+  
+  sbase <- summary(base)
+  x <- simfit(model)
+  print(mean(x < RxnTime))
+  print(quantile(x, prob = c(0.00001, 0.0001, 0.0005, 0.001)))
+  ## compare with and without random effect
+  plot(density(x))  # with random effects
+  curve(dgamma(x, shape = 1 / sbase$dispersion, 
+               scale = exp(coef(base)) * sbase$dispersion), 
+        0.08, 0.22, add = TRUE, col = "blue")  # fixed effect only
+}
+simulation(old_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.1)
+```
+```{}
+All probabilities are for RxnTime=0.1 seconds
+old pooled: 0.0283374 vs 0.0057613
+men_pooled: 0.0313561 vs 0.0068649
+old finals: 0.0056892 vs 0.0004389
+men_finals: 0.0083227 vs 0.000856
+The times on the left are for the 2 batch, times on the right are for the 1 batch
+```
+
 

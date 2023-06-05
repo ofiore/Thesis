@@ -42,7 +42,7 @@ simulation <- function(model, base, RxnTime){
                scale = exp(coef(base)) * sbase$dispersion), 
         0.08, 0.22, add = TRUE, col = "blue") # fixed effect only
 }
-simulation(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.089)
+simulation(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.1)
 ```
 
 
