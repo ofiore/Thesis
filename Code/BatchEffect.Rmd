@@ -5,6 +5,15 @@ date: "2023-05-31"
 output: pdf_document
 ---
 
+
+Clearn it up: two_effect and nested are the same model. Don't confuse the readers.
+
+Keep the code styles (80 characters linewidth; etc.)
+
+Add text between the code chunks to document what you are doing.
+
+
+
 ```{r}
 library(lme4)
 two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = men_pooled, family = Gamma(link = "log"))
@@ -52,7 +61,7 @@ simulation <- function(model, base, RxnTime) {
     z1 <- rnorm(n, sd = sd_year)
     z2 <- rnorm(n, sd = sd_year_batch)
     
-    shape <- 1 / sqrt(sd_year^2 + sd_year_batch^2)
+    shape <- 1 / sigma(model)^2
     mu <- exp(fixef(model) + z1 + z2)
     
     x <- rgamma(n, shape = shape, scale = mu / shape)
