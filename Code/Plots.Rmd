@@ -247,3 +247,50 @@ grid.arrange(final,pooled, ncol=1)
 #ggsave(filename="Finals_Pooled_Boxplot.pdf", path = "../Manuscript", plot=both, height = 6, width = 6)
 ```
 
+```{r}
+library(ggplot2)
+means_df <- data.frame(variable = names(means), mean = means)
+
+# Define the grouping of bars
+groupings <- list(c("2019H", "2022H"), c("2019S", "2022S"), c("2019F", "2022F"))
+
+# Convert variable to a factor with desired order
+means_df$variable <- factor(means_df$variable, levels = unlist(groupings))
+
+# Create the bar graph
+ggplot(means_df, aes(x = variable, y = mean, color = variable)) +
+  geom_bar(size = 3) +
+  labs(y = "Mean Reaction Time", x = "") +
+  scale_color_manual(values = c("sienna2", "tan", "sienna2", "tan", "sienna2", "tan")) +
+  theme_minimal() +
+  theme(legend.position = "none")
+#ggsave(filename = "2019vs2022ScatterPlot.pdf", path = "../Manuscript", height = 4, width = 6)
+```
+
+
+```{r}
+comp <- read.csv("../Data/2019vs2022.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(comp) <- c("Athlete", "Country", "2019 Heats", "2019 Semifinals", "2019 Finals", "2022 Heats", "2022 Semifinals", "2022 Finals")
+```
+
+```{r}
+comp <- comp[, -c(1,2)]
+```
+```{r}
+library(tidyr)
+library(ggplot2)
+df_long <- tidyr::pivot_longer(comp, cols = everything(), names_to = "Column", values_to = "Time")
+
+order <- c("2019 Heats", "2019 Semifinals", "2019 Finals", "2022 Heats", "2022 Semifinals", "2022 Finals")
+#df_long$Event <- factor(df_long$Event, levels = order)
+```
+```{r}
+comp_plot <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Time") +
+  ylim(0.08, 0.22)
+  theme_minimal()
+ggsave(filename="Scatterplot2019vs2022.pdf", path = "../Manuscript", plot=comp_plot, height = 4, width = 6)
+```
+
