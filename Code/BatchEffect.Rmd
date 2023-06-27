@@ -17,30 +17,34 @@ Add text between the code chunks to document what you are doing.
 ```{r}
 library(lme4)
 two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = men_pooled, family = Gamma(link = "log"))
-one_effect <- glmer(RxnTime ~ (1 | Year) , data = men_pooled, family = Gamma(link = "log"))
+year_effect <- glmer(RxnTime ~ (1 | Year) , data = men_pooled, family = Gamma(link = "log"))
 no_effect <- glm(RxnTime ~ 1, data = men_pooled, family = Gamma(link = "log"))
-batch <- glmer(RxnTime ~ (1 | Batch) , data = men_pooled, family = Gamma(link = "log"))
+batch_effect <- glmer(RxnTime ~ (1 | Batch) , data = men_pooled, family = Gamma(link = "log"))
+```
+
+```{}
+The code chunk above creates 4 models: no random effects, a year effect only, 
+batch effect only, and both year and batch effect.
+```
+
+
+```{r}
 anova(batch, two_effect)
-print("------------------")
-anova(one_effect, two_effect)
-print("--------------")
-par(mfrow=c(1,1))
-qqnorm(resid(two_effect))
-par(mfrow=c(2,1))
-qqnorm(ranef(two_effect)$Year[,1])
-qqnorm(ranef(two_effect)$Batch[,1])
-qqnorm(ranef(batch)$Batch[,1])
-qqnorm(resid(one_effect), main = "Without Batch Effect")
-#anova(one_effect, two_effect)
+```
+```{}
+This anova test determined that the two_effect model is an improvement over the
+batch effect model. The test statistic is significant at alpha = 0.05 but not at
+alpha = 0.01.
 ```
 
 ```{r}
-nested <- glmer(RxnTime ~ (1|Year) + (1|Batch), data=men_pooled, family = Gamma(link="log"))
-anova(nested, one_effect)
-batch_year <- glmer(RxnTime ~ (1|Batch:Year), data=men_pooled, family = Gamma(link="log"))
-anova(batch_year, nested)
-#ranef(nested)
+anova(one_effect, two_effect)
 ```
+```{}
+In this anova test, it is clear that the two random effect model is superior to
+having only the year effect.
+```
+
 
 ```{r}
 old_finals_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = old_finals, family = Gamma(link = "log"))
@@ -51,8 +55,15 @@ men_pooled_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = men_po
 ```
 
 
+```{}
+This section fits a two random effect model for each dataset.
+```
+
+
 ```{r}
-simulation <- function(model, base, RxnTime) {
+set.seed(1)
+library(lme4)
+simulation_two_effect <- function(model, base, RxnTime) {
   simfit <- function(model, n = 10000000) {
     vc <- as.data.frame(VarCorr(model))
     sd_year <- vc$sdcor[1]
@@ -78,18 +89,64 @@ simulation <- function(model, base, RxnTime) {
                scale = exp(coef(base)) * sbase$dispersion), 
         0.08, 0.22, add = TRUE, col = "blue")  # fixed effect only
 }
-simulation(old_finals_two_effect, old_finals_one_gamma_log, 0.1)
-simulation(men_finals_two_effect, men_finals_one_gamma_log, 0.1)
-simulation(old_pooled_two_effect, old_pooled_one_gamma_log, 0.1)
-simulation(men_pooled_two_effect, men_pooled_one_gamma_log, 0.1)
+simulation_two_effect(old_finals_two_effect, old_finals_one_gamma_log, 0.1)
+simulation_two_effect(men_finals_two_effect, men_finals_one_gamma_log, 0.1)
+simulation_two_effect(old_pooled_two_effect, old_pooled_one_gamma_log, 0.1)
+simulation_two_effect(men_pooled_two_effect, men_pooled_one_gamma_log, 0.1)
+```
+
+
+```{}
+This code simulates the probability of observing a reaction time less than 0.1
+for the various datasets.
+```
+
+
+```{r}
+library(lme4)
+set.seed(1)
+simulation_one_effect <- function(model, base, RxnTime){
+    simfit <- function(model, n = 10000000) {
+    vc <- as.data.frame(VarCorr(model))
+    ## mu <- exp(coef(model)$Year[,]) ## using fitted random effects only
+    z <- rnorm(n, sd = vc$sdcor[1]) #$ using generated random effects
+    mu <- exp(fixef(model) + z)
+    shape <- 1 / vc$vcov[2]
+    x <- rgamma(n, shape = shape, scale = mu / shape)
+    x
+    }
+  sbase <- summary(base)
+  #print(sbase)
+  x <- simfit(model)
+  print(mean(x < RxnTime))
+  #print(quantile(x, prob = c(.00001, .0001, .0005, .001)))
+  ## compare with and without random effect
+  plot(density(x)) # with random effect
+  curve(dgamma(x, shape = 1 / sbase$dispersion, 
+               scale = exp(coef(base)) * sbase$dispersion), 
+        0.08, 0.22, add = TRUE, col = "blue") # fixed effect only
+}
+simulation_one_effect(old_finals_year_gamma_log, old_finals_one_gamma_log, 0.1)
+simulation_one_effect(men_finals_year_gamma_log, men_finals_one_gamma_log, 0.1)
+simulation_one_effect(old_pooled_year_gamma_log, old_pooled_one_gamma_log, 0.1)
+simulation_one_effect(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.1)
 ```
 
 ```{}
+The above code simulates the probability of observing a reaction time less than
+0.1 seconds for the year effect model.
+```
+
+
+```{}
 All probabilities are for RxnTime=0.1 seconds
-old finals: 0.0452759 vs 0.0004389
-men_finals: 0.0647663 vs 0.000856
-old pooled: 0.0779887 vs 0.0057613
-men_pooled: 0.0897533 vs 0.0068649
+old finals: 0.0004356 vs 0.0004389
+men_finals: 0.0008642 vs 0.0008626
+old pooled: 0.0041495 vs 0.0057287
+men_pooled: 0.005145 vs 0.0068441
 The times on the left are for the 2 batch, times on the right are for the 1 batch
+
+Thus if we want to pick the model with the larger probabilities to show that 
+0.01 is not extreme, the one random effect probabilities are slightly smaller.
 ```
 
