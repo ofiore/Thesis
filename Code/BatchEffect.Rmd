@@ -13,23 +13,66 @@ Keep the code styles (80 characters linewidth; etc.)
 Add text between the code chunks to document what you are doing.
 
 
+```{r}
+times <- read.csv("../Data/ThesisData.csv")
+colnames(times) <- c("Year", "Type", "Time", "RxnTime", "Gender", "Batch")
+men_finals <- subset(times, Type == "F" & Gender == "M" & Time != 'DQ') # & Year < 2022)
+men_pooled <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & Time != 'DQ')
+men_old_finals <- subset(times, Type == "F" & Gender == "M" & Time != 'DQ' & Year < 2022)
+men_old_pooled <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & Time != 'DQ' & Year < 2022)
+```
+```{}
+This loads in the datasets
+```
+
+
 
 ```{r}
 library(lme4)
-two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = men_pooled, family = Gamma(link = "log"))
-year_effect <- glmer(RxnTime ~ (1 | Year) , data = men_pooled, family = Gamma(link = "log"))
-no_effect <- glm(RxnTime ~ 1, data = men_pooled, family = Gamma(link = "log"))
-batch_effect <- glmer(RxnTime ~ (1 | Batch) , data = men_pooled, family = Gamma(link = "log"))
-```
+men_old_finals_one_gamma_log <- glm(RxnTime ~ 1, data = men_old_finals, family = Gamma(link = "log"))
+men_old_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_finals, family = Gamma(link = "log"))
 
+men_finals_one_gamma_log <- glm(RxnTime ~ 1, data = men_finals, family = Gamma(link = "log"))
+men_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_finals, family = Gamma(link = "log"))
+
+men_old_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = men_old_pooled, family = Gamma(link = "log"))
+men_old_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_pooled, family = Gamma(link = "log"))
+
+men_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = men_pooled, family = Gamma(link = "log"))
+men_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_pooled, family = Gamma(link = "log"))
+
+```
 ```{}
-The code chunk above creates 4 models: no random effects, a year effect only, 
-batch effect only, and both year and batch effect.
+This creates the year effect and the no year effect models
 ```
 
 
 ```{r}
-anova(batch, two_effect)
+men_old_finals_batch <-glmer(RxnTime ~ (1 | Batch), data = old_finals, family = Gamma(link = "log"))
+men_finals_batch <-glmer(RxnTime ~ (1 | Batch), data = men_finals, family = Gamma(link = "log"))
+men_old_pooled_batch <-glmer(RxnTime ~ (1 | Batch), data = old_pooled, family = Gamma(link = "log"))
+men_pooled_batch <-glmer(RxnTime ~ (1 | Batch), data = men_pooled, family = Gamma(link = "log"))
+```
+```{}
+This creates the batch effect only models
+```
+
+
+
+```{r}
+men_old_finals_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = old_finals, family = Gamma(link = "log"))
+men_finals_two_effect<- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = men_finals, family = Gamma(link = "log"))
+men_old_pooled_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = old_pooled, family = Gamma(link = "log"))
+men_pooled_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = men_pooled, family = Gamma(link = "log"))
+```
+```{}
+This creates the year and batch effect models
+```
+
+
+
+```{r}
+anova(men_pooled_batch, men_pooled_two_effect)
 ```
 ```{}
 This anova test determined that the two_effect model is an improvement over the
@@ -37,26 +80,15 @@ batch effect model. The test statistic is significant at alpha = 0.05 but not at
 alpha = 0.01.
 ```
 
+
+
+
 ```{r}
-anova(one_effect, two_effect)
+anova(men_pooled_year_gamma_log, men_pooled_two_effect)
 ```
 ```{}
 In this anova test, it is clear that the two random effect model is superior to
 having only the year effect.
-```
-
-
-```{r}
-old_finals_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = old_finals, family = Gamma(link = "log"))
-men_finals_two_effect<- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = men_finals, family = Gamma(link = "log"))
-old_pooled_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = old_pooled, family = Gamma(link = "log"))
-men_pooled_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = men_pooled, family = Gamma(link = "log"))
-
-```
-
-
-```{}
-This section fits a two random effect model for each dataset.
 ```
 
 
