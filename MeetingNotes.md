@@ -1,3 +1,17 @@
+# Meeting Notes 7/5
+Can put equations in plain text
+Fix the Rmd files
+ReadMe in code section that explains what every section does
+Come up with alternative to "race effect"
+What is probability reperesented by threshold, what is threshold for probability
+Dont need sub sub sections for methods but can for data and results
+
+
+
+
+
+
+
 # Meeting Notes 5/31
 Things I want to talk about:
 Athlete effect, various language stuff, inclusion of prelims in rank based comparisons,
