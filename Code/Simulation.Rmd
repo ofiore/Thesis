@@ -6,9 +6,6 @@ output: pdf_document
 ---
 
 ```{}
-
-
-
 If we want to pick the barrier based on the reaction time a barrier of 0.08905, 1 in every 1001.603
 If we want to pick the barrier based on the reaction time a barrier of 0.089, 1 in every 1012.248
 If we want to pick the barrier based on the reaction time a barrier of 0.089057, 1 in every 999.9
@@ -97,6 +94,7 @@ simulation <- function(model, base, prob) {
 #simulation(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.001)
 ```
 
+Change the name
 ```{r}
 set.seed(1)
 simulation(old_finals_year_gamma_log, old_finals_one_gamma_log, 0.0001)
