@@ -16,10 +16,13 @@ Add text between the code chunks to document what you are doing.
 ```{r}
 times <- read.csv("../Data/ThesisData.csv")
 colnames(times) <- c("Year", "Type", "Time", "RxnTime", "Gender", "Batch")
-men_finals <- subset(times, Type == "F" & Gender == "M" & Time != 'DQ') # & Year < 2022)
-men_pooled <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & Time != 'DQ')
-men_old_finals <- subset(times, Type == "F" & Gender == "M" & Time != 'DQ' & Year < 2022)
-men_old_pooled <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & Time != 'DQ' & Year < 2022)
+men_finals <- subset(times, Type == "F" & Gender == "M" & Time != 'DQ')
+men_pooled <- subset(times, (Type == "F" | Type == "S") & 
+                       Gender == "M" & Time != 'DQ')
+men_old_finals <- subset(times, Type == "F" & Gender == "M" & 
+                           Time != 'DQ' & Year < 2022)
+men_old_pooled <- subset(times, (Type == "F" | Type == "S") & 
+                           Gender == "M" & Time != 'DQ' & Year < 2022)
 ```
 ```{}
 This loads in the datasets
@@ -29,17 +32,25 @@ This loads in the datasets
 
 ```{r}
 library(lme4)
-men_old_finals_one_gamma_log <- glm(RxnTime ~ 1, data = men_old_finals, family = Gamma(link = "log"))
-men_old_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_finals, family = Gamma(link = "log"))
+men_old_finals_one_gamma_log <- glm(RxnTime ~ 1, data = men_old_finals, 
+                                    family = Gamma(link = "log"))
+men_old_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_finals, 
+                                       family = Gamma(link = "log"))
 
-men_finals_one_gamma_log <- glm(RxnTime ~ 1, data = men_finals, family = Gamma(link = "log"))
-men_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_finals, family = Gamma(link = "log"))
+men_finals_one_gamma_log <- glm(RxnTime ~ 1, data = men_finals, 
+                                family = Gamma(link = "log"))
+men_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_finals, 
+                                   family = Gamma(link = "log"))
 
-men_old_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = men_old_pooled, family = Gamma(link = "log"))
-men_old_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_pooled, family = Gamma(link = "log"))
+men_old_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = men_old_pooled, 
+                                    family = Gamma(link = "log"))
+men_old_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_pooled, 
+                                       family = Gamma(link = "log"))
 
-men_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = men_pooled, family = Gamma(link = "log"))
-men_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_pooled, family = Gamma(link = "log"))
+men_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = men_pooled, 
+                                family = Gamma(link = "log"))
+men_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_pooled, 
+                                   family = Gamma(link = "log"))
 
 ```
 ```{}
@@ -48,10 +59,14 @@ This creates the year effect and the no year effect models
 
 
 ```{r}
-men_old_finals_batch <-glmer(RxnTime ~ (1 | Batch), data = old_finals, family = Gamma(link = "log"))
-men_finals_batch <-glmer(RxnTime ~ (1 | Batch), data = men_finals, family = Gamma(link = "log"))
-men_old_pooled_batch <-glmer(RxnTime ~ (1 | Batch), data = old_pooled, family = Gamma(link = "log"))
-men_pooled_batch <-glmer(RxnTime ~ (1 | Batch), data = men_pooled, family = Gamma(link = "log"))
+men_old_finals_batch <-glmer(RxnTime ~ (1 | Batch), data = old_finals, 
+                             family = Gamma(link = "log"))
+men_finals_batch <-glmer(RxnTime ~ (1 | Batch), data = men_finals, 
+                         family = Gamma(link = "log"))
+men_old_pooled_batch <-glmer(RxnTime ~ (1 | Batch), data = old_pooled, 
+                             family = Gamma(link = "log"))
+men_pooled_batch <-glmer(RxnTime ~ (1 | Batch), data = men_pooled, 
+                         family = Gamma(link = "log"))
 ```
 ```{}
 This creates the batch effect only models
@@ -60,10 +75,14 @@ This creates the batch effect only models
 
 
 ```{r}
-men_old_finals_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = old_finals, family = Gamma(link = "log"))
-men_finals_two_effect<- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = men_finals, family = Gamma(link = "log"))
-men_old_pooled_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = old_pooled, family = Gamma(link = "log"))
-men_pooled_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), data = men_pooled, family = Gamma(link = "log"))
+men_old_finals_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
+                                   data = old_finals, family = Gamma(link = "log"))
+men_finals_two_effect<- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
+                              data = men_finals, family = Gamma(link = "log"))
+men_old_pooled_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
+                                   data = old_pooled, family = Gamma(link = "log"))
+men_pooled_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
+                               data = men_pooled, family = Gamma(link = "log"))
 ```
 ```{}
 This creates the year and batch effect models
