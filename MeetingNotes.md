@@ -1,14 +1,10 @@
 # Meeting Notes 7/5
-Can put equations in plain text
-Fix the Rmd files
-ReadMe in code section that explains what every section does
-Come up with alternative to "race effect"
-What is probability reperesented by threshold, what is threshold for probability
-Dont need sub sub sections for methods but can for data and results
-
-
-
-
++ Can put equations and explanations in the text block of Rmd files (not in the R blocks).
++ Fix the Rmd files
++ ReadMe in code folder to explain what each Rmd file does.
++ Come up with alternative to "race effect"
++ What is probability reperesented by threshold, what is threshold for probability
++ Dont need sub sub sections for methods but can for data and results
 
 
 
