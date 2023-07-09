@@ -24,9 +24,8 @@ men_old_finals <- subset(times, Type == "F" & Gender == "M" &
 men_old_pooled <- subset(times, (Type == "F" | Type == "S") & 
                            Gender == "M" & Time != 'DQ' & Year < 2022)
 ```
-```{}
-This loads in the datasets
-```
+This loads in the 4 datasets from the csv file.
+
 
 
 
@@ -53,63 +52,55 @@ men_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_pooled,
                                    family = Gamma(link = "log"))
 
 ```
-```{}
-This creates the year effect and the no year effect models
-```
+This creates the year effect and the no effect models.  The models without a year
+effect end in "one_gamma_log" as in men_old_finals_one_gamma_log.
 
 
 ```{r}
-men_old_finals_batch <-glmer(RxnTime ~ (1 | Batch), data = old_finals, 
+men_old_finals_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = old_finals, 
                              family = Gamma(link = "log"))
-men_finals_batch <-glmer(RxnTime ~ (1 | Batch), data = men_finals, 
+men_finals_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = men_finals, 
                          family = Gamma(link = "log"))
-men_old_pooled_batch <-glmer(RxnTime ~ (1 | Batch), data = old_pooled, 
+men_old_pooled_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = old_pooled, 
                              family = Gamma(link = "log"))
-men_pooled_batch <-glmer(RxnTime ~ (1 | Batch), data = men_pooled, 
+men_pooled_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = men_pooled, 
                          family = Gamma(link = "log"))
 ```
-```{}
-This creates the batch effect only models
-```
+
+This creates the models that have the batch effect instead of the year effect.
 
 
 
 ```{r}
-men_old_finals_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
+men_old_finals_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
                                    data = old_finals, family = Gamma(link = "log"))
-men_finals_two_effect<- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
+men_finals_two_effect_gamma_log<- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
                               data = men_finals, family = Gamma(link = "log"))
-men_old_pooled_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
+men_old_pooled_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
                                    data = old_pooled, family = Gamma(link = "log"))
-men_pooled_two_effect <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
+men_pooled_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
                                data = men_pooled, family = Gamma(link = "log"))
 ```
-```{}
-This creates the year and batch effect models
-```
+This creates the models with both a year and batch effect.
+
 
 
 
 ```{r}
 anova(men_pooled_batch, men_pooled_two_effect)
 ```
-```{}
-This anova test determined that the two_effect model is an improvement over the
-batch effect model. The test statistic is significant at alpha = 0.05 but not at
-alpha = 0.01.
-```
 
+This anova test determined that the two effect model is an improvement over the
+batch effect model. The test statistic is 0.01059 which is significant at alpha 
+= 0.05 but not at alpha = 0.01.
 
 
 
 ```{r}
 anova(men_pooled_year_gamma_log, men_pooled_two_effect)
 ```
-```{}
-In this anova test, it is clear that the two random effect model is superior to
-having only the year effect.
-```
-
+This anova test determined that the two effect model is a significant improvement
+over the year effect model.
 
 ```{r}
 set.seed(1)
@@ -145,12 +136,10 @@ simulation_two_effect(men_finals_two_effect, men_finals_one_gamma_log, 0.1)
 simulation_two_effect(old_pooled_two_effect, old_pooled_one_gamma_log, 0.1)
 simulation_two_effect(men_pooled_two_effect, men_pooled_one_gamma_log, 0.1)
 ```
-
-
-```{}
 This code simulates the probability of observing a reaction time less than 0.1
-for the various datasets.
-```
+for the various data sets.  The function takes in two models and a reaction time,
+it is important that the two models that are compared are from the same data set;
+we want to compare old_finals_two_effect and old_finals_one_gamma_log.
 
 
 ```{r}
