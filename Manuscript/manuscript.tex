@@ -278,9 +278,9 @@ Although women's data is available, we chose not to include women's data in the
 analyses to follow due to the numerous papers citing differences in men and
 women's reaction times \citep[e.g.,][]{lipps2011implications, 
 babicc2009reaction, panoutsakopoulos2020gender}.
-We focus on the reaction times during the semifinal and final heats only, as 
-reaction times from preliminary heats are often not as fast as those in later 
-heats \citep[e.g.,][]{zhang2021correlation}. 
+For the creation of the GLMM model we focus on the reaction times during the 
+semifinal and final heats only, as reaction times from preliminary heats are 
+often not as fast as those in later heats \citep[e.g.,][]{zhang2021correlation}. 
 
 For analysis purposes, we will often pool reaction times of men's final and 
 men's semifinal heats together and refer to this data as the ``pooled data"
@@ -336,7 +336,7 @@ The motivation for looking beyond World Championships data came from an
 exploratory analysis examining how United States athletes reacted at the 
 2022 United States Track and Field Championships.
 
-\subsection{2022 National Competitions}\label{sec:datanational}
+\subsubsection{2022 National Competitions}\label{sec:datanational}
 From June 23-26 2022, the United States held its Track and Field Championships 
 at Hayward Field in Eugene, Oregon to decide who to send to the World Championships 
 being held at the same venue in August. Thus, we can establish a baseline for the four United States athletes who 
@@ -388,7 +388,11 @@ the data was expanded to include reaction times for athletes who competed at
 national competitions (many of which were held from May-July of 2022). Once the 
 data was collected, each athlete was designated as a cluster and the stage of
 competition (national or international) was specified for each competition 
-within the cluster (athlete).
+within the cluster (athlete).  We chose to include preliminary rounds in this
+section as well as in \ref{sec:data2019} in order to increase the size of our
+data.  Without data from the preliminary rounds, the number of observations
+dropped from 65 to 26 and the number of athletes included in the analysis
+decreased from 15 to 9.
 
 \eds{Can you show some descriptive statistics for this data?  Total number of 
 clusters? Average number of international vs national competitions across 
@@ -397,10 +401,11 @@ athletes/clusters?}
 here and the paragraph that was in the intro still need to be integrated into 
 one (or two) cohesive paragraph(s) that accurately describe the two types of 
 data that will be used for two rank-based analyses.}
+\of{Does this work?}
 
-\subsection{2019 World Track and Field Championships}
+\subsubsection{2019 World Track and Field Championships}\label{sec:data2019}
 The 2019 World Track and Field Championship data is included in the larger dataset
-described in section~\ref{sec:databeyond}, but we can also use it similarly to
+described in section~\ref{sec:dataworld}, but we can also use it similarly to
 how we used national level in section~\ref{sec:datanational}.  We can compare
 the times of athletes who participated in the 2019 and 2022 World Track and Field
 Championships to see if there were lower times in 2022.  While it is theoretically
@@ -584,6 +589,7 @@ that the inclusion of 2022 increased the randomness of the data and motivates
 the rank-based study (see Section~\ref{subsec:Results_Rank}).
 
 \jy{Close captions with a period.}
+\of{Resolved}
 \begin{table}
   \centering
   \caption{Summary statistics for the GLMM on various data sets.} 
@@ -733,7 +739,7 @@ no results presented here}
 
 \jy{Remind the readers what the analysis was about: two-group comparison with
   group being ....}
-
+\subsubsection{2019 World Track and Field Championships} \label{sec:results2019vs2022}
 The rank based methods described in Section~\ref{sec:rank} are used
 to determine if the reaction times for athletes who had competed at other 
 championships differed significantly from the 2022 World Championships.  We can
@@ -749,14 +755,12 @@ reaction time
 in 2022 for athletes who competed in both championships at an alpha level of 0.01.
 This provides good evidence that athletes who competed in both 2019 and 2022 got
 faster during that timespan.  \eds{That is not the only explanation}
+\subsection{2022 National Championships} \label{sec:resultsnational}
 
 
-Repeating the data collection steps and
-again performing a clustered analysis for a Wilcoxon ranked sum test
-results in two new z scores and p values. 
-\eds{I am not sure why you are repeating the data collection steps and
-again performing a clustered analysis here.  Also, if there are two new z-scores
-and p values, why are you only reporting one?}
+
+
+
   The ``ds" method produced a z score of
 3.6069 and p value of 0.000155. This result is highly significant and shows that
 the times at the national stage of competition were significantly higher than
