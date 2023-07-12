@@ -9,4 +9,4 @@ comparisons.
 - Plots.Rmd is the code used to generate the ggplot graphs generated throughout 
 the paper.
 - Women.Rmd is exploratory analysis based on the women's data
-- Times.Rmd is old and was exploratory analysis but now largel defunct.
+- Times.Rmd is old and was exploratory analysis but now largely defunct.
