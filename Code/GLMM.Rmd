@@ -6,16 +6,16 @@ output: pdf_document
 ---
 
 
-Clearn it up: two_effect and nested are the same model. Don't confuse the readers.
-
-Keep the code styles (80 characters linewidth; etc.)
-
-Add text between the code chunks to document what you are doing.
+Professors Yan and Schifano: to see the probabilities of the three different models
+please look at the results from code chunks 7, 12, 13.  You will need to run
+code from other chunks to generate the models and for the simulation code, but
+these three will produce probabilities of a reaction time less than 0.1 seconds.
 
 
 
 The code below loads in the 4 datasets from the csv file.
 ```{r}
+#1
 times <- read.csv("../Data/ThesisData.csv")
 colnames(times) <- c("Year", "Type", "Time", "RxnTime", "Gender", "Batch")
 men_finals <- subset(times, Type == "F" & Gender == "M" & Time != 'DQ')
@@ -33,6 +33,7 @@ men_old_pooled <- subset(times, (Type == "F" | Type == "S") &
 This code below creates the base models without any random effects.  These are used
 as a baseline to compare the year effect models to in the simulation code below.
 ```{r}
+#2
 library(lme4)
 men_old_finals_one_gamma_log <- glm(RxnTime ~ 1, data = men_old_finals, 
                                     family = Gamma(link = "log"))
@@ -47,6 +48,7 @@ men_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = men_pooled,
 
 This code creates the year effect only models.
 ```{r}
+#3
 library(lme4)
 
 men_old_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_finals, 
@@ -63,12 +65,13 @@ men_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_pooled,
 
 This creates the batch effect only models.
 ```{r}
+#4
 library(lme4)
-men_old_finals_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = old_finals, 
+men_old_finals_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = men_old_finals, 
                              family = Gamma(link = "log"))
 men_finals_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = men_finals, 
                          family = Gamma(link = "log"))
-men_old_pooled_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = old_pooled, 
+men_old_pooled_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = men_old_pooled, 
                              family = Gamma(link = "log"))
 men_pooled_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = men_pooled, 
                          family = Gamma(link = "log"))
@@ -78,13 +81,14 @@ men_pooled_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = men_pooled,
 
 This creates the models with a year effect and batch effect.
 ```{r}
+#5
 library(lme4)
 men_old_finals_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
-                                   data = old_finals, family = Gamma(link = "log"))
+                                   data = men_old_finals, family = Gamma(link = "log"))
 men_finals_two_effect_gamma_log<- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
                               data = men_finals, family = Gamma(link = "log"))
 men_old_pooled_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
-                                   data = old_pooled, family = Gamma(link = "log"))
+                                   data = men_old_pooled, family = Gamma(link = "log"))
 men_pooled_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
                                data = men_pooled, family = Gamma(link = "log"))
 ```
@@ -93,7 +97,7 @@ men_pooled_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | Batch),
 
 
 ```{r}
-anova(men_pooled_batch, men_pooled_two_effect)
+anova(men_pooled_batch_gamma_log, men_pooled_two_effect_gamma_log)
 ```
 This anova test determined that the two effect model is an improvement over the
 batch effect model. The test statistic is 0.01059 which is significant at alpha 
@@ -102,7 +106,7 @@ batch effect model. The test statistic is 0.01059 which is significant at alpha
 
 
 ```{r}
-anova(men_pooled_year_gamma_log, men_pooled_two_effect)
+anova(men_pooled_year_gamma_log, men_pooled_two_effect_gamma_log)
 ```
 This anova test determined that the two effect model is a significant improvement
 over the year effect model.
@@ -114,6 +118,7 @@ for the various data sets.  The function takes in two models and a reaction time
 it is important that the two models that are compared are from the same data set;
 we want to compare old_finals_two_effect and old_finals_one_gamma_log.
 ```{r}
+#6
 set.seed(1)
 library(lme4)
 sim_two_effect_time <- function(model, base, RxnTime) {
@@ -142,10 +147,17 @@ sim_two_effect_time <- function(model, base, RxnTime) {
                scale = exp(coef(base)) * sbase$dispersion), 
         0.08, 0.22, add = TRUE, col = "blue")  # fixed effect only
 }
-sim_two_effect_time(old_finals_two_effect, old_finals_one_gamma_log, 0.1)
-sim_two_effect_time(men_finals_two_effect, men_finals_one_gamma_log, 0.1)
-sim_two_effect_time(old_pooled_two_effect, old_pooled_one_gamma_log, 0.1)
-sim_two_effect_time(men_pooled_two_effect, men_pooled_one_gamma_log, 0.1)
+```
+
+
+This next chunk of code runs the simulation code for each dataset comparing the
+two effect model to the base model
+```{r}
+#7
+sim_two_effect_time(men_old_finals_two_effect_gamma_log, men_old_finals_one_gamma_log, 0.1)
+sim_two_effect_time(men_finals_two_effect_gamma_log, men_finals_one_gamma_log, 0.1)
+sim_two_effect_time(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.1)
+sim_two_effect_time(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.1)
 ```
 
 
@@ -157,6 +169,7 @@ times. Decreasing the probability will impose a stricter barrier as it is less
 probable to observe a reaction time of 0.08 rather than 0.09.  Below are the
 recommended reaction time barriers to disqualify on average 1 in every 1,000 starts.
 ```{r}
+#8
 set.seed(1)
 library(lme4)
 sim_two_effect_prob <- function(model, base, prob) {
@@ -185,24 +198,27 @@ sim_two_effect_prob <- function(model, base, prob) {
 This runs the sim_two_effect_prob function at a probability of 1 in every 1,000
 sprinters.
 ```{r}
-sim_two_effect_prob(old_finals_two_effect, old_finals_one_gamma_log, 0.001)
-sim_two_effect_prob(men_finals_two_effect, men_finals_one_gamma_log, 0.001)
-sim_two_effect_prob(old_pooled_two_effect, old_pooled_one_gamma_log, 0.001)
-sim_two_effect_prob(men_pooled_two_effect, men_pooled_one_gamma_log, 0.001)
+#9
+sim_two_effect_prob(men_old_finals_two_effect_gamma_log, men_old_finals_one_gamma_log, 0.001)
+sim_two_effect_prob(men_finals_two_effect_gamma_log, men_finals_one_gamma_log, 0.001)
+sim_two_effect_prob(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.001)
+sim_two_effect_prob(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.001)
 ```
 
 The code below repeats the previous section but for an average of 1 in every
 10,000 sprinters.
 ```{r}
-sim_two_effect_prob(old_finals_two_effect, old_finals_one_gamma_log, 0.0001)
-sim_two_effect_prob(men_finals_two_effect, men_finals_one_gamma_log, 0.0001)
-sim_two_effect_prob(old_pooled_two_effect, old_pooled_one_gamma_log, 0.0001)
-sim_two_effect_prob(men_pooled_two_effect, men_pooled_one_gamma_log, 0.0001)
+#10
+sim_two_effect_prob(men_old_finals_two_effect_gamma_log, men_old_finals_one_gamma_log, 0.0001)
+sim_two_effect_prob(men_finals_two_effect_gamma_log, men_finals_one_gamma_log, 0.0001)
+sim_two_effect_prob(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.0001)
+sim_two_effect_prob(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.0001)
 ```
 
 This next code section replicates the code above but the various simulation
 functions are meant for one random effect instead of two.
 ```{r}
+#11
 library(lme4)
 set.seed(1)
 sim_one_effect_time <- function(model, base, RxnTime){
@@ -228,13 +244,24 @@ sim_one_effect_time <- function(model, base, RxnTime){
 ```
 
 ```{r}
-sim_one_effect_time(old_finals_year_gamma_log, old_finals_one_gamma_log, 0.1)
+#12
+sim_one_effect_time(men_old_finals_year_gamma_log, men_old_finals_one_gamma_log, 0.1)
 sim_one_effect_time(men_finals_year_gamma_log, men_finals_one_gamma_log, 0.1)
-sim_one_effect_time(old_pooled_year_gamma_log, old_pooled_one_gamma_log, 0.1)
+sim_one_effect_time(men_old_pooled_year_gamma_log, men_old_pooled_one_gamma_log, 0.1)
 sim_one_effect_time(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.1)
 ```
 
 ```{r}
+#13
+sim_one_effect_time(men_old_finals_batch_gamma_log, men_old_finals_one_gamma_log, 0.1)
+sim_one_effect_time(men_finals_batch_gamma_log, men_finals_one_gamma_log, 0.1)
+sim_one_effect_time(men_old_pooled_batch_gamma_log, men_old_pooled_one_gamma_log, 0.1)
+sim_one_effect_time(men_pooled_batch_gamma_log, men_pooled_one_gamma_log, 0.1)
+```
+
+
+```{r}
+#14
 library(lme4)
 set.seed(1)
 sim_one_effect_prob <- function(model, base, prob) {
@@ -254,16 +281,18 @@ sim_one_effect_prob <- function(model, base, prob) {
 ```
 
 ```{r}
-sim_one_effect_prob(old_finals_year_gamma_log, old_finals_one_gamma_log, 0.001)
+#15
+sim_one_effect_prob(men_old_finals_year_gamma_log, men_old_finals_one_gamma_log, 0.001)
 sim_one_effect_prob(men_finals_year_gamma_log, men_finals_one_gamma_log, 0.001)
-sim_one_effect_prob(old_pooled_year_gamma_log, old_pooled_one_gamma_log, 0.001)
+sim_one_effect_prob(men_old_pooled_year_gamma_log, men_old_pooled_one_gamma_log, 0.001)
 sim_one_effect_prob(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.001)
 ```
 
 ```{r}
-sim_one_effect_prob(old_finals_year_gamma_log, old_finals_one_gamma_log, 0.0001)
+#16
+sim_one_effect_prob(men_old_finals_year_gamma_log, men_old_finals_one_gamma_log, 0.0001)
 sim_one_effect_prob(men_finals_year_gamma_log, men_finals_one_gamma_log, 0.0001)
-sim_one_effect_prob(old_pooled_year_gamma_log, old_pooled_one_gamma_log, 0.0001)
+sim_one_effect_prob(men_old_pooled_year_gamma_log, men_old_pooled_one_gamma_log, 0.0001)
 sim_one_effect_prob(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.0001)
 ```
 
