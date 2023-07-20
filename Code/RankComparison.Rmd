@@ -6,45 +6,6 @@ output: pdf_document
 ---
 
 ```{r}
-inter <- read.csv("../Data/2019vs2022.csv")
-
-#nine is used for 2019 and two is used for 2022.  H, S, F are used to denote the heats, semifinals, and finals.
-colnames(inter) <- c("Athlete", "Country", "2019H", "2019S", "2019F", "2022H", "2022S", "2022F")
-```
-
-```{r}
-my_sums <- colSums(!is.na(inter))
-print(my_sums)
-barplot(my_sums)
-```
-
-```{r}
-means <- sapply(inter[,3:ncol(inter)], mean, na.rm = TRUE)
-print(means)
-
-```
-
-```{r}
-library(ggplot2)
-means_df <- data.frame(variable = names(means), mean = means)
-
-# Define the grouping of bars
-groupings <- list(c("2019H", "2022H"), c("2019S", "2022S"), c("2019F", "2022F"))
-
-# Convert variable to a factor with desired order
-means_df$variable <- factor(means_df$variable, levels = unlist(groupings))
-
-# Create the bar graph
-ggplot(means_df, aes(x = variable, y = mean, fill = variable)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  scale_fill_manual(values = c("sienna2", "tan", "sienna2", "tan", "sienna2", "tan")) +
-  labs(y = "Mean Reaction Time", x ="") +
-  theme_minimal() +
-  theme(legend.position = "none")
-ggsave(filename="2019vs2022BarGraph.pdf", path = "../Manuscript", height=4, width=6)
-```
-
-```{r}
 nations <- read.csv("../Data/ClusrankNatvsWorld.csv")
 colnames(nations) <- c("Time", "Athlete", "Year")
 ```
@@ -52,7 +13,25 @@ colnames(nations) <- c("Time", "Athlete", "Year")
 ```{r}
 library(clusrank)
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations, alternative = "greater", method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations, alternative = "greater", method = "ds", exact = TRUE)
 ```
+
+```{r}
+comp <- read.csv("../Data/Clusrank2019vs2022.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(comp) <- c("Time", "Athlete", "Year")
+#View(comp)
+```
+
+```{r}
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp, alternative = "greater", method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp, alternative = "greater", method = "ds", exact = TRUE)
+```
+
+
 
 ```{r}
 nations_noprelim <- read.csv("../Data/Clusrank2019vs2022PrelimsOnly.csv")
@@ -63,4 +42,3 @@ colnames(nations_noprelim) <- c("Time", "Athlete", "Year")
 library(clusrank)
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations_noprelim, alternative = "greater", method = "ds")
 ```
-
