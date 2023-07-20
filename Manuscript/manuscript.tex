@@ -394,7 +394,9 @@ within the cluster (athlete).  We chose to include preliminary rounds in this
 section as well as in \ref{sec:data2019} in order to increase the size of our
 data.  Without data from the preliminary rounds, the number of observations
 dropped from 65 to 26 and the number of athletes included in the analysis
-decreased from 15 to 9.
+decreased from 15 to 9.  Likewise 
+
+
 
 \eds{Can you show some descriptive statistics for this data?  Total number of 
 clusters? Average number of international vs national competitions across 
@@ -768,15 +770,47 @@ national championships.
 
 
 \section{Discussion}\label{sec:Discussion}
+One conclusion from the analysis in \citet{zhang2021correlation} was that 
+athletes' reaction times improved from 2011 to 2019.  However this study does 
+not consider data from 1999 to 2009, and over this timespan athletes get slower 
+and then faster.  Figure~\ref{fig:Boxplots} shows that for the men's pooled data,
+the year with the fastest median reaction time before 2022 was 1999.  Thus, this 
+reject's Zhang et al.'s conclusion that athletes are getting faster because they 
+were fast over twenty years ago. One possible explanation for why 2011 had such
+high variation was because of the IAAF rule discussed earlier that increased the
+penalty of a false start to an instant disqualification \citep{iaaf2009falsestart}.
+Athletes may have been overly cautious to false start and may have consciously
+or sub-consciously reacted slower as a result.  Instead, a more appropriate 
+conclusion may be that there is a lot of variability in reaction times and that
+the context of the races matters.
+
+This paper does not consider data from the women's 100 meter hurdle, and although
+that was initially because of concerns over reaction time differences in men and
+women, exploratory analysis showed that 2022 was at best only
+slightly faster relative to other championships going back to 2003 
+\eds{check year}. \eds{this seems to contradict the Robert Johnson conclusion in 
+the intro, unless he only considered sprint and not hurdles?} \of{Johnson's
+results considered the mens 100m, mens 110m hurdles, womens 100m but not the 
+womens 100m hurdles.} Likewise, the rank-based comparisons resulted in p values
+that were not significant.  The lack of evidence from the women's data makes it 
+harder to conclude that the sensors used at the 2022 championships were faulty, 
+although it is unknown if the sensors for the men's 110 meter hurdle and women's
+100 meter hurdle were the same.
+
+It is confusing as to why the reaction time barrier for men's and women's data
+is the same despite numerous articles such as \citep[e.g.,][]{lipps2011implications, 
+babicc2009reaction, panoutsakopoulos2020gender} stating differently.  World
+Athletics is ignoring differences in gender by setting the reaction time barrier
+to be equal. If 0.1 seconds is considered a fair time for women, then 0.1 seconds
+could not be considered fair for men, as the probability of observing reaction
+times lower than 0.1 would be elevated.  \citet{brosnan2017effects} advocated
+for gender based reaction time barriers which seems logical if there are biological
+differences in reaction times between men and women.
+
 Since 1985 Seiko Holding Corporations has served every World Athletics 
-Championships as the official timer \citep{wa2022seiko}.  Since 1985, the 
-technology and the ability to accurately predict measurements: long jump 
-distances, false starts, total time, reaction time, etc. have all dramatically 
-improved.  Seiko did not start tracking reaction time as an official measurement
-until 1999 in the men's 110 meter hurdles and women's 100 meter hurdles. 
-Seiko regularly updates their equipment so that they provide cutting edge
-technology to the World Track and Field Championships, the highest stakes in the 
-world of running outside of the Olympics. Seiko's technology for detecting 
+Championships as the official timer \citep{wa2022seiko}.  Reaction times were
+not officially measured until 1999 in the men's 110 meter hurdles and women's
+100 meter hurdles. Seiko's technology for detecting 
 reaction times relies on the pressure that athletes exert on the plate when they 
 push off.  Their systems measure the time differential between when the ``gun" 
 goes off to start the race and when the pressure changes \citep{wa2022seiko}.  
@@ -784,14 +818,8 @@ If an athlete has a reaction time under 0.1 seconds, it is deemed a false start
 as it is considered that no athlete can react so quickly \citep{Seiko-Timing}.  
 Thus, a reaction time of for example 0.05, suggests that the athlete predicted 
 the gun and it was luck that caused their abnormally high time.  At the World 
-Championships level, World Athletics and Seiko want to remove that element of 
-luck and thus impose the 0.1 second barrier. In 2013, Seiko upgraded their 
-timing equipment for sprinting events (110 meter hurdles falls under this 
-category) \citep{wa2013backtage}. Since 1999, the slowest reaction times in the 
-men's 110-meter hurdle were recorded in 2013.  That is not to say that the higher 
-times were caused by Seiko's equipment, but the two may be related.  It is worth 
-noting that prior to 2022, Seiko again upgraded its technology but for its jump 
-management system. 
+Championships level, World Athletics want to remove that element of 
+luck and thus impose the 0.1 second barrier.
 \eds{I would argue that this paragraph should go in the discussion as there are 
 no results presented here}
 \of{I agree so I moved it here. I think it also could fit into the top of the
@@ -812,19 +840,7 @@ discussed earlier in the paper, but this data shows that on average there was
 \jy{any reference?}
 improvement for British, Polish, French, Brazilian, and Spanish athletes.
 
-One conclusion from the analysis in \citet{zhang2021correlation} was that 
-athletes' reaction times improved from 2011 to 2019.  However this study does 
-not consider data from 1999 to 2009, and over this timespan athletes get slower 
-and then faster.  Figure~\ref{fig:Boxplots} shows that for the men's pooled data,
-the year with the fastest median reaction time before 2022 was 1999.  Thus, this 
-reject's Zhang et al.'s conclusion that athletes are getting faster because they 
-were fast over twenty years ago. One possible explanation for why 2011 had such
-high variation was because of the IAAF rule discussed earlier that increased the
-penalty of a false start to an instant disqualification \citep{iaaf2009falsestart}.
-Athletes may have been overly cautious to false start and may have consciously
-or sub-consciously reacted slower as a result.  Instead, a more appropriate 
-conclusion may be that there is a lot of variability in reaction times and that
-the context behind the races matters.
+
 
 It is worth noting that in the semifinals of the 2022 World Track and
 Field Championships, Allen's reaction time was 0.101 which is only 0.001 above
@@ -832,15 +848,17 @@ the legal limit. What this suggests is that Allen may have strong reflexes
 and be able to react extremely well to the sound of the gun. It seems unlikely 
 that Allen would be able to correctly predict the gun with such precision two 
 times in a row, which is the exact reason that the 0.1 second reaction time 
-disqualification barrier was
-imposed in the first place. Thus having a quick reaction time multiple times
-may indicate skill rather than luck. Devon 
-Allen is a very good athlete, as evidenced by his football career at the 
-University of Oregon
-and making it onto the Philadelphia Eagles practice squad this past year 
-\citep{hurley2022eagles}. The 0.099 reaction time may not have been 
-a product of Devon Allen predicting the start of the race but rather a 
-combination of a quick reaction and a possibly faulty sensor.
+disqualification barrier was imposed in the first place. Thus having a quick 
+reaction time repeatedly may indicate skill rather than luck. Devon Allen is
+an exceptional athlete, as evidenced by his football career at the University of
+Oregon and making it onto the Philadelphia Eagles practice squad in 2022
+\citep{hurley2022eagles}.  \citet{komi2009iaaf}'s paper showed that athletes are
+capable of reacting in less than 0.1 seconds, and if this is the case, it is not
+unreasonable to conclude that an outstanding athlete like Allen is capable of
+reacting below the 0.1 second barrier.
+
+The results from the GLMM are described in section~\ref{subsec:Results_GLMM} and
+show that there
 
 Devon Allen's disqualification at the World Track and Field Championships was
 possibly the result of both a faulty timing equipment and Devon Allen
@@ -855,25 +873,7 @@ effect model so no.} that greatly impact reaction time.
 % modeling with GLMM is not good}.  
 %\of{I agree and they have been removed}
 
-This paper does not consider data from the women's 100 meter hurdle, and although
-that was initially because of concerns over reaction time differences in men and
-women, exploratory analysis showed that 2022 was at best only
-slightly faster relative to other championships going back to 2003 
-\eds{check year}. \eds{this seems to contradict the Robert Johnson conclusion in 
-the intro, unless he only considered sprint and not hurdles?} Likewise,
-the rank-based comparisons resulted in p values that were not significant.  The
-lack of evidence from the women's data makes it harder to conclude 
-that the sensors used at the 2022 championships were faulty, although it is
-unknown if the sensors for the men's 110 meter hurdle and women's 100 meter
-hurdle were the same.
 
-It is confusing as to why the reaction time barrier for men's and women's data
-is the same despite numerous articles such as \citep[e.g.,][]{lipps2011implications, 
-babicc2009reaction, panoutsakopoulos2020gender} stating differently.  World
-Athletics is ignoring differences in gender by setting the reaction time barrier
-to be equal. If 0.1 seconds is considered a fair time for women, then 0.1 seconds
-could not be considered fair for men, as the probability of observing reaction
-times lower than 0.1 would be elevated.
 
 If there are issues with reaction time such as athletes approaching the 0.1 
 second barrier again at the next World Championships (August 2023), then World 
