@@ -1,8 +1,40 @@
+# Meeting Notes 7/19
++ As there are warnings for finals dataset, report pooled results: 4.15 and 5.15
++ Change the range of the blue curve from 0.8 to 0.22 to something more wide
++ Condense paragraph on Seiko timing device
++ Put tables in results, talk about them in discussion
++ As sample size is small, and ds approach is for large samples, put exact = True
++ Hurley reference is wrong and needs to have a title
++ Add note field to misc
++ Protect appropriate fields in bib file
+
+
+
+
+
+
+# Meeting Notes 7/12
++ we have 3 mixed effects models: year, batch, and both
++ for each dataset compare the probabilities associated with all 3
++ select the best model and dataset to report
++ Put this in a table but first need to do analysis in Rmd file
++ show with and without 2022 what 0.1 means how extreme it is
++ Justify 0.08 by talking about other papers, and how under 0.08 Allen would not
+be DQd
++ 0.1 second does not make sense for both genders, cite papers
+
+
+
+
+
+
+
+
 # Meeting Notes 7/5
 + Can put equations and explanations in the text block of Rmd files (not in the R blocks).
 + Fix the Rmd files
 + ReadMe in code folder to explain what each Rmd file does.
-+ Come up with alternative to "race effect"
++ Come up with alternative to "race effect": how about heat, round, flight
 + What is probability reperesented by threshold, what is threshold for probability
 + Dont need sub sub sections for methods but can for data and results
 
