@@ -15,7 +15,7 @@
 \usepackage[pagewise]{lineno}
 \usepackage{mwe}
 \usepackage{comment}
-%\linenumbers*[1]
+\linenumbers*[1]
 % %% patches to make lineno work better with amsmath
 \newcommand*\patchAmsMathEnvironmentForLineno[1]{%
  \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
@@ -114,8 +114,9 @@ Championships also in Eugene in late June, Allen was poised to compete in the
 At the World Championships, Allen made it through the preliminary
 heats and semifinals to reach the final heat while posting reaction times of 
 0.123 and 0.101 in his preliminary heat and semifinal, respectively.  
-His disqualification in the final heat by reacting in 0.099 seconds instead of 
-0.1 was met
+His disqualification in the final heat by reacting in 0.099 seconds, just 0.001
+seconds faster than the 0.1 threshold set by the International Association of
+Athletics Federations (IAAF), was met
 with shock from both Allen and fans alike.  NBC, who was broadcasting the
 championships in the United States, later uploaded a video to their YouTube
 channel that showed the disqualification
@@ -125,7 +126,7 @@ when they found out that Allen was disqualified, angry at the result.  Had Allen
 reacted just 0.001 seconds slower he would have been allowed to compete and been 
 spared waiting until the next World Track and Field Championships.
 
-%2)
+
 Allen's disqualification has been discussed extensively in online communities
 such as \url{www.LetsRun.com}, a website that is part message board and part
 news. The message board,
@@ -148,20 +149,24 @@ meter hurdle, and women's 100 meter would all come from the same year
 \citep{johnson2022was}.
 
 
-\jy{Use double blank lines to separate paragraphs in tex source}
+\jy{Use double blank lines to separate paragraphs in tex source. Acknowledge if you copy.}
 
 Reaction time in sprint and hurdle events has been studied by many authors.
-\citet{pain2007sprint} examined
-reaction times for nine male athletes.  The
+\citet{pain2007sprint} examined reaction times for nine male athletes.  The
 fastest athlete of the nine had, on average (even with their two fastest times 
 removed), a reaction time of 0.087 seconds and a standard deviation of 0.004
 seconds.  Two other athletes were able to react similarly when under certain
 muscular tightening conditions \citep{pain2007sprint}. 
-In a study commissioned by International Association of Athletics Federations 
-(IAAF), \citet{komi2009iaaf} recommended that the disqualification 
+In a study commissioned by IAAF,
+\citet{komi2009iaaf} recommended that the disqualification 
 barrier be decreased to allow sprinters to
 react faster, and suggested 0.08 or 0.085 seconds as possible new thresholds.
-Additionally, it was recommended to IAAF that high speed cameras be used to
+Unfortunately, IAAF has not changed the reaction barrier since it was
+implemented at the 1999 World Track and Field Championships.
+It is unknown how many athletes since the 2009 study could have potentially
+benefited from this, but it is probable that there are others besides Allen who
+were disqualified. Additionally,
+\citet{komi2009iaaf} recommended that high speed cameras be used to
 change the reaction time criteria from pushing off on the block to body
 movement. This could provide a more accurate representation of reaction time, 
 and thus the possibility of a false disqualification would be lowered.
@@ -194,22 +199,13 @@ because Allen was 27 years old at the 2022 World Track and Field Championships
 and likely at his physical peak.
 
 
-\jy{This paragraph reads disconnected. Should it be merged with paragraph~3
-  where the study was reviewed?}
-Despite their study, IAAF has not changed the reaction barrier since it was
-implemented at the 1999 World Track and Field Championships.  It is unclear
-why IAAF would commission a study only to disregard the results and not
-make the recommended changes.  It is unknown how many athletes since 2009 could
-have potentially benefited from this, but it is probable that there are others
-besides Allen who were disqualified.
-
-
 The objective to this paper is to analyze the reaction times at the 2022 World 
 Track and Field Championships to check for any abnormalities, and we approach
 this in two different ways.  First we model the data, which are
 the reaction times of every non-disqualification since the 1999 World 
 Championships, using a gamma linear mixed-effects model with a random effect 
-accounting for the venue (or year). 
+accounting for the venue (or year) and a second random effect accounting for the
+heat effect within each year. \jy{do a thorough check to make sure this is updated.}
 Based on the fitted model, we can then estimate the probability of a reaction 
 time being below a certain threshold (e.g., 0.1). 
 Second, we compare reaction times for athletes who have competed
@@ -259,8 +255,8 @@ The first data set is used for the GLMM analyses described in
 Section~\ref{sec:glmm}, while the second collection of data is used for the 
 rank-based comparisons described in Section~\ref{sec:rank}.
 
-\subsection{2022 World Championships}\label{sec:dataworld}
 
+\subsection{2022 World Championships}\label{sec:dataworld}
 
 \begin{figure}[tbp]
   \centering
@@ -420,6 +416,7 @@ improving on elite times is not easy.  Nonetheless, this is a worthy inclusion
 to the data because Seiko was the timing company responsible for both events and
 because the level of competition is the extremely elite in both cases. 
 
+\jy{give specifics of your sample size}
 
 \begin{figure}[tbp]
   \centering
@@ -431,8 +428,7 @@ because the level of competition is the extremely elite in both cases.
 \of{I included this here for now, but feel free to change the location.  I will
 add references to it and explanation of it along with some descriptive statistics about
 the size and mean/median,std dev, size of the data.}
-\jy{Show dot plots which would give the distribution; without uncertainty
-  measure, the mean does not tell much.}
+
 
 Figure~\ref{fig:Scatterplot2019vs2022} shows the distribution of times from the
 2019 and 2022 World Championships.  
@@ -465,24 +461,24 @@ from the World Championships, the final model we chose was a gamma mixed-effect
 model. As suggested by the log-likelihood and the Akaike Information
 Criterion (AIC), the normal error model on the log-scale was found to be
 much inferior to the gamma model which better captures the skewness of the
-data. A random effect for the venue or year was also found to be necessary, 
-which makes intuitive sense given the discussion in Section~\ref{sec:dataworld}. 
-Let $Y_{ij}$ be the reaction time of observation~$j$ in year~$i$.
-%\eds{we know that many of the athletes compete in multiple world championships,
-%  how is this athlete clustering being accounted for here?}
-%\jy{We could add an athlete random effect too, if the players are identified in
-%  the data.}
-%\jy{Owen, do we have athlete id in the data?}
-Conditional on a venue effect $z_i$ of year~i,  $Y_{ij}$ is modeled by 
+data. Two random effects were found useful: one captures the venue effect in
+each year and the other captures the heat effect within each year.
+Let $Y_{ijk}$ be the reaction time of observation~$k$ in heat~$j$ in year~$i$.
+Conditional on a venue effect $v_i$ of year~$i$ and a heat effect
+$h_{i/j}$ nested within each year~$i$, $Y_{ijk}$ is modeled by a
 gamma distribution. In the classic generalized linear model (GLM) sense,
-$Y_{ij}$ has conditional mean
+$Y_{ijk}$ has conditional mean $E(Y_{ijk} | v_i, h_{i/j}) > 0$ and a
+dispersion parameter~$\phi > 0$. The conditional mean is characterized by
 \[
-g\{E(Y_{ij} | z_i)\} = \alpha + z_i,
+g\{E(Y_{ijk} | v_i, h_{i/j})\} = \alpha + v_i + h_{i/j},
 \]
-and dispersion parameter $\phi$, where $g$ is a known link function and
-$z_i$ is a normally distributed random effect with mean zero and
-variance~$\sigma^2$. Although \citet{lo2015idlink} suggested that the gamma 
-family with an identity link works well for reaction time data, the logarithm 
+where $g$ is a known link function,
+$\gamma_i$ is normally distributed with mean zero and
+variance~$\sigma_v^2$, and $\delta_{i/j}$ is normally distributed with mean
+zero and variance~$\sigma_h^2$.
+Although \citet{lo2015idlink} suggested that the gamma 
+family with an identity link works well for reaction time in cognitive
+psychological research, the logarithm
 link function worked better for our data and additionally ensures the positivity
 of the conditional mean. The gamma mixed-effect model can be fit with the 
 \texttt{glmer()} function in R package \texttt{lme4} \citep{lme4}.
@@ -490,44 +486,22 @@ of the conditional mean. The gamma mixed-effect model can be fit with the
 
 To better understand this model, we can identify the gamma model in terms of the
 commonly used shape and scale parameters. For a gamma distribution with
-shape~$a$ and scale~$b$, we have mean $\mu = ab$ and variance $v = ab^2$. The
-variance as a function of the mean $\mu$ in the GLM sense is
-$v(\mu) = \mu^2 / a$, which implies that the dispersion parameter is
+shape~$a$ and scale~$b$, we have mean $\mu = ab$ and variance $\nu = ab^2$. The
+variance as a function of the mean~$\mu$ in the GLM sense is
+$\text{var}(\mu) = \mu^2 / a$, which implies that the dispersion parameter is
 $\phi = 1 / a$. Therefore, for the gamma mixed-effect model, the conditional
-gamma distribution of the reaction time $Y_{ij}$ given the venue effect $z_i$
-has shape $a = 1 / \phi$ and scale $b = g^{-1}(\alpha + z_i) \phi$. The marginal
+gamma distribution of the reaction time $Y_{ij}$ given the venue
+effect~$v_i$ and heat effect~$h_{i/j}$
+has shape $a = 1 / \phi$ and scale
+$b = g^{-1}(\alpha + v_i + h_{i/j}) \phi$. The marginal
 distribution of $Y_{ij}$ is a scale-mixture of gamma distributions, which can be
 easily simulated from once the parameters are estimated. Many
 random numbers generated from the fitted mixture distribution can be used to
 approximate the probability of observing a reaction time faster than any given
 threshold.  We are specifically interested in the probability of a reaction time
- being less than 0.1 seconds in order to gauge if that is a reasonable 
+being less than 0.1 seconds in order to gauge if that is a reasonable 
 disqualification barrier.
 
-Finally, we remark here that it is also possible to include a heat or race 
-\eds{heat? when I first read this, I thought you meant race as in ethnicity}
-\of{Yes I think heat or batch effect works better, especially now that I have
-removed most talk about heat from the data section} 
-\eds{I see, I did not understand this to be Batch effect when I read it the 
-first time.  I commented out the Batch text in the Data section - I think it is 
-fine to just discuss it here, as it ultimately was not used.  I will defer to 
-Dr Yan on this, however.}
-effect to account for some heats possibly having faster or slower 
-reaction times for everyone involved in the heat.
-
-Although it is possible that one athlete reacting faster could lead to others reacting
-similarly, this does not make much practical sense as the difference between
-heats that had fast and slow reaction times are all within 0.12 seconds of each
-other. 
-\eds{Did you try it and find that the effect was not needed?  If yes,
-I would include that here.  That argument 
-would be more compelling for its non-use than its difficulty in interpretation.}
-\of{We found that including the race effect resulted in the venue effect not
-being significant, and thus Prof Yan suggested that we don't include it.  I am
-wondering if this is even worth mentioning? Prof Yan, what do you think?} 
-\jy{We can revisit the results. It is not surprising that venue effect is no
-  longer significant after the batch effect was included. We could do the same
-  analysis with the batch-random-effect model.}
 
 \subsection{Rank-based Comparison}\label{sec:rank}
 
@@ -564,27 +538,28 @@ The test statistic $S$ is the average of $W^*$ averaged over all possible
 pseudo-samples conditioning on the observed data and group indicators.
 The mean and variance of $S$ under $H_0$ can be derived so that $S$ can be
 standardized to form a statistic $Z$ which follows standard normal distribution
-asymptotically \citep[p.910]{datta2005rank}. An implementation of this method is
+asymptotically \citep[p.910]{datta2005rank}.
+
+
+
+With our small sample size, the asymptotic normal distribution may not be
+reliable, so we use random permutation to obtain the p-value of the observed
+test statistics $W^*$. This method is
 available from the \texttt{clusWilcox.test()} function with
-\texttt{method = `ds'} from R package \texttt{clusrank}
-\citep{jiang2017wilcoxon}.
-\eds{are you including preliminary heat data as possible within cluster 
-observations in this analysis?  Based on your 
-discussion in Section 2.1 about how they are not comparable, it may not be fair 
-to include them here?  Or perhaps do the analysis with and without prelim heat
-data to see if it makes a difference?}
-\of{Yes I am including prelminary heat data.  The primary reason is that there
-would be few datapoints otherwise.  I ran the numbes without prelims, the number
-of observations dropped from 65 to 26 and the number of clusters from 15 to 9, the
-p value increased from 0.000155 to 0.007332.
-The calculations are at the bottom of RankComparison.Rmd}
+\texttt{method = `ds'} and \texttt{exact = TRUE} from R package
+\texttt{clusrank} \citep{jiang2020wilcoxon}.
 
 
 \section{Results} \label{sec:Results}
 
 \subsection{GLMM} \label{subsec:Results_GLMM}
 
-\jy{motivate first why you want to run the analysis with and without the 2022 data.}
+
+
+\jy{Use the pooled data; present the analysis with 2022 first; then suggest that
+  is worth looking at the results without 2022.}
+
+\jy{Write the story up as if you are going to submit. Then I'll review it.}
 
 \of{Add something like this to the start of the paragraph?}
 We may want to consider analyzing all four data sets separately because
@@ -600,8 +575,6 @@ to 0.504 and from 0.0495 to 0.0554 for the men's pooled data.  This demonstrates
 that the inclusion of 2022 increased the randomness of the data and motivates
 the rank-based study (see Section~\ref{subsec:Results_Rank}).
 
-\jy{Close captions with a period.}
-\of{Resolved}
 \begin{table}
   \centering
   \caption{Summary statistics for the GLMM on various data sets.} 
@@ -618,8 +591,6 @@ the rank-based study (see Section~\ref{subsec:Results_Rank}).
   \label{tab:Gamma_parameters}
 \end{table}
 
-
-\jy{label the table and reference to it; clean it up}
 \begin{table}
   \centering
   \caption{Probabilities of observing reaction times less than 0.1, 0.08, and
@@ -654,7 +625,6 @@ the rank-based study (see Section~\ref{subsec:Results_Rank}).
   \label{tab:Sim_time}
 \end{table}
 
-\jy{label the table and reference to it; clean it up}
 \begin{table}
   \centering
   \caption{Compares the various effect models by dataset, all probabilities are
@@ -742,24 +712,23 @@ to determine if the reaction times for athletes who had competed at other
 championships differed significantly from the 2022 World Championships.  This is
 a two group comparison performed two times: once comparing 2019 World
 Championships to 2022 World Championships and can be found in 
-section~\ref{sec:results2019vs2022} and secondly comparing 2022 national
-championships to the 2022 World Championships and can be found in 
-~section\ref{sec:resultsnational}.
-\jy{Remind the readers what the analysis was about: two-group comparison with
-  group being ....}
-\of{Better?}
+Section~\ref{sec:results2019vs2022} and secondly comparing 2022 national
+championships to the 2022 World Championships and can be found in
+Section~\ref{sec:resultsnational}.
 
-\subsubsection{2019 World Track and Field Championships} \label{sec:results2019vs2022}
+\jy{use two-sided}
+
+\jy{include sample sizes; permutation number (B);}
+
 The p value from the two group comparison for 2019 and 2022 was 0.001464.  This 
 value is for a one-sided test and show that the mean reaction time on average in
 2019 was larger (slower) than the mean reaction time in 2022 for athletes who 
 competed in both championships at an $\alpha$ level of 0.01. This provides good
 evidence that on average, the reaction times from the 2019 and 2022 World 
 Championships are significantly different.  
-\eds{That is not the only explanation} \of{You are correct so I changed the 
-wording}
+\jy{elaborate on the inprepretation; what we have rejected;}
 
-\subsubsection{2022 National Championships} \label{sec:resultsnational}
+
 The p value from the two group comparison between the 2022 national
 championships and World Championships was 0.000155. This value is for a one sided
 test and the result is significant at $\alpha = 0.01$ and shows that
@@ -770,6 +739,9 @@ national championships.
 
 
 \section{Discussion}\label{sec:Discussion}
+
+\jy{condense; could use chatGPT to improve your writing.}
+
 One conclusion from the analysis in \citet{zhang2021correlation} was that 
 athletes' reaction times improved from 2011 to 2019.  However this study does 
 not consider data from 1999 to 2009, and over this timespan athletes get slower 
