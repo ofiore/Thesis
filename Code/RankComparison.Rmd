@@ -10,11 +10,16 @@ nations <- read.csv("../Data/ClusrankNatvsWorld.csv")
 colnames(nations) <- c("Time", "Athlete", "Year")
 ```
 
+Keep the linewidth under 80. Otherwise the code lines are not complete in the
+generated pdf files.
+
 ```{r}
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations, alternative = "greater", method = "ds")
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations,
+                alternative = "greater", method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations, alternative = "greater", method = "ds", exact = TRUE)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations,
+                alternative = "greater", method = "ds", exact = TRUE)
 ```
 
 ```{r}
@@ -26,9 +31,11 @@ colnames(comp) <- c("Time", "Athlete", "Year")
 
 ```{r}
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp, alternative = "greater", method = "ds")
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp,
+                alternative = "greater", method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp, alternative = "greater", method = "ds", exact = TRUE)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp,
+                alternative = "greater", method = "ds", exact = TRUE)
 ```
 
 
@@ -40,5 +47,6 @@ colnames(nations_noprelim) <- c("Time", "Athlete", "Year")
 
 ```{r}
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations_noprelim, alternative = "greater", method = "ds")
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations_noprelim,
+                alternative = "greater", method = "ds")
 ```
