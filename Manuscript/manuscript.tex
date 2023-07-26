@@ -621,21 +621,21 @@ the rank-based study (see Section~\ref{subsec:Results_Rank}).
   \label{tab:Sim_time}
 \end{table}
 
-%\begin{table}
-  %\centering
-  %\caption{Compares the various effect models by dataset, all probabilities are
-  %for observing a reaction time less than 0.1 seconds. In general the model with
-  %the highest probability (least extreme reaction time) is the Year Effect model.}
-  %\begin{tabular}{c c c c} 
-  % \toprule
-  % Data Set & Year Effect & Batch Effect & Both Effects \\ 
-   %\midrule
-   %Old Pooled & $5.73\cdot10^{-3}$ & $5.21\cdot10^{-3}$ & $4.15\cdot10^{-3}$ \\ 
-   %All Pooled & $6.84\cdot10^{-3}$ & $6.64\cdot10^{-3}$ & $5.15\cdot10^{-3}$ \\
-   %\bottomrule
-  %\end{tabular}
-  %\label{tab:EffectComparison}
-%\end{table}
+\begin{table}
+  \centering
+  \caption{Compares the various effect models by dataset, all probabilities are
+  for observing a reaction time less than 0.1 seconds. In general the model with
+  the highest probability (least extreme reaction time) is the Year Effect model.}
+  \begin{tabular}{c c c c} 
+   \toprule
+   Data Set & Year Effect & Batch Effect & Both Effects \\ 
+   \midrule
+   Old Pooled & $5.73\cdot10^{-3}$ & $5.21\cdot10^{-3}$ & $4.15\cdot10^{-3}$ \\ 
+   All Pooled & $6.84\cdot10^{-3}$ & $6.64\cdot10^{-3}$ & $5.15\cdot10^{-3}$ \\
+   \bottomrule
+  \end{tabular}
+  \label{tab:EffectComparison}
+\end{table}
 
 Using the gamma function with link set to log, the probability of the reaction 
 time being less than 0.1 seconds can be calculated to see if Allen's 
@@ -723,25 +723,18 @@ Section~\ref{sec:resultsnational}.
    Comparison & $exact = True$ & $exact \neq True$ & Sample size & Clusters/Athletes \\ 
    \midrule
    2019 vs 2022 & $2.9\cdot10^{-3}$ & $2.3\cdot10{-2}$ & 65 & 15 \\ 
-   International & $2.2\cdot10^{-16}$ & $3.1\cdot10^{-4}$ & 61 & 15 \\
+   Nat vs Inter & $2.2\cdot10^{-16}$ & $3.1\cdot10^{-4}$ & 61 & 15 \\
    \bottomrule
   \end{tabular}
   \label{tab:Clusrankresults}
 \end{table}
-The p value from the two group comparison for 2019 and 2022 was 0.001464.  This 
-value is for a one-sided test and show that the mean reaction time on average in
-2019 was larger (slower) than the mean reaction time in 2022 for athletes who 
-competed in both championships at an $\alpha$ level of 0.01. This provides good
-evidence that on average, the reaction times from the 2019 and 2022 World 
-Championships are significantly different.  
-\jy{elaborate on the inprepretation; what we have rejected;}
 
-
-The p value from the two group comparison between the 2022 national
-championships and World Championships was 0.000155. This value is for a one sided
-test and the result is significant at $\alpha = 0.01$ and shows that
-the times at the World Championships were significantly faster than at the
-national championships.
+Table~\ref{tab:Clusrankresults} shows the results generated from four tests in R.
+We use a \texttt{clusWilcox.test()} and set the permutation number (B) to be
+1000 as the sample size in this analysis is small.  The sample size indicates
+the total number of observations while clusters represnts the number of athletes
+in each dataset.  It is worth noting that it is entirely coincidental that there
+are fiftenn athletes in sets.
 
 
 
