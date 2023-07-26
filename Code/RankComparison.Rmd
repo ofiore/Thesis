@@ -22,6 +22,10 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations,
                 alternative = "greater", method = "ds",
                 exact = TRUE, B = 10000)
 ```
+```{r}
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations, method = "ds",
+                exact = TRUE, B = 10000)
+```
 
 ```{r}
 comp <- read.csv("../Data/Clusrank2019vs2022.csv")
@@ -33,10 +37,10 @@ colnames(comp) <- c("Time", "Athlete", "Year")
 ```{r}
 library(clusrank)
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp,
-                alternative = "greater", method = "ds")
+                method = "ds")
 
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp,
-                alternative = "greater", method = "ds",
+                method = "ds",
                 exact = TRUE, B = 10000)
 ```
 

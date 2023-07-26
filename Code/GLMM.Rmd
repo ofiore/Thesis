@@ -145,7 +145,7 @@ sim_two_effect_time <- function(model, base, RxnTime) {
   plot(density(x))  # with random effects
   curve(dgamma(x, shape = 1 / sbase$dispersion, 
                scale = exp(coef(base)) * sbase$dispersion), 
-        0.08, 0.22, add = TRUE, col = "blue")  # fixed effect only
+        0.08, 0.25, add = TRUE, col = "blue")  # fixed effect only
 }
 ```
 
@@ -158,6 +158,12 @@ sim_two_effect_time(men_old_finals_two_effect_gamma_log, men_old_finals_one_gamm
 sim_two_effect_time(men_finals_two_effect_gamma_log, men_finals_one_gamma_log, 0.1)
 sim_two_effect_time(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.1)
 sim_two_effect_time(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.1)
+```
+```{r}
+sim_two_effect_time(men_old_finals_two_effect_gamma_log, men_old_finals_one_gamma_log, 0.08)
+sim_two_effect_time(men_finals_two_effect_gamma_log, men_finals_one_gamma_log, 0.08)
+sim_two_effect_time(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.08)
+sim_two_effect_time(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.08)
 ```
 
 
@@ -239,7 +245,7 @@ sim_one_effect_time <- function(model, base, RxnTime){
   plot(density(x)) # with random effect
   curve(dgamma(x, shape = 1 / sbase$dispersion, 
                scale = exp(coef(base)) * sbase$dispersion), 
-        0.08, 0.22, add = TRUE, col = "blue") # fixed effect only
+        0.08, 0.25, add = TRUE, col = "blue") # fixed effect only
 }
 ```
 
