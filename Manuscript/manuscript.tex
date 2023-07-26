@@ -75,7 +75,7 @@ seconds, 0.001 seconds faster than what is allowed. Following the games,
 bloggers on the running website LetsRun concluded that the reaction time data 
 from the 2022 World Championships seemed to be generally faster compared to the 
 other datasets they considered, but they did not perform any formal 
-statistical analyses. This paper questions the reaction time 
+statistical analysis. This paper questions the reaction time 
 disqualification barrier, which is currently 0.1 seconds, to determine whether 
 this is a reasonable threshold. We employ a generalized linear mixed model 
 (GLMM) with a random venue effect in order to  model the reaction time data. 
@@ -203,9 +203,10 @@ The objective to this paper is to analyze the reaction times at the 2022 World
 Track and Field Championships to check for any abnormalities, and we approach
 this in two different ways.  First we model the data, which are
 the reaction times of every non-disqualification since the 1999 World 
-Championships, using a gamma linear mixed-effects model with a random effect 
-accounting for the venue (or year) and a second random effect accounting for the
-heat effect within each year. \jy{do a thorough check to make sure this is updated.}
+Championships, using a gamma linear mixed-effects model with two random effects 
+one effect for the year and a second effect for the
+heat within each year. \jy{do a thorough check to make sure this is updated.}
+\of{This should be better now.}
 Based on the fitted model, we can then estimate the probability of a reaction 
 time being below a certain threshold (e.g., 0.1). 
 Second, we compare reaction times for athletes who have competed
@@ -541,7 +542,6 @@ standardized to form a statistic $Z$ which follows standard normal distribution
 asymptotically \citep[p.910]{datta2005rank}.
 
 
-
 With our small sample size, the asymptotic normal distribution may not be
 reliable, so we use random permutation to obtain the p-value of the observed
 test statistics $W^*$. This method is
@@ -593,14 +593,12 @@ the rank-based study (see Section~\ref{subsec:Results_Rank}).
 
 \begin{table}
   \centering
-  \caption{Probabilities of observing reaction times less than 0.1, 0.08, and
-  0.08 for various data sets.}
+  \caption{Probabilities of observing reaction times less than 0.1 and 0.08
+  for various data sets.}
   \begin{tabular}{c c c} 
    \toprule
    Data Set & P(RxnTime $<$ 0.1) & P(RxnTime $<$ 0.08) \\ 
    \midrule
-   Old Finals & $4.36\cdot10^{-4}$ & $3.0\cdot10^{-7}$ \\
-   All Finals & $8.64\cdot10^{-4}$ & $6.0\cdot10^{-7}$ \\
    Old Pooled & $4.15\cdot10^{-3}$ & $4.67\cdot10^{-5}$ \\ 
    All Pooled & $5.15\cdot10^{-3}$ & $6.01\cdot10^{-5}$ \\
    \bottomrule
@@ -616,8 +614,6 @@ the rank-based study (see Section~\ref{subsec:Results_Rank}).
    \toprule
    Data Set & P(RxnTime $<$ x = .001) & P(RxnTime $<$ x = 0.0001) \\ 
    \midrule
-   Old Finals & $0.103$ & $0.095$ \\
-   All Finals & $0.101$ & $0.093$ \\
    Old Pooled & $0.093$ & $0.083$ \\ 
    All Pooled & $0.091$ & $0.082$ \\
    \bottomrule
@@ -625,23 +621,21 @@ the rank-based study (see Section~\ref{subsec:Results_Rank}).
   \label{tab:Sim_time}
 \end{table}
 
-\begin{table}
-  \centering
-  \caption{Compares the various effect models by dataset, all probabilities are
-  for observing a reaction time less than 0.1 seconds. In general the model with
-  the highest probability (least extreme reaction time) is the Year Effect model.}
-  \begin{tabular}{c c c c} 
-   \toprule
-   Data Set & Year Effect & Batch Effect & Both Effects \\ 
-   \midrule
-   Old Finals & $4.39\cdot10^{-4}$ & $4.24\cdot10^{-4}$ & $4.36\cdot10^{-4}$ \\
-   All Finals & $8.63\cdot10^{-4}$ & $8.65\cdot10^{-4}$ & $8.64\cdot10^{-4}$ \\
-   Old Pooled & $5.73\cdot10^{-3}$ & $5.21\cdot10^{-3}$ & $4.15\cdot10^{-3}$ \\ 
-   All Pooled & $6.84\cdot10^{-3}$ & $6.64\cdot10^{-3}$ & $5.15\cdot10^{-3}$ \\
-   \bottomrule
-  \end{tabular}
-  \label{tab:EffectComparison}
-\end{table}
+%\begin{table}
+  %\centering
+  %\caption{Compares the various effect models by dataset, all probabilities are
+  %for observing a reaction time less than 0.1 seconds. In general the model with
+  %the highest probability (least extreme reaction time) is the Year Effect model.}
+  %\begin{tabular}{c c c c} 
+  % \toprule
+  % Data Set & Year Effect & Batch Effect & Both Effects \\ 
+   %\midrule
+   %Old Pooled & $5.73\cdot10^{-3}$ & $5.21\cdot10^{-3}$ & $4.15\cdot10^{-3}$ \\ 
+   %All Pooled & $6.84\cdot10^{-3}$ & $6.64\cdot10^{-3}$ & $5.15\cdot10^{-3}$ \\
+   %\bottomrule
+  %\end{tabular}
+  %\label{tab:EffectComparison}
+%\end{table}
 
 Using the gamma function with link set to log, the probability of the reaction 
 time being less than 0.1 seconds can be calculated to see if Allen's 
@@ -686,6 +680,7 @@ If IAAF \eds{or World Athletics?} were to change the reaction time the way that
 \citet{komi2009iaaf}
 suggests, the probability would be so much lower that athletes would likely not
 have a case to make when arguing against a disqualification.
+
 
 We can use the same model but alter our interpretation slightly to select a 
 reaction time barrier given the probability of observing a time less than the 
@@ -756,6 +751,7 @@ or sub-consciously reacted slower as a result.  Instead, a more appropriate
 conclusion may be that there is a lot of variability in reaction times and that
 the context of the races matters.
 
+
 This paper does not consider data from the women's 100 meter hurdle, and although
 that was initially because of concerns over reaction time differences in men and
 women, exploratory analysis showed that 2022 was at best only
@@ -769,6 +765,7 @@ harder to conclude that the sensors used at the 2022 championships were faulty,
 although it is unknown if the sensors for the men's 110 meter hurdle and women's
 100 meter hurdle were the same.
 
+
 It is confusing as to why the reaction time barrier for men's and women's data
 is the same despite numerous articles such as \citep[e.g.,][]{lipps2011implications, 
 babicc2009reaction, panoutsakopoulos2020gender} stating differently.  World
@@ -778,6 +775,7 @@ could not be considered fair for men, as the probability of observing reaction
 times lower than 0.1 would be elevated.  \citet{brosnan2017effects} advocated
 for gender based reaction time barriers which seems logical if there are biological
 differences in reaction times between men and women.
+
 
 Since 1985 Seiko Holding Corporations has served every World Athletics 
 Championships as the official timer \citep{wa2022seiko}.  Reaction times were
