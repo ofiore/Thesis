@@ -1,3 +1,30 @@
+# Meeting Notes 7/26
++ Use relevel in R to fix the order of heats, semifinals, finals
++ Group A and Group B and then clusters, which can be A or B, if there is no difference
+between A and B then A/B label does not matter, so you can randomly assign A/B to
+members of cluster. For each permutation can calulcate the statistic. Do 1000,
+these form a distribution and then observe test stat relative to this dist and
+see how extreme it is. Suppose cluster sizes are equal, randomly take group labels
+from one cluster and randomly assing to group members of another clusters, under
+null hypothesis this should be true. Can also shuffle within clusters, then this
+gives lots of possibility and for every possibility can calculate a stat and how
+extreme it is.
++ Put more text in RankComparison.Rmd
++ Go through and make sure 2 effect model text is correct
++ Discuss results in results, acknowledge limitations in Discussion
++ Discussion should be 2 paragraphs
++ Dont cite zhang2021 paper if its not helpful
++ Put more about permutation approach at the end of section 3. We report both
+because of limited sample size (exact = True).
++ Clean up GLMM results
+
+
+
+
+
+
+
+
 # Meeting Notes 7/19
 + As there are warnings for finals dataset, report pooled results: 4.15 and 5.15
 + Change the range of the blue curve from 0.8 to 0.22 to something more wide
