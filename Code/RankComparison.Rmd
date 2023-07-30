@@ -5,28 +5,37 @@ date: "2023-05-21"
 output: pdf_document
 ---
 
+The code below reads in the data comparing the 2022 National Competitions to the 2022
+World Championships.
 ```{r}
-nations <- read.csv("../Data/ClusrankNatvsWorld.csv")
-colnames(nations) <- c("Time", "Athlete", "Year")
+national <- read.csv("../Data/ClusrankNatvsWorld.csv")
+colnames(national) <- c("Time", "Athlete", "Stage")
 ```
 
-Keep the linewidth under 80. Otherwise the code lines are not complete in the
-generated pdf files.
+
+The code below performs two clustered Wilcox tests, the first one without using
+exact = True, and the second one with exact = True and 10,000 random
+permutations. The tests compare the times and group by the Stage of the
+competition which in the data is coded as 1 if it was a national championship
+and 2 if it was the world championships. The tests cluster by athlete, of which
+for each dataset an integer from 1-15 is used (the values are not significant).
+For more information about the "ds" method, please look at the Rank-based
+Comparison subsection of the Methods section of the paper or at this link here:
+https://www.jstatsoft.org/article/view/v096i06.  The second test also includes
+exact = TRUE which is used when sample sizes are small (as they are in this
+case), additionally the number of random permutations (B) is set to be 10,000.
 
 ```{r}
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations,
-                alternative = "greater", method = "ds")
+clusWilcox.test(Time, group=Stage, cluster = Athlete, data = national,
+                method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations,
-                alternative = "greater", method = "ds",
-                exact = TRUE, B = 10000)
-```
-```{r}
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations, method = "ds",
+clusWilcox.test(Time, group=Stage, cluster = Athlete, data = national,
+                method = "ds",
                 exact = TRUE, B = 10000)
 ```
 
+The code below reads in the data comparing the 2019 and 2022 World Championships.
 ```{r}
 comp <- read.csv("../Data/Clusrank2019vs2022.csv")
 #"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
@@ -34,6 +43,9 @@ colnames(comp) <- c("Time", "Athlete", "Year")
 #View(comp)
 ```
 
+
+The tests below are very similar to the ones above, the only difference being
+grouping by Year instead of Stage (1 if 2019 and 2 if 2022).
 ```{r}
 library(clusrank)
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp,
@@ -46,6 +58,8 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp,
 
 
 
+This is seeing what would happen if we remove prelims, the sample sizes in the
+test become very small: 26 observations and 9 clusters.
 ```{r}
 nations_noprelim <- read.csv("../Data/Clusrank2019vs2022PrelimsOnly.csv")
 colnames(nations_noprelim) <- c("Time", "Athlete", "Year")
@@ -54,5 +68,8 @@ colnames(nations_noprelim) <- c("Time", "Athlete", "Year")
 ```{r}
 library(clusrank)
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations_noprelim,
-                alternative = "greater", method = "ds")
+                method = "ds")
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations_noprelim,
+                method = "ds", 
+                exact = TRUE, B = 10000)
 ```
