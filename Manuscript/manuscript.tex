@@ -148,8 +148,8 @@ reaction times over the past 13 competitions of the men's 100 meter, men's 110
 meter hurdle, and women's 100 meter would all come from the same year 
 \citep{johnson2022was}.
 
-
 \jy{Use double blank lines to separate paragraphs in tex source. Acknowledge if you copy.}
+\of{Resolved}
 
 Reaction time in sprint and hurdle events has been studied by many authors.
 \citet{pain2007sprint} examined reaction times for nine male athletes.  The
@@ -388,10 +388,10 @@ national competitions (many of which were held from May-July of 2022). Once the
 data was collected, each athlete was designated as a cluster and the stage of
 competition (national or international) was specified for each competition 
 within the cluster (athlete).  We chose to include preliminary rounds in this
-section as well as in \ref{sec:data2019} in order to increase the size of our
+section as well as in section~\ref{sec:data2019} in order to increase the size of our
 data.  Without data from the preliminary rounds, the number of observations
 dropped from 65 to 26 and the number of athletes included in the analysis
-decreased from 15 to 9.  Likewise 
+decreased from 15 to 9.
 
 
 
@@ -561,35 +561,50 @@ available from the \texttt{clusWilcox.test()} function with
 
 \jy{Write the story up as if you are going to submit. Then I'll review it.}
 
-\of{Add something like this to the start of the paragraph?}
-We may want to consider analyzing all four data sets separately because
-comparing the model based on all the data to the model based on data excluding 
-2022 can provide an indication about the impact of the 2022 data.
-We hope to see that by including 2022 data,
-the probability of observing a significantly low reaction time increases. 
-Table~\ref{tab:Gamma_parameters} summarizes the results from the gamma model 
-from different data sets and shows the standard error of the year
+A summary of the two effect model is shown in table~\ref{tab:Gamma_parameters}
+for the pooled datasets and shows the standard error of the year
 effect increases for both the men's final and men's pooled data sets when
-including 2022.  The men's final data venue effect error increased from 0.439
-to 0.504 and from 0.0495 to 0.0554 for the men's pooled data.  This demonstrates
-that the inclusion of 2022 increased the randomness of the data and motivates
-the rank-based study (see Section~\ref{subsec:Results_Rank}).
+including 2022. We choose to only look at the pooled datasets, as R displayed
+warnings when creating the finals only models
+\of{Is this section okay? Please let me know what I should rework}
 
 \begin{table}
   \centering
-  \caption{Summary statistics for the GLMM on various data sets.} 
-  \begin{tabular}{c c c c c c}
+  \caption{Summary statistics for the two effect GLMM on various data sets. SE
+  is short for standard error.} 
+  \begin{tabular}{c c c c c}
       \toprule
-      Dataset & Venue standard error & Int effect est & Int se & Int var & Resid Var \\
+      Dataset & Batch SE & Year SE & Intercept & Residual SE \\
       \midrule
-      Old Finals & 0.0439 & $-1.901$ & 0.0251 & 0.0019 & 0.0109 \\
-      All Finals & 0.0504 & $-1.914$ & 0.0280 & 0.0025 & 0.0112 \\
-      Old Pooled & 0.0495 & $-1.853$ & 0.0305 & 0.0024 & 0.0243 \\
-      All Pooled & 0.0554 & $-1.869$ & 0.0348 & 0.0031 & 0.0235 \\
+      Old Pooled & 0.060 & 0.034 & -1.865 & 0.139 \\
+      All Pooled  & 0.059 & 0.041 & -1.880 & 0.014 \\
       \bottomrule
   \end{tabular}
   \label{tab:Gamma_parameters}
 \end{table}
+
+Two points of this section are to determine how extreme a reaction time below
+0.1 seconds is, and to determine how the exclusion of 2022 could alter results.
+Using the gamma function with link set to log, the probability of the reaction 
+time being less than 0.1 seconds can be calculated in R using the methods 
+described in section~\ref{sec:glmm}. A simulation size of $10,000,000$ was 
+chosen to try and estimate the probability of observing a reaction time below 
+two thresholds: 0.1 and 0.08. When looked at the All Pooled datset, a probability
+of $5.15\cdot10^{-3}$ corresponds to roughly 1 in every 195 starts
+being below 0.1 seconds.  When we exclude 2022, the probability of observing a
+reaction time below 0.1 seconds decreased to $4.15\cdot10^{-3}$, or 1 in every
+240 starts.
+\of{I feel like with the two effect model the probability change is not as
+different as it was previously}
+
+
+Table~\ref{tab:Sim_probability} shows that changing the reaction time 
+barrier from 0.1 seconds to 0.08 seconds drastically reduces the chances of 
+observing a reaction time that would break the barrier. If World Athletics were
+to change the reaction time the way that \citet{komi2009iaaf} suggests, the 
+probability would be so much lower that athletes would likely not
+have a case to make when arguing against a disqualification.
+
 
 \begin{table}
   \centering
@@ -606,6 +621,19 @@ the rank-based study (see Section~\ref{subsec:Results_Rank}).
   \label{tab:Sim_probability}
 \end{table}
 
+We can use the same model but alter our interpretation slightly to select a 
+reaction time barrier given the probability of observing a time less than the 
+barrier.  For example, if we want a 0.1\% chance of observing an illegally fast 
+reaction time for the men's pooled dataset that includes 2022, then the reaction
+time barrier should be 0.089 seconds, as shown in Table~\ref{tab:Sim_time}.  We
+can repeat this calculation for each dataset and for various probability levels,
+for example a probability of 0.0001 (one disqualification for every 10,000 starts)
+results in a reaction time barrier of 0.079 for the men's pooled dataset.  
+Tables~\ref{tab:Sim_time} shows that the inclusion of 2022 results in a lower
+reaction time barrier, further showing the claims above that the reaction times
+in 2022 were low.
+
+
 \begin{table}
   \centering
   \caption{Suggested reaction time barriers based on probability of observing
@@ -621,6 +649,8 @@ the rank-based study (see Section~\ref{subsec:Results_Rank}).
   \label{tab:Sim_time}
 \end{table}
 
+
+\of{Should I report table~\ref{tab:EffectComparison}}
 \begin{table}
   \centering
   \caption{Compares the various effect models by dataset, all probabilities are
@@ -636,68 +666,6 @@ the rank-based study (see Section~\ref{subsec:Results_Rank}).
   \end{tabular}
   \label{tab:EffectComparison}
 \end{table}
-
-Using the gamma function with link set to log, the probability of the reaction 
-time being less than 0.1 seconds can be calculated to see if Allen's 
-disqualification was an anomaly as described in Section~\ref{sec:glmm}.
-Calculations were performed in R using the methods described in 
-section~\ref{sec:glmm} with the use of the \citet{lme4} package.
-
-
-At a size of $n=10,000,000$, \eds{use different letter as $n$ was already used 
-for number of athletes, $B?$} \of{Could I just say "At a size of 10,000,000"? 
-Otherwise I am fine with using "B" instead of "n"} \eds{we may have lost the 
-rest of this sentence?}
-
-
-The calculated probabilities of a reaction time 
-being below 0.1 seconds for the various different data sets are shown in 
-Table~\ref{tab:Sim_probability}. Prior to the 2022 World Championships, there 
-was a 0.0439\% chance (based on the
-simulated results) of observing a reaction time below 0.01 seconds in the men's
-finals.
-That means that we would expect a time below the threshold to occur
-once every 2,277 starts.  Considering there are roughly 8 men's finals reaction
-times every 2 years (the World Championships are biennial), every 569 years there
-should be a time as extreme as Allen's. This seems extremely unlikely, and thus
-it seems like there may be an additional explanation for the fast reaction times.
-
-
-When the 2022 data is included in the analysis, it is interesting that the 
-probability of observing a reaction time below 0.1 seconds increases drastically 
-for the finals data and increases by a smaller margin for the pooled data.  By
-including 2022 in the data, the chances of observing an extreme time are 
-increased, suggesting that 2022 is a high outlier for reaction times compared to
- other years.
-
-
-Table~\ref{tab:Sim_probability} also shows that changing the reaction time 
-barrier from 0.1 seconds to 0.08 seconds drastically reduces the chances of 
-observing a reaction time that would break the barrier.  For the dataset of all 
-finals data, the probability
-associated with observing a reaction time below 0.08 seconds was $6\cdot10^{-7}$.
-If IAAF \eds{or World Athletics?} were to change the reaction time the way that 
-\citet{komi2009iaaf}
-suggests, the probability would be so much lower that athletes would likely not
-have a case to make when arguing against a disqualification.
-
-
-We can use the same model but alter our interpretation slightly to select a 
-reaction time barrier given the probability of observing a time less than the 
-barrier.  For example, if we want a 0.1\% chance of observing an illegally fast 
-reaction time for the men's pooled dataset that includes 2022, then the reaction
-time barrier should be 0.089 seconds, as shown in Table~\ref{tab:Sim_time}.  We
-can repeat this calculation for each dataset and for various probability levels,
-for example a probability of 0.0001 (one disqualification for every 10,000 starts)
-results in a reaction time barrier of 0.079 for the men's pooled dataset.  
-Tables~\ref{tab:Sim_time} shows that the inclusion of 2022 results in a lower
-reaction time barrier, further showing the claims above that the reaction times
-in 2022 were low.
-
-%Discussion should show that random effect
-%and standard error increase and that 2022 is special.  Now talk about Seiko
-%timing equipment
-
 
 
 \subsection{Rank-based Comparison} \label{subsec:Results_Rank}
@@ -817,32 +785,6 @@ discussed earlier in the paper, but this data shows that on average there was
 improvement for British, Polish, French, Brazilian, and Spanish athletes.
 
 
-
-It is worth noting that in the semifinals of the 2022 World Track and
-Field Championships, Allen's reaction time was 0.101 which is only 0.001 above
-the legal limit. What this suggests is that Allen may have strong reflexes
-and be able to react extremely well to the sound of the gun. It seems unlikely 
-that Allen would be able to correctly predict the gun with such precision two 
-times in a row, which is the exact reason that the 0.1 second reaction time 
-disqualification barrier was imposed in the first place. Thus having a quick 
-reaction time repeatedly may indicate skill rather than luck. Devon Allen is
-an exceptional athlete, as evidenced by his football career outside of running.  
-\citet{komi2009iaaf}'s paper showed that athletes are
-capable of reacting in less than 0.1 seconds, and if this is the case, it is not
-unreasonable to conclude that an outstanding athlete like Allen is capable of
-reacting below the 0.1 second barrier.
-
-The results from the GLMM are described in section~\ref{subsec:Results_GLMM} and
-show that there
-
-Devon Allen's disqualification at the World Track and Field Championships was
-possibly the result of both a faulty timing equipment and Devon Allen
-reacting extremely quickly to the start.  Our analysis showed that
-the 2022 World Track and Field Championships were a low outlier compared to
-every other year in terms of average reaction time.  Additionally, it was shown
-through a gamma mixed effects model that there are significant year and race
-effects \eds{remove race effects?}\of{I think were going to go with the two
-effect model so no.} that greatly impact reaction time.  
 
 %\eds{I would suggest removing the last two sentences, as they would suggest your
 % modeling with GLMM is not good}.  
