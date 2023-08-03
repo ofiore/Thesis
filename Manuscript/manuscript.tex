@@ -504,7 +504,7 @@ being less than 0.1 seconds in order to gauge if that is a reasonable
 disqualification barrier.
 
 
-\subsection{Rank-based Comparison}\label{sec:rank}
+\subsection{Rank-based Comparison}\label{sec:rank_methods}
 
 
 To test the conjecture that the 2022 World Championships timing device may have 
@@ -543,11 +543,11 @@ asymptotically \citep[p.910]{datta2005rank}.
 
 
 With our small sample size, the asymptotic normal distribution may not be
-reliable, so we use random permutation to obtain the p-value of the observed
-test statistics $W^*$. This method is
-available from the \texttt{clusWilcox.test()} function with
-\texttt{method = `ds'} and \texttt{exact = TRUE} from R package
-\texttt{clusrank} \citep{jiang2020wilcoxon}.
+reliable, so we use random permutation, which simulates the observed test 
+statistic: $W^*$ given number of times to obtain the p-value of said test 
+statistics. This method is available from the \texttt{clusWilcox.test()} function
+with \texttt{method = `ds'} and \texttt{exact = TRUE} from R package
+\texttt{clusrank} \citep{jiang2020wilcoxon}.  
 
 
 \section{Results} \label{sec:Results}
@@ -670,18 +670,37 @@ in 2022 were low.
 
 \subsection{Rank-based Comparison} \label{subsec:Results_Rank}
 
-The rank based methods described in Section~\ref{sec:rank} are used
+The rank based methods described in are used in section~\ref{sec:rank_methods}
 to determine if the reaction times for athletes who had competed at other 
 championships differed significantly from the 2022 World Championships.  This is
 a two group comparison performed two times: once comparing 2019 World
-Championships to 2022 World Championships and can be found in 
-Section~\ref{sec:results2019vs2022} and secondly comparing 2022 national
-championships to the 2022 World Championships and can be found in
-Section~\ref{sec:resultsnational}.
+Championships to 2022 World Championships and then comparing 2022 national
+championships to the 2022 World Championships.
 
 \jy{use two-sided}
+\of{Resolved}
 
 \jy{include sample sizes; permutation number (B);}
+\of{Resolved}
+
+
+
+Table~\ref{tab:Clusrankresults} shows the results generated from four tests in R.
+We use a \texttt{clusWilcox.test()} with \texttt{exact = TRUE} and 
+\texttt{B = 1000} indicating that the random permutation size was chosen to be 
+1000.  As the sample sizes are small: 65 and 49, we use \texttt{exact = TRUE} as
+that is preferred.  In both cases, the national versus international comparison
+produced stronger p values than the 2019 versus 2022 comparison, with the
+national vs international \texttt{exact = TRUE} test producing a p value of 
+$2.2\cdot10^{-16}$, which is the smallest possible value acheivable in R.  This
+is a highly significant test result and shows that athletes who competed at the
+2022 Track and Field World Championships were on average, significantly faster
+at reacting than they were a few months prior.  For the 2019 versus 2022
+same athlete comparison with \texttt{exact = TRUE} argument, the p value was
+significant at $\alpha = 0.01$, however for when \texttt{exact = FALSE}, the p
+value was higher and only significant at $\alpha = 0.05$. Nonetheless, these
+tests help to show that athletes competing at the 2022 Track and Field World
+Championships had faster reaction times than when they had competed previously.
 
 \begin{table}
   \centering
@@ -691,19 +710,15 @@ Section~\ref{sec:resultsnational}.
    Comparison & $exact = True$ & $exact \neq True$ & Sample size & Clusters/Athletes \\ 
    \midrule
    2019 vs 2022 & $2.9\cdot10^{-3}$ & $2.3\cdot10{-2}$ & 65 & 15 \\ 
-   Nat vs Inter & $2.2\cdot10^{-16}$ & $3.1\cdot10^{-4}$ & 61 & 15 \\
+   Nat vs Inter & $2.2\cdot10^{-16}$ & $1.0\cdot10^{-3}$ & 49 & 11 \\
    \bottomrule
   \end{tabular}
+  \caption{2019 vs 2022 compares data from the same athletes who competed at the
+  2019 and 2022 World Track and Field Championships. Nat vs Inter compares data
+  from the same athletes who competed at the 2022 national-level championships
+  and the 2022 World Track and Field Championships}
   \label{tab:Clusrankresults}
 \end{table}
-
-Table~\ref{tab:Clusrankresults} shows the results generated from four tests in R.
-We use a \texttt{clusWilcox.test()} and set the permutation number (B) to be
-1000 as the sample size in this analysis is small.  The sample size indicates
-the total number of observations while clusters represnts the number of athletes
-in each dataset.  It is worth noting that it is entirely coincidental that there
-are fiftenn athletes in sets.
-
 
 
 
@@ -711,19 +726,19 @@ are fiftenn athletes in sets.
 
 \jy{condense; could use chatGPT to improve your writing.}
 
-One conclusion from the analysis in \citet{zhang2021correlation} was that 
-athletes' reaction times improved from 2011 to 2019.  However this study does 
-not consider data from 1999 to 2009, and over this timespan athletes get slower 
-and then faster.  Figure~\ref{fig:Boxplots} shows that for the men's pooled data,
-the year with the fastest median reaction time before 2022 was 1999.  Thus, this 
-reject's Zhang et al.'s conclusion that athletes are getting faster because they 
-were fast over twenty years ago. One possible explanation for why 2011 had such
-high variation was because of the IAAF rule discussed earlier that increased the
-penalty of a false start to an instant disqualification \citep{iaaf2009falsestart}.
-Athletes may have been overly cautious to false start and may have consciously
-or sub-consciously reacted slower as a result.  Instead, a more appropriate 
-conclusion may be that there is a lot of variability in reaction times and that
-the context of the races matters.
+%One conclusion from the analysis in \citet{zhang2021correlation} was that 
+%athletes' reaction times improved from 2011 to 2019.  However this study does 
+%not consider data from 1999 to 2009, and over this timespan athletes get slower 
+%and then faster.  Figure~\ref{fig:Boxplots} shows that for the men's pooled data,
+%the year with the fastest median reaction time before 2022 was 1999.  Thus, this 
+%reject's Zhang et al.'s conclusion that athletes are getting faster because they 
+%were fast over twenty years ago. One possible explanation for why 2011 had such
+%high variation was because of the IAAF rule discussed earlier that increased the
+%penalty of a false start to an instant disqualification \citep{iaaf2009falsestart}.
+%Athletes may have been overly cautious to false start and may have consciously
+%or sub-consciously reacted slower as a result.  Instead, a more appropriate 
+%conclusion may be that there is a lot of variability in reaction times and that
+%the context of the races matters.
 
 
 This paper does not consider data from the women's 100 meter hurdle, and although
@@ -751,38 +766,23 @@ for gender based reaction time barriers which seems logical if there are biologi
 differences in reaction times between men and women.
 
 
-Since 1985 Seiko Holding Corporations has served every World Athletics 
-Championships as the official timer \citep{wa2022seiko}.  Reaction times were
-not officially measured until 1999 in the men's 110 meter hurdles and women's
-100 meter hurdles. Seiko's technology for detecting 
-reaction times relies on the pressure that athletes exert on the plate when they 
-push off.  Their systems measure the time differential between when the ``gun" 
-goes off to start the race and when the pressure changes \citep{wa2022seiko}.  
-If an athlete has a reaction time under 0.1 seconds, it is deemed a false start 
-as it is considered that no athlete can react so quickly \citep{Seiko-Timing}.  
-Thus, a reaction time of for example 0.05, suggests that the athlete predicted 
-the gun and it was luck that caused their abnormally high time.  At the World 
-Championships level, World Athletics want to remove that element of 
-luck and thus impose the 0.1 second barrier.
-\eds{I would argue that this paragraph should go in the discussion as there are 
-no results presented here}
-\of{I agree so I moved it here. I think it also could fit into the top of the
-data section as in section~\ref{sec:Data}. Thoughts?} 
-
-\eds{also consider moving the following paragraph to discussion??}
-As Seiko timed both events, there should not be a significant
-difference if the timing equipment in both instances was working correctly.
-\eds{you just mentioned in the last subsection that Seiko upgraded its 
-technology prior to 2022}
-of{Yes I agree}
-To put it simply, there is not a reasonable explanation for 
-this. It is inconceivable that so many athletes would improve such a significant
-amount in such a small amount of time. Six countries are represented in this 
-comparison, which drastically decreases the chances of this issue being caused by
-one specific country.  The United States athletes' improvement in times was
-discussed earlier in the paper, but this data shows that on average there was
-\jy{any reference?}
-improvement for British, Polish, French, Brazilian, and Spanish athletes.
+%Since 1985 Seiko Holding Corporations has served every World Athletics 
+%Championships as the official timer \citep{wa2022seiko}.  Reaction times were
+%not officially measured until 1999 in the men's 110 meter hurdles and women's
+%100 meter hurdles. Seiko's technology for detecting 
+%reaction times relies on the pressure that athletes exert on the plate when they 
+%push off.  Their systems measure the time differential between when the ``gun" 
+%goes off to start the race and when the pressure changes \citep{wa2022seiko}.  
+%If an athlete has a reaction time under 0.1 seconds, it is deemed a false start 
+%as it is considered that no athlete can react so quickly \citep{Seiko-Timing}.  
+%Thus, a reaction time of for example 0.05, suggests that the athlete predicted 
+%the gun and it was luck that caused their abnormally high time.  At the World 
+%Championships level, World Athletics want to remove that element of 
+%luck and thus impose the 0.1 second barrier.
+%\eds{I would argue that this paragraph should go in the discussion as there are 
+%no results presented here}
+%\of{I agree so I moved it here. I think it also could fit into the top of the
+%data section as in section~\ref{sec:Data}. Thoughts?} 
 
 
 
@@ -792,12 +792,12 @@ improvement for British, Polish, French, Brazilian, and Spanish athletes.
 
 
 
-If there are issues with reaction time such as athletes approaching the 0.1 
-second barrier again at the next World Championships (August 2023), then World 
-Athletics needs to adjust that threshold and allow for faster reaction times so 
-that athletes with superb reflexes are not penalized.  World Athletics did not
-do anything in response to the \citet{komi2009iaaf} study, but perhaps they 
-should now so that the story of Devon Allen is not repeated.
+%If there are issues with reaction time such as athletes approaching the 0.1 
+%second barrier again at the next World Championships (August 2023), then World 
+%Athletics needs to adjust that threshold and allow for faster reaction times so 
+%that athletes with superb reflexes are not penalized.  World Athletics did not
+%do anything in response to the \citet{komi2009iaaf} study, but perhaps they 
+%should now so that the story of Devon Allen is not repeated.
 
 \section*{Appendix}
 \label{sec:Appendix}
