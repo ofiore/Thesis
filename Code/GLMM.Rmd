@@ -62,6 +62,10 @@ men_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_pooled,
 
 ```
 
+```{r}
+summary(men_pooled_year_gamma_log)
+
+```
 
 This creates the batch effect only models.
 ```{r}
@@ -91,6 +95,9 @@ men_old_pooled_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | Batch),
                                    data = men_old_pooled, family = Gamma(link = "log"))
 men_pooled_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
                                data = men_pooled, family = Gamma(link = "log"))
+```
+```{r}
+summary(men_pooled_two_effect_gamma_log)
 ```
 
 
