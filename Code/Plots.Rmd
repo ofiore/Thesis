@@ -7,7 +7,7 @@ output: html_document
 
 ```{r}
 times <- read.csv("../Data/ThesisData.csv")
-View(times)
+## View(times)
 colnames(times) <- c("Year", "Type", "Time", "RxnTime", "Gender", "Batch")
 ```
 

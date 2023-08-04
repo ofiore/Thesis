@@ -94,10 +94,6 @@ False Start, Hurdles, Reaction Time, Seiko
 
 \doublespace
 
-\jy{The bib file needs quality control. Practice my writing tips in the
-  stat-wriging notes: chapter 2 on latex/bibtex.}
-
-\jy{Go over the reference section to see what need to be changed in the bib source}
 
 \section{Introduction}
 \label{sec:intro}
@@ -148,8 +144,6 @@ reaction times over the past 13 competitions of the men's 100 meter, men's 110
 meter hurdle, and women's 100 meter would all come from the same year 
 \citep{johnson2022was}.
 
-\jy{Use double blank lines to separate paragraphs in tex source. Acknowledge if you copy.}
-\of{Resolved}
 
 Reaction time in sprint and hurdle events has been studied by many authors.
 \citet{pain2007sprint} examined reaction times for nine male athletes.  The
@@ -205,8 +199,7 @@ this in two different ways.  First we model the data, which are
 the reaction times of every non-disqualification since the 1999 World 
 Championships, using a gamma linear mixed-effects model with two random effects 
 one effect for the year and a second effect for the
-heat within each year. \jy{do a thorough check to make sure this is updated.}
-\of{This should be better now.}
+heat within each year.
 Based on the fitted model, we can then estimate the probability of a reaction 
 time being below a certain threshold (e.g., 0.1). 
 Second, we compare reaction times for athletes who have competed
@@ -555,12 +548,6 @@ with \texttt{method = `ds'} and \texttt{exact = TRUE} from R package
 \subsection{GLMM} \label{subsec:Results_GLMM}
 
 
-
-\jy{Use the pooled data; present the analysis with 2022 first; then suggest that
-  is worth looking at the results without 2022.}
-
-\jy{Write the story up as if you are going to submit. Then I'll review it.}
-
 A summary of the two effect model is shown in table~\ref{tab:Gamma_parameters}
 for the pooled datasets and shows the standard error of the year
 effect increases for both the men's final and men's pooled data sets when
@@ -723,8 +710,6 @@ Championships had faster reaction times than when they had competed previously.
 
 
 \section{Discussion}\label{sec:Discussion}
-
-\jy{condense; could use chatGPT to improve your writing.}
 
 %One conclusion from the analysis in \citet{zhang2021correlation} was that 
 %athletes' reaction times improved from 2011 to 2019.  However this study does 
