@@ -2,7 +2,7 @@
 + Give descriptive statistics for each dataset
 + Delete blue graph
 + Make one plot for natVSint and 2019vs2022
-+ Remove table
++ Remove usa table
 + Need to tell readers the cluster sizes (At least 2), in text the number of
 each size cluster there are 3 2s, 4 4s, etc
 + By design treatment is within cluster, treatment is assigned individually
