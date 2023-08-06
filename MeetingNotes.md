@@ -1,3 +1,39 @@
+# Meeeting Notes 8/3
++ Give descriptive statistics for each dataset
++ Delete blue graph
++ Make one plot for natVSint and 2019vs2022
++ Remove table
++ Need to tell readers the cluster sizes (At least 2), in text the number of
+each size cluster there are 3 2s, 4 4s, etc
++ By design treatment is within cluster, treatment is assigned individually
+within the cluster, and this is why we use ds
++ Rank based stuff has same structure
++ subunit level grouping
++ exact = TRUE means permutations, but B = 1000 in methods
++ Change language of pooled vs finals
++ Add 0.09 to table 3
++ Convert 0.0001 to 10^-4
++ Remove table 5
++ Show AIC to compare two effect model
++ Talk about the table in terms of alpha, 2 standard deviations
++ Negative signs in latex
++ Called venue and heat
++ Change residual to phi
++ In results talk about why two effect model is better
++ 1 talk about why its better, parameters of better model, and then the result
+of the better model
++ Remove 65/49 sample size column, talk about stuff in text in data
++ Call table permutation, asymptotic not exact = True, exact != Trie
++ Change discussion to "Concluding remarks"
++ Email Prof Schifano after and send the pdf,
+
+
+
+
+
+
+
+
 # Meeting Notes 7/26
 + Use relevel in R to fix the order of heats, semifinals, finals
 + Group A and Group B and then clusters, which can be A or B, if there is no difference
