@@ -254,7 +254,7 @@ rank-based comparisons described in Section~\ref{sec:rank}.
 
 \begin{figure}[tbp]
   \centering
-  \includegraphics{Finals_Pooled_Boxplot}
+  \includegraphics{Pooled_Boxplot}
   \caption{The reaction times from 1999 to 2022 for the men's final (top) and
   the men's semifinals and finals (bottom).}
   \label{fig:Boxplots}
@@ -331,56 +331,20 @@ From June 23-26 2022, the United States held its Track and Field Championships
 at Hayward Field in Eugene, Oregon to decide who to send to the World 
 Championships being held at the same venue in August. Thus, we can establish a 
 baseline for the four United States athletes who competed in at least one round 
-of both events: Trey Cunningham, Daniel Roberts, 
-Grant Holloway, and Devon Allen. Table~\ref{fig:USAvsWorld} highlights the 
-difference in reaction times for these four athletes in the two events. 
-Every athlete reacted faster in all the World 
-Track and Field Championships races compared to the United States Track and Field 
-Championships races. Devon Allen raced three times at the United States Track and
-Field Championships and three times at the World Track and Field Championships. 
-His reaction times were substantially faster in the World Track and
-Field Championships compared to the United States Track and Field Championships, 
-as were his teammates. 
-This comparison suggests that the timing system used between the two
-meets may have been meaningfully different to the point where Devon Allen was
-disqualified more because of faulty equipment rather than because he reacted
-too quickly.  
-
-
-\begin{table}
-\begin{center}
-  \caption{Reaction times (in seconds) for four United States Athletes at the 
-	2022 United States Track
-  and Field World Championships (``United States") and the 2022 World Track and Field 
-	Championships (``World"); H denotes preliminary heat, S denotes semifinal, and 
-	F denotes final.
-  ``N/A" was used for any athlete that did not compete and thus did not register 
-  a reaction time. }
-  \begin{tabular}{c c c c c c c} 
-   \toprule
-	 & \multicolumn{3}{c}{United States} & \multicolumn{3}{c}{World} \\
-	\cmidrule(lr){2-4}
-    \cmidrule(lr){5-7}
-   Athlete &  H &  S &  F &  H &  S &  F \\ [0.5ex] 
-   \midrule
-   Devon Allen & 0.201 & 0.153 & 0.160 & 0.123 & 0.101 & 0.099 \\ 
-   Trey Cunningham & 0.186 & 0.185 & 0.182 & 0.115 & 0.120 & 0.109 \\
-   Grant Holloway & 0.192 & 0.190 & N/A & 0.147 & 0.128 & 0.124 \\
-   Daniel Roberts & 0.181 & 0.200 & 0.183 & 0.179 & N/A & N/A \\ [0.5ex]
-   \bottomrule
-  \end{tabular}
-  \label{fig:USAvsWorld}
-  
-\end{center}
-\end{table}
-
-The dataset of the four United States athletes 
-is too small to perform any meaningful statistical analysis, but
-the data was expanded to include reaction times for athletes who competed at 
-national competitions (many of which were held from May-July of 2022). Once the 
-data was collected, each athlete was designated as a cluster and the stage of
-competition (national or international) was specified for each competition 
-within the cluster (athlete).  We chose to include preliminary rounds in this
+of both events: Trey Cunningham, Daniel Roberts, Grant Holloway, and Devon Allen.   
+Every athlete reacted faster in all the World Track and Field Championships 
+races compared to the United States Track and Field Championships races. The 
+dataset of the four United States athletes is too small to perform any 
+meaningful statistical analysis, but the data was expanded to include reaction 
+times for 11 athletes who competed at national competitions (many of which were 
+held from May-July of 2022). This data is difficult to find as it was taken from 
+various websites and was at times difficult to interpret as the data if often 
+recorded in the language of the country. \of{I don't know how to say this}. Each
+athlete was designated to be a cluster and the stage of competition (national or international) was specified for each competition within the cluster (athlete).
+Thus, this is subunit level grouping where we assign the treatment: national or
+international within each cluster.  Cluster sizes range from three to six, with
+one cluster of size three, six clusters of size four, two clusters of size five
+and two clusters of size six.  We chose to include preliminary rounds in this
 section as well as in section~\ref{sec:data2019} in order to increase the size of our
 data.  Without data from the preliminary rounds, the number of observations
 dropped from 65 to 26 and the number of athletes included in the analysis
@@ -406,9 +370,13 @@ the times of athletes who participated in the 2019 and 2022 World Track and Fiel
 Championships to see if there were lower times in 2022.  While it is theoretically
 possible that athletes got faster between 2019 and 2022, it is important to
 remember that these are some of the fastest sprinters on the planet, and thus
-improving on elite times is not easy.  Nonetheless, this is a worthy inclusion
-to the data because Seiko was the timing company responsible for both events and
-because the level of competition is the extremely elite in both cases. 
+improving on elite times is not easy.  Once again we repeat a similar procedure
+as in section~\ref{sec:datanational}; we assign each athlete to be a cluster and
+within each cluster assign times to be from either the 2019 World Championships
+or the 2022 World Championships.  In this analysis, we look at data from 15
+athletes, where cluster size ranges from two to six.   There were two clusters 
+of size two, three clusters of size three, five clusters of size four, two 
+clusters of size five and three clusters of size six.
 
 \jy{give specifics of your sample size}
 
