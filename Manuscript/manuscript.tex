@@ -221,7 +221,7 @@ signed-rank test that analyzes reaction times for the same athletes across
 different competitions is
 also described in Section~\ref{sec:Methods}.  Section~\ref{sec:Results}
  provides the results of the two analyses and ends 
-by questioning the reaction time barrier.  Lastly, Section~\ref{sec:Discussion}
+by questioning the reaction time barrier.  Lastly, Section~\ref{sec:concludingremark}
 discusses the impact and limitations of the paper.
 
 
@@ -504,7 +504,7 @@ asymptotically \citep[p.910]{datta2005rank}.
 
 
 With our small sample size, the asymptotic normal distribution may not be
-reliable, so we use random permutation, which simulates the observed test 
+reliable, so we use 1000 random permutations to simulate the observed test 
 statistic: $W^*$ given number of times to obtain the p-value of said test 
 statistics. This method is available from the \texttt{clusWilcox.test()} function
 with \texttt{method = `ds'} and \texttt{exact = TRUE} from R package
@@ -520,23 +520,30 @@ A summary of the two effect model is shown in table~\ref{tab:Gamma_parameters}
 for the pooled datasets and shows the standard error of the year
 effect increases for both the men's final and men's pooled data sets when
 including 2022. We choose to only look at the pooled datasets, as R displayed
-warnings when creating the finals only models
-\of{Is this section okay? Please let me know what I should rework}
+warnings when creating the finals only models.  The two effect model with venue
+and heat effect was the best model, as proven by an ANOVA test and decrease in
+AIC.  For the entire pooled dataset; the AIC for the venue effect only model was
+$-1847.9$, the heat effect only model AIC was $-1894.4$ and the both effect model,
+which we will present throughout this section AIC was $-1898.9$. Thus, the two
+effect model is superior and will be presented throughout the rest of the paper.
+\of{How specific do I need to be in this section? Will people who read this paper
+run the code to see the p value or should I say it directly and how do I say it?}
 
 \begin{table}
   \centering
   \caption{Summary statistics for the two effect GLMM on various data sets. SE
   is short for standard error.} 
-  \begin{tabular}{c c c c c}
+  \begin{tabular}{c c c c c c}
       \toprule
-      Dataset & Batch SE & Year SE & Intercept & Residual SE \\
+      Dataset & AIC & Batch SE & Year SE & Intercept & Residual SE \\
       \midrule
-      Old Pooled & 0.060 & 0.034 & -1.865 & 0.139 \\
-      All Pooled  & 0.059 & 0.041 & -1.880 & 0.014 \\
+      Old Pooled & 0.060 & 0.034 & $-1.865$ & 0.139 \\
+      All Pooled & 0.059 & 0.041 & $-1.880$ & 0.014 \\
       \bottomrule
   \end{tabular}
   \label{tab:Gamma_parameters}
 \end{table}
+
 
 Two points of this section are to determine how extreme a reaction time below
 0.1 seconds is, and to determine how the exclusion of 2022 could alter results.
@@ -565,12 +572,12 @@ have a case to make when arguing against a disqualification.
   \centering
   \caption{Probabilities of observing reaction times less than 0.1 and 0.08
   for various data sets.}
-  \begin{tabular}{c c c} 
+  \begin{tabular}{c c c c} 
    \toprule
-   Data Set & P(RxnTime $<$ 0.1) & P(RxnTime $<$ 0.08) \\ 
+   Data Set & P(R. Time $<$ 0.08) & P(R. Time $<$ 0.09) & P(R. Time $<$ 0.1)  \\ 
    \midrule
-   Old Pooled & $4.15\cdot10^{-3}$ & $4.67\cdot10^{-5}$ \\ 
-   All Pooled & $5.15\cdot10^{-3}$ & $6.01\cdot10^{-5}$ \\
+   Old Pooled & $4.67\cdot10^{-5}$ & $5.91\cdot10^{-4}$ &  $4.15\cdot10^{-3}$  \\ 
+   All Pooled & $6.01\cdot10^{-5}$ & $7.39\cdot10^{-4}$ & $5.15\cdot10^{-3}$ \\
    \bottomrule
   \end{tabular}
   \label{tab:Sim_probability}
@@ -592,10 +599,10 @@ in 2022 were low.
 \begin{table}
   \centering
   \caption{Suggested reaction time barriers based on probability of observing
-  a time less the barrier. \of{Not sure if this makes sense}}
+  a time less than the barrier. \of{Not sure if this makes sense}}
   \begin{tabular}{c c c} 
    \toprule
-   Data Set & P(RxnTime $<$ x = .001) & P(RxnTime $<$ x = 0.0001) \\ 
+   Data Set & P(RxnTime $<$ x = $10^{-3}$) & P(RxnTime $<$ x = $10^{-4}$) \\ 
    \midrule
    Old Pooled & $0.093$ & $0.083$ \\ 
    All Pooled & $0.091$ & $0.082$ \\
@@ -605,22 +612,22 @@ in 2022 were low.
 \end{table}
 
 
-\of{Should I report table~\ref{tab:EffectComparison}}
-\begin{table}
-  \centering
-  \caption{Compares the various effect models by dataset, all probabilities are
-  for observing a reaction time less than 0.1 seconds. In general the model with
-  the highest probability (least extreme reaction time) is the Year Effect model.}
-  \begin{tabular}{c c c c} 
-   \toprule
-   Data Set & Year Effect & Batch Effect & Both Effects \\ 
-   \midrule
-   Old Pooled & $5.73\cdot10^{-3}$ & $5.21\cdot10^{-3}$ & $4.15\cdot10^{-3}$ \\ 
-   All Pooled & $6.84\cdot10^{-3}$ & $6.64\cdot10^{-3}$ & $5.15\cdot10^{-3}$ \\
-   \bottomrule
-  \end{tabular}
-  \label{tab:EffectComparison}
-\end{table}
+%\of{Should I report table~\ref{tab:EffectComparison}}
+%\begin{table}
+%  \centering
+%  \caption{Compares the various effect models by dataset, all probabilities are
+%  for observing a reaction time less than 0.1 seconds. In general the model with
+%  the highest probability (least extreme reaction time) is the Year Effect model.}
+%  \begin{tabular}{c c c c} 
+%   \toprule
+%   Data Set & Year Effect & Batch Effect & Both Effects \\ 
+%   \midrule
+%   Old Pooled & $5.73\cdot10^{-3}$ & $5.21\cdot10^{-3}$ & $4.15\cdot10^{-3}$ \\ 
+%   All Pooled & $6.84\cdot10^{-3}$ & $6.64\cdot10^{-3}$ & $5.15\cdot10^{-3}$ \\
+%   \bottomrule
+%  \end{tabular}
+%  \label{tab:EffectComparison}
+%\end{table}
 
 
 \subsection{Rank-based Comparison} \label{subsec:Results_Rank}
@@ -662,22 +669,22 @@ Championships had faster reaction times than when they had competed previously.
   \caption{}
   \begin{tabular}{c c c c c} 
    \toprule
-   Comparison & $exact = True$ & $exact \neq True$ & Sample size & Clusters/Athletes \\ 
+   Comparison & Permutation & Asymptotic \\ 
    \midrule
-   2019 vs 2022 & $2.9\cdot10^{-3}$ & $2.3\cdot10{-2}$ & 65 & 15 \\ 
-   Nat vs Inter & $2.2\cdot10^{-16}$ & $1.0\cdot10^{-3}$ & 49 & 11 \\
+   2019 vs 2022 & $2.9\cdot10^{-3}$ & $2.3\cdot10{-2}$ \\ 
+   Nat vs Inter & $2.2\cdot10^{-16}$ & $1.0\cdot10^{-3}$ \\
    \bottomrule
   \end{tabular}
   \caption{2019 vs 2022 compares data from the same athletes who competed at the
   2019 and 2022 World Track and Field Championships. Nat vs Inter compares data
   from the same athletes who competed at the 2022 national-level championships
-  and the 2022 World Track and Field Championships}
+  and the 2022 World Track and Field Championships.}
   \label{tab:Clusrankresults}
 \end{table}
 
 
 
-\section{Discussion}\label{sec:Discussion}
+\section{Concluding Remarks}\label{sec:concludingremarks}
 
 %One conclusion from the analysis in \citet{zhang2021correlation} was that 
 %athletes' reaction times improved from 2011 to 2019.  However this study does 
