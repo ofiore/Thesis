@@ -64,7 +64,7 @@ men_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_pooled,
 
 ```{r}
 summary(men_pooled_year_gamma_log)
-
+summary(men_old_pooled_year_gamma_log)
 ```
 
 This creates the batch effect only models.
@@ -81,6 +81,9 @@ men_pooled_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = men_pooled,
                          family = Gamma(link = "log"))
 ```
 
+```{r}
+summary(men_pooled_batch_gamma_log)
+```
 
 
 This creates the models with a year effect and batch effect.
@@ -166,6 +169,12 @@ sim_two_effect_time(men_finals_two_effect_gamma_log, men_finals_one_gamma_log, 0
 sim_two_effect_time(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.1)
 sim_two_effect_time(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.1)
 ```
+
+```{r}
+sim_two_effect_time(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.09)
+sim_two_effect_time(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.09)
+```
+
 ```{r}
 sim_two_effect_time(men_old_finals_two_effect_gamma_log, men_old_finals_one_gamma_log, 0.08)
 sim_two_effect_time(men_finals_two_effect_gamma_log, men_finals_one_gamma_log, 0.08)
