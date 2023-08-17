@@ -250,7 +250,7 @@ Section~\ref{sec:glmm}, while the second collection of data is used for the
 rank-based comparisons described in Section~\ref{sec:rank}.
 
 
-\subsection{2022 World Championships}\label{sec:dataworld}
+\subsection{World Championships 1999--2022}\label{sec:dataworld}
 
 \begin{figure}[tbp]
   \centering
@@ -272,6 +272,7 @@ For the creation of the GLMM model we focus on the reaction times during the
 semifinal and final heats only, as reaction times from preliminary heats are 
 often not as fast as those in later heats \citep[e.g.,][]{zhang2021correlation}. 
 
+
 For analysis purposes, we will often pool reaction times of men's final and 
 men's semifinal heats together and refer to this data as the ``pooled data"
 throughout the paper. 
@@ -282,9 +283,11 @@ years there are very few final heat observations.  For example, in 2022 there
 were only five data points due to two disqualifications and one athlete who 
 did not compete.  We also look at data that does not include 2022 with year values
 between 1999 and 2019.  Thus, we have four datasets with their respective naming
+\jy{Clean up}
 in parentheses: the final's data from 1999 to 2019 (Old Finals), final's data 
 from 2019 to 2022 (All Finals), pooled data from 1999 to 2019 (Old Pooled), and 
 pooled data from 1999 to 2022 (All Pooled).
+
 
 The data under consideration is best visualized using side-by-side boxplots, as
 shown in Figure~\ref{fig:Boxplots}.  It is clear that the reaction times in the 
@@ -293,14 +296,15 @@ the men's finals and men's pooled semifinal and final data are lower (indicating
 faster reaction times)
 than in previous years.  The median for the men's pooled data in 2022 was 0.129
 and the median for the men's final data in 2022 was 0.126.  For comparison,
-\citet{brosnan2017effects} found median reaction times of 0.156 seconds 
+{brosnan2017effects} found median reaction times of 0.156 seconds 
 for men when looking at data from 1999 to 2014.
-
 We can also see from Figure~\ref{fig:Boxplots} that the reaction times clearly
 differ from year to year. The venue of the World Championships changes each 
 year, so weather or climate related factors such as humidity, precipitation, 
 elevation, may indeed play a role, but additionally, both the technology and 
 false start penalization rules have changed over the study period.
+
+
 
 From 2007--2009, the IAAF (the former name for World Athletics, and the 
 governing body for the World Track and Field Championships) instituted a rule 
@@ -319,9 +323,7 @@ examined the effect of different false start rules that IAAF has imposed from
 under more lenient rules.
 
 
-
-
-\subsection{Beyond 2022 World Championships}\label{sec:databeyond}
+\subsection{Comparison Data with 2022 World Championships}\label{sec:databeyond}
 The motivation for looking beyond World Championships data came from an 
 exploratory analysis examining how United States athletes reacted at the 
 2022 United States Track and Field Championships.
@@ -465,7 +467,7 @@ being less than 0.1 seconds in order to gauge if that is a reasonable
 disqualification barrier.
 
 
-\subsection{Rank-based Comparison}\label{sec:rank_methods}
+\subsection{Rank-based Comparison}\label{sec:rank}
 
 
 To test the conjecture that the 2022 World Championships timing device may have 
@@ -516,7 +518,7 @@ with \texttt{method = `ds'} and \texttt{exact = TRUE} from R package
 \subsection{GLMM} \label{subsec:Results_GLMM}
 
 
-A summary of the two effect model is shown in table~\ref{tab:Gamma_parameters}
+A summary of the two effect model is shown in Table~\ref{tab:Gamma_parameters}
 for the pooled datasets and shows the standard error of the year
 effect increases for both the men's final and men's pooled data sets when
 including 2022. We choose to only look at the pooled datasets, as R displayed
@@ -638,12 +640,6 @@ championships differed significantly from the 2022 World Championships.  This is
 a two group comparison performed two times: once comparing 2019 World
 Championships to 2022 World Championships and then comparing 2022 national
 championships to the 2022 World Championships.
-
-\jy{use two-sided}
-\of{Resolved}
-
-\jy{include sample sizes; permutation number (B);}
-\of{Resolved}
 
 
 
