@@ -252,14 +252,6 @@ rank-based comparisons described in Section~\ref{sec:rank}.
 
 \subsection{World Championships 1999--2022}\label{sec:dataworld}
 
-\begin{figure}[tbp]
-  \centering
-  \includegraphics{Pooled_Boxplot}
-  \caption{The reaction times from 1999 to 2022 for the men's final (top) and
-  the men's semifinals and finals (bottom).}
-  \label{fig:Boxplots}
-\end{figure}
-
 
 Data was taken from the World Athletics 
 and covers the men's 110 meter hurdles from 1999 to 2022; the source can be 
@@ -274,23 +266,16 @@ often not as fast as those in later heats \citep[e.g.,][]{zhang2021correlation}.
 
 
 For analysis purposes, we will often pool reaction times of men's final and 
-men's semifinal heats together and refer to this data as the ``pooled data"
-throughout the paper. 
-%\of{Ok I updated this.  Should I delete the batch variable too?  Although I don't
-%use it, I do reference it in the methods section}
-The pooled data increases the sample size which is advantageous because in some
-years there are very few final heat observations.  For example, in 2022 there
-were only five data points due to two disqualifications and one athlete who 
-did not compete.  We also look at data that does not include 2022 with year values
-between 1999 and 2019.  Thus, we have four datasets with their respective naming
-\jy{Clean up}
-in parentheses: the final's data from 1999 to 2019 (Old Finals), final's data 
-from 2019 to 2022 (All Finals), pooled data from 1999 to 2019 (Old Pooled), and 
-pooled data from 1999 to 2022 (All Pooled).
+men's semifinal heats together which increases the sample size which is 
+advantageous because in some years there are very few finals observations, such
+as in 2022 there were only five data points due to two disqualifications and one
+athlete who did not compete.  We also look at data can also look at data that
+excludes 2022 to see how our analysis differs based on the exclusion of one
+particular year of interest.
 
 
-The data under consideration is best visualized using side-by-side boxplots, as
-shown in Figure~\ref{fig:Boxplots}.  It is clear that the reaction times in the 
+The data under consideration is best visualized using using a boxplots, as
+shown in Figure~\ref{fig:Boxplot}.  It is clear that the reaction times in the 
 2022 boxplot for both 
 the men's finals and men's pooled semifinal and final data are lower (indicating 
 faster reaction times)
@@ -304,6 +289,14 @@ year, so weather or climate related factors such as humidity, precipitation,
 elevation, may indeed play a role, but additionally, both the technology and 
 false start penalization rules have changed over the study period.
 
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics{Boxplot}
+  \caption{The reaction times from 1999 to 2022 for the men's final (top) and
+  the men's semifinals and finals (bottom).}
+  \label{fig:Boxplot}
+\end{figure}
 
 
 From 2007--2009, the IAAF (the former name for World Athletics, and the 
@@ -537,7 +530,7 @@ run the code to see the p value or should I say it directly and how do I say it?
   is short for standard error.} 
   \begin{tabular}{c c c c c c}
       \toprule
-      Dataset & AIC & Batch SE & Year SE & Intercept & Residual SE \\
+      Dataset & AIC & $\sigma_h^2$ & $\sigma_v^2$ & $\alpha$ & $\delta_{i/j}$ \\
       \midrule
       Old Pooled & 0.060 & 0.034 & $-1.865$ & 0.139 \\
       All Pooled & 0.059 & 0.041 & $-1.880$ & 0.014 \\
