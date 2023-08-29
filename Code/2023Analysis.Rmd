@@ -1,0 +1,28 @@
+---
+title: '2023'
+author: "Owen Fiore"
+date: "2023-08-29"
+output: pdf_document
+---
+
+```{r}
+new <- read.csv("../Data/Thesis2023.csv")
+colnames(new) <- c("Year", "Type", "Time", "RxnTime", "Gender", "Batch")
+
+men_pooled <- subset(new, (Type == "F" | Type == "S") & Gender == "M" & (Time != 'DQ' | Time != 'DNF'))
+```
+
+```{r}
+plot(aggregate(men_pooled$RxnTime, list(men_pooled$Year), FUN = mean), xlab = "Year", ylab = "Reaction time in seconds", main = "Mean Reaction Time By Year")
+```
+```{r}
+library(ggplot2)
+ggplot(men_pooled, aes(x = Year, y = RxnTime, group = Year)) +
+  geom_boxplot(fill = "orange1", color = "orangered4") +
+  labs(x = "Year", y = "Reaction Time (s)") +
+       scale_y_continuous(limits = c(0.1, 0.225),
+                            breaks = seq(0.1, 0.225, 0.025)) +
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
+                                              breaks = seq(1997, 2024, 2))
+```
+
