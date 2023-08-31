@@ -1,3 +1,22 @@
+# Meeting Notes 8/30
++ GLMM results just change the numbers
++ Rank Comparison: add 2023 comparison
++ update the language
++ Time between getting on block and when gun goes off can effect time so heat effect is valid
++ Put source for National competition in the Data README
++ "Our data consists of semfinals and finals" but call it "our data"
++ Analysis with and without 2022 doesnt change results much but 0.1 is not that rare
++ Change old data (pre 2022) to include 2023
++ With and without analysis we see 0.1 is not that extreme
++ 0.1 is unfair if people get there too early
++ Change all/old pooled to 2022 and excluding 2022
++ Device problem comes up in rank approach not GLMM
+
+
+
+
+
+
 # Meeeting Notes 8/3
 + Give descriptive statistics for each dataset
 + Delete blue graph
