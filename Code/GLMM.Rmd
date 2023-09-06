@@ -13,16 +13,13 @@ these three will produce probabilities of a reaction time less than 0.1 seconds.
 
 
 
-The code below loads in the 4 datasets from the csv file.
+The code below loads in the dataset from the csv file.
 ```{r}
 #1
 times <- read.csv("../Data/Thesis2023.csv")
-colnames(times) <- c("Year", "Type", "Time", "RxnTime", "Gender", "Batch")
-men_finals <- subset(times, Type == "F" & Gender == "M" & Time != 'DQ')
+colnames(times) <- c("Year", "Type", "Time", "RxnTime", "Gender", "Heat")
 men_pooled <- subset(times, (Type == "F" | Type == "S") & 
                        Gender == "M" & Time != 'DQ')
-men_old_finals <- subset(times, Type == "F" & Gender == "M" & 
-                           Time != 'DQ' & Year != 2022)
 men_old_pooled <- subset(times, (Type == "F" | Type == "S") & 
                            Gender == "M" & Time != 'DQ' & Year != 2022)
 ```
@@ -35,10 +32,6 @@ as a baseline to compare the year effect models to in the simulation code below.
 ```{r}
 #2
 library(lme4)
-men_old_finals_one_gamma_log <- glm(RxnTime ~ 1, data = men_old_finals, 
-                                    family = Gamma(link = "log"))
-men_finals_one_gamma_log <- glm(RxnTime ~ 1, data = men_finals, 
-                                family = Gamma(link = "log"))
 men_old_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = men_old_pooled, 
                                     family = Gamma(link = "log"))
 men_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = men_pooled, 
@@ -50,16 +43,10 @@ This code creates the year effect only models.
 ```{r}
 #3
 library(lme4)
-
-men_old_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_finals, 
-                                       family = Gamma(link = "log"))
-men_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_finals, 
-                                   family = Gamma(link = "log"))
 men_old_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_pooled, 
                                        family = Gamma(link = "log"))
 men_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_pooled, 
                                    family = Gamma(link = "log"))
-
 ```
 
 ```{r}
@@ -67,36 +54,32 @@ summary(men_pooled_year_gamma_log)
 summary(men_old_pooled_year_gamma_log)
 ```
 
-This creates the batch effect only models.
+This creates the heat effect only models.
 ```{r}
 #4
 library(lme4)
-men_old_finals_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = men_old_finals, 
+men_old_pooled_heat_gamma_log <-glmer(RxnTime ~ (1 | Heat), data = men_old_pooled, 
                              family = Gamma(link = "log"))
-men_finals_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = men_finals, 
-                         family = Gamma(link = "log"))
-men_old_pooled_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = men_old_pooled, 
-                             family = Gamma(link = "log"))
-men_pooled_batch_gamma_log <-glmer(RxnTime ~ (1 | Batch), data = men_pooled, 
+men_pooled_heat_gamma_log <-glmer(RxnTime ~ (1 | Heat), data = men_pooled, 
                          family = Gamma(link = "log"))
 ```
 
 ```{r}
-summary(men_pooled_batch_gamma_log)
+summary(men_pooled_heat_gamma_log)
 ```
 
 
-This creates the models with a year effect and batch effect.
+This creates the models with a year effect and heat effect.
 ```{r}
 #5
 library(lme4)
-men_old_finals_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
+men_old_finals_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | heat), 
                                    data = men_old_finals, family = Gamma(link = "log"))
-men_finals_two_effect_gamma_log<- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
+men_finals_two_effect_gamma_log<- glmer(RxnTime ~ (1 | Year) + (1 | heat), 
                               data = men_finals, family = Gamma(link = "log"))
-men_old_pooled_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
+men_old_pooled_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | heat), 
                                    data = men_old_pooled, family = Gamma(link = "log"))
-men_pooled_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | Batch), 
+men_pooled_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | heat), 
                                data = men_pooled, family = Gamma(link = "log"))
 ```
 ```{r}
@@ -108,10 +91,10 @@ summary(men_old_pooled_two_effect_gamma_log)
 
 
 ```{r}
-anova(men_pooled_batch_gamma_log, men_pooled_two_effect_gamma_log)
+anova(men_pooled_heat_gamma_log, men_pooled_two_effect_gamma_log)
 ```
 This anova test determined that the two effect model is an improvement over the
-batch effect model. The test statistic is 0.01059 which is significant at alpha 
+heat effect model. The test statistic is 0.01059 which is significant at alpha 
 = 0.05 but not at alpha = 0.01.
 
 
@@ -136,10 +119,10 @@ sim_two_effect_time <- function(model, base, RxnTime) {
   simfit <- function(model, n = 10000000) {
     vc <- as.data.frame(VarCorr(model))
     sd_year <- vc$sdcor[1]
-    sd_year_batch <- vc$sdcor[2]
+    sd_year_heat <- vc$sdcor[2]
     
     z1 <- rnorm(n, sd = sd_year)
-    z2 <- rnorm(n, sd = sd_year_batch)
+    z2 <- rnorm(n, sd = sd_year_heat)
     
     shape <- 1 / sigma(model)^2
     mu <- exp(fixef(model) + z1 + z2)
@@ -198,10 +181,10 @@ sim_two_effect_prob <- function(model, base, prob) {
   simfit <- function(model, n = 10000000) {
     vc <- as.data.frame(VarCorr(model))
     sd_year <- vc$sdcor[1]
-    sd_year_batch <- vc$sdcor[2]
+    sd_year_heat <- vc$sdcor[2]
     
     z1 <- rnorm(n, sd = sd_year)
-    z2 <- rnorm(n, sd = sd_year_batch)
+    z2 <- rnorm(n, sd = sd_year_heat)
     
     shape <- 1 / sigma(model)^2
     mu <- exp(fixef(model) + z1 + z2)
@@ -273,10 +256,10 @@ sim_one_effect_time(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.1)
 
 ```{r}
 #13
-sim_one_effect_time(men_old_finals_batch_gamma_log, men_old_finals_one_gamma_log, 0.1)
-sim_one_effect_time(men_finals_batch_gamma_log, men_finals_one_gamma_log, 0.1)
-sim_one_effect_time(men_old_pooled_batch_gamma_log, men_old_pooled_one_gamma_log, 0.1)
-sim_one_effect_time(men_pooled_batch_gamma_log, men_pooled_one_gamma_log, 0.1)
+sim_one_effect_time(men_old_finals_heat_gamma_log, men_old_finals_one_gamma_log, 0.1)
+sim_one_effect_time(men_finals_heat_gamma_log, men_finals_one_gamma_log, 0.1)
+sim_one_effect_time(men_old_pooled_heat_gamma_log, men_old_pooled_one_gamma_log, 0.1)
+sim_one_effect_time(men_pooled_heat_gamma_log, men_pooled_one_gamma_log, 0.1)
 ```
 
 
