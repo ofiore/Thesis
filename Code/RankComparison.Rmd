@@ -18,7 +18,7 @@ exact = True, and the second one with exact = True and 10,000 random
 permutations. The tests compare the times and group by the Stage of the
 competition which in the data is coded as 1 if it was a national championship
 and 2 if it was the world championships. The tests cluster by athlete, of which
-for each dataset an integer from 1-15 is used (the values are not significant).
+for each dataset an integer from 1-11 is used (the values are not significant).
 For more information about the "ds" method, please look at the Rank-based
 Comparison subsection of the Methods section of the paper or at this link here:
 https://www.jstatsoft.org/article/view/v096i06.  The second test also includes
@@ -57,6 +57,26 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp,
 ```
 
 
+The code below reads in data comparing the 2022 and 2023 World Championships
+```{r}
+new_clusrank <- read.csv("../Data/Clusrank2022vs2023.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(new_clusrank) <- c("Time", "Athlete", "Year")
+#View(comp)
+```
+
+
+The tests below are very similar to the ones above, the only difference being
+grouping by Year instead of Stage (2 if 2022 and 3 if 2023).
+```{r}
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = new_clusrank,
+                method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = new_clusrank,
+                method = "ds",
+                exact = TRUE, B = 10000)
+```
 
 This is seeing what would happen if we remove prelims, the sample sizes in the
 test become very small: 26 observations and 9 clusters.
