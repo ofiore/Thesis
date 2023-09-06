@@ -269,28 +269,50 @@ ggplot(means_df, aes(x = variable, y = mean, color = variable)) +
 
 
 ```{r}
-comp <- read.csv("../Data/2019vs2022.csv")
+library(tidyr)
+library(ggplot2)
+nineteen <- read.csv("../Data/2019vs2022.csv")
 #"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
-colnames(comp) <- c("Athlete", "Country", "2019 Heats", "2019 Semifinals", "2019 Finals", "2022 Heats", "2022 Semifinals", "2022 Finals")
+colnames(nineteen) <- c("Athlete", "Country", "2019 Heats", "2019 Semifinals", "2019 Finals", "2022 Heats", "2022 Semifinals", "2022 Finals")
+nineteen <- nineteen[, -c(1,2)]
+df_long <- tidyr::pivot_longer(nineteen, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("2019 Heats", "2019 Semifinals", "2019 Finals", "2022 Heats", "2022 Semifinals", "2022 Finals"))
+rank1 <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Time") +
+  ylim(0.08, 0.22) +
+  theme_minimal()
 ```
 
-```{r}
-comp <- comp[, -c(1,2)]
-```
 ```{r}
 library(tidyr)
 library(ggplot2)
-df_long <- tidyr::pivot_longer(comp, cols = everything(), names_to = "Column", values_to = "Time")
-
-order <- c("2019 Heats", "2019 Semifinals", "2019 Finals", "2022 Heats", "2022 Semifinals", "2022 Finals")
-#df_long$Event <- factor(df_long$Event, levels = order)
-```
-```{r}
-comp_plot <- ggplot(df_long, aes(x = Column, y = Time)) +
+twentythree <- read.csv("../Data/2022vs2023.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(twentythree) <- c("Athlete", "Country", "2022 Heats", "2022 Semifinals", "2022 Finals", "2023 Heats", "2023 Semifinals", "2023 Finals")
+twentythree <- twentythree[, -c(1,2)]
+df_long <- tidyr::pivot_longer(twentythree, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("2022 Heats", "2022 Semifinals", "2022 Finals", "2023 Heats", "2023 Semifinals", "2023 Finals"))
+rank2 <- ggplot(df_long, aes(x = Column, y = Time)) +
   geom_point() +
   labs(y = "Time") +
-  ylim(0.08, 0.22)
+  ylim(0.08, 0.22) +
   theme_minimal()
-ggsave(filename="Scatterplot2019vs2022.pdf", path = "../Manuscript", plot=comp_plot, height = 4, width = 6)
+```
+
+```{r}
+library(tidyr)
+library(ggplot2)
+national <- read.csv("../Data/NatVSWorld.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(national) <- c("Athlete", "Country", "National Heats", "National Semifinals", "National Finals", "2023 Heats", "2023 Semifinals", "2023 Finals", "Data Source")
+twentythree <- twentythree[, -c(1,2, 9)]
+df_long <- tidyr::pivot_longer(twentythree, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("2022 Heats", "2022 Semifinals", "2022 Finals", "2023 Heats", "2023 Semifinals", "2023 Finals"))
+rank2 <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Time") +
+  ylim(0.08, 0.22) +
+  theme_minimal()
 ```
 
