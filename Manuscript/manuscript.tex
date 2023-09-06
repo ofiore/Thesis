@@ -452,7 +452,7 @@ much inferior to the gamma model which better captures the skewness of the
 data. Two random effects were found useful: one captures the venue effect in
 each year and the other captures the heat effect within each year.  The heat
 effect is important as it captures the variability in the amount of time
-athletes are on the starting blocks before the sun goes off.  Thus, we can try
+athletes are on the starting blocks before the gun goes off.  Thus, we can try
 to reduce this variability by accounting for this in the model through the batch
 effect.
 Let $Y_{ijk}$ be the reaction time of observation~$k$ in heat~$j$ in year~$i$.
@@ -575,7 +575,7 @@ and the degrees of freedom associated with the test.}
 
 \begin{table}
   \centering
-  \caption{Summary statistics for the two effect GLMM on various data sets. SE
+  \caption{Estimated parameters for the two effect GLMM on various data sets. SE
   is short for standard error. \eds{data in table needs to be revisited and table
 	needs to be referenced within the text. Also, it needs to be clarified 
 	somewhere that ``Old Pooled'' excludes 2022 and ``All Pooled'' includes 2022.}} 
@@ -583,8 +583,9 @@ and the degrees of freedom associated with the test.}
       \toprule
       Dataset & AIC & $\sigma_h^2$ & $\sigma_v^2$ & $\alpha$ & $\delta_{i/j}$ \\
       \midrule
-      Excluding 2022 & $-1912.9$ &  0.058 & 0.033 & $-1.868$ & 0.136 \\
-      All Data & $-2075.7$ & 0.057 & 0.040 & $-1.880$ & 0.134 \\
+      Year Effect Only & $-2023.5$ & N/A & 0.048 & $-1.857$ & 0.152
+      Heat Effect Only & $-2070.7$ & 0.073 & N/A & $-1.890$ & 0.135
+      Full model & $-2075.7$ & 0.057 & 0.040 & $-1.880$ & 0.134 \\
       \bottomrule
   \end{tabular}
   \label{tab:Gamma_parameters}
