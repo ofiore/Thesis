@@ -209,63 +209,20 @@ summary(both)
 t.test(men_pooled$RxnTime[men_pooled$Year==2019],men_pooled$RxnTime[men_pooled$Year==2022])
 ```
 
-```{r}
-opar <- par()
-par(mfrow = c(1,2))
-pdf(file = "BoxplotFinals.pdf")
-boxplot(RxnTime ~ Year, data = men_finals, xlab = "Year", ylab = "Reaction Time in seconds")
-boxplot(RxnTime ~ Year, data = men_finals, xlab = "Year", ylab = "Reaction Time in seconds")
-dev.off()
-par(opar)
-```
+
 
 ```{r}
-#ggplot(data = win, aes(x = strength_diff)) + geom_boxplot() + theme_minimal()
-ggplot(data = men_finals, aes(x=Year, y = RxnTime)) + geom_boxplot() + theme_minimal()
-```
-
-```{r}
-library(gridExtra)
 library(ggplot2)
-final <- ggplot(men_finals, aes(x = Year, y = RxnTime, group = Year)) +
-  geom_boxplot(fill = "lightblue", color = "darkblue") +
-  labs(x = "Year", y = "Reaction Time (s)") +
-       scale_y_continuous(limits = c(0.1, 0.225),
-                            breaks = seq(0.1, 0.225, 0.025)) +
-  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2023),
-                                              breaks = seq(1997, 2022, 2))
-
-pooled <- ggplot(men_pooled, aes(x = Year, y = RxnTime, group = Year)) +
+ggplot(men_pooled, aes(x = Year, y = RxnTime, group = Year)) +
   geom_boxplot(fill = "orange1", color = "orangered4") +
   labs(x = "Year", y = "Reaction Time (s)") +
        scale_y_continuous(limits = c(0.1, 0.225),
                             breaks = seq(0.1, 0.225, 0.025)) +
-  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2023),
-                                              breaks = seq(1997, 2022, 2))
-#both <- grid.arrange(final,pooled, ncol=1)
-grid.arrange(final,pooled, ncol=1)
-#ggsave(filename="Finals_Pooled_Boxplot.pdf", path = "../Manuscript", plot=both, height = 6, width = 6)
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
+                                              breaks = seq(1999, 2024, 2))
+ggsave(filename="Boxplot.pdf", path = "../Manuscript", height = 4, width = 6)
 ```
 
-```{r}
-library(ggplot2)
-means_df <- data.frame(variable = names(means), mean = means)
-
-# Define the grouping of bars
-groupings <- list(c("2019H", "2022H"), c("2019S", "2022S"), c("2019F", "2022F"))
-
-# Convert variable to a factor with desired order
-means_df$variable <- factor(means_df$variable, levels = unlist(groupings))
-
-# Create the bar graph
-ggplot(means_df, aes(x = variable, y = mean, color = variable)) +
-  geom_bar(size = 3) +
-  labs(y = "Mean Reaction Time", x = "") +
-  scale_color_manual(values = c("sienna2", "tan", "sienna2", "tan", "sienna2", "tan")) +
-  theme_minimal() +
-  theme(legend.position = "none")
-#ggsave(filename = "2019vs2022ScatterPlot.pdf", path = "../Manuscript", height = 4, width = 6)
-```
 
 
 ```{r}
@@ -279,7 +236,7 @@ df_long <- tidyr::pivot_longer(nineteen, cols = everything(), names_to = "Column
 df_long$Column <- factor(df_long$Column, levels = c("2019 Heats", "2019 Semifinals", "2019 Finals", "2022 Heats", "2022 Semifinals", "2022 Finals"))
 rank1 <- ggplot(df_long, aes(x = Column, y = Time)) +
   geom_point() +
-  labs(y = "Time") +
+  labs(y = "Reaction Time", x = "", title = "2019 vs 2022") +
   ylim(0.08, 0.22) +
   theme_minimal()
 ```
@@ -295,7 +252,7 @@ df_long <- tidyr::pivot_longer(twentythree, cols = everything(), names_to = "Col
 df_long$Column <- factor(df_long$Column, levels = c("2022 Heats", "2022 Semifinals", "2022 Finals", "2023 Heats", "2023 Semifinals", "2023 Finals"))
 rank2 <- ggplot(df_long, aes(x = Column, y = Time)) +
   geom_point() +
-  labs(y = "Time") +
+  labs(y = "Reaction Time", x = "", title = "2022 vs 2023") +
   ylim(0.08, 0.22) +
   theme_minimal()
 ```
@@ -306,13 +263,20 @@ library(ggplot2)
 national <- read.csv("../Data/NatVSWorld.csv")
 #"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
 colnames(national) <- c("Athlete", "Country", "National Heats", "National Semifinals", "National Finals", "2023 Heats", "2023 Semifinals", "2023 Finals", "Data Source")
-twentythree <- twentythree[, -c(1,2, 9)]
-df_long <- tidyr::pivot_longer(twentythree, cols = everything(), names_to = "Column", values_to = "Time")
-df_long$Column <- factor(df_long$Column, levels = c("2022 Heats", "2022 Semifinals", "2022 Finals", "2023 Heats", "2023 Semifinals", "2023 Finals"))
-rank2 <- ggplot(df_long, aes(x = Column, y = Time)) +
+national <- national[, -c(1,2, 9)]
+df_long <- tidyr::pivot_longer(national, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("National Heats", "National Semifinals", "National Finals", "2022 Heats", "2022 Semifinals", "2022 Finals"))
+rank3 <- ggplot(df_long, aes(x = Column, y = Time)) +
   geom_point() +
-  labs(y = "Time") +
+  labs(y = "Reaction Time", x = "", title = "2022 National vs International") +
   ylim(0.08, 0.22) +
   theme_minimal()
 ```
+
+```{r}
+library(gridExtra)
+rank_scatter <- grid.arrange(rank1, rank2, rank3, ncol = 1)
+ggsave(filename = "RankScatterPlots.pdf", path = "../Manuscript", plot=rank_scatter, height = 9, width = 7)
+```
+
 
