@@ -1,3 +1,31 @@
+# Meetings Notes 9/6
++ Do I need to change the Rmd file variable names: Yes
++ Should I still include the code that has the finals functions/results: no
++ Registration
++ Make the triple plot smaller, move title to inside the graph, and also need
+to explain the differences in the 3 2022 graphs as they are not the same
++ Reference the table with the summary stats,
++ not summary stats, estimated parameters of the model
++ Change the parameter table to include the 3 models and then show the different
+estimates of the parameters for each model
++ Can remove the stuff about the anova/likelihood ratio test as we talk about AIC
++ Fix latex symbols in table 3, and rephrase the old/all pooled
++ Change to "National versus International"
++ Change batch effect to heat effect
++ In concluding remarks talk about 0.1 is not that extreme, even if 2022 data is
+different.
++ Remove the appendix
++ Protect IAAF in curly brackets
++ remove month from world athletics 2022 July
++ Put urls for the LetsRun article in "note", capitalize Devon Allen
+
+
+
+
+
+
+
+
 # Meeting Notes 8/30
 + GLMM results just change the numbers
 + Rank Comparison: add 2023 comparison
