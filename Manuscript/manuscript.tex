@@ -221,6 +221,7 @@ in the current analysis.
 If it is not available, but becomes available while under review, would we 
 reanalyze the data?  Does it seem likely our conclusions would change based on
 what is going on this year?}
+\of{Resolved}
 
 
 The rest of this paper is organized as follows. Section~\ref{sec:Data} describes 
@@ -254,18 +255,18 @@ held within three months of the 2022 World Championships).
 %compartmentalization?  Or should I instead say there are 3 types of data that are
 %used in two different methods, or something like that?} \eds{I prefer
 %subsections within rank-based comparison.}
-The first data set is used for the GLMM analyses described in 
+The first data set is used for the GLMM analysis described in 
 Section~\ref{sec:glmm}, while the second collection of data is used for the 
 rank-based comparisons described in Section~\ref{sec:rank}.  This paper was
 started before the 2023 World Championships, but as that data has become
 available recently, we are pleased to include it in our analysis.
 
 
-\subsection{World Championships 1999--2022}\label{sec:dataworld}
+\subsection{World Championships 1999--2023}\label{sec:dataworld}
 
 
 Data was taken from the World Athletics 
-and covers the men's 110 meter hurdles from 1999 to 2022; the source can be 
+and covers the men's 110 meter hurdles from 1999 to 2023; the source can be 
 found in the Appendix.
 Although women's data is available, we chose not to include women's data in the
 analyses to follow due to the numerous papers citing differences in men and
@@ -310,7 +311,7 @@ study period.
 \end{figure}
 
 
-From 2007--2009, the IAAF (the former name for World Athletics, and the 
+From 2007 to 2009, the IAAF (the former name for World Athletics, and the 
 governing body for the World Track and Field Championships) instituted a rule 
 change that allowed one warning false start before a sprinter was disqualified 
 \citep{iaaf2009falsestart}. There were 18 male and 7 female false starts at the 
@@ -372,11 +373,11 @@ decreased from 15 to 9.
 %\eds{Yes, but you still need figure or descriptive statistics for this data.} 
 
 \subsubsection{Other World Track and Field Championships}\label{sec:data2019}
-The 2019 and 2023 World Track and Field Championships data is included in the larger dataset
-described in Section~\ref{sec:dataworld}, but we can also use it similarly to
-how we used national level in Section~\ref{sec:datanational}.  We can compare
-the times of athletes who participated in the 2022 Championships with their times
-at another World Championships: 2019 and/or 2023.
+The 2019 and 2023 World Track and Field Championships data is included in the 
+larger dataset described in Section~\ref{sec:dataworld}, but we can also use it
+similarly to how we used national level in Section~\ref{sec:datanational}.  We
+can compare the times of athletes who participated in the 2022 Championships with
+their times at another World Championships: 2019 and/or 2023.
 
 While it is theoretically possible that athletes got faster 
 between 2019 and 2022 or 2022 and 2023, it is important to 
@@ -448,7 +449,11 @@ model. As suggested by the log-likelihood and the Akaike Information
 Criterion (AIC), the normal error model on the log-scale was found to be
 much inferior to the gamma model which better captures the skewness of the
 data. Two random effects were found useful: one captures the venue effect in
-each year and the other captures the heat effect within each year.
+each year and the other captures the heat effect within each year.  The heat
+effect is important as it captures the variability in the amount of time
+athletes are on the starting blocks before the sun goes off.  Thus, we can try
+to reduce this variability by accounting for this in the model through the batch
+effect.
 Let $Y_{ijk}$ be the reaction time of observation~$k$ in heat~$j$ in year~$i$.
 Conditional on a venue effect $v_i$ of year~$i$ and a heat effect
 $h_{i/j}$ nested within each year~$i$, $Y_{ijk}$ is modeled by a
@@ -458,6 +463,7 @@ to capture the variability in the amount of time between the ``set'' and the
 gun going off (assuming this is different from heat to heat)? E.g., quicker 
 gunshots after the ``set'' could lead to slower reaction times (or the reverse), 
 but this effect would be shared across all athletes in the same heat.}
+\of{Yes I agree with this and updated the language in the text.}
 In the classic generalized linear model (GLM) sense,
 $Y_{ijk}$ has conditional mean $E(Y_{ijk} | v_i, h_{i/j}) > 0$ and a
 dispersion parameter~$\phi > 0$. The conditional mean is characterized by
@@ -535,10 +541,10 @@ asymptotically \citep[p.910]{datta2005rank}.
 
 With our small sample size, the asymptotic normal distribution may not be
 reliable, so we use 1000 random permutations to simulate the observed test 
-statistic: $W^*$ given number of times to obtain the p-value of said test 
-statistics. 
+statistic.
 \eds{I do not understand what is meant in the text after the colon in the 
 previous sentence.  Please rephrase.}
+\of{I'm not sure what that was, I removed it now.}
 This method is available from the \texttt{clusWilcox.test()} function
 with \texttt{method = `ds'} and \texttt{exact = TRUE} from R package
 \texttt{clusrank} \citep{jiang2020wilcoxon}.  
@@ -551,13 +557,12 @@ with \texttt{method = `ds'} and \texttt{exact = TRUE} from R package
 
 A summary of the two effect model is shown in Table~\ref{tab:Gamma_parameters}
 for the pooled datasets and shows the standard error of the year
-effect increases for both the men's final and men's pooled data sets when
-including 2022. We choose to only look at the pooled datasets, as R displayed
-warnings when creating the finals only models.  The two effect model with venue
+effect increases when
+including 2022.  The two effect model with venue
 and heat effect was the best model, as indicated by an ANOVA test 
 \eds{I think it may be better to call this a likelihood ratio test rather than
 an ANOVA test, assuming that is the formal test being used} and decrease in
-AIC.  For the entire pooled dataset, the AIC for the venue effect only model was
+AIC.  For the entire data, the AIC for the venue effect only model was
 $-2023.5$, the AIC for the heat effect only model $-2070.7$, and the AIC for the 
 two effect model, which we will present throughout this section, was $-2075.7$. 
 Thus, the two
@@ -577,8 +582,8 @@ and the degrees of freedom associated with the test.}
       \toprule
       Dataset & AIC & $\sigma_h^2$ & $\sigma_v^2$ & $\alpha$ & $\delta_{i/j}$ \\
       \midrule
-      Excluding 2022 &  0.057 & 0.033 & $-1.868$ & 0.136 \\
-      All Data & $-2075.7$ 0.057 & 0.040 & $-1.880$ & 0.013 \\
+      Excluding 2022 & $-1912.9$ &  0.058 & 0.033 & $-1.868$ & 0.136 \\
+      All Data & $-2075.7$ & 0.057 & 0.040 & $-1.880$ & 0.134 \\
       \bottomrule
   \end{tabular}
   \label{tab:Gamma_parameters}
@@ -591,13 +596,11 @@ Using the gamma function with link set to log, the probability of the reaction
 time being less than 0.1 seconds can be calculated in R using the methods 
 described in Section~\ref{sec:glmm}. A simulation size of $10,000,000$ was 
 chosen to estimate the probability of observing a reaction time below 
-two thresholds: 0.1 and 0.08. When examining the All Pooled dataset, a probability
-of $5.15\cdot10^{-3}$ corresponds to roughly 1 in every 195 starts
+two thresholds: 0.1 and 0.08. When including 2022, a probability
+of $4.38\cdot10^{-3}$ corresponds to roughly 1 in every 228 starts
 being below 0.1 seconds.  When we exclude 2022, the probability of observing a
-reaction time below 0.1 seconds decreased to $4.15\cdot10^{-3}$, or 1 in every
-240 starts.
-\of{I feel like with the two effect model the probability change is not as
-different as it was previously}
+reaction time below 0.1 seconds decreased to $3.52\cdot10^{-3}$, or 1 in every
+285 starts.
 
 
 Table~\ref{tab:Sim_probability} shows that changing the reaction time 
@@ -610,14 +613,14 @@ have a case to make when arguing against a disqualification.
 
 \begin{table}
   \centering
-  \caption{Probabilities of observing reaction times less than 0.1 and 0.08
-  for various data sets.}
+  \caption{Probabilities of observing reaction times less than 0.08, 0.09, and
+  0.01 seconds based on the two effect model.}
   \begin{tabular}{c c c c} 
    \toprule
    Data Set & P(R. Time $<$ 0.08) & P(R. Time $<$ 0.09) & P(R. Time $<$ 0.1)  \\ 
    \midrule
-   Old Pooled & $4.67\cdot10^{-5}$ & $5.91\cdot10^{-4}$ &  $4.15\cdot10^{-3}$  \\ 
-   All Pooled & $6.01\cdot10^{-5}$ & $7.39\cdot10^{-4}$ & $5.15\cdot10^{-3}$ \\
+   Excluding 2022 & $3.19\cdot10^{-5}$ & $4.48\cdot10^{-4}$ &  $3.52\cdot10^{-3}$  \\ 
+   Including 2022 & $4.01\cdot10^{-5}$ & $5.82\cdot10^{-4}$ & $4.38\cdot10^{-3}$ \\
    \bottomrule
   \end{tabular}
   \label{tab:Sim_probability}
@@ -625,15 +628,15 @@ have a case to make when arguing against a disqualification.
 
 We can use the same model but alter our interpretation slightly to select a 
 reaction time barrier given the probability of observing a time less than the 
-barrier.  For example, if we want a 0.1\% chance of observing an illegally fast 
-reaction time for the men's pooled dataset that includes 2022, then the reaction
-time barrier should be 0.089 seconds, as shown in Table~\ref{tab:Sim_time}.  We
-can repeat this calculation for each dataset and for various probability levels,
+barrier.  When considering all of the data, if we want a 0.1\% chance of 
+observing an illegally fast reaction time, the reaction
+time barrier should be 0.092 seconds, as shown in Table~\ref{tab:Sim_time}.  We
+can repeat this calculation for various probability levels,
 for example a probability of 0.0001 (one disqualification for every 10,000 starts)
-results in a reaction time barrier of 0.079 for the men's pooled dataset.  
-Table~\ref{tab:Sim_time} shows that the inclusion of 2022 results in a lower
-reaction time barrier, further showing the claims above that the reaction times
-in 2022 were low.
+results in a reaction time barrier of 0.083 seconds.  As the exclusion of 2022
+from the data resulted in a lower probability of observing a low reaction time,
+the reaction time barrier will be less lenient when calculating the barrier
+based on probability.
 
 
 \begin{table}
@@ -644,8 +647,8 @@ in 2022 were low.
    \toprule
    Data Set & P(RxnTime $<$ x = $10^{-3}$) & P(RxnTime $<$ x = $10^{-4}$) \\ 
    \midrule
-   Old Pooled & $0.093$ & $0.083$ \\ 
-   All Pooled & $0.091$ & $0.082$ \\
+   Old Pooled & $0.093$ & $0.084$ \\ 
+   All Pooled & $0.092$ & $0.083$ \\
    \bottomrule
   \end{tabular}
   \label{tab:Sim_time}
@@ -692,7 +695,7 @@ produced stronger \eds{lower?} p values than the 2019 versus 2022 comparison, wi
 national vs international \texttt{exact = TRUE} test producing a p value of 
 $2.2\cdot10^{-16}$, which is the smallest possible value achievable in R.  This
 is a highly significant test result and shows that athletes who competed at the
-2022 Track and Field World Championships were on average, significantly faster
+2022 World Track and Field Championships were on average, significantly faster
 at reacting than they were a few months prior.  For the 2019 versus 2022
 same athlete comparison with \texttt{exact = TRUE} argument, the p value was
 significant at $\alpha = 0.01$, however when \texttt{exact = FALSE}, the p
@@ -700,7 +703,7 @@ value was higher and only significant at $\alpha = 0.05$.
 \eds{not sure the \texttt{exact = FALSE} results need to be reported here or in
 Table 4 when we say we use \texttt{exact = TRUE} here and in the previous section.}
 Nonetheless, these
-tests help to show that athletes competing at the 2022 Track and Field World
+tests help to show that athletes competing at the 2022 World Track and Field
 Championships had faster reaction times than when they had competed previously.
 
 \begin{table}
@@ -710,14 +713,17 @@ Championships had faster reaction times than when they had competed previously.
    \toprule
    Comparison & Permutation & Asymptotic \\ 
    \midrule
-   2019 vs 2022 & $2.9\cdot10^{-3}$ & $2.3\cdot10{-2}$ \\ 
+   2019 vs 2022 & $2.9\cdot10^{-3}$ & $2.3\cdot10^{-2}$ \\
+   2022 vs 2023 & $3.0\cdot10^{-3}$ & $1.0\cdot10^{-2}$ \\
    Nat vs Inter & $2.2\cdot10^{-16}$ & $1.0\cdot10^{-3}$ \\
    \bottomrule
   \end{tabular}
   \caption{2019 vs 2022 compares data from the same athletes who competed at the
-  2019 and 2022 World Track and Field Championships. Nat vs Inter compares data
-  from the same athletes who competed at the 2022 national-level championships
-  and the 2022 World Track and Field Championships.}
+  2019 and 2022 World Track and Field Championships. 2022 vs 2023 compares data
+  from the same athletes who competed at the 2022 and 2023 World Track and Field
+  Championships. Nat vs Inter compares data from the same athletes who competed
+  at the 2022 national-level championships and the 2022 World Track and Field
+  Championships.}
   \label{tab:Clusrankresults}
 \end{table}
 
@@ -759,6 +765,9 @@ although it is unknown if the sensors for the men's 110 meter hurdle and women's
 also play a role for women vs men. (My husband asked me about this as a possible 
 reason for the difference in results for men and women, but he did not know
 if any calibration is actually done.)}
+\of{I honestly am not sure, do you think that this is worth investigating, or
+beyond the scope of this paper? I am not sure if the mechanics of Seiko's
+technology is public knowledge.}
 
 It is confusing as to why the reaction time barrier for men's and women's data
 is the same despite numerous articles such as \citep[e.g.,][]{lipps2011implications, 
