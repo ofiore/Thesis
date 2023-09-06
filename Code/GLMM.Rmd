@@ -1,5 +1,5 @@
 ---
-title: "Random_Effects"
+title: "GLMM"
 author: "Owen Fiore"
 date: "2023-05-31"
 output: pdf_document
@@ -16,15 +16,15 @@ these three will produce probabilities of a reaction time less than 0.1 seconds.
 The code below loads in the 4 datasets from the csv file.
 ```{r}
 #1
-times <- read.csv("../Data/ThesisData.csv")
+times <- read.csv("../Data/Thesis2023.csv")
 colnames(times) <- c("Year", "Type", "Time", "RxnTime", "Gender", "Batch")
 men_finals <- subset(times, Type == "F" & Gender == "M" & Time != 'DQ')
 men_pooled <- subset(times, (Type == "F" | Type == "S") & 
                        Gender == "M" & Time != 'DQ')
 men_old_finals <- subset(times, Type == "F" & Gender == "M" & 
-                           Time != 'DQ' & Year < 2022)
+                           Time != 'DQ' & Year != 2022)
 men_old_pooled <- subset(times, (Type == "F" | Type == "S") & 
-                           Gender == "M" & Time != 'DQ' & Year < 2022)
+                           Gender == "M" & Time != 'DQ' & Year != 2022)
 ```
 
 
@@ -101,6 +101,7 @@ men_pooled_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | Batch),
 ```
 ```{r}
 summary(men_pooled_two_effect_gamma_log)
+summary(men_old_pooled_two_effect_gamma_log)
 ```
 
 
@@ -164,20 +165,19 @@ This next chunk of code runs the simulation code for each dataset comparing the
 two effect model to the base model
 ```{r}
 #7
-sim_two_effect_time(men_old_finals_two_effect_gamma_log, men_old_finals_one_gamma_log, 0.1)
-sim_two_effect_time(men_finals_two_effect_gamma_log, men_finals_one_gamma_log, 0.1)
+set.seed(1)
 sim_two_effect_time(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.1)
 sim_two_effect_time(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.1)
 ```
 
 ```{r}
+set.seed(1)
 sim_two_effect_time(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.09)
 sim_two_effect_time(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.09)
 ```
 
 ```{r}
-sim_two_effect_time(men_old_finals_two_effect_gamma_log, men_old_finals_one_gamma_log, 0.08)
-sim_two_effect_time(men_finals_two_effect_gamma_log, men_finals_one_gamma_log, 0.08)
+set.seed(1)
 sim_two_effect_time(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.08)
 sim_two_effect_time(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.08)
 ```
@@ -221,8 +221,7 @@ This runs the sim_two_effect_prob function at a probability of 1 in every 1,000
 sprinters.
 ```{r}
 #9
-sim_two_effect_prob(men_old_finals_two_effect_gamma_log, men_old_finals_one_gamma_log, 0.001)
-sim_two_effect_prob(men_finals_two_effect_gamma_log, men_finals_one_gamma_log, 0.001)
+set.seed(1)
 sim_two_effect_prob(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.001)
 sim_two_effect_prob(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.001)
 ```
@@ -231,8 +230,7 @@ The code below repeats the previous section but for an average of 1 in every
 10,000 sprinters.
 ```{r}
 #10
-sim_two_effect_prob(men_old_finals_two_effect_gamma_log, men_old_finals_one_gamma_log, 0.0001)
-sim_two_effect_prob(men_finals_two_effect_gamma_log, men_finals_one_gamma_log, 0.0001)
+set.seed(1)
 sim_two_effect_prob(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.0001)
 sim_two_effect_prob(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.0001)
 ```
