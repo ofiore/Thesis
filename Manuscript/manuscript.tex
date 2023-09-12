@@ -99,14 +99,13 @@ False Start, Hurdles, Reaction Time, Seiko
 \label{sec:intro}
 
 
-Devon Allen, an alumnus of the University of Oregon in 
-Eugene, Oregon, was
+Devon Allen, an alumnus of the University of Oregon in Eugene, Oregon, was
 expected to be a contender for the 2022 World Track and Field Championships 110 
 meter hurdle.  After running the event in 12.84 seconds in early June 2022 
 (only 0.04 seconds away from the world record \citep{wa2022preview}) and coming 
-in third at the United States Track and Field 
-Championships also in Eugene in late June, Allen was poised to compete in the 
-2022 World Track and Field Championships at the same Eugene venue in August.
+in third at the United States Track and Field Championships also in Eugene 
+in late June, Allen was poised to compete in the 2022 World Track and 
+Field Championships in August, which would also be held in Eugene, Oregon.
 At the World Championships, Allen made it through the preliminary
 heats and semifinals to reach the final heat while posting reaction times of 
 0.123 and 0.101 in his preliminary heat and semifinal, respectively.  
@@ -242,19 +241,8 @@ There are two types of data that are explored throughout this paper: data from
 the 2022 World Championships and another competition (either 2019 World 
 Championships, 2023 World Championships or a 2022 national competition typically
 held within three months of the 2022 World Championships). 
-%\eds{is this true? are you still using the 2019 world championships data for the
-%rank-based analyses, or only the national competitions?}
-%\of{Yes the ranked based comparison has 2 subsections: 2022 national vs 2022
-%international and 2019 international vs 2022 international.  Should I instead say
-%that there are three types of data across 2 sections or something like that?}
-%\eds{I think this is fine here, but it is not at all clear that there are two
-%subsections in the rank-based results for 2022 national vs 2022
-%international and 2019 international vs 2022 international.}
-%\of{Currently under the Methods/Results section I have GLMM and rank based comparison
-%do you think I need subsections under rank based comparison, or is that too much
-%compartmentalization?  Or should I instead say there are 3 types of data that are
-%used in two different methods, or something like that?} \eds{I prefer
-%subsections within rank-based comparison.}
+
+
 The first data set is used for the GLMM analysis described in 
 Section~\ref{sec:glmm}, while the second collection of data is used for the 
 rank-based comparisons described in Section~\ref{sec:rank}.  This paper was
@@ -351,9 +339,11 @@ recorded in the national language without translation, and hence not used).
 \of{I don't know how to say this}. \eds{is my change correct?} \of{No I was able
 to use a lot even though I couldn't actually read the page. I just tried to find
 110 meter hurdle and then look at a column for reaction times which are always from
-roughly 0.1 to 0.18 seconds.} Each athlete was 
-designated as a ``cluster'' and the stage of competition (national or international) 
-was specified for each competition within the cluster (athlete).
+roughly 0.1 to 0.18 seconds.} 
+
+
+Each athlete was designated as a ``cluster'' and the stage of competition (national
+or international) was specified for each competition within the cluster (athlete).
 Thus, this is subunit level grouping where we assign the treatment, national or
 international, within each cluster.  Cluster sizes range from three to six, with
 one cluster of size three, six clusters of size four, two clusters of size five,
@@ -650,7 +640,7 @@ based on probability.
   a time less than the barrier. \of{Not sure if this makes sense}}
   \begin{tabular}{c c c} 
    \toprule
-   Data Set & P(RxnTime $< x = 10^{-3}$) & P(RxnTime $< x = 10^{-4}$) \\ 
+   Data Set & P(RxnTime $< x) = 10^{-3}$ & P(RxnTime $< x) = 10^{-4}$ \\ 
    \midrule
    Excluding 2022 & $0.094$ & $0.084$ \\ 
    Including 2022 & $0.092$ & $0.083$ \\
@@ -713,7 +703,12 @@ Championships had faster reaction times than when they had competed previously.
 
 \begin{table}
   \centering
-  \caption{}
+  \caption{2019 vs 2022 compares data from the same athletes who competed at the
+  2019 and 2022 World Track and Field Championships. 2022 vs 2023 compares data
+  from the same athletes who competed at the 2022 and 2023 World Track and Field
+  Championships. Nat vs Inter compares data from the same athletes who competed
+  at the 2022 national-level championships and the 2022 World Track and Field
+  Championships.}
   \begin{tabular}{c c c c c} 
    \toprule
    Comparison & Permutation & Asymptotic \\ 
@@ -723,12 +718,6 @@ Championships had faster reaction times than when they had competed previously.
    2022 National vs International & $2.2\cdot10^{-16}$ & $1.0\cdot10^{-3}$ \\
    \bottomrule
   \end{tabular}
-  \caption{2019 vs 2022 compares data from the same athletes who competed at the
-  2019 and 2022 World Track and Field Championships. 2022 vs 2023 compares data
-  from the same athletes who competed at the 2022 and 2023 World Track and Field
-  Championships. Nat vs Inter compares data from the same athletes who competed
-  at the 2022 national-level championships and the 2022 World Track and Field
-  Championships.}
   \label{tab:Clusrankresults}
 \end{table}
 
@@ -783,6 +772,15 @@ could not be considered fair for men, as the probability of observing reaction
 times lower than 0.1 would be elevated.  \citet{brosnan2017effects} advocated
 for gender based reaction time barriers which seems logical if there are biological
 differences in reaction times between men and women.
+
+This paper has shown that a reaction time of 0.1 seconds is not as extreme as
+one may think, and that based on the probabilities in table~\ref{tab:Sim_time},
+World Athletics should consider changing the disqualification barrier to 0.8
+seconds.  If they were to do so, they would allow athletes like Allen to be able
+to react faster without fear of being disqualified.  The second part of this
+paper showed that athletes' reaction times at the 2022 World Track and Field
+Championships were generally faster than their reaction times at other
+competitions.
 
 \bibliographystyle{chicago}
 \bibliography{citations.bib}
