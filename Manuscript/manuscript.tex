@@ -391,7 +391,11 @@ athletes, with two clusters of size two, three clusters of size three, five
 clusters of size four, two clusters of size five, and three clusters of size six.
 When comparing 2022 and 2023 we look at data from 22 athletes, with seven 
 clusters of size two, three clusters of size three, six clusters of size four,
-and six clusters of size five.
+and six clusters of size five.  Although 2022 is presented three times in
+figure~\ref{fig:RankScatterplots}, the subset of athletes differs each time.
+There may be athletes who competed in 2019 and 2022 and their national
+championships data was available, but they did not compete in 2023, and thus their
+times show up in the top two graphs.
 
 \jy{give specifics of your sample size}
 \of{Resolved}
@@ -453,7 +457,7 @@ data. Two random effects were found useful: one captures the venue effect in
 each year and the other captures the heat effect within each year.  The heat
 effect is important as it captures the variability in the amount of time
 athletes are on the starting blocks before the gun goes off.  Thus, we can try
-to reduce this variability by accounting for this in the model through the batch
+to reduce this variability by accounting for this in the model through the heat
 effect.
 Let $Y_{ijk}$ be the reaction time of observation~$k$ in heat~$j$ in year~$i$.
 Conditional on a venue effect $v_i$ of year~$i$ and a heat effect
@@ -558,20 +562,19 @@ with \texttt{method = `ds'} and \texttt{exact = TRUE} from R package
 
 A summary of the two effect model is shown in Table~\ref{tab:Gamma_parameters}
 for the pooled datasets and shows the standard error of the year
-effect increases when
-including 2022.  The two effect model with venue
-and heat effect was the best model, as indicated by an ANOVA test 
-\eds{I think it may be better to call this a likelihood ratio test rather than
-an ANOVA test, assuming that is the formal test being used} and decrease in
-AIC.  For the entire data, the AIC for the venue effect only model was
+effect increases when including 2022.  The two effect model with venue and heat
+effect was the best model as evidenced by a decrease in the AIC compared to the
+other models. For the entire data, the AIC for the venue effect only model was
 $-2023.5$, the AIC for the heat effect only model $-2070.7$, and the AIC for the 
 two effect model, which we will present throughout this section, was $-2075.7$. 
-Thus, the two
-effect model is superior and will be presented throughout the rest of the paper.
+Thus, the two effect model is superior and will be presented throughout the rest
+of the paper.
 \of{How specific do I need to be in this section? Will people who read this paper
 run the code to see the p value or should I say it directly and how do I say it?}
 \eds{If you are doing a likelihood ratio test, I suggest including the p-value 
 and the degrees of freedom associated with the test.}
+\of{Professor Yan recommended not even mentioning the likelihood ratio so
+instead I will just talk about the AIC.}
 
 \begin{table}
   \centering
@@ -583,8 +586,8 @@ and the degrees of freedom associated with the test.}
       \toprule
       Dataset & AIC & $\sigma_h^2$ & $\sigma_v^2$ & $\alpha$ & $\delta_{i/j}$ \\
       \midrule
-      Year Effect Only & $-2023.5$ &       & 0.048 & $-1.857$ & 0.152\\
-      Heat Effect Only & $-2070.7$ & 0.073 &       & $-1.890$ & 0.135\\
+      Year Effect Only & $-2023.5$ & N/A & 0.048 & $-1.857$ & 0.152\\
+      Heat Effect Only & $-2070.7$ & 0.073 & N/A & $-1.890$ & 0.135\\
       Full model       & $-2075.7$ & 0.057 & 0.040 & $-1.880$ & 0.134\\
       \bottomrule
   \end{tabular}
@@ -647,10 +650,10 @@ based on probability.
   a time less than the barrier. \of{Not sure if this makes sense}}
   \begin{tabular}{c c c} 
    \toprule
-   Data Set & P(RxnTime $<$ x = $10^{-3}$) & P(RxnTime $<$ x = $10^{-4}$) \\ 
+   Data Set & P(RxnTime $< x = 10^{-3}$) & P(RxnTime $< x = 10^{-4}$) \\ 
    \midrule
-   Old Pooled & $0.094$ & $0.084$ \\ 
-   All Pooled & $0.092$ & $0.083$ \\
+   Excluding 2022 & $0.094$ & $0.084$ \\ 
+   Including 2022 & $0.092$ & $0.083$ \\
    \bottomrule
   \end{tabular}
   \label{tab:Sim_time}
@@ -693,7 +696,7 @@ We use a \texttt{clusWilcox.test()} with \texttt{exact = TRUE} and
 %As the sample sizes are small, 65 and 49, we use \texttt{exact = TRUE} as
 %that is preferred.  
 In both cases, the national versus international comparison
-produced stronger \eds{lower?} p values than the 2019 versus 2022 comparison, with the
+produced lower p values than the 2019 versus 2022 comparison, with the
 national vs international \texttt{exact = TRUE} test producing a p value of 
 $2.2\cdot10^{-16}$, which is the smallest possible value achievable in R.  This
 is a highly significant test result and shows that athletes who competed at the
@@ -717,7 +720,7 @@ Championships had faster reaction times than when they had competed previously.
    \midrule
    2019 vs 2022 & $2.9\cdot10^{-3}$ & $2.3\cdot10^{-2}$ \\
    2022 vs 2023 & $3.0\cdot10^{-3}$ & $1.0\cdot10^{-2}$ \\
-   Nat vs Inter & $2.2\cdot10^{-16}$ & $1.0\cdot10^{-3}$ \\
+   2022 National vs International & $2.2\cdot10^{-16}$ & $1.0\cdot10^{-3}$ \\
    \bottomrule
   \end{tabular}
   \caption{2019 vs 2022 compares data from the same athletes who competed at the
@@ -781,53 +784,6 @@ times lower than 0.1 would be elevated.  \citet{brosnan2017effects} advocated
 for gender based reaction time barriers which seems logical if there are biological
 differences in reaction times between men and women.
 
-
-%Since 1985 Seiko Holding Corporations has served every World Athletics 
-%Championships as the official timer \citep{wa2022seiko}.  Reaction times were
-%not officially measured until 1999 in the men's 110 meter hurdles and women's
-%100 meter hurdles. Seiko's technology for detecting 
-%reaction times relies on the pressure that athletes exert on the plate when they 
-%push off.  Their systems measure the time differential between when the ``gun" 
-%goes off to start the race and when the pressure changes \citep{wa2022seiko}.  
-%If an athlete has a reaction time under 0.1 seconds, it is deemed a false start 
-%as it is considered that no athlete can react so quickly \citep{Seiko-Timing}.  
-%Thus, a reaction time of for example 0.05, suggests that the athlete predicted 
-%the gun and it was luck that caused their abnormally high time.  At the World 
-%Championships level, World Athletics want to remove that element of 
-%luck and thus impose the 0.1 second barrier.
-%\eds{I would argue that this paragraph should go in the discussion as there are 
-%no results presented here}
-%\of{I agree so I moved it here. I think it also could fit into the top of the
-%data section as in section~\ref{sec:Data}. Thoughts?} 
-
-
-
-%\eds{I would suggest removing the last two sentences, as they would suggest your
-% modeling with GLMM is not good}.  
-%\of{I agree and they have been removed}
-
-
-
-%If there are issues with reaction time such as athletes approaching the 0.1 
-%second barrier again at the next World Championships (August 2023), then World 
-%Athletics needs to adjust that threshold and allow for faster reaction times so 
-%that athletes with superb reflexes are not penalized.  World Athletics did not
-%do anything in response to the \citet{komi2009iaaf} study, but perhaps they 
-%should now so that the story of Devon Allen is not repeated.
-
-\section*{Appendix}
-\label{sec:Appendix}
-%Put downloadable data spreadsheet
-The World Championships data are available from the World Athletics website:
-\url{https://www.worldathletics.org/results/world-athletics-championships}.
-
-\jy{You have countries beyond United States}
-The United States Track and Field Championships data are available at: 
-\url{https://www.flashresults.com/2022_Meets/Outdoor/06-23_USATF/}
-
-
-
-\jy{Go over the references to see clues to clean in the bib source}
 \bibliographystyle{chicago}
 \bibliography{citations.bib}
 
