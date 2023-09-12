@@ -276,7 +276,7 @@ rank3 <- ggplot(df_long, aes(x = Column, y = Time)) +
 ```{r}
 library(gridExtra)
 rank_scatter <- grid.arrange(rank1, rank2, rank3, ncol = 1)
-ggsave(filename = "RankScatterPlots.pdf", path = "../Manuscript", plot=rank_scatter, height = 9, width = 7)
+ggsave(filename = "RankScatterPlots.pdf", path = "../Manuscript", plot=rank_scatter, height = 8, width = 6)
 ```
 
 
