@@ -1,7 +1,6 @@
 # Meetings Notes 9/6
 + Do I need to change the Rmd file variable names: Yes
 + Should I still include the code that has the finals functions/results: no
-+ Registration
 + Make the triple plot smaller, move title to inside the graph, and also need
 to explain the differences in the 3 2022 graphs as they are not the same
 + Reference the table with the summary stats,
