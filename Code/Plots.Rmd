@@ -214,7 +214,7 @@ t.test(men_pooled$RxnTime[men_pooled$Year==2019],men_pooled$RxnTime[men_pooled$Y
 ```{r}
 library(ggplot2)
 ggplot(men_pooled, aes(x = Year, y = RxnTime, group = Year)) +
-  geom_boxplot(fill = "orange1", color = "orangered4") +
+  geom_boxplot() +
   labs(x = "Year", y = "Reaction Time (s)") +
        scale_y_continuous(limits = c(0.1, 0.225),
                             breaks = seq(0.1, 0.225, 0.025)) +
@@ -236,7 +236,8 @@ df_long <- tidyr::pivot_longer(nineteen, cols = everything(), names_to = "Column
 df_long$Column <- factor(df_long$Column, levels = c("2019 Heats", "2019 Semifinals", "2019 Finals", "2022 Heats", "2022 Semifinals", "2022 Finals"))
 rank1 <- ggplot(df_long, aes(x = Column, y = Time)) +
   geom_point() +
-  labs(y = "Reaction Time", x = "", title = "2019 vs 2022") +
+  labs(y = "Reaction Time", x = "") +
+  annotate("text", y = 0.21, x = "2022 Semifinals", label = "2019 vs 2022", cex = 5) +
   ylim(0.08, 0.22) +
   theme_minimal()
 ```
@@ -252,7 +253,8 @@ df_long <- tidyr::pivot_longer(twentythree, cols = everything(), names_to = "Col
 df_long$Column <- factor(df_long$Column, levels = c("2022 Heats", "2022 Semifinals", "2022 Finals", "2023 Heats", "2023 Semifinals", "2023 Finals"))
 rank2 <- ggplot(df_long, aes(x = Column, y = Time)) +
   geom_point() +
-  labs(y = "Reaction Time", x = "", title = "2022 vs 2023") +
+  labs(y = "Reaction Time", x = "") +
+  annotate("text", y = 0.21, x = "2023 Semifinals", label = "2022 vs 2023", cex = 5) +
   ylim(0.08, 0.22) +
   theme_minimal()
 ```
@@ -262,21 +264,22 @@ library(tidyr)
 library(ggplot2)
 national <- read.csv("../Data/NatVSWorld.csv")
 #"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
-colnames(national) <- c("Athlete", "Country", "National Heats", "National Semifinals", "National Finals", "2023 Heats", "2023 Semifinals", "2023 Finals", "Data Source")
+colnames(national) <- c("Athlete", "Country", "Nat. Heats", "Nat. Semifinals", "Nat. Finals", "Inter. Heats", "Inter. Semifinals", "Inter. Finals", "Data Source")
 national <- national[, -c(1,2, 9)]
 df_long <- tidyr::pivot_longer(national, cols = everything(), names_to = "Column", values_to = "Time")
-df_long$Column <- factor(df_long$Column, levels = c("National Heats", "National Semifinals", "National Finals", "2022 Heats", "2022 Semifinals", "2022 Finals"))
+df_long$Column <- factor(df_long$Column, levels = c("Nat. Heats", "Nat. Semifinals", "Nat. Finals", "Inter. Heats", "Inter. Semifinals", "Inter. Finals"))
 rank3 <- ggplot(df_long, aes(x = Column, y = Time)) +
   geom_point() +
-  labs(y = "Reaction Time", x = "", title = "2022 National vs International") +
+  labs(y = "Reaction Time", x = "") +
   ylim(0.08, 0.22) +
+  annotate("text", y = 0.21, x = "Inter. Semifinals", label = "2022 National vs International", cex = 5) +
   theme_minimal()
 ```
 
 ```{r}
 library(gridExtra)
 rank_scatter <- grid.arrange(rank1, rank2, rank3, ncol = 1)
-ggsave(filename = "RankScatterPlots.pdf", path = "../Manuscript", plot=rank_scatter, height = 8, width = 6)
+ggsave(filename = "RankScatterPlots.pdf", path = "../Manuscript", plot=rank_scatter, height = 8, width = 7)
 ```
 
 
