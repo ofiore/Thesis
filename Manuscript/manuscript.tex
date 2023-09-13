@@ -225,10 +225,10 @@ what is going on this year?}
 
 The rest of this paper is organized as follows. Section~\ref{sec:Data} describes 
 how data was collected and begins to detail the generalized linear mixed-effect 
-(GLMM) model that is further developed in Section~\ref{sec:Methods}. The 
+(GLMM) model that is further developed in Section~\ref{sec:glmm}. The 
 signed-rank test that analyzes reaction times for the same athletes across
 different competitions is
-also described in Section~\ref{sec:Methods}.  Section~\ref{sec:Results}
+also described in Section~\ref{sec:rank}.  Section~\ref{sec:Results}
  provides the results of the two analyses and ends 
 by questioning the reaction time barrier.  Lastly, Section~\ref{sec:concludingremarks}
 discusses the impact and limitations of the paper.
@@ -236,91 +236,22 @@ discusses the impact and limitations of the paper.
 
 \section{Data} \label{sec:Data}
 
-There are two types of data that are explored throughout this paper: data from
-1999-2023 for every world championship, and data from athletes who competed in
-the 2022 World Championships and another competition (either 2019 World 
-Championships, 2023 World Championships or a 2022 national competition typically
-held within three months of the 2022 World Championships). 
-
-
-The first data set is used for the GLMM analysis described in 
-Section~\ref{sec:glmm}, while the second collection of data is used for the 
-rank-based comparisons described in Section~\ref{sec:rank}.  This paper was
-started shortly after the 2022 World Championships, but as the 2023 data has 
-become available recently, we are pleased to include it in our analysis, and it
-did not significantly change our results.
-
-
-\subsection{World Championships 1999--2023}\label{sec:dataworld}
-
-
-Data was taken from the World Athletics 
-and covers the men's 110 meter hurdles from 1999 to 2023; the source can be 
-found in the Appendix.
-Although women's data is available, we chose not to include women's data in the
-analyses to follow due to the numerous papers citing differences in men and
-women's reaction times \citep[e.g.,][]{lipps2011implications, 
-babicc2009reaction, panoutsakopoulos2020gender}.
-For the creation of the GLMM model we focus on the reaction times during the 
-semifinal and final heats only, as reaction times from preliminary heats are 
-often not as fast as those in later heats \citep[e.g.,][]{zhang2021correlation}. 
-
-
-For analysis purposes, we will often pool reaction times of men's final and 
-men's semifinal heats together which increases the sample size. This is 
-advantageous because in some years there are very few finals observations, such
-as in 2022, when there were only five data points due to two disqualifications 
-and one athlete who did not compete.  This is the data that we will reference
-throughout the rest of the paper unless otherwise noted. We also consider data 
-that excludes 2022 to see how our analysis differs based on the exclusion of one
-particular year of interest.
-
-
-The data under consideration is summarized using a box plot in 
-Figure~\ref{fig:Boxplot}.  It is clear that the reaction times in the 2022
-box plot are lower (indicating faster reaction times) than in many of the other
-years.  The median reaction time in 2022 was 0.129 seconds,  compared to 0.156
-seconds, which is what \citet{brosnan2017effects} found when looking at data
-from 1999 to 2014. We can also see from Figure~\ref{fig:Boxplot} that the 
-reaction times clearly differ from year to year. The venue of the World 
-Championships changes each year, so weather or climate related factors such as 
-humidity, precipitation, elevation, may indeed play a role, but additionally,
-both the technology and false start penalization rules have changed over the 
-study period.
-
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics{Boxplot}
-  \caption{The reaction times from 1999 to 2023 for the men's 110 meter hurdle.
-	\eds{there is only one plot here, not two. If you are keeping only one, the
-	text and caption need to be modified accordingly}}
-  \of{Resolved}
-  \label{fig:Boxplot}
-\end{figure}
-
-
-From 2007 to 2009, the IAAF (the former name for World Athletics, and the 
-governing body for the World Track and Field Championships) instituted a rule 
-change that allowed one warning false start before a sprinter was disqualified 
-\citep{iaaf2009falsestart}. There were 18 male and 7 female false starts at the 
-2007 World Championships, and 18 male and 7 female false starts at the 2009 World 
-Championships. Starting in 2011, the rule was scrapped, and the old policy which
-automatically disqualifies runners who false start was reinstated. This was 
-desirable for World Athletics as false starts can make already lengthy track 
-meets more tedious, both for athletes and viewers watching the television 
-broadcast. By returning to the harsher policy and cracking down on false starts,
-World Athletics had reduced men's false starts by two thirds in 2011 (6 male and
-4 female disqualifications) \citep{iaaf2009falsestart}. \citet{haugen2013effect}
-examined the effect of different false start rules that IAAF has imposed from 
-1997 to 2009 and found statistically significant improvement in reaction times 
-under more lenient rules.
+There are two types of data that are explored throughout this paper.  For the
+signed-rank tests described in section~\ref{sec:rank}, the data comes from 
+athletes who competed in the 2022 World Championships and another competition 
+(2019 World Championships, 2023 World Championships or 2022 national 
+championships). For the GLMM described in section~\ref{sec:glmm}, data comes
+from every world championship from 1999 to 2023. This paper was started shortly
+after the 2022 World Championships, but as the 2023 data has become available 
+recently, we are pleased to include it in both of our analyses, and it did not
+significantly change our results.
 
 
 \subsection{Comparison Data with 2022 World Championships}\label{sec:databeyond}
 The motivation for looking beyond World Championships data came from an 
 exploratory analysis examining how United States athletes reacted at the 
 2022 United States Track and Field Championships.
+
 
 \subsubsection{2022 National Competitions}\label{sec:datanational}
 From June 23-26, 2022, the United States held its Track and Field Championships 
@@ -427,14 +358,134 @@ I list 2022 second when comparing it to 2019/rank comparison.  Please let me
 know your thoughts on this and if I should list 2022 and then 2023 for visual
 consistency.}
 
-%\eds{check these numbers? 0.099?}\of{resolved}
+
+We also started to perform a similar analysis to compare the times of female 
+athletes who competed at the 2019 and 2022 World Track and Field Championships,
+however as our results were not significant, we decided to incorporate another
+method to investigate the times at the 2022 World Championships and thus we
+employ the GLMM, which looks at historical men's data to try to determine
+whether Allen's time and disqualification are reasonable. 
+
+\subsection{World Championships 1999--2023}\label{sec:dataworld}
+
+
+Data was taken from the World Athletics 
+and covers the men's 110 meter hurdles from 1999 to 2023; the source can be 
+found in the Appendix.
+Although women's data is available, we chose not to include women's data in the
+analyses to follow due to the numerous papers citing differences in men and
+women's reaction times \citep[e.g.,][]{lipps2011implications, 
+babicc2009reaction, panoutsakopoulos2020gender}.
+For the creation of the GLMM model we focus on the reaction times during the 
+semifinal and final heats only, as reaction times from preliminary heats are 
+often not as fast as those in later heats \citep[e.g.,][]{zhang2021correlation}. 
+
+
+For analysis purposes, we will often pool reaction times of men's final and 
+men's semifinal heats together which increases the sample size. This is 
+advantageous because in some years there are very few finals observations, such
+as in 2022, when there were only five data points due to two disqualifications 
+and one athlete who did not compete.  This is the data that we will reference
+throughout the rest of the paper unless otherwise noted. We also consider data 
+that excludes 2022 to see how our analysis differs based on the exclusion of one
+particular year of interest.
+
+
+The data under consideration is summarized using a box plot in 
+Figure~\ref{fig:Boxplot}.  It is clear that the reaction times in the 2022
+box plot are lower (indicating faster reaction times) than in many of the other
+years.  The median reaction time in 2022 was 0.129 seconds,  compared to 0.156
+seconds, which is what \citet{brosnan2017effects} found when looking at data
+from 1999 to 2014. We can also see from Figure~\ref{fig:Boxplot} that the 
+reaction times clearly differ from year to year. The venue of the World 
+Championships changes each year, so weather or climate related factors such as 
+humidity, precipitation, elevation, may indeed play a role, but additionally,
+both the technology and false start penalization rules have changed over the 
+study period.
+
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics{Boxplot}
+  \caption{The reaction times from 1999 to 2023 for the men's 110 meter hurdle.
+	\eds{there is only one plot here, not two. If you are keeping only one, the
+	text and caption need to be modified accordingly}}
+  \of{Resolved}
+  \label{fig:Boxplot}
+\end{figure}
+
+
+From 2007 to 2009, the IAAF (the former name for World Athletics, and the 
+governing body for the World Track and Field Championships) instituted a rule 
+change that allowed one warning false start before a sprinter was disqualified 
+\citep{iaaf2009falsestart}. There were 18 male and 7 female false starts at the 
+2007 World Championships, and 18 male and 7 female false starts at the 2009 World 
+Championships. Starting in 2011, the rule was scrapped, and the old policy which
+automatically disqualifies runners who false start was reinstated. This was 
+desirable for World Athletics as false starts can make already lengthy track 
+meets more tedious, both for athletes and viewers watching the television 
+broadcast. By returning to the harsher policy and cracking down on false starts,
+World Athletics had reduced men's false starts by two thirds in 2011 (6 male and
+4 female disqualifications) \citep{iaaf2009falsestart}. \citet{haugen2013effect}
+examined the effect of different false start rules that IAAF has imposed from 
+1997 to 2009 and found statistically significant improvement in reaction times 
+under more lenient rules.
 
 
 
 \section{Methods} \label{sec:Methods}
 
-The data described in Sections~\ref{sec:dataworld} and~\ref{sec:databeyond} were
-analyzed with GLMM and rank-based methods, respectively.
+The data described in Sections~\ref{sec:databeyond} and~\ref{sec:dataworld} were
+analyzed with rank-based methods and a GLMM, respectively.
+
+
+\subsection{Rank-based Comparison}\label{sec:rank}
+
+
+To test the conjecture that the 2022 World Championships timing device may have 
+led to faster recorded reaction times, we compare the reaction times of the same
+athletes who have attended both the 2022 World Championships and other 
+competitions. 
+In this setting, we have clustered data with subunit grouping. In particular,
+each athlete is a cluster and the multiple reaction times from the same athlete
+can be from either the 2022 World Championships or otherwise.
+Let $X_{ij}$ be the $j$th reaction time of athlete~$i$, $i = 1, \ldots, n$,
+$j = 1, \ldots, m_i$ where $m_i$ is the number of observations from
+athelete~$i$. Let $\delta_{ij}$ be the group indicator of $X_{ij}$; $\delta_{ij}
+= 1$ if $X_{ij}$ is in group~1 (2022 World Championships) and $\delta_{ij} = 0$ 
+otherwise. Athletes are
+assumed to be independent, while subunit observations from the same athlete are
+not. The null hypothesis $H_0$ to be tested is that there is no difference
+between the two groups; i.e., the distribution of $X_{ij}$ remains the same
+regardless of the group indicator $\delta_{ij}$.
+
+
+\citet{datta2005rank} proposed an extension of the Wilcoxon rank-sum test to
+clustered data with subunit-level grouping. The test is designed based on a
+within-cluster resampling principle. Consider randomly picking one observation
+from each cluster to form a pseudo-sample. Let $X_i^*$ be a random pick from the
+$i$th cluster in the pseudo-sample and $\delta_i^*$ its group indicator. The
+Wilcoxon rank-sum statistic for the pseudo-sample is
+\[
+W^* = \frac{1}{n + 1} + \sum_{i=1}^{n} \delta_{i}^{*} R_{i}^{*},
+\]
+where $R_{i}^{*}$ is the rank of $X_{i}^{*}$ in the pseudo-sample.
+The test statistic $S$ is the average of $W^*$ averaged over all possible
+pseudo-samples conditioning on the observed data and group indicators.
+The mean and variance of $S$ under $H_0$ can be derived so that $S$ can be
+standardized to form a statistic $Z$ which follows standard normal distribution
+asymptotically \citep[p.910]{datta2005rank}.
+
+
+With our small sample size, the asymptotic normal distribution may not be
+reliable, so we use 1000 random permutations to simulate the observed test 
+statistic.
+\eds{I do not understand what is meant in the text after the colon in the 
+previous sentence.  Please rephrase.}
+\of{I'm not sure what that was, I removed it now.}
+This method is available from the \texttt{clusWilcox.test()} function
+with \texttt{method = `ds'} and \texttt{exact = TRUE} from R package
+\texttt{clusrank} \citep{jiang2020wilcoxon}. 
 
 
 \subsection{GLMM}\label{sec:glmm}
@@ -496,56 +547,60 @@ being less than 0.1 seconds in order to gauge if that is a reasonable
 disqualification barrier.
 
 
-\subsection{Rank-based Comparison}\label{sec:rank}
-
-
-To test the conjecture that the 2022 World Championships timing device may have 
-led to faster recorded reaction times, we compare the reaction times of the same
-athletes who have attended both the 2022 World Championships and other 
-competitions. 
-In this setting, we have clustered data with subunit grouping. In particular,
-each athlete is a cluster and the multiple reaction times from the same athlete
-can be from either the 2022 World Championships or otherwise.
-Let $X_{ij}$ be the $j$th reaction time of athlete~$i$, $i = 1, \ldots, n$,
-$j = 1, \ldots, m_i$ where $m_i$ is the number of observations from
-athelete~$i$. Let $\delta_{ij}$ be the group indicator of $X_{ij}$; $\delta_{ij}
-= 1$ if $X_{ij}$ is in group~1 (2022 World Championships) and $\delta_{ij} = 0$ 
-otherwise. Athletes are
-assumed to be independent, while subunit observations from the same athlete are
-not. The null hypothesis $H_0$ to be tested is that there is no difference
-between the two groups; i.e., the distribution of $X_{ij}$ remains the same
-regardless of the group indicator $\delta_{ij}$.
-
-
-\citet{datta2005rank} proposed an extension of the Wilcoxon rank-sum test to
-clustered data with subunit-level grouping. The test is designed based on a
-within-cluster resampling principle. Consider randomly picking one observation
-from each cluster to form a pseudo-sample. Let $X_i^*$ be a random pick from the
-$i$th cluster in the pseudo-sample and $\delta_i^*$ its group indicator. The
-Wilcoxon rank-sum statistic for the pseudo-sample is
-\[
-W^* = \frac{1}{n + 1} + \sum_{i=1}^{n} \delta_{i}^{*} R_{i}^{*},
-\]
-where $R_{i}^{*}$ is the rank of $X_{i}^{*}$ in the pseudo-sample.
-The test statistic $S$ is the average of $W^*$ averaged over all possible
-pseudo-samples conditioning on the observed data and group indicators.
-The mean and variance of $S$ under $H_0$ can be derived so that $S$ can be
-standardized to form a statistic $Z$ which follows standard normal distribution
-asymptotically \citep[p.910]{datta2005rank}.
-
-
-With our small sample size, the asymptotic normal distribution may not be
-reliable, so we use 1000 random permutations to simulate the observed test 
-statistic.
-\eds{I do not understand what is meant in the text after the colon in the 
-previous sentence.  Please rephrase.}
-\of{I'm not sure what that was, I removed it now.}
-This method is available from the \texttt{clusWilcox.test()} function
-with \texttt{method = `ds'} and \texttt{exact = TRUE} from R package
-\texttt{clusrank} \citep{jiang2020wilcoxon}.  
-
-
 \section{Results} \label{sec:Results}
+
+\subsection{Rank-based Comparison} \label{subsec:Results_Rank}
+
+The rank based methods described in Section~\ref{sec:rank}
+to determine if the reaction times for athletes who had competed at other 
+championships differed significantly from the 2022 World Championships.  This is
+a two group comparison performed three times: comparing 2019 and 2022 World
+Championships, comparing 2022 and 2023 World Championships, and comparing 2022 
+national championships to the 2022 World Championships.
+
+
+Table~\ref{tab:Clusrankresults} shows the results generated from four tests in R.
+We use a \texttt{clusWilcox.test()} with \texttt{exact = TRUE} and 
+\texttt{B = 1000} indicating that the random permutation size was chosen to be 
+1000, as discussed previously in Section~\ref{sec:rank}.  
+%As the sample sizes are small, 65 and 49, we use \texttt{exact = TRUE} as
+%that is preferred.  
+In both cases, the national versus international comparison
+produced lower p values than the 2019 versus 2022 comparison, with the
+national vs international \texttt{exact = TRUE} test producing a p value of 
+$2.2\cdot10^{-16}$, which is the smallest possible value achievable in R.  This
+is a highly significant test result and shows that athletes who competed at the
+2022 World Track and Field Championships were on average, significantly faster
+at reacting than they were a few months prior.  For the 2019 versus 2022
+same athlete comparison with \texttt{exact = TRUE} argument, the p value was
+significant at $\alpha = 0.01$, however when \texttt{exact = FALSE}, the p
+value was higher and only significant at $\alpha = 0.05$. 
+\eds{not sure the \texttt{exact = FALSE} results need to be reported here or in
+Table 4 when we say we use \texttt{exact = TRUE} here and in the previous section.}
+Nonetheless, these
+tests help to show that athletes competing at the 2022 World Track and Field
+Championships had faster reaction times than when they had competed previously.
+
+\begin{table}
+  \centering
+  \caption{2019 vs 2022 compares data from the same athletes who competed at the
+  2019 and 2022 World Track and Field Championships. 2022 vs 2023 compares data
+  from the same athletes who competed at the 2022 and 2023 World Track and Field
+  Championships. Nat vs Inter compares data from the same athletes who competed
+  at the 2022 national-level championships and the 2022 World Track and Field
+  Championships.}
+  \begin{tabular}{c c c c c} 
+   \toprule
+   Comparison & Permutation & Asymptotic \\ 
+   \midrule
+   2019 vs 2022 & $2.9\cdot10^{-3}$ & $2.3\cdot10^{-2}$ \\
+   2022 vs 2023 & $3.0\cdot10^{-3}$ & $1.0\cdot10^{-2}$ \\
+   2022 National vs International & $2.2\cdot10^{-16}$ & $1.0\cdot10^{-3}$ \\
+   \bottomrule
+  \end{tabular}
+  \label{tab:Clusrankresults}
+\end{table}
+
 
 \subsection{GLMM} \label{subsec:Results_GLMM}
 
@@ -648,61 +703,6 @@ based on probability.
   \end{tabular}
   \label{tab:Sim_time}
 \end{table}
-
-
-\subsection{Rank-based Comparison} \label{subsec:Results_Rank}
-
-The rank based methods described in Section~\ref{sec:rank}
-to determine if the reaction times for athletes who had competed at other 
-championships differed significantly from the 2022 World Championships.  This is
-a two group comparison performed two times: once comparing 2019 World
-Championships to 2022 World Championships and then comparing 2022 national
-championships to the 2022 World Championships.
-
-
-
-Table~\ref{tab:Clusrankresults} shows the results generated from four tests in R.
-We use a \texttt{clusWilcox.test()} with \texttt{exact = TRUE} and 
-\texttt{B = 1000} indicating that the random permutation size was chosen to be 
-1000, as discussed previously in Section~\ref{sec:rank}.  
-%As the sample sizes are small, 65 and 49, we use \texttt{exact = TRUE} as
-%that is preferred.  
-In both cases, the national versus international comparison
-produced lower p values than the 2019 versus 2022 comparison, with the
-national vs international \texttt{exact = TRUE} test producing a p value of 
-$2.2\cdot10^{-16}$, which is the smallest possible value achievable in R.  This
-is a highly significant test result and shows that athletes who competed at the
-2022 World Track and Field Championships were on average, significantly faster
-at reacting than they were a few months prior.  For the 2019 versus 2022
-same athlete comparison with \texttt{exact = TRUE} argument, the p value was
-significant at $\alpha = 0.01$, however when \texttt{exact = FALSE}, the p
-value was higher and only significant at $\alpha = 0.05$. 
-\eds{not sure the \texttt{exact = FALSE} results need to be reported here or in
-Table 4 when we say we use \texttt{exact = TRUE} here and in the previous section.}
-Nonetheless, these
-tests help to show that athletes competing at the 2022 World Track and Field
-Championships had faster reaction times than when they had competed previously.
-
-\begin{table}
-  \centering
-  \caption{2019 vs 2022 compares data from the same athletes who competed at the
-  2019 and 2022 World Track and Field Championships. 2022 vs 2023 compares data
-  from the same athletes who competed at the 2022 and 2023 World Track and Field
-  Championships. Nat vs Inter compares data from the same athletes who competed
-  at the 2022 national-level championships and the 2022 World Track and Field
-  Championships.}
-  \begin{tabular}{c c c c c} 
-   \toprule
-   Comparison & Permutation & Asymptotic \\ 
-   \midrule
-   2019 vs 2022 & $2.9\cdot10^{-3}$ & $2.3\cdot10^{-2}$ \\
-   2022 vs 2023 & $3.0\cdot10^{-3}$ & $1.0\cdot10^{-2}$ \\
-   2022 National vs International & $2.2\cdot10^{-16}$ & $1.0\cdot10^{-3}$ \\
-   \bottomrule
-  \end{tabular}
-  \label{tab:Clusrankresults}
-\end{table}
-
 
 
 \section{Concluding Remarks}\label{sec:concludingremarks}
