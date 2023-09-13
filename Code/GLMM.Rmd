@@ -2,96 +2,93 @@
 title: "GLMM"
 author: "Owen Fiore"
 date: "2023-05-31"
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
 ---
 
 
-Professors Yan and Schifano: to see the probabilities of the three different models
-please look at the results from code chunks 7, 12, 13.  You will need to run
-code from other chunks to generate the models and for the simulation code, but
-these three will produce probabilities of a reaction time less than 0.1 seconds.
+To see the probabilities associated with a reaction time below 0.1 seconds for
+the two effect model, run code chunks 1, 2, 5, 6, 7.
 
 
 
-The code below loads in the dataset from the csv file.
+The code below loads in the data sets from the csv file.
 ```{r}
 #1
 times <- read.csv("../Data/Thesis2023.csv")
-colnames(times) <- c("Year", "Type", "Time", "RxnTime", "Gender", "Heat")
-men_pooled <- subset(times, (Type == "F" | Type == "S") & 
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat")
+with2022 <- subset(times, (Type == "F" | Type == "S") & 
                        Gender == "M" & Time != 'DQ')
-men_old_pooled <- subset(times, (Type == "F" | Type == "S") & 
-                           Gender == "M" & Time != 'DQ' & Year != 2022)
+without2022 <- subset(times, (Type == "F" | Type == "S") & 
+                           Gender == "M" & Time != 'DQ' & Venue != 2022)
 ```
 
 
 
 
 This code below creates the base models without any random effects.  These are used
-as a baseline to compare the year effect models to in the simulation code below.
+as a baseline to compare the venue effect models to in the simulation code below.
 ```{r}
 #2
 library(lme4)
-men_old_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = men_old_pooled, 
+without2022_one_gamma_log <- glm(RxnTime ~ 1, data = without2022, 
                                     family = Gamma(link = "log"))
-men_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = men_pooled, 
+with2022_one_gamma_log <- glm(RxnTime ~ 1, data = with2022, 
                                 family = Gamma(link = "log"))
 ```
 
 
-This code creates the year effect only models.
+This code creates the venue effect only models.
 ```{r}
 #3
 library(lme4)
-men_old_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_pooled, 
+without2022_venue_gamma_log <- glmer(RxnTime ~ (1|Venue), data = without2022, 
                                        family = Gamma(link = "log"))
-men_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_pooled, 
+with2022_venue_gamma_log <- glmer(RxnTime ~ (1|Venue), data = with2022, 
                                    family = Gamma(link = "log"))
 ```
 
 ```{r}
-summary(men_pooled_year_gamma_log)
-summary(men_old_pooled_year_gamma_log)
+summary(with2022_venue_gamma_log)
+summary(without2022_venue_gamma_log)
 ```
 
 This creates the heat effect only models.
 ```{r}
 #4
 library(lme4)
-men_old_pooled_heat_gamma_log <-glmer(RxnTime ~ (1 | Heat), data = men_old_pooled, 
+without2022_heat_gamma_log <-glmer(RxnTime ~ (1 | Heat), data = without2022, 
                              family = Gamma(link = "log"))
-men_pooled_heat_gamma_log <-glmer(RxnTime ~ (1 | Heat), data = men_pooled, 
+with2022_heat_gamma_log <-glmer(RxnTime ~ (1 | Heat), data = with2022, 
                          family = Gamma(link = "log"))
 ```
 
 ```{r}
-summary(men_pooled_heat_gamma_log)
+summary(with2022_heat_gamma_log)
 ```
 
 
-This creates the models with a year effect and heat effect.
+This creates the models with a venue effect and heat effect.
 ```{r}
 #5
 library(lme4)
-men_old_finals_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | heat), 
-                                   data = men_old_finals, family = Gamma(link = "log"))
-men_finals_two_effect_gamma_log<- glmer(RxnTime ~ (1 | Year) + (1 | heat), 
-                              data = men_finals, family = Gamma(link = "log"))
-men_old_pooled_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | heat), 
-                                   data = men_old_pooled, family = Gamma(link = "log"))
-men_pooled_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Year) + (1 | heat), 
-                               data = men_pooled, family = Gamma(link = "log"))
+without2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat), 
+                                   data = without2022, family = Gamma(link = "log"))
+with2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat), 
+                               data = with2022, family = Gamma(link = "log"))
 ```
+
 ```{r}
-summary(men_pooled_two_effect_gamma_log)
-summary(men_old_pooled_two_effect_gamma_log)
+summary(with2022_two_effect_gamma_log)
+summary(without2022_two_effect_gamma_log)
 ```
 
 
 
 
 ```{r}
-anova(men_pooled_heat_gamma_log, men_pooled_two_effect_gamma_log)
+anova(with2022_heat_gamma_log, with2022_two_effect_gamma_log)
 ```
 This anova test determined that the two effect model is an improvement over the
 heat effect model. The test statistic is 0.01059 which is significant at alpha 
@@ -100,10 +97,10 @@ heat effect model. The test statistic is 0.01059 which is significant at alpha
 
 
 ```{r}
-anova(men_pooled_year_gamma_log, men_pooled_two_effect_gamma_log)
+anova(with2022_venue_gamma_log, with2022_two_effect_gamma_log)
 ```
 This anova test determined that the two effect model is a significant improvement
-over the year effect model.
+over the Venue effect model.
 
 
 
@@ -118,11 +115,11 @@ library(lme4)
 sim_two_effect_time <- function(model, base, RxnTime) {
   simfit <- function(model, n = 10000000) {
     vc <- as.data.frame(VarCorr(model))
-    sd_year <- vc$sdcor[1]
-    sd_year_heat <- vc$sdcor[2]
+    sd_Venue <- vc$sdcor[1]
+    sd_Venue_heat <- vc$sdcor[2]
     
-    z1 <- rnorm(n, sd = sd_year)
-    z2 <- rnorm(n, sd = sd_year_heat)
+    z1 <- rnorm(n, sd = sd_Venue)
+    z2 <- rnorm(n, sd = sd_Venue_heat)
     
     shape <- 1 / sigma(model)^2
     mu <- exp(fixef(model) + z1 + z2)
@@ -149,20 +146,20 @@ two effect model to the base model
 ```{r}
 #7
 set.seed(1)
-sim_two_effect_time(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.1)
-sim_two_effect_time(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.1)
+sim_two_effect_time(without2022_two_effect_gamma_log, without2022_one_gamma_log, 0.1)
+sim_two_effect_time(with2022_two_effect_gamma_log, with2022_one_gamma_log, 0.1)
 ```
 
 ```{r}
 set.seed(1)
-sim_two_effect_time(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.09)
-sim_two_effect_time(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.09)
+sim_two_effect_time(without2022_two_effect_gamma_log, without2022_one_gamma_log, 0.09)
+sim_two_effect_time(with2022_two_effect_gamma_log, with2022_one_gamma_log, 0.09)
 ```
 
 ```{r}
 set.seed(1)
-sim_two_effect_time(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.08)
-sim_two_effect_time(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.08)
+sim_two_effect_time(without2022_two_effect_gamma_log, without2022_one_gamma_log, 0.08)
+sim_two_effect_time(with2022_two_effect_gamma_log, with2022_one_gamma_log, 0.08)
 ```
 
 
@@ -180,11 +177,11 @@ library(lme4)
 sim_two_effect_prob <- function(model, base, prob) {
   simfit <- function(model, n = 10000000) {
     vc <- as.data.frame(VarCorr(model))
-    sd_year <- vc$sdcor[1]
-    sd_year_heat <- vc$sdcor[2]
+    sd_Venue <- vc$sdcor[1]
+    sd_Venue_heat <- vc$sdcor[2]
     
-    z1 <- rnorm(n, sd = sd_year)
-    z2 <- rnorm(n, sd = sd_year_heat)
+    z1 <- rnorm(n, sd = sd_Venue)
+    z2 <- rnorm(n, sd = sd_Venue_heat)
     
     shape <- 1 / sigma(model)^2
     mu <- exp(fixef(model) + z1 + z2)
@@ -205,8 +202,8 @@ sprinters.
 ```{r}
 #9
 set.seed(1)
-sim_two_effect_prob(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.001)
-sim_two_effect_prob(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.001)
+sim_two_effect_prob(without2022_two_effect_gamma_log, without2022_one_gamma_log, 0.001)
+sim_two_effect_prob(with2022_two_effect_gamma_log, with2022_one_gamma_log, 0.001)
 ```
 
 The code below repeats the previous section but for an average of 1 in every
@@ -214,8 +211,8 @@ The code below repeats the previous section but for an average of 1 in every
 ```{r}
 #10
 set.seed(1)
-sim_two_effect_prob(men_old_pooled_two_effect_gamma_log, men_old_pooled_one_gamma_log, 0.0001)
-sim_two_effect_prob(men_pooled_two_effect_gamma_log, men_pooled_one_gamma_log, 0.0001)
+sim_two_effect_prob(without2022_two_effect_gamma_log, without2022_one_gamma_log, 0.0001)
+sim_two_effect_prob(with2022_two_effect_gamma_log, with2022_one_gamma_log, 0.0001)
 ```
 
 This next code section replicates the code above but the various simulation
@@ -227,7 +224,7 @@ set.seed(1)
 sim_one_effect_time <- function(model, base, RxnTime){
     simfit <- function(model, n = 10000000) {
     vc <- as.data.frame(VarCorr(model))
-    ## mu <- exp(coef(model)$Year[,]) ## using fitted random effects only
+    ## mu <- exp(coef(model)$Venue[,]) ## using fitted random effects only
     z <- rnorm(n, sd = vc$sdcor[1]) #$ using generated random effects
     mu <- exp(fixef(model) + z)
     shape <- 1 / vc$vcov[2]
@@ -248,18 +245,16 @@ sim_one_effect_time <- function(model, base, RxnTime){
 
 ```{r}
 #12
-sim_one_effect_time(men_old_finals_year_gamma_log, men_old_finals_one_gamma_log, 0.1)
-sim_one_effect_time(men_finals_year_gamma_log, men_finals_one_gamma_log, 0.1)
-sim_one_effect_time(men_old_pooled_year_gamma_log, men_old_pooled_one_gamma_log, 0.1)
-sim_one_effect_time(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.1)
+set.seed(1)
+sim_one_effect_time(without2022_venue_gamma_log, without2022_one_gamma_log, 0.1)
+sim_one_effect_time(with2022_venue_gamma_log, with2022_one_gamma_log, 0.1)
 ```
 
 ```{r}
 #13
-sim_one_effect_time(men_old_finals_heat_gamma_log, men_old_finals_one_gamma_log, 0.1)
-sim_one_effect_time(men_finals_heat_gamma_log, men_finals_one_gamma_log, 0.1)
-sim_one_effect_time(men_old_pooled_heat_gamma_log, men_old_pooled_one_gamma_log, 0.1)
-sim_one_effect_time(men_pooled_heat_gamma_log, men_pooled_one_gamma_log, 0.1)
+set.seed(1)
+sim_one_effect_time(without2022_heat_gamma_log, without2022_one_gamma_log, 0.1)
+sim_one_effect_time(with2022_heat_gamma_log, with2022_one_gamma_log, 0.1)
 ```
 
 
@@ -285,18 +280,14 @@ sim_one_effect_prob <- function(model, base, prob) {
 
 ```{r}
 #15
-sim_one_effect_prob(men_old_finals_year_gamma_log, men_old_finals_one_gamma_log, 0.001)
-sim_one_effect_prob(men_finals_year_gamma_log, men_finals_one_gamma_log, 0.001)
-sim_one_effect_prob(men_old_pooled_year_gamma_log, men_old_pooled_one_gamma_log, 0.001)
-sim_one_effect_prob(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.001)
+sim_one_effect_prob(without2022_venue_gamma_log, without2022_one_gamma_log, 0.001)
+sim_one_effect_prob(with2022_venue_gamma_log, with2022_one_gamma_log, 0.001)
 ```
 
 ```{r}
 #16
-sim_one_effect_prob(men_old_finals_year_gamma_log, men_old_finals_one_gamma_log, 0.0001)
-sim_one_effect_prob(men_finals_year_gamma_log, men_finals_one_gamma_log, 0.0001)
-sim_one_effect_prob(men_old_pooled_year_gamma_log, men_old_pooled_one_gamma_log, 0.0001)
-sim_one_effect_prob(men_pooled_year_gamma_log, men_pooled_one_gamma_log, 0.0001)
+sim_one_effect_prob(without2022_venue_gamma_log, without2022_one_gamma_log, 0.0001)
+sim_one_effect_prob(with2022_venue_gamma_log, with2022_one_gamma_log, 0.0001)
 ```
 
 
