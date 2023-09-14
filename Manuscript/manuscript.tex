@@ -72,13 +72,14 @@ Championships}
 Devon Allen was disqualified in the men's 110 meter hurdle final of the 2022
 World Track and Field Championships after registering a reaction time of 0.099 
 seconds, 0.001 seconds faster than what is allowed. Following the games, 
-bloggers on the running website LetsRun concluded that the reaction time data 
+bloggers on the running website LetsRun concluded that the reaction times  
 from the 2022 World Championships seemed to be generally faster compared to the 
-other datasets they considered, but they did not perform any formal 
+other reaction times they considered, but they did not perform any formal 
 statistical analysis. This paper questions the reaction time 
 disqualification barrier, which is currently 0.1 seconds, to determine whether 
 this is a reasonable threshold. We employ a generalized linear mixed model 
-(GLMM) with a random venue effect in order to  model the reaction time data. 
+(GLMM) with random venue (year) effect and a random heat effect within venue 
+in order to model the reaction time data. 
 Additionally, we employ a signed-rank test for clustered data to 
 compare reaction times for the same athletes at different competitions. This 
 matter needs to be addressed because disqualification based on allowable 
@@ -117,11 +118,17 @@ championships in the United States, later uploaded a video to their YouTube
 channel that showed the disqualification
 (\url{https://www.youtube.com/watch?v=D6NXTMo-1yM}).
 The crowd erupted with jeers
-when they found out that Allen was disqualified, angry at the result.  Had Allen 
-reacted just 0.001 seconds slower he would have been allowed to compete and been 
-spared waiting until the next World Track and Field Championships.
-\eds{He is not competing this year, correct? If yes, we may need to rephrase.}
-\of{Correct}
+when they realized that Allen was disqualified, angry at the result.  Had Allen 
+reacted just 0.001 seconds slower he would have been allowed to compete. %and been 
+%spared waiting until the next World Track and Field Championships.
+%\eds{He is not competing this year, correct? If yes, we may need to rephrase.}
+%\of{Correct}
+%\eds{removed because he did not compete this year, so did not actually have
+% to wait, after all.} 
+\eds{ If it is true he ``retired'' as a runner to play football, we could 
+instead say something like
+\textit{Had Allen reacted just 0.001 seconds slower he would have been allowed 
+to compete before retiring from running to play football.}}
 
 
 Allen's disqualification has been discussed extensively in online communities
@@ -166,7 +173,7 @@ could have. Additionally,
 change the reaction time criteria from pushing off on the block to body
 movement. This could provide a more accurate representation of reaction time, 
 and thus the possibility of a false disqualification would be lowered.
-The possibility of using a video-based medium has been proved to be a reliable
+The possibility of using a video-based medium has been shown to be a reliable
 measure of reaction time \citep{mudric2015evaluation}.
 
 
@@ -189,7 +196,7 @@ concluded that visual reaction times to the starting gun may be faster by 0.007
 seconds than the IAAF method, which is from force on block starts 
 \citep{holmes2018method}.  While this may seem trivial, Allen was disqualified
 only by 0.001 seconds. It is also worth noting that one study looking at data 
-from various IAAF meets found that the fastest reaction times for men were found
+from various IAAF meets found that the fastest reaction times for men occurred 
 between the ages of 26 and 29 \citep{tonnessen2013reaction}.  This is notable 
 because Allen was 27 years old at the 2022 World Track and Field Championships 
 and likely at his physical peak.
@@ -199,7 +206,7 @@ The objective to this paper is to analyze the reaction times at the 2022 World
 Track and Field Championships to check for any abnormalities, and we approach
 this in two different ways.  First we model the data, which are
 the reaction times of every non-disqualification since the 1999 World 
-Championships, using a gamma linear mixed-effects model with two random effects 
+Championships, using a gamma linear mixed-effects model with two random effects: 
 one effect for the year and a second effect for the
 heat within each year.
 Based on the fitted model, we can then estimate the probability of a reaction 
@@ -214,18 +221,18 @@ implications for future races, but also because reaction times have
 been shown to affect the overall time of the race \citep{delalija2008reaction}.
 Thus, faster reaction times lead to faster overall times, which is the goal of
 every sprinter who steps onto the track.
-\eds{Since the World Championships are happening again now, is data from this 
-year already available? If it is available, we would need to justify its omission
-in the current analysis.
-If it is not available, but becomes available while under review, would we 
-reanalyze the data?  Does it seem likely our conclusions would change based on
-what is going on this year?}
-\of{Resolved}
+%\eds{Since the World Championships are happening again now, is data from this 
+%year already available? If it is available, we would need to justify its omission
+%in the current analysis.
+%If it is not available, but becomes available while under review, would we 
+%reanalyze the data?  Does it seem likely our conclusions would change based on
+%what is going on this year?}
+%\of{Resolved}
 
 
 The rest of this paper is organized as follows. Section~\ref{sec:Data} describes 
-how data was collected and begins to detail the generalized linear mixed-effect 
-(GLMM) model that is further developed in Section~\ref{sec:glmm}. The 
+how the data were collected and begins to detail the generalized linear mixed-effect 
+ model (GLMM) that is further developed in Section~\ref{sec:glmm}. The 
 signed-rank test that analyzes reaction times for the same athletes across
 different competitions is
 also described in Section~\ref{sec:rank}.  Section~\ref{sec:Results}
@@ -237,13 +244,13 @@ discusses the impact and limitations of the paper.
 \section{Data} \label{sec:Data}
 
 There are two types of data that are explored throughout this paper.  For the
-signed-rank tests described in section~\ref{sec:rank}, the data comes from 
+signed-rank tests described in Section~\ref{sec:rank}, the data comes from 
 athletes who competed in the 2022 World Championships and another competition 
-(2019 World Championships, 2023 World Championships or 2022 national 
-championships). For the GLMM described in section~\ref{sec:glmm}, data comes
-from every world championship from 1999 to 2023. This paper was started shortly
-after the 2022 World Championships, but as the 2023 data has become available 
-recently, we are pleased to include it in both of our analyses, and it did not
+(2019 World Championships, 2023 World Championships, or 2022 national 
+championships). For the GLMM described in Section~\ref{sec:glmm}, data comes
+from every world championships from 1999 to 2023. This investigation started 
+shortly after the 2022 World Championships, but as the 2023 data has now become 
+available, we are pleased to include it in both of our analyses, and it did not
 significantly change our results.
 
 
@@ -266,11 +273,11 @@ meaningful statistical analysis, but the data was expanded to include reaction
 times for 11 more athletes who competed at other national competitions (many of which were 
 held from May-July of 2022). This data was difficult to find, as the data is not
 centrally located but instead found on different national websites (often 
-recorded in the national language without translation, and hence not used). 
+recorded in the national language without translation). 
 \of{I don't know how to say this}. \eds{is my change correct?} \of{No I was able
 to use a lot even though I couldn't actually read the page. I just tried to find
 110 meter hurdle and then look at a column for reaction times which are always from
-roughly 0.1 to 0.18 seconds.} 
+roughly 0.1 to 0.18 seconds.} \eds{is it correct now?}
 
 
 Each athlete was designated as a ``cluster'' and the stage of competition (national
@@ -278,7 +285,7 @@ or international) was specified for each competition within the cluster (athlete
 Thus, this is subunit level grouping where we assign the treatment, national or
 international, within each cluster.  Cluster sizes range from three to six, with
 one cluster of size three, six clusters of size four, two clusters of size five,
-and two clusters of size six.  We chose to include preliminary rounds in this
+and two clusters of size six. We chose to include preliminary rounds in this
 section as well as in Section~\ref{sec:data2019} in order to increase the size 
 of our data.  Without data from the preliminary rounds, the number of observations
 dropped from 65 to 26 and the number of athletes included in the analysis
@@ -313,10 +320,12 @@ clusters of size four, two clusters of size five, and three clusters of size six
 When comparing 2022 and 2023 we look at data from 22 athletes, with seven 
 clusters of size two, three clusters of size three, six clusters of size four,
 and six clusters of size five.  Although 2022 is presented three times in
-figure~\ref{fig:RankScatterplots}, the subset of athletes differs each time.
-There may be athletes who competed in 2019 and 2022 and their national
-championships data was available, but they did not compete in 2023, and thus their
-times show up in the top two graphs.
+Figure~\ref{fig:RankScatterplots}, the subset of athletes differs each time.
+There may be athletes who competed in 2019 and 2022 and had their national
+championships data available, but they did not compete in 2023, and thus their
+times appear only in the top two graphs. \eds{top and bottom graphs?}
+\eds{also, you will likely need to make Fig 1 smaller as the caption runs off
+the page (even before my edits).}
 
 \jy{give specifics of your sample size}
 \of{Resolved}
@@ -324,40 +333,48 @@ times show up in the top two graphs.
 \begin{figure}[tbp]
   \centering
   \includegraphics{RankScatterPlots}
-  \caption{The top graph shows the athletes who competed at least once each at
-  the 2019 and 2022 World Championships.  The middle graph shows the athletes
-  who competed at least once each at the 2022 and 2023 World Championships. The
-  bottom graph shows the athletes who competed at least once at their country's
-  2022 national championships and the 2022 World Championship.}
+  \caption{The top graph shows the reaction times of athletes who competed at 
+	least once each at the 2019 and 2022 World Championships. The middle graph 
+	shows the reaction times of athletes who competed at least once each at the 
+	2022 and 2023 World Championships. The bottom graph shows the reaction times 
+	of athletes who competed at least once at their country's
+  2022 national championships and the 2022 World Championships.
+	\eds{check x-axis labels in the bottom plot: last three should be 2022?}}
   \label{fig:RankScatterplots}
 \end{figure}
 
 
-Figure~\ref{fig:RankScatterplots} shows the data that is being analyzed
-with the rank-based methods.  In each of the three graphs, athletes who competed
-in the 2022 finals are having their times compared to another event they competed
-at.  It is worth noting that each instance of the 2022 data is different, because
+Figure~\ref{fig:RankScatterplots} shows the data that will be analyzed
+with the rank-based methods (described in Section~\ref{sec:rank} with results in 
+Section~\ref{subsec:Results_Rank}). In each of the three graphs, the reaction 
+times for athletes who competed
+in the 2022 finals \eds{World Championships?} are compared to their reaction
+times at another at which they competed.  
+It is worth noting that each instance of the 2022 data is different, because
 those who competed at both the 2019 and 2022 World Championships will be
 different athletes than those who competed at both the 2022 and 2023 World
 Championships. This data was only for athletes who competed
 in at least one race at each championship, however it is possible for athletes
-to have competed in one race in 2019 and two races in 2022.  The 2022 World
+to have competed in one race in 2019 and two races in 2022. 
+\eds{did we not already cover the last two sentences in the previous paragraph, 
+or are you trying to say something different here?}  The 2022 World
 Championship Heats and Semifinals both had on average lower reaction times than
 their respective 2019 races, and the 2022 finals were substantially faster. It
-is also worth noting is that the fastest reaction time in the 2022 Finals and 2022
-Semifinals both came from Devon Allen, but the difference between 0.101 and 0.099
+is also worth noting is that the fastest reaction time in the 2022 World
+Championships Finals and Semifinals both came from Devon Allen, but the 
+difference between 0.101 and 0.099
 seconds was the difference in what caused him to be disqualified. 
-\eds{Please reorganize the labels so they are either in one of the following 
-orders:
-2019 Heat, 2019 Semi, 2019 final, 2022 Heat, 2022 Semi, 2022 final  OR
-2019 Heat, 2022 Heat, 2019 Semi, 2022 Semi, 2019 final, 2022 final.  
-(I am not sure which is better, but perhaps the latter?)}
-\of{I re-worked this graph completely, please let me know what you think.  For
-each graph I currently list them in chronological order: so 2022 then 2023 but
-I list 2022 second when comparing it to 2019/rank comparison.  Please let me
-know your thoughts on this and if I should list 2022 and then 2023 for visual
-consistency.}
-
+%\eds{Please reorganize the labels so they are either in one of the following 
+%orders:
+%2019 Heat, 2019 Semi, 2019 final, 2022 Heat, 2022 Semi, 2022 final  OR
+%2019 Heat, 2022 Heat, 2019 Semi, 2022 Semi, 2019 final, 2022 final.  
+%(I am not sure which is better, but perhaps the latter?)}
+%\of{I re-worked this graph completely, please let me know what you think.  For
+%each graph I currently list them in chronological order: so 2022 then 2023 but
+%I list 2022 second when comparing it to 2019/rank comparison.  Please let me
+%know your thoughts on this and if I should list 2022 and then 2023 for visual
+%consistency.}
+%\eds{I think the graphs look good}
 
 We also started to perform a similar analysis to compare the times of female 
 athletes who competed at the 2019 and 2022 World Track and Field Championships,
@@ -365,17 +382,25 @@ however as our results were not significant, we decided to incorporate another
 method to investigate the times at the 2022 World Championships and thus we
 employ the GLMM, which looks at historical men's data to try to determine
 whether Allen's time and disqualification are reasonable. 
+\eds{I would suggest removing this paragraph, particularly if you still include
+the comments about female reaction times in the Concluding Remarks. 
+No analysis has been done yet, nor have the methods been described yet, so it 
+does not make sense in my opinion 
+to refer to significance or another analysis method here.}
 
 \subsection{World Championships 1999--2023}\label{sec:dataworld}
 
 
 Data was taken from the World Athletics 
 and covers the men's 110 meter hurdles from 1999 to 2023; the source can be 
-found in the Appendix.
+found in the Appendix. 
 Although women's data is available, we chose not to include women's data in the
 analyses to follow due to the numerous papers citing differences in men and
 women's reaction times \citep[e.g.,][]{lipps2011implications, 
 babicc2009reaction, panoutsakopoulos2020gender}.
+\eds{you should mention the data source earlier, possible in Section 2 
+before Section 2.1 if it applies to Section 2.1.1, and also the sources of the 
+national data for 2.1.2 (i.e., pointing to the info in Appendix).}
 For the creation of the GLMM model we focus on the reaction times during the 
 semifinal and final heats only, as reaction times from preliminary heats are 
 often not as fast as those in later heats \citep[e.g.,][]{zhang2021correlation}. 
@@ -391,7 +416,7 @@ that excludes 2022 to see how our analysis differs based on the exclusion of one
 particular year of interest.
 
 
-The data under consideration is summarized using a box plot in 
+The data under consideration is summarized using side-by-side boxplots in 
 Figure~\ref{fig:Boxplot}.  It is clear that the reaction times in the 2022
 box plot are lower (indicating faster reaction times) than in many of the other
 years.  The median reaction time in 2022 was 0.129 seconds,  compared to 0.156
@@ -407,10 +432,10 @@ study period.
 \begin{figure}[tbp]
   \centering
   \includegraphics{Boxplot}
-  \caption{The reaction times from 1999 to 2023 for the men's 110 meter hurdle.
-	\eds{there is only one plot here, not two. If you are keeping only one, the
-	text and caption need to be modified accordingly}}
-  \of{Resolved}
+  \caption{The reaction times from 1999 to 2023 for the men's 110 meter hurdle.}
+	%\eds{there is only one plot here, not two. If you are keeping only one, the
+	%text and caption need to be modified accordingly}}
+  %\of{Resolved}
   \label{fig:Boxplot}
 \end{figure}
 
@@ -473,43 +498,44 @@ where $R_{i}^{*}$ is the rank of $X_{i}^{*}$ in the pseudo-sample.
 The test statistic $S$ is the average of $W^*$ averaged over all possible
 pseudo-samples conditioning on the observed data and group indicators.
 The mean and variance of $S$ under $H_0$ can be derived so that $S$ can be
-standardized to form a statistic $Z$ which follows standard normal distribution
+standardized to form a $Z$ statistic which follows a standard normal distribution
 asymptotically \citep[p.910]{datta2005rank}.
 
 
 With our small sample size, the asymptotic normal distribution may not be
 reliable, so we use 1000 random permutations to simulate the observed test 
-statistic.
-\eds{I do not understand what is meant in the text after the colon in the 
-previous sentence.  Please rephrase.}
-\of{I'm not sure what that was, I removed it now.}
+statistic.  \eds{simulate the null distribution of the test statistic?}
+%\eds{I do not understand what is meant in the text after the colon in the 
+%previous sentence.  Please rephrase.}
+%\of{I'm not sure what that was, I removed it now.}
 This method is available from the \texttt{clusWilcox.test()} function
-with \texttt{method = `ds'} and \texttt{exact = TRUE} from R package
+with \texttt{method = `ds'} (for \underline{D}atta and \underline{S}atten) and 
+\texttt{exact = TRUE} from R package
 \texttt{clusrank} \citep{jiang2020wilcoxon}. 
 
 
 \subsection{GLMM}\label{sec:glmm}
 Based on an exploratory analysis using the GLMM model for the reaction times
-from the World Championships, the final model we chose was a gamma mixed-effect 
-model. As suggested by the log-likelihood and the Akaike Information
+from the World Championships, the we chose a gamma mixed-effect model as our 
+final model. As suggested by the log-likelihood and the Akaike Information
 Criterion (AIC), the normal error model on the log-scale was found to be
 much inferior to the gamma model which better captures the skewness of the
-data. Two random effects were found useful: one captures the venue effect in
-each year and the other captures the heat effect within each year.  The heat
+data. Two random effects were found useful: one capturing the venue effect in
+each year and the other capturing the heat effect within each year.  The heat
 effect is important as it captures the variability in the amount of time
 athletes are on the starting blocks before the gun goes off.  Thus, we can try
-to reduce this variability by accounting for this in the model through the heat
+to reduce this variability by accounting for it in the model through the heat
 effect.
 Let $Y_{ijk}$ be the reaction time of observation~$k$ in heat~$j$ in year~$i$.
 Conditional on a venue effect $v_i$ of year~$i$ and a heat effect
 $h_{i/j}$ nested within each year~$i$, $Y_{ijk}$ is modeled by a
 gamma distribution. 
-\eds{I was talking to my husband about this. Could the heat effect be justified 
-to capture the variability in the amount of time between the ``set'' and the 
-gun going off (assuming this is different from heat to heat)? E.g., quicker 
-gunshots after the ``set'' could lead to slower reaction times (or the reverse), 
-but this effect would be shared across all athletes in the same heat.}
-\of{Yes I agree with this and updated the language in the text.}
+%\eds{I was talking to my husband about this. Could the heat effect be justified 
+%to capture the variability in the amount of time between the ``set'' and the 
+%gun going off (assuming this is different from heat to heat)? E.g., quicker 
+%gunshots after the ``set'' could lead to slower reaction times (or the reverse), 
+%but this effect would be shared across all athletes in the same heat.}
+%\of{Yes I agree with this and updated the language in the text.}
 In the classic generalized linear model (GLM) sense,
 $Y_{ijk}$ has conditional mean $E(Y_{ijk} | v_i, h_{i/j}) > 0$ and a
 dispersion parameter~$\phi > 0$. The conditional mean is characterized by
@@ -517,7 +543,7 @@ dispersion parameter~$\phi > 0$. The conditional mean is characterized by
 g\{E(Y_{ijk} | v_i, h_{i/j})\} = \alpha + v_i + h_{i/j},
 \]
 where $g$ is a known link function,
-$\gamma_i$ is normally distributed with mean zero and
+$v_i$ is normally distributed with mean zero and
 variance~$\sigma_v^2$, and $\delta_{i/j}$ is normally distributed with mean
 zero and variance~$\sigma_h^2$.
 Although \citet{lo2015idlink} suggested that the gamma 
@@ -551,7 +577,7 @@ disqualification barrier.
 
 \subsection{Rank-based Comparison} \label{subsec:Results_Rank}
 
-The rank based methods described in Section~\ref{sec:rank}
+The rank-based methods described in Section~\ref{sec:rank} are used
 to determine if the reaction times for athletes who had competed at other 
 championships differed significantly from the 2022 World Championships.  This is
 a two group comparison performed three times: comparing 2019 and 2022 World
@@ -559,13 +585,15 @@ Championships, comparing 2022 and 2023 World Championships, and comparing 2022
 national championships to the 2022 World Championships.
 
 
-Table~\ref{tab:Clusrankresults} shows the results generated from four tests in R.
+Table~\ref{tab:Clusrankresults} shows the results generated from four \eds{three?}
+tests in R.
 We use a \texttt{clusWilcox.test()} with \texttt{exact = TRUE} and 
 \texttt{B = 1000} indicating that the random permutation size was chosen to be 
 1000, as discussed previously in Section~\ref{sec:rank}.  
 %As the sample sizes are small, 65 and 49, we use \texttt{exact = TRUE} as
 %that is preferred.  
-In both cases, the national versus international comparison
+%In both cases, 
+The national versus international comparison
 produced lower p values than the 2019 versus 2022 comparison, with the
 national vs international \texttt{exact = TRUE} test producing a p value of 
 $2.2\cdot10^{-16}$, which is the smallest possible value achievable in R.  This
@@ -580,6 +608,7 @@ Table 4 when we say we use \texttt{exact = TRUE} here and in the previous sectio
 Nonetheless, these
 tests help to show that athletes competing at the 2022 World Track and Field
 Championships had faster reaction times than when they had competed previously.
+\eds{need to comment on 2022 vs 2023 results}
 
 \begin{table}
   \centering
@@ -768,6 +797,10 @@ disqualification barrier to 0.8 seconds.  If they were to do so, they would
 allow athletes like Allen to be able to react faster without fear of being 
 disqualified.  Taken together, the results show that 2022 was an outlier and 
 despite being disqualified, Allen's time was not so extreme.
+
+
+\eds{what happened to the Appendix?}
+
 
 \bibliographystyle{chicago}
 \bibliography{citations.bib}
