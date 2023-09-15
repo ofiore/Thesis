@@ -93,3 +93,18 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations_noprelim,
                 method = "ds", 
                 exact = TRUE, B = 10000)
 ```
+
+```{r}
+women_data <- read.csv("../Data/WomenClusrank2019vs2022.csv")
+colnames(women_data) <- c("Time", "Athlete", "Year")
+```
+
+```{r}
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_data,
+                method = "ds")
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_data,
+                method = "ds", 
+                exact = TRUE, B = 10000)
+```
+
