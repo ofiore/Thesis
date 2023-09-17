@@ -33,16 +33,11 @@ at the bottom of the RankComparison.Rmd file.
 country's national championships and the 2022 World Championships.  This data was
 difficult to find as it is not centrally located; each country records their data
 differently and often times in their native language and we could not find data
-for many countries.  Attached below are the links to the data as of September 
-2023.
+for many countries.  Attached below are the links to the data as of September 2023.
 
-+ [France](https://bases.athle.fr/asp.net/liste.aspx?frmbase=lives&frmmode=1&frmes
-pace=0&frmcompetition=264985&frmepreuvem=110m+Haies+(106)+%2f+TCM&frmtour=7&frms
-erie=)
-+ [Britain](https://www.watchathletics.com/page/3278/results-british-athletics-ch
-ampionships-2022)
-+ [USA](https://www.flashresults.com/2022_Meets/Outdoor/06-23_USATF/116-1_compil
-ed.htm)
++ [France](https://bases.athle.fr/asp.net/liste.aspx?frmbase=lives&frmmode=1&frmespace=0&frmcompetition=264985&frmepreuvem=110m+Haies+(106)+%2f+TCM&frmtour=7&frmserie=)
++ [Britain](https://www.watchathletics.com/page/3278/results-british-athletics-championships-2022)
++ [USA](https://www.flashresults.com/2022_Meets/Outdoor/06-23_USATF/116-1_compiled.htm)
 + [Brazil](https://cbat.org.br/novo/competicoes/trofeu_brasil/2022/resultados.php)
 + [Poland](https://mps.domtel-sport.pl/pdf/M110_3_r.pdf)
 
