@@ -56,7 +56,7 @@ Championships}
 \author{Owen Fiore\\
 %   \href{mailto:owen.fiore@uconn.edu}
 % {\nolinkurl{owen.fiore@uconn.edu}}\\
-  Elizabeth Schifano\\
+  Elizabeth D. Schifano\\
   Jun Yan\\[1ex]
   Department of Statistics, University of Connecticut\\
 }
@@ -123,13 +123,13 @@ reacted just 0.001 seconds slower he would have been allowed to compete. %and be
 %\of{Correct}
 %\eds{removed because he did not compete this year, so did not actually have
 % to wait, after all.} 
-\eds{ If it is true he ``retired'' as a runner to play football, we could 
-instead say something like
-\textit{Had Allen reacted just 0.001 seconds slower he would have been allowed 
-to compete before retiring from running to play football.}}
-\of{I don't think he retired, he was competing in races as recently as this past
-June.}
-
+%\eds{ If it is true he ``retired'' as a runner to play football, we could 
+%instead say something like
+%\textit{Had Allen reacted just 0.001 seconds slower he would have been allowed 
+%to compete before retiring from running to play football.}}
+%\of{I don't think he retired, he was competing in races as recently as this past
+%June.}
+%\eds{Okay, then let's leave it like this.} 
 
 Allen's disqualification has been discussed extensively in online communities
 such as \url{www.LetsRun.com}, a website that is part message board and part
@@ -232,7 +232,7 @@ The rest of this paper is organized as follows. Section~\ref{sec:Data} details
 how the two types of data were collected, as the signed-rank test as described
 in Section~\ref{sec:rank} uses slightly different data than the generalized 
 linear mixed-effect model (GLMM) that is further developed in 
-Section~\ref{sec:glmm} Section~\ref{sec:Results} provides the results of the two
+Section~\ref{sec:glmm}. Section~\ref{sec:Results} provides the results of the two
 analyses and ends by questioning the reaction time barrier.  Lastly, 
 Section~\ref{sec:concludingremarks} discusses the impact and limitations of the
 paper.
@@ -249,6 +249,11 @@ from every world championships from 1999 to 2023. This investigation started
 shortly after the 2022 World Championships, but as the 2023 data has now become 
 available, we are pleased to include it in both of our analyses, and it did not
 significantly change our results.
+\eds{I think you should somehow reference the source of the data here; I saw the
+comment below about removing the Appendix and including the sources in the Data 
+README file, so assuming the readers will have access to that file, you can 
+simply refer to the sources within that file here. I will defer to Prof. Yan's
+opinion, however!}  
 
 
 \subsection{Comparison Data with 2022 World Championships}\label{sec:databeyond}
@@ -271,10 +276,10 @@ times for 11 more athletes who competed at other national competitions (many of 
 held from May-July of 2022). This data was difficult to find, as the data is not
 centrally located but instead found on different national websites (often 
 recorded in the national language without translation). 
-\of{I don't know how to say this}. \eds{is my change correct?} \of{No I was able
-to use a lot even though I couldn't actually read the page. I just tried to find
-110 meter hurdle and then look at a column for reaction times which are always from
-roughly 0.1 to 0.18 seconds.} \eds{is it correct now?} \of{Yes}
+%\of{I don't know how to say this}. \eds{is my change correct?} \of{No I was able
+%to use a lot even though I couldn't actually read the page. I just tried to find
+%110 meter hurdle and then look at a column for reaction times which are always from
+%roughly 0.1 to 0.18 seconds.} \eds{is it correct now?} \of{Yes}
 
 
 Each athlete was designated as a ``cluster'' and the stage of competition (national
@@ -288,15 +293,6 @@ of our data.  Without data from the preliminary rounds, the number of observatio
 dropped from 65 to 26 and the number of athletes included in the analysis
 decreased from 15 to 9.
 
-%\eds{Can you show some descriptive statistics for this data?  Total number of 
-%clusters? Average number of international vs national competitions across 
-%athletes/clusters?}
-%\eds{The following paragraph still needs to be smoothed (the paragraph that was 
-%here and the paragraph that was in the intro still need to be integrated into 
-%one (or two) cohesive paragraph(s) that accurately describe the two types of 
-%data that will be used for two rank-based analyses.}
-%\of{Does this work?}
-%\eds{Yes, but you still need figure or descriptive statistics for this data.} 
 
 \subsubsection{Other World Track and Field Championships}\label{sec:data2019}
 The 2019 and 2023 World Track and Field Championships data is included in the 
@@ -323,9 +319,9 @@ and six clusters of size five.
 %There may be athletes who competed in 2019 and 2022 and had their national
 %championships data available, but they did not compete in 2023, and thus their
 %times appear only in the top two graphs. \eds{top and bottom graphs?}
-\eds{also, you will likely need to make Fig 1 smaller as the caption runs off
-the page (even before my edits).}
-\of{It should be smaller now}
+%\eds{also, you will likely need to make Fig 1 smaller as the caption runs off
+%the page (even before my edits).}
+%\of{It should be smaller now}
 
 \jy{give specifics of your sample size}
 \of{Resolved}
@@ -338,10 +334,10 @@ the page (even before my edits).}
 	shows the reaction times of athletes who competed at least once each at the 
 	2022 and 2023 World Championships. The bottom graph shows the reaction times 
 	of athletes who competed at least once at their country's
-  2022 national championships and the 2022 World Championships.
-	\eds{check x-axis labels in the bottom plot: last three should be 2022?}
-  \of{I don't think so. Its a comparison of 2022 national vs international so
-  I abbreviated it as Nat. and Inter. is that not ok?}}
+  2022 national championships and the 2022 World Championships.}
+	%\eds{check x-axis labels in the bottom plot: last three should be 2022?}
+  %\of{I don't think so. Its a comparison of 2022 national vs international so
+  %I abbreviated it as Nat. and Inter. is that not ok?}\eds{it's good now}
   \label{fig:RankScatterplots}
 \end{figure}
 
@@ -358,26 +354,16 @@ different athletes than those who competed at both the 2022 and 2023 World
 Championships. This data was only for athletes who competed
 in at least one race at each championship, however it is possible for athletes
 to have competed in one race in 2019 and two races in 2022. 
-\eds{did we not already cover the last two sentences in the previous paragraph, 
-or are you trying to say something different here?} \of{yes you are correct. I
-commented out the other one because I think this one flows better.}  The 2022 World
+%\eds{did we not already cover the last two sentences in the previous paragraph, 
+%or are you trying to say something different here?} \of{yes you are correct. I
+%commented out the other one because I think this one flows better.}  
+The 2022 World
 Championship Heats and Semifinals both had on average lower reaction times than
 their respective 2019 races, and the 2022 finals were substantially faster. It
 is also worth noting is that the fastest reaction time in the 2022 World
 Championships Finals and Semifinals both came from Devon Allen, but the 
 difference between 0.101 and 0.099
 seconds was the difference in what caused him to be disqualified. 
-%\eds{Please reorganize the labels so they are either in one of the following 
-%orders:
-%2019 Heat, 2019 Semi, 2019 final, 2022 Heat, 2022 Semi, 2022 final  OR
-%2019 Heat, 2022 Heat, 2019 Semi, 2022 Semi, 2019 final, 2022 final.  
-%(I am not sure which is better, but perhaps the latter?)}
-%\of{I re-worked this graph completely, please let me know what you think.  For
-%each graph I currently list them in chronological order: so 2022 then 2023 but
-%I list 2022 second when comparing it to 2019/rank comparison.  Please let me
-%know your thoughts on this and if I should list 2022 and then 2023 for visual
-%consistency.}
-%\eds{I think the graphs look good}
 
 We also started to perform a similar analysis to compare the times of female 
 athletes who competed at the 2019 and 2022 World Track and Field Championships,
@@ -418,6 +404,7 @@ I want to talk about that in section 2, I feel like I would have to explicitly
 justify the exclusion of the women's data which then goes back to the
 conversation above. Also Prof Yan recommended I remove the appendix, so now the
 sources are in the Data README.}
+\eds{Got it.  See earlier comment in 2.1; I will defer to Prof. Yan.}
 For the creation of the GLMM model we focus on the reaction times during the 
 semifinal and final heats only, as reaction times from preliminary heats are 
 often not as fast as those in later heats \citep[e.g.,][]{zhang2021correlation}. 
@@ -450,9 +437,6 @@ study period.
   \centering
   \includegraphics{Boxplot}
   \caption{The reaction times from 1999 to 2023 for the men's 110 meter hurdle.}
-	%\eds{there is only one plot here, not two. If you are keeping only one, the
-	%text and caption need to be modified accordingly}}
-  %\of{Resolved}
   \label{fig:Boxplot}
 \end{figure}
 
@@ -520,13 +504,10 @@ asymptotically \citep[p.910]{datta2005rank}.
 
 
 With our small sample size, the asymptotic normal distribution may not be
-reliable, so we use 1000 random permutations to simulate the null distribution
-of the test statistic.  
-\eds{simulate the null distribution of the test statistic?}
-\of{Resolved}
-%\eds{I do not understand what is meant in the text after the colon in the 
-%previous sentence.  Please rephrase.}
-%\of{I'm not sure what that was, I removed it now.}
+reliable, so we also use 1000 random permutations to simulate the null 
+distribution of the test statistic.  
+%\eds{simulate the null distribution of the test statistic?}
+%\of{Resolved}
 This method is available from the \texttt{clusWilcox.test()} function
 with \texttt{method = `ds'} (for \underline{D}atta and \underline{S}atten) and 
 \texttt{exact = TRUE} from R package
@@ -563,7 +544,10 @@ g\{E(Y_{ijk} | v_i, h_{i/j})\} = \alpha + v_i + h_{i/j},
 \]
 where $g$ is a known link function,
 $v_i$ is normally distributed with mean zero and
-variance~$\sigma_v^2$, and $\delta_{i/j}$ is normally distributed with mean
+variance~$\sigma_v^2$, and $\delta_{i/j}$ 
+\eds{$h_{i/j}$ or $\delta_{i/j}$? Table 2 uses $\delta_{i/j}$ (are you reporting
+the BLUP for this? If yes, why not also report the BLUP of $v_i$ in Table 2?)}
+is normally distributed with mean
 zero and variance~$\sigma_h^2$.
 Although \citet{lo2015idlink} suggested that the gamma 
 family with an identity link works well for reaction time in cognitive
@@ -604,40 +588,43 @@ Championships, comparing 2022 and 2023 World Championships, and comparing 2022
 national championships to the 2022 World Championships.
 
 
-Table~\ref{tab:Clusrankresults} shows the results generated from six 
-\eds{three?}
-\of{Theres now 6 results in the table, if we remove the asymptotic results then
-it should be 3}
-tests in R.
-We use a \texttt{clusWilcox.test()} with \texttt{exact = TRUE} and 
-\texttt{B = 1000} indicating that the random permutation size was chosen to be 
-1000, as discussed previously in Section~\ref{sec:rank}.  
+Table~\ref{tab:Clusrankresults} shows the results generated from both the 
+permutation (exact) and asymptotic rank-based tests for the three comparisons, 
+as discussed previously in Section~\ref{sec:rank}.    
+%six \eds{three?}
+%\of{Theres now 6 results in the table, if we remove the asymptotic results then
+%it should be 3}
+%tests in R.
+%We use a \texttt{clusWilcox.test()} with \texttt{exact = TRUE} and 
+%\texttt{B = 1000} indicating that the random permutation size was chosen to be 
+%1000, as discussed previously in Section~\ref{sec:rank}.  
 %As the sample sizes are small, 65 and 49, we use \texttt{exact = TRUE} as
 %that is preferred.  
 %In both cases, 
 The national versus international comparison
 produced lower p values than the 2019 versus 2022 comparison, with the
 national vs international permutation test producing a p value of 
-$2.2\cdot10^{-16}$, which is the smallest possible value achievable in R.  This
+$2.2\cdot10^{-16}$, which is the smallest possible value achievable in R.  
+\eds{Prof. Yan, is this possible based on 1000 permutations?} This
 is a highly significant test result and shows that athletes who competed at the
 2022 World Track and Field Championships were on average, significantly faster
-at reacting than they were a few months prior.  For the 2019 versus 2022
-same athlete comparison with permutation argument, the p value was 
+at reacting than they were just a few months prior.  For the 2019 versus 2022
+same athlete comparison with permutation test, the p value was 
 $2.9\cdot10^{-3}$, which is significant at $\alpha = 0.01$.  The result of
 comparing 2022 and 2023 was very similar to the above result, as the p value
 from the permutation test was $3.0\cdot10^{-3}$.  Taken together, these three
 tests help show that athletes competing at the 2022 World Track and Field
 Championships had faster reaction times than when they had competed previously.
 
-\eds{not sure the \texttt{exact = FALSE} results need to be reported here or in
-Table 4 when we say we use \texttt{exact = TRUE} here and in the previous section.}
-\of{I am not going to talk about the asymptotic results but will show them in
-table.I changed the exact=TRUE and exact = FALSE text to say permutation and 
-asymptotic}
-these
-
-\eds{need to comment on 2022 vs 2023 results}
-\of{Resolved}
+%\eds{not sure the \texttt{exact = FALSE} results need to be reported here or in
+%Table 4 when we say we use \texttt{exact = TRUE} here and in the previous section.}
+%\of{I am not going to talk about the asymptotic results but will show them in
+%table.I changed the exact=TRUE and exact = FALSE text to say permutation and 
+%asymptotic}
+%these
+%
+%\eds{need to comment on 2022 vs 2023 results}
+%\of{Resolved}
 
 \begin{table}
   \centering
@@ -665,27 +652,39 @@ these
 
 A summary of the two effect model is shown in Table~\ref{tab:Gamma_parameters}
 for the pooled datasets and shows the standard error of the year
-effect increases when including 2022.  The two effect model with venue and heat
-effect was the best model as evidenced by a decrease in the AIC compared to the
-other models. For the entire data, the AIC for the venue effect only model was
-$-2023.5$, the AIC for the heat effect only model $-2070.7$, and the AIC for the 
-two effect model, which we will present throughout this section, was $-2075.7$. 
-Thus, the two effect model is superior and will be presented throughout the rest
+effect increases when including 2022.
+\eds{this is not what is currently being shown in
+Table~\ref{tab:Gamma_parameters}; also, consider changing ``Full Model'' to 
+``Year and Heat Effects''}  
+The GLMM with both venue
+%two effect model with venue 
+\eds{let's try to be consistent with using either
+`year' or `venue' in the text, and not both, except when you introduce the intuition behind its use-- it doesn't make a difference to 
+me which one you use} 
+and heat random
+effects was the best model as evidenced by a decrease in the AIC compared to the
+other models with only one random effect. %For the entire data \eds{??}, the 
+%AIC for the venue effect only model was
+%$-2023.5$, the AIC for the heat effect only model $-2070.7$, and the AIC for the 
+%two effect model, which we will present throughout this section, was $-2075.7$. 
+Thus, results from the GLMM with both venue and heat random effects %is superior and 
+will be presented throughout the rest
 of the paper.
-\of{How specific do I need to be in this section? Will people who read this paper
-run the code to see the p value or should I say it directly and how do I say it?}
-\eds{If you are doing a likelihood ratio test, I suggest including the p-value 
-and the degrees of freedom associated with the test.}
-\of{Professor Yan recommended not even mentioning the likelihood ratio so
-instead I will just talk about the AIC.}
+%\of{How specific do I need to be in this section? Will people who read this paper
+%run the code to see the p value or should I say it directly and how do I say it?}
+%\eds{If you are doing a likelihood ratio test, I suggest including the p-value 
+%and the degrees of freedom associated with the test.}
+%\of{Professor Yan recommended not even mentioning the likelihood ratio so
+%instead I will just talk about the AIC.}
 
 \begin{table}
   \centering
   \caption{Estimated parameters for the two effect GLMM on various data sets. SE
-  is short for standard error. \eds{data in table needs to be revisited and table
-	needs to be referenced within the text. Also, it needs to be clarified 
-	somewhere that ``Old Pooled'' excludes 2022 and ``All Pooled'' includes 2022.}
-  \of{Resolved}} 
+  is short for standard error. %\eds{data in table needs to be revisited and table
+	%needs to be referenced within the text. Also, it needs to be clarified 
+	%somewhere that ``Old Pooled'' excludes 2022 and ``All Pooled'' includes 2022.}
+  %\of{Resolved}
+	\eds{This table is not showing what you have described here or in the main text.}} 
   \begin{tabular}{c c c c c c}
       \toprule
       Dataset & AIC & $\sigma_h^2$ & $\sigma_v^2$ & $\alpha$ & $\delta_{i/j}$ \\
@@ -785,35 +784,40 @@ This paper does not consider data from the women's 100 meter hurdle, and althoug
 that was initially because of concerns over reaction time differences in men and
 women, exploratory analysis showed that 2022 was at best only
 slightly faster relative to other championships going back to 2003 
-%\eds{check year}. \eds{this seems to contradict the Robert Johnson conclusion in 
-%the intro, unless he only considered sprint and not hurdles?} \of{Johnson's
-%results considered the mens 100m, mens 110m hurdles, womens 100m but not the 
-%womens 100m hurdles.} 
 Likewise, the rank-based comparisons resulted in p values
 that were not significant. 
-\eds{could that be because of even smaller sample sizes?}
-\of{Perhaps? I rank the pemutation test for the women's data and the
-p value was roughly 0.8.}
+%\eds{could that be because of even smaller sample sizes?}
+%\of{Perhaps? I rank the pemutation test for the women's data and the
+%p value was roughly 0.8.}
   The lack of evidence from the women's data makes it 
 harder to conclude that the sensors used at the 2022 championships were faulty, 
 although it is unknown if the sensors for the men's 110 meter hurdle and women's
-100 meter hurdle were the same.  
-\eds{is any calibration of the sensors needed (e.g. for weight?) that might
-also play a role for women vs men. (My husband asked me about this as a possible 
-reason for the difference in results for men and women, but he did not know
-if any calibration is actually done.)}
-\of{I honestly am not sure, do you think that this is worth investigating, or
-beyond the scope of this paper? I am not sure if the mechanics of Seiko's
-technology is public knowledge.}
-
-It is confusing as to why the reaction time barrier for men's and women's data
-is the same despite numerous articles such as \citep[e.g.,][]{lipps2011implications, 
-babicc2009reaction, panoutsakopoulos2020gender} stating differently.  World
-Athletics is ignoring differences in gender by setting the reaction time barrier
-to be equal. If 0.1 seconds is considered a fair time for women, then 0.1 seconds
-could not be considered fair for men, as the probability of observing reaction
-times lower than 0.1 would be elevated.  \citet{brosnan2017effects} advocated
-for gender based reaction time barriers which seems logical if there are biological
+100 meter hurdle were the same.  On the other hand, this may be related to 
+another debated question regarding whether the reaction time barrier should be 
+the same for men and women.
+\eds{please check my text addition}  
+%\eds{is any calibration of the sensors needed (e.g. for weight?) that might
+%also play a role for women vs men. (My husband asked me about this as a possible 
+%reason for the difference in results for men and women, but he did not know
+%if any calibration is actually done.)}
+%\of{I honestly am not sure, do you think that this is worth investigating, or
+%beyond the scope of this paper? I am not sure if the mechanics of Seiko's
+%technology is public knowledge.}
+%\eds{let's not open Pandora's box then}
+It is confusing as to why the reaction time barrier for men and women 
+is the same despite numerous articles \citep[e.g.,][]{lipps2011implications, 
+babicc2009reaction, panoutsakopoulos2020gender} stating differently.  
+\eds{The following sentences should be softened a bit, in my opinion, because
+it is not clear (at least to me) that these cited authors are any more correct 
+than those who advocate equal reaction time barriers for men and women. Please
+check my changes.}
+According to these authors, World Athletics is ignoring differences in gender by 
+setting the reaction time barrier to be equal. 
+If there are gender differences and 0.1 seconds is considered a fair time for 
+women, then 0.1 seconds could not be considered fair for men, as the probability 
+of observing reaction times lower than 0.1 would be elevated.
+\citet{brosnan2017effects} advocated for gender based reaction time barriers 
+which seems logical if there are biological
 differences in reaction times between men and women.
 
 
@@ -824,15 +828,15 @@ significant p values that indicate differences in average reaction times for
 athletes who competed at the 2022 World Track and Field Championship and another
 competition.  Additionally, this paper has shown that a reaction time of 0.1 
 seconds is not as extreme as one may think, and that based on the probabilities
-in table~\ref{tab:Sim_time}, World Athletics should consider changing the 
+in Table~\ref{tab:Sim_time}, World Athletics should consider changing the 
 disqualification barrier to 0.8 seconds.  If they were to do so, they would 
 allow athletes like Allen to be able to react faster without fear of being 
 disqualified.  Taken together, the results show that 2022 was an outlier and 
 despite being disqualified, Allen's time was not so extreme.
 
 
-\eds{what happened to the Appendix?}
-\of{Prof Yan recommended I remove it}
+%\eds{what happened to the Appendix?}
+%\of{Prof Yan recommended I remove it}
 
 
 \bibliographystyle{chicago}
