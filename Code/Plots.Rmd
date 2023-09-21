@@ -81,5 +81,22 @@ library(gridExtra)
 rank_scatter <- grid.arrange(rank1, rank2, rank3, ncol = 1)
 ggsave(filename = "RankScatterPlots.pdf", path = "../Manuscript", plot=rank_scatter, height = 7.5, width = 7)
 ```
+```{r}
+library(lme4)
+library(ggplot2)
+library(dplyr)
+times <- read.csv("../Data/Thesis2023.csv")
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat")
+with2022 <- subset(times, (Type == "F" | Type == "S") & 
+                       Gender == "M" & Time != 'DQ')
+with2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat), 
+                               data = with2022, family = Gamma(link = "log"))
+ranef_results <- data.frame(ranef(with2022_two_effect_gamma_log))
+venues <- subset(ranef_results, ranef_results["grpvar"] == "Venue")
+venues <- venues %>% arrange("Venue")
+
+ggplot(venues, aes(x=grp, y = condval)) + geom_point() + 
+  labs(x = "Year", y = "Year Effect")
+```
 
 
