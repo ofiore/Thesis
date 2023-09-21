@@ -32,7 +32,7 @@ clusWilcox.test(Time, group=Stage, cluster = Athlete, data = national,
 
 clusWilcox.test(Time, group=Stage, cluster = Athlete, data = national,
                 method = "ds",
-                exact = TRUE, B = 10000)
+                exact = TRUE, B = 1000000)
 ```
 
 The code below reads in the data comparing the 2019 and 2022 World Championships.
