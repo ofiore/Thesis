@@ -248,12 +248,13 @@ championships). For the GLMM described in Section~\ref{sec:glmm}, data comes
 from every world championships from 1999 to 2023. This investigation started 
 shortly after the 2022 World Championships, but as the 2023 data has now become 
 available, we are pleased to include it in both of our analyses, and it did not
-significantly change our results.
+significantly change our results \citep{WAData}.
 \eds{I think you should somehow reference the source of the data here; I saw the
 comment below about removing the Appendix and including the sources in the Data 
 README file, so assuming the readers will have access to that file, you can 
 simply refer to the sources within that file here. I will defer to Prof. Yan's
-opinion, however!}  
+opinion, however!}
+\of{Is this what you meant?}  
 
 
 \subsection{Comparison Data with 2022 World Championships}\label{sec:databeyond}
@@ -345,8 +346,9 @@ and six clusters of size five.
 Figure~\ref{fig:RankScatterplots} shows the data that will be analyzed
 with the rank-based methods (described in Section~\ref{sec:rank} with results in 
 Section~\ref{subsec:Results_Rank}). In each of the three graphs, the reaction 
-times for athletes who competed
-in the 2022 finals \eds{World Championships?} are compared to their reaction
+times for athletes who competed at the 2022 World Championships 
+\eds{World Championships?}
+\of{Resolved} are compared to their reaction
 times at another at which they competed.  
 It is worth noting that each instance of the 2022 data is different, because
 those who competed at both the 2019 and 2022 World Championships will be
@@ -547,6 +549,9 @@ $v_i$ is normally distributed with mean zero and
 variance~$\sigma_v^2$, and $\delta_{i/j}$ 
 \eds{$h_{i/j}$ or $\delta_{i/j}$? Table 2 uses $\delta_{i/j}$ (are you reporting
 the BLUP for this? If yes, why not also report the BLUP of $v_i$ in Table 2?)}
+\of{I think this should say $h_{i/j}$. In fact I am not sure we ever properly 
+defined what $\delta_{i/j}$ is. The number in the last column of the table is
+what shows up as the residual standard deviation in R}
 is normally distributed with mean
 zero and variance~$\sigma_h^2$.
 Although \citet{lo2015idlink} suggested that the gamma 
@@ -650,17 +655,22 @@ Championships had faster reaction times than when they had competed previously.
 \subsection{GLMM} \label{subsec:Results_GLMM}
 
 
-A summary of the two effect model is shown in Table~\ref{tab:Gamma_parameters}
-for the pooled datasets and shows the standard error of the year
-effect increases when including 2022.
+The estimated parameters of the GLMM model from our analysis are shown in 
+Table~\ref{tab:Gamma_parameters}.  These statistics reflect the inclusion of 2022
+in our analysis and shows the three models we considered. $\sigma_h^2$ is the
+standard deviation of the heat effect, $\sigma_v^2$ is the standard deviation of
+the venue effect, and $\alpha$ is the intercept.
 \eds{this is not what is currently being shown in
 Table~\ref{tab:Gamma_parameters}; also, consider changing ``Full Model'' to 
 ``Year and Heat Effects''}  
+\of{Resolved}
 The GLMM with both venue
 %two effect model with venue 
-\eds{let's try to be consistent with using either
-`year' or `venue' in the text, and not both, except when you introduce the intuition behind its use-- it doesn't make a difference to 
-me which one you use} 
+\eds{let's try to be consistent with using either `year' or `venue' in the text,
+and not both, except when you introduce the intuition behind its use-- it 
+doesn't make a difference to me which one you use} 
+\of{We have been using venue so I will use that, I think I made a typo while
+editing the table.}
 and heat random
 effects was the best model as evidenced by a decrease in the AIC compared to the
 other models with only one random effect. %For the entire data \eds{??}, the 
@@ -687,11 +697,11 @@ of the paper.
 	\eds{This table is not showing what you have described here or in the main text.}} 
   \begin{tabular}{c c c c c c}
       \toprule
-      Dataset & AIC & $\sigma_h^2$ & $\sigma_v^2$ & $\alpha$ & $\delta_{i/j}$ \\
+      Dataset & AIC & $\sigma_h^2$ & $\sigma_v^2$ & $\alpha$ & Std Dev Residual \\
       \midrule
-      Year Effect Only & $-2023.5$ & N/A & 0.048 & $-1.857$ & 0.152\\
+      Venue Effect Only & $-2023.5$ & N/A & 0.054 & $-1.871$ & 0.150\\
       Heat Effect Only & $-2070.7$ & 0.073 & N/A & $-1.890$ & 0.135\\
-      Full model       & $-2075.7$ & 0.057 & 0.040 & $-1.880$ & 0.134\\
+      Venue and Heat Effect & $-2075.7$ & 0.057 & 0.040 & $-1.880$ & 0.134\\
       \bottomrule
   \end{tabular}
   \label{tab:Gamma_parameters}
