@@ -26,6 +26,7 @@ exact = TRUE which is used when sample sizes are small (as they are in this
 case), additionally the number of random permutations (B) is set to be 10,000.
 
 ```{r}
+set.seed(1)
 library(clusrank)
 clusWilcox.test(Time, group=Stage, cluster = Athlete, data = national,
                 method = "ds")
@@ -37,9 +38,9 @@ clusWilcox.test(Time, group=Stage, cluster = Athlete, data = national,
 
 The code below reads in the data comparing the 2019 and 2022 World Championships.
 ```{r}
-comp <- read.csv("../Data/Clusrank2019vs2022.csv")
+old_clusrank <- read.csv("../Data/Clusrank2019vs2022.csv")
 #"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
-colnames(comp) <- c("Time", "Athlete", "Year")
+colnames(old_clusrank) <- c("Time", "Athlete", "Year")
 #View(comp)
 ```
 
@@ -47,13 +48,14 @@ colnames(comp) <- c("Time", "Athlete", "Year")
 The tests below are very similar to the ones above, the only difference being
 grouping by Year instead of Stage (1 if 2019 and 2 if 2022).
 ```{r}
+set.seed(1)
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = old_clusrank,
                 method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = comp,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = old_clusrank,
                 method = "ds",
-                exact = TRUE, B = 10000)
+                exact = TRUE, B = 1000000)
 ```
 
 
@@ -69,13 +71,14 @@ colnames(new_clusrank) <- c("Time", "Athlete", "Year")
 The tests below are very similar to the ones above, the only difference being
 grouping by Year instead of Stage (2 if 2022 and 3 if 2023).
 ```{r}
+set.seed(1)
 library(clusrank)
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = new_clusrank,
                 method = "ds")
 
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = new_clusrank,
                 method = "ds",
-                exact = TRUE, B = 10000)
+                exact = TRUE, B = 1000000)
 ```
 
 This is seeing what would happen if we remove prelims, the sample sizes in the
@@ -100,11 +103,12 @@ colnames(women_data) <- c("Time", "Athlete", "Year")
 ```
 
 ```{r}
+set.seed(1)
 library(clusrank)
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_data,
                 method = "ds")
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_data,
                 method = "ds", 
-                exact = TRUE, B = 10000)
+                exact = TRUE, B = 1000000)
 ```
 
