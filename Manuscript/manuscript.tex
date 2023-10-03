@@ -230,7 +230,6 @@ from every world championships from 1999 to 2023. This investigation started
 shortly after the 2022 World Championships, but as the 2023 data has now become 
 available, we are pleased to include it in both of our analyses, and it did not
 significantly change our results \citep{WAData}. 
-\jy{I added a sentence to the end of intro.}
 
 
 \subsection{Comparison Data with 2022 World Championships}
@@ -426,8 +425,7 @@ asymptotically \citep[p.910]{datta2005rank}.
 
 With our small sample size, the asymptotic normal distribution may not be
 reliable, so we also use 1000 random permutations to simulate the null 
-distribution of the test statistic.  \jy{increase 1000 to a much bigger number,
-  say 10 million}
+distribution of the test statistic.
 This method is available from the \texttt{clusWilcox.test()} function
 with \texttt{method = `ds'} (for \underline{D}atta and \underline{S}atten) and 
 \texttt{exact = TRUE} from R package
@@ -459,7 +457,7 @@ g\{E(Y_{ijk} | v_i, h_{i/j})\} = \alpha + v_i + h_{i/j},
 \]
 where $g$ is a known link function,
 $v_i$ is normally distributed with mean zero and
-variance~$\sigma_v^2$, and $\delta_{i/j}$ 
+variance~$\sigma_v^2$, and $h_{i/j}$ 
 is normally distributed with mean
 zero and variance~$\sigma_h^2$.
 Although \citet{lo2015idlink} suggested that the gamma 
@@ -526,17 +524,10 @@ national championships to the 2022 World Championships.
 
 Table~\ref{tab:Clusrankresults} shows the results generated from both the 
 permutation (exact) and asymptotic rank-based tests for the three comparisons, 
-as discussed previously in Section~\ref{sec:rank}.    
-The national versus international comparison
-produced lower p-values than the 2019 versus 2022 comparison, with the
-national vs international permutation test producing a p-value of 
-$2.2\cdot10^{-16}$, which is the smallest possible value achievable in R.  
-\eds{Prof. Yan, is this possible based on 1000 permutations?}
-\jy{That cannot be true.  Redo with a much bigger number of permutations and
-  update the table.}
-\of{Done, permutation results were for B = 1 million}
-This
-is a highly significant test result and shows that athletes who competed at the
+as discussed previously in Section~\ref{sec:rank}. The national versus international
+comparison produced lower p-values than the 2019 versus 2022 comparison, with the
+national vs international permutation test producing a p-value of $2\cdot10^{-6}$.
+This is a highly significant test result and shows that athletes who competed at the
 2022 World Track and Field Championships were on average, significantly faster
 at reacting than they were just a few months prior.  For the 2019 versus 2022
 same athlete comparison with permutation test, the p-value was 
@@ -554,7 +545,8 @@ The estimated parameters of the GLMM model from our analysis are shown in
 Table~\ref{tab:Gamma_parameters}.  These statistics reflect the inclusion of 2022
 in our analysis and shows the three models we considered. $\sigma_h^2$ is the
 standard deviation of the heat effect, $\sigma_v^2$ is the standard deviation of
-the venue effect, and $\alpha$ is the intercept.
+the venue effect, $\alpha$ is the intercept, and $a$ is the shape parameter of
+the gamma function.
 The GLMM with both venue and heat random
 effects was the best model as evidenced by a decrease in the AIC compared to the
 other models with only one random effect. 
@@ -573,7 +565,7 @@ of the paper.
       } 
   \begin{tabular}{c c c c c c}
       \toprule
-      Dataset & AIC & $\sigma_h^2$ & $\sigma_v^2$ & $\alpha$ & $1 / \phi$ \\
+      Dataset & AIC & $\sigma_h^2$ & $\sigma_v^2$ & $\alpha$ & $a$ \\
       \midrule
       Venue Effect Only & $-2023.5$ & N/A & 0.054 & $-1.871$ & 0.150\\
       Heat Effect Only & $-2070.7$ & 0.073 & N/A & $-1.890$ & 0.135\\
