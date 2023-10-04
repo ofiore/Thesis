@@ -80,7 +80,7 @@ World Track and Field Championship had similar times at other competitions and
 if 0.1 seconds is a reasonable disqualification barrier. To do so, we employ a 
 signed-rank test for clustered data to compare reaction times for the same 
 athletes at different competitions and a generalized linear mixed model 
-(GLMM) with random venue (year) effect and a random heat effect within venue 
+with random venue (year) effect and a random heat effect within venue 
 in order to model the reaction time data. This matter needs to be addressed 
 because disqualification based on allowable reaction time will continue to be an
 issue in future world championships.
@@ -424,7 +424,7 @@ asymptotically \citep[p.910]{datta2005rank}.
 
 
 With our small sample size, the asymptotic normal distribution may not be
-reliable, so we also use 1000 random permutations to simulate the null 
+reliable, so we also use 1~million random permutations to simulate the null 
 distribution of the test statistic.
 This method is available from the \texttt{clusWilcox.test()} function
 with \texttt{method = `ds'} (for \underline{D}atta and \underline{S}atten) and 
@@ -477,8 +477,6 @@ $\phi = 1 / a$. Therefore, for the gamma mixed-effect model, the conditional
 gamma distribution of the reaction time $Y_{ijk}$ given the venue
 effect~$v_i$ and heat effect~$h_{i/j}$
 has shape $a = 1 / \phi$ and scale
-\jy{Note that, as used in the code, we should have
-  \texttt{sigma(model) \^ 2 =  phi}. So in Table 2, we can report phi in the last column.}
 $b = g^{-1}(\alpha + v_i + h_{i/j}) \phi$. The marginal
 distribution of $Y_{ijk}$ is a scale-mixture of gamma distributions, which can be
 easily simulated from once the parameters are estimated. Many
@@ -523,7 +521,7 @@ national championships to the 2022 World Championships.
 
 
 Table~\ref{tab:Clusrankresults} shows the results generated from both the 
-permutation (exact) and asymptotic rank-based tests for the three comparisons, 
+permutation and asymptotic rank-based tests for the three comparisons, 
 as discussed previously in Section~\ref{sec:rank}. The national versus international
 comparison produced lower p-values than the 2019 versus 2022 comparison, with the
 national vs international permutation test producing a p-value of $2\cdot10^{-6}$.
@@ -544,9 +542,11 @@ Championships had faster reaction times than when they had competed previously.
 The estimated parameters of the GLMM model from our analysis are shown in 
 Table~\ref{tab:Gamma_parameters}.  These statistics reflect the inclusion of 2022
 in our analysis and shows the three models we considered. $\sigma_h^2$ is the
+\jy{read what you wrote. These are variances not sd. Do not start a sentence
+  with a symbol (see my writing guidelines).}
 standard deviation of the heat effect, $\sigma_v^2$ is the standard deviation of
-the venue effect, $\alpha$ is the intercept, and $a$ is the shape parameter of
-the gamma function.
+the venue effect, $\alpha$ is the intercept, and $\phi$ is the dispersion
+parameter of the gamma model.
 The GLMM with both venue and heat random
 effects was the best model as evidenced by a decrease in the AIC compared to the
 other models with only one random effect. 
@@ -554,25 +554,22 @@ Thus, results from the GLMM with both venue and heat random effects
 will be presented throughout the rest
 of the paper.
 
+\jy{do a thorough check on the captions of tables and figures.}
 
 \begin{table}
   \centering
-  \caption{Estimated parameters for the two effect GLMM on various data sets. SE
-  is short for standard error. 
-	\eds{This table is not showing what you have described here or in the
-          main text.}
-        \jy{report $ a = 1 / \phi$}
-      } 
+  \caption{AIC and estimated parameters for the three GLMMs fitted to the ???
+    data.}
+  \label{tab:Gamma_parameters}
   \begin{tabular}{c c c c c c}
       \toprule
-      Dataset & AIC & $\sigma_h^2$ & $\sigma_v^2$ & $\alpha$ & $a$ \\
+      Model & AIC & $\sigma_h^2$ & $\sigma_v^2$ & $\alpha$ & $\sqrt{\phi}$ \\
       \midrule
-      Venue Effect Only & $-2023.5$ & N/A & 0.054 & $-1.871$ & 0.150\\
-      Heat Effect Only & $-2070.7$ & 0.073 & N/A & $-1.890$ & 0.135\\
+      Venue Effect Only & $-2023.5$ &   & 0.054 & $-1.871$ & 0.150\\
+      Heat Effect Only & $-2070.7$ & 0.073 &  & $-1.890$ & 0.135\\
       Venue and Heat Effect & $-2075.7$ & 0.057 & 0.040 & $-1.880$ & 0.134\\
       \bottomrule
   \end{tabular}
-  \label{tab:Gamma_parameters}
 \end{table}
 
 
@@ -591,11 +588,11 @@ reaction time below 0.1 seconds decreased to $3.54\cdot10^{-3}$, or 1 in every
 
 \begin{table}
   \centering
-  \caption{Probabilities of observing reaction times less than 0.08, 0.09, and
-  0.01 seconds based on the two effect model.}
+  \caption{Probabilities of observing reaction times less than threshold 0.08, 0.09, and
+  0.10 seconds based on the two effect model.}
   \begin{tabular}{c c c c} 
    \toprule
-   Data Set & P(R. Time $<$ 0.08) & P(R. Time $<$ 0.09) & P(R. Time $<$ 0.1)  \\ 
+   Data Set & Threshold 0.08 & Threshold 0.09 & Threshold 0.10  \\ 
    \midrule
    Excluding 2022 & $3.35\cdot10^{-5}$ & $4.45\cdot10^{-4}$ &  $3.54\cdot10^{-3}$  \\ 
    Including 2022 & $4.20\cdot10^{-5}$ & $5.70\cdot10^{-4}$ & $4.34\cdot10^{-3}$ \\
@@ -611,7 +608,27 @@ observing a reaction time that would break the barrier. If World Athletics were
 to change the reaction time the way that \citet{komi2009iaaf} suggests, the 
 probability would be so much lower that athletes would likely not
 have a case to make when arguing against a disqualification.
+\jy{discuss the differences between with/without 2022 data; comment on the
+  pecularity of the 2022 data (as suggested by the rank based method); In a
+  longer run, it may not be as strange as it looks at the first time.}
 
+
+\begin{table}
+  \centering
+  \caption{Suggested reaction time barriers based on tail probabilities.}
+  \begin{tabular}{c c c} 
+   \toprule
+   Data Set & Tail probability  $10^{-3}$ & Tail probability $10^{-4}$ \\ 
+   \midrule
+   Excluding 2022 & $0.094$ & $0.084$ \\ 
+   Including 2022 & $0.092$ & $0.083$ \\
+   \bottomrule
+  \end{tabular}
+  \label{tab:Sim_time}
+\end{table}
+
+
+\jy{be consistent in using scienfit format of numbers; 0.0001 vs $10^{-4}$}
 
 We can use the same model but alter our interpretation slightly to select a 
 reaction time barrier given the probability of observing a time less than the 
@@ -624,22 +641,6 @@ results in a reaction time barrier of 0.083 seconds.  As the exclusion of 2022
 from the data resulted in a lower probability of observing a low reaction time,
 the reaction time barrier will be less lenient when calculating the barrier
 based on probability.
-
-
-\begin{table}
-  \centering
-  \caption{Suggested reaction time barriers based on probability of observing
-  a time less than the barrier. \of{Not sure if this makes sense}}
-  \begin{tabular}{c c c} 
-   \toprule
-   Data Set & P(RxnTime $< x) = 10^{-3}$ & P(RxnTime $< x) = 10^{-4}$ \\ 
-   \midrule
-   Excluding 2022 & $0.094$ & $0.084$ \\ 
-   Including 2022 & $0.092$ & $0.083$ \\
-   \bottomrule
-  \end{tabular}
-  \label{tab:Sim_time}
-\end{table}
 
 
 \section{Concluding Remarks}\label{sec:concludingremarks}
@@ -691,7 +692,7 @@ The data and R code used for the analysis are available in a compressed file for
 ease of reproducibility.
 
 \bibliographystyle{chicago}
-\bibliography{citations.bib}
+\bibliography{citations}
 
 
 \end{document}
