@@ -100,23 +100,23 @@ False Start, Hurdles, Reaction Time, Seiko
 
 Devon Allen, an alumnus of the University of Oregon in Eugene, Oregon, was
 expected to be a contender for the 2022 World Track and Field Championships 110 
-meter hurdle.  After running the event in 12.84 seconds in early June 2022 
+meter hurdle. After running the event in 12.84 seconds in early June 2022 
 (only 0.04 seconds away from the world record \citep{wa2022preview}) and coming 
 in third at the United States Track and Field Championships also in Eugene 
 in late June, Allen was poised to compete in the 2022 World Track and 
 Field Championships in August, which would also be held in Eugene, Oregon.
 At the World Championships, Allen made it through the preliminary
 heats and semifinals to reach the final heat while posting reaction times of 
-0.123 and 0.101 in his preliminary heat and semifinal, respectively.  
+0.123 and 0.101 in his preliminary heat and semifinal, respectively. 
 His disqualification in the final heat by reacting in 0.099 seconds, just 0.001
 seconds faster than the 0.1 threshold set by the International Association of
 Athletics Federations (IAAF), was met
-with shock from both Allen and fans alike.  NBC, who was broadcasting the
+with shock from both Allen and fans alike. NBC, who was broadcasting the
 championships in the United States, later uploaded a video to their YouTube
 channel that showed the disqualification
 (\url{https://www.youtube.com/watch?v=D6NXTMo-1yM}).
 The crowd erupted with jeers
-when they realized that Allen was disqualified, angry at the result.  Had Allen 
+when they realized that Allen was disqualified, angry at the result. Had Allen 
 reacted just 0.001 seconds slower he would have been allowed to compete.
 
 
@@ -125,10 +125,10 @@ such as \url{www.LetsRun.com}, a website that is part message board and part
 news. The message board,
 which functions similarly to Reddit, is very active during important running
 events, including during the finals of major events such as
-the Olympics and the World Track and Field Championships.  However, it is the
+the Olympics and the World Track and Field Championships. However, it is the
 news section of the website that generated articles such as \citet{johnson2022data}
 and \citet{johnson2022was} from  Robert Johnson, who created and runs 
-the LetsRun website.  He argued that there was an error
+the LetsRun website. He argued that there was an error
 with the timing equipment at the 2022 World Track and Field Championships and
 cited graphs, computed descriptive statistics such as median reaction times, and 
 compared the reaction times at the 2022 World Track and Field Championships to 
@@ -143,10 +143,10 @@ meter hurdle, and women's 100 meter would all come from the same year
 
 
 Reaction time in sprint and hurdle events has been studied by many authors.
-\citet{pain2007sprint} examined reaction times for nine male athletes.  The
+\citet{pain2007sprint} examined reaction times for nine male athletes. The
 fastest athlete of the nine had, on average (even with their two fastest times 
 removed), a reaction time of 0.087 seconds and a standard deviation of 0.004
-seconds.  Two other athletes were able to react similarly when under certain
+seconds. Two other athletes were able to react similarly when under certain
 muscular tightening conditions \citep{pain2007sprint}. 
 In a study commissioned by IAAF,
 \citet{komi2009iaaf} recommended that the disqualification 
@@ -167,36 +167,36 @@ measure of reaction time \citep{mudric2015evaluation}.
 
 \citet{pilianidis2012start} found
 significant differences between reaction times at several world championships
-between 1997 and 2009 for the men's 110 meter hurdles.  Another important
+between 1997 and 2009 for the men's 110 meter hurdles. Another important
 conclusion was that reaction times did not decrease over the twelve years
 covered by the research in the study \citep{pilianidis2012start}. This 
 contradicts the results of \citet{zhang2021correlation}, which indicated that 
-year of competition has a significant effect on reaction times.  Their
+year of competition has a significant effect on reaction times. Their
 analysis looked at data from the 2011-2019 World Championships across multiple
 sprint events and concluded that from 2011 to 2019, reaction times got
 faster. However, not all studies have been in favor of a decrease in the
 reaction time barrier. \citet*{brosnan2017effects} argue for increasing 
 the reaction time barrier to 0.115 seconds, and cited evidence from European 
-Championships and World Championships in their article.  A study looking 
+Championships and World Championships in their article. A study looking 
 at the 2008 Olympics likewise supported the conclusion that athletes could not
-react in as little as 0.1 seconds \citep{lipps2011implications}.  Another study
+react in as little as 0.1 seconds \citep{lipps2011implications}. Another study
 concluded that visual reaction times to the starting gun may be faster by 0.007
 seconds than the IAAF method, which is from force on block starts 
-\citep{holmes2018method}.  While this may seem trivial, Allen was disqualified
+\citep{holmes2018method}. While this may seem trivial, Allen was disqualified
 only by 0.001 seconds. It is also worth noting that one study looking at data 
 from various IAAF meets found that the fastest reaction times for men occurred 
-between the ages of 26 and 29 \citep{tonnessen2013reaction}.  This is notable 
+between the ages of 26 and 29 \citep{tonnessen2013reaction}. This is notable 
 because Allen was 27 years old at the 2022 World Track and Field Championships 
 and likely at his physical peak.
 
 
 The objective to this paper is to analyze the reaction times at the 2022 World 
 Track and Field Championships to check for any abnormalities, and we approach
-this in two different ways.  First we compare reaction times for athletes who 
+this in two different ways. First we compare reaction times for athletes who 
 have competed at additional competitions to the 2022 World Track and Field 
-Championship.  By comparing reaction times from the same athlete across multiple
+Championship. By comparing reaction times from the same athlete across multiple
 competitions we are able to determine if the 2022 reaction times differed 
-significantly from those of other competitions.  Then we look at a longer time horizon
+significantly from those of other competitions. Then we look at a longer time horizon
 and model the reaction times of every non-disqualification since the 1999 World 
 Championships, using a gamma linear mixed-effects model with two random effects: 
 one effect for the year and a second effect for the heat nested within each year.
@@ -214,14 +214,14 @@ how the two types of data were collected, as the signed-rank test as described
 in Section~\ref{sec:rank} uses slightly different data than the generalized 
 linear mixed-effect model (GLMM) that is further developed in 
 Section~\ref{sec:glmm}. Section~\ref{sec:Results} provides the results of the two
-analyses and ends by questioning the reaction time barrier.  Lastly, 
+analyses and ends by questioning the reaction time barrier. Lastly, 
 Section~\ref{sec:concludingremarks} discusses the impact and limitations of the
 paper. All the data and code of our analysis are available in a supplement.
 
 
 \section{Data} \label{sec:Data}
 
-There are two types of data that are explored throughout this paper.  For the
+There are two types of data that are explored throughout this paper. For the
 signed-rank tests described in Section~\ref{sec:rank}, the data comes from 
 athletes who competed in the 2022 World Championships and another competition 
 (2019 World Championships, 2023 World Championships, or 2022 national 
@@ -245,7 +245,7 @@ From June 23-26, 2022, the United States held its Track and Field Championships
 at Hayward Field in Eugene, Oregon to decide who to send to the World 
 Championships being held at the same venue in August. Thus, we can establish a 
 baseline for the four United States athletes who competed in at least one round 
-of both events: Trey Cunningham, Daniel Roberts, Grant Holloway, and Devon Allen.   
+of both events: Trey Cunningham, Daniel Roberts, Grant Holloway, and Devon Allen.  
 Every athlete reacted faster in all the World Track and Field Championships 
 races compared to the United States Track and Field Championships races. The 
 dataset of the four United States athletes is too small to perform any 
@@ -259,11 +259,11 @@ recorded in the national language without translation).
 Each athlete was designated as a ``cluster'' and the stage of competition (national
 or international) was specified for each competition within the cluster (athlete).
 Thus, this is subunit level grouping where we assign the treatment, national or
-international, within each cluster.  Cluster sizes range from three to six, with
+international, within each cluster. Cluster sizes range from three to six, with
 one cluster of size three, six clusters of size four, two clusters of size five,
 and two clusters of size six. We chose to include preliminary rounds in this
 section as well as in Section~\ref{sec:data2019} in order to increase the size 
-of our data.  Without data from the preliminary rounds, the number of observations
+of our data. Without data from the preliminary rounds, the number of observations
 dropped from 65 to 26 and the number of athletes included in the analysis
 decreased from 15 to 9.
 
@@ -271,7 +271,7 @@ decreased from 15 to 9.
 \subsubsection{Other World Track and Field Championships}\label{sec:data2019}
 The 2019 and 2023 World Track and Field Championships data is included in the 
 larger dataset described in Section~\ref{sec:dataworld}, but we can also use it
-similarly to how we used national level in Section~\ref{sec:datanational}.  We
+similarly to how we used national level in Section~\ref{sec:datanational}. We
 can compare the times of athletes who participated in the 2022 Championships with
 their times at another World Championships: 2019 and/or 2023.
 
@@ -279,7 +279,7 @@ their times at another World Championships: 2019 and/or 2023.
 While it is theoretically possible that athletes got faster 
 between 2019 and 2022 or 2022 and 2023, it is important to 
 remember that these are some of the fastest sprinters on the planet, and thus
-improving on elite times is not easy.  Once again we repeat a similar procedure
+improving on elite times is not easy. Once again we repeat a similar procedure
 as in Section~\ref{sec:datanational}; we assign each athlete to be a cluster and
 within each cluster label times to be from either the 2019, 2022, or 2023 World
 Championships. When comparing 2019 and 2022 we look at data from 15
@@ -306,7 +306,7 @@ Figure~\ref{fig:RankScatterplots} shows the data that will be analyzed
 with the rank-based methods (described in Section~\ref{sec:rank} with results in 
 Section~\ref{subsec:Results_Rank}). In each of the three graphs, the reaction 
 times for athletes who competed at the 2022 World Championships
-are compared to their reaction times at another at which they competed.  
+are compared to their reaction times at another at which they competed. 
 It is worth noting that each instance of the 2022 data is different, because
 those who competed at both the 2019 and 2022 World Championships will be
 different athletes than those who competed at both the 2022 and 2023 World
@@ -334,16 +334,16 @@ For analysis purposes, we will pool reaction times of men's final and
 men's semifinal heats together which increases the sample size. This is 
 advantageous because in some years there are very few finals observations, such
 as in 2022, when there were only five data points due to two disqualifications 
-and one athlete who did not compete.  This is the data that we will reference
+and one athlete who did not compete. This is the data that we will reference
 throughout the rest of the paper unless otherwise noted. We also consider data 
 that excludes 2022 to see how our analysis differs based on the exclusion of one
 particular year of interest.
 
 
 The data under consideration is summarized using side-by-side boxplots in 
-Figure~\ref{fig:Boxplot}.  It is clear that the reaction times in the 2022
+Figure~\ref{fig:Boxplot}. It is clear that the reaction times in the 2022
 box plot are lower (indicating faster reaction times) than in many of the other
-years.  The median reaction time in 2022 was 0.129 seconds,  compared to 0.156
+years. The median reaction time in 2022 was 0.129 seconds,  compared to 0.156
 seconds, which is what \citet{brosnan2017effects} found when looking at data
 from 1999 to 2014. We can also see from Figure~\ref{fig:Boxplot} that the 
 reaction times clearly differ from year to year. The venue of the World 
@@ -439,9 +439,9 @@ final model. As suggested by the log-likelihood and the Akaike Information
 Criterion (AIC), the normal error model on the log-scale was found to be
 much inferior to the gamma model which better captures the skewness of the
 data. Two random effects were found useful: one capturing the venue effect in
-each year and the other capturing the heat effect within each year.  The heat
+each year and the other capturing the heat effect within each year. The heat
 effect is important as it captures the variability in the amount of time
-athletes are on the starting blocks before the gun goes off.  Thus, we can try
+athletes are on the starting blocks before the gun goes off. Thus, we can try
 to reduce this variability by accounting for it in the model through the heat
 effect.
 
@@ -482,7 +482,7 @@ distribution of $Y_{ijk}$ is a scale-mixture of gamma distributions, which can b
 easily simulated from once the parameters are estimated. Many
 random numbers generated from the fitted mixture distribution can be used to
 approximate the probability of observing a reaction time faster than any given
-threshold.  We are specifically interested in the probability of a reaction time
+threshold. We are specifically interested in the probability of a reaction time
 being less than 0.1 seconds in order to gauge if that is a reasonable 
 disqualification barrier.
 
@@ -493,7 +493,7 @@ disqualification barrier.
 
 The rank-based methods described in Section~\ref{sec:rank} are used
 to determine if the reaction times for athletes who had competed at other 
-championships differed significantly from the 2022 World Championships.  This is
+championships differed significantly from the 2022 World Championships. This is
 a two group comparison performed three times: comparing 2019 and 2022 World
 Championships, comparing 2022 and 2023 World Championships, and comparing 2022 
 national championships to the 2022 World Championships.
@@ -504,9 +504,9 @@ national championships to the 2022 World Championships.
   \caption{2019 vs 2022 compares data from the same athletes who competed at the
   2019 and 2022 World Track and Field Championships. 2022 vs 2023 compares data
   from the same athletes who competed at the 2022 and 2023 World Track and Field
-  Championships. Nat vs Inter compares data from the same athletes who competed
-  at the 2022 national-level championships and the 2022 World Track and Field
-  Championships.}
+  Championships. National vs International compares data from the same athletes
+  who competed at 2022 national-level championships and the 2022 World Track and
+  Field Championships.}
   \begin{tabular}{c c c c c} 
    \toprule
    Comparison & Permutation & Asymptotic \\ 
@@ -527,11 +527,11 @@ comparison produced lower p-values than the 2019 versus 2022 comparison, with th
 national vs international permutation test producing a p-value of $2\cdot10^{-6}$.
 This is a highly significant test result and shows that athletes who competed at the
 2022 World Track and Field Championships were on average, significantly faster
-at reacting than they were just a few months prior.  For the 2019 versus 2022
+at reacting than they were just a few months prior. For the 2019 versus 2022
 same athlete comparison with permutation test, the p-value was 
-$2.9\cdot10^{-3}$, which is significant at $\alpha = 0.01$.  The result of
+$2.9\cdot10^{-3}$, which is significant at $\alpha = 0.01$. The result of
 comparing 2022 and 2023 was very similar to the above result, as the p-value
-from the permutation test was $3.0\cdot10^{-3}$.  Taken together, these three
+from the permutation test was $3.0\cdot10^{-3}$. Taken together, these three
 tests help show that athletes competing at the 2022 World Track and Field
 Championships had faster reaction times than when they had competed previously.
 
@@ -540,13 +540,14 @@ Championships had faster reaction times than when they had competed previously.
 
 
 The estimated parameters of the GLMM model from our analysis are shown in 
-Table~\ref{tab:Gamma_parameters}.  These statistics reflect the inclusion of 2022
-in our analysis and shows the three models we considered. $\sigma_h^2$ is the
+Table~\ref{tab:Gamma_parameters}. These statistics reflect the inclusion of 2022
+in our analysis and shows the three models we considered. The standard deviation
+of the heat effect is $\sigma_h^2$, the standard deviation of the venue effect
+is $\sigma_v^2$, the intercept is $\alpha$ and we report $\sqrt{\phi}$ as the
+standard deviation of the dispersion parameter $\phi$
 \jy{read what you wrote. These are variances not sd. Do not start a sentence
   with a symbol (see my writing guidelines).}
-standard deviation of the heat effect, $\sigma_v^2$ is the standard deviation of
-the venue effect, $\alpha$ is the intercept, and $\phi$ is the dispersion
-parameter of the gamma model.
+\of{Resolved}
 The GLMM with both venue and heat random
 effects was the best model as evidenced by a decrease in the AIC compared to the
 other models with only one random effect. 
@@ -558,7 +559,7 @@ of the paper.
 
 \begin{table}
   \centering
-  \caption{AIC and estimated parameters for the three GLMMs fitted to the ???
+  \caption{AIC and estimated parameters for the three models fitted to all the
     data.}
   \label{tab:Gamma_parameters}
   \begin{tabular}{c c c c c c}
@@ -579,11 +580,7 @@ Using the gamma function with link set to log, the probability of the reaction
 time being less than 0.1 seconds can be calculated in R using the methods 
 described in Section~\ref{sec:glmm}. A simulation size of $10,000,000$ was 
 chosen to estimate the probability of observing a reaction time below 
-two thresholds: 0.1 and 0.08. When including 2022, a probability
-of $4.34\cdot10^{-3}$ corresponds to roughly 1 in every 230 starts
-being below 0.1 seconds.  When we exclude 2022, the probability of observing a
-reaction time below 0.1 seconds decreased to $3.54\cdot10^{-3}$, or 1 in every
-283 starts.
+two thresholds: 0.1 and 0.08. 
 
 
 \begin{table}
@@ -607,11 +604,23 @@ barrier from 0.1 seconds to 0.08 seconds drastically reduces the chances of
 observing a reaction time that would break the barrier. If World Athletics were
 to change the reaction time the way that \citet{komi2009iaaf} suggests, the 
 probability would be so much lower that athletes would likely not
-have a case to make when arguing against a disqualification.
+have a case to make when arguing against a disqualification. When including 2022,
+a probability of $4.34\cdot10^{-3}$ corresponds to roughly 1 in every 230 starts
+being below 0.1 seconds. When we exclude 2022, the probability of observing a
+reaction time below 0.1 seconds decreased to $3.54\cdot10^{-3}$, or 1 in every
+283 starts.  While this seems low, it is not unreasonable to think that certain
+athletes with strong reaction times could begin approach the 0.1 second barrier,
+especially when considering Allen's other reaction times: 0.124 and 0.101 at the
+2022 World Track and Field Championships.  Another important conclusion from our
+results is how excluding 2022 lowered the probability of observing a fast 
+reaction time, suggesting that 2022 was peculiarly fast, which aligns with the
+results presented in section~\ref{subsec:Results_Rank}.
+
+
 \jy{discuss the differences between with/without 2022 data; comment on the
   pecularity of the 2022 data (as suggested by the rank based method); In a
   longer run, it may not be as strange as it looks at the first time.}
-
+\of{Resolved}
 
 \begin{table}
   \centering
@@ -629,15 +638,18 @@ have a case to make when arguing against a disqualification.
 
 
 \jy{be consistent in using scienfit format of numbers; 0.0001 vs $10^{-4}$}
+\of{In our meeting you said to convert scientific notation like $10^{-2}$ to 
+0.01, and I agree I think 0.01 makes much more sense. So should I convert
+everything to decimals or scientific notation?}
 
 We can use the same model but alter our interpretation slightly to select a 
 reaction time barrier given the probability of observing a time less than the 
-barrier.  When considering all of the data, if we want a 0.1\% chance of 
+barrier. When considering all the data, if we want a 0.1\% chance of 
 observing an illegally fast reaction time, the reaction
-time barrier should be 0.092 seconds, as shown in Table~\ref{tab:Sim_time}.  We
+time barrier should be 0.092 seconds, as shown in Table~\ref{tab:Sim_time}. We
 can repeat this calculation for various probability levels,
 for example a probability of 0.0001 (one disqualification for every 10,000 starts)
-results in a reaction time barrier of 0.083 seconds.  As the exclusion of 2022
+results in a reaction time barrier of 0.083 seconds. As the exclusion of 2022
 from the data resulted in a lower probability of observing a low reaction time,
 the reaction time barrier will be less lenient when calculating the barrier
 based on probability.
@@ -655,14 +667,14 @@ that were not drastically significant after adjusting for multiple tests.
 The lack of evidence from the women's data makes it 
 harder to conclude that the sensors used at the 2022 championships were faulty, 
 although it is unknown if the sensors for the men's 110 meter hurdle and women's
-100 meter hurdle were the same.  On the other hand, this may be related to 
+100 meter hurdle were the same. On the other hand, this may be related to 
 another debated question regarding whether the reaction time barrier should be 
 the same for men and women.
 
 
 It is confusing as to why the reaction time barrier for men and women 
 is the same despite numerous articles \citep[e.g.,][]{lipps2011implications, 
-babicc2009reaction, panoutsakopoulos2020gender} stating differently.  
+babicc2009reaction, panoutsakopoulos2020gender} stating differently. 
 According to these authors, World Athletics is ignoring differences in gender by 
 setting the reaction time barrier to be equal. 
 If there are gender differences and 0.1 seconds is considered a fair time for 
@@ -678,12 +690,12 @@ World Track and Field Championships were generally faster than their reaction
 times at other competitions. Table~\ref{tab:Clusrankresults} shows multiple 
 significant p-values that indicate differences in average reaction times for 
 athletes who competed at the 2022 World Track and Field Championship and another
-competition.  Additionally, this paper has shown that a reaction time of 0.1 
+competition. Additionally, this paper has shown that a reaction time of 0.1 
 seconds is not as extreme as one may think, and that based on the probabilities
 in Table~\ref{tab:Sim_time}, World Athletics may consider changing the 
-disqualification barrier to 0.8 seconds.  If they were to do so, they would 
+disqualification barrier to 0.8 seconds. If they were to do so, they would 
 allow athletes like Allen to be able to react faster without fear of being 
-disqualified.  Taken together, the results show that 2022 was an outlier and 
+disqualified. Taken together, the results show that 2022 was an outlier and 
 despite being disqualified, Allen's time was not so extreme.
 
 
