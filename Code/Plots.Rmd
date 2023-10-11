@@ -7,13 +7,13 @@ output: html_document
 
 ```{r}
 times <- read.csv("../Data/Thesis2023.csv")
-colnames(times) <- c("Year", "Type", "Time", "RxnTime", "Gender", "Batch")
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat")
 ```
 
 ```{r}
 with2022 <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & Time != 'DQ')
 library(ggplot2)
-ggplot(with2022, aes(x = Year, y = RxnTime, group = Year)) +
+ggplot(with2022, aes(x = Venue, y = RxnTime, group = Venue)) +
   geom_boxplot() +
   labs(x = "Year", y = "Reaction Time (s)") +
        scale_y_continuous(limits = c(0.1, 0.225),
@@ -81,6 +81,7 @@ library(gridExtra)
 rank_scatter <- grid.arrange(rank1, rank2, rank3, ncol = 1)
 ggsave(filename = "RankScatterPlots.pdf", path = "../Manuscript", plot=rank_scatter, height = 7.5, width = 7)
 ```
+
 ```{r}
 library(lme4)
 library(ggplot2)
@@ -93,10 +94,43 @@ with2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat),
                                data = with2022, family = Gamma(link = "log"))
 ranef_results <- data.frame(ranef(with2022_two_effect_gamma_log))
 venues <- subset(ranef_results, ranef_results["grpvar"] == "Venue")
-venues <- venues %>% arrange("Venue")
+venues$year <- as.character(venues$grp)
+venues$year <- as.numeric(venues$year)
 
-ggplot(venues, aes(x=grp, y = condval)) + geom_point() + 
-  labs(x = "Year", y = "Year Effect")
+venue_effects_with2022<- ggplot(venues, aes(x=year, y = condval)) + geom_point() + 
+  labs(x = "Year", y = "Year Effect") +
+  scale_x_continuous(limits = c(1998,2024), breaks = seq(1999, 2024, 2)) +
+  scale_y_continuous(limits = c(-0.1, 0.1))
 ```
 
+
+```{r}
+library(lme4)
+library(ggplot2)
+library(dplyr)
+times <- read.csv("../Data/Thesis2023.csv")
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat")
+without2022 <- subset(times, (Type == "F" | Type == "S") & 
+                           Gender == "M" & Time != 'DQ' & Venue != 2022)
+without2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat), 
+                               data = without2022, family = Gamma(link = "log"))
+ranef_results <- data.frame(ranef(without2022_two_effect_gamma_log))
+venues <- subset(ranef_results, ranef_results["grpvar"] == "Venue")
+venues$year <- as.character(venues$grp)
+venues$year <- as.numeric(venues$year)
+
+venue_effects_without2022 <- ggplot(venues, aes(x=year, y = condval)) +
+  geom_point() + 
+  labs(x = "Year", y = "Year Effect") +
+  scale_x_continuous(limits = c(1998,2024), breaks = seq(1999, 2024, 2)) +
+  scale_y_continuous(limits = c(-0.1, 0.1))
+```
+
+```{r}
+library(gridExtra)
+venue_effects_combined <- grid.arrange(venue_effects_with2022,
+                                       venue_effects_without2022, ncol = 1)
+ggsave(filename = "ComparisonOfVenueEffects.pdf", path = "../Manuscript",
+       plot=venue_effects_combined, height = 6.5, width = 7)
+```
 
