@@ -511,9 +511,9 @@ national championships to the 2022 World Championships.
    \toprule
    Comparison & Permutation & Asymptotic \\ 
    \midrule
-   2019 vs 2022 & $2.8\cdot10^{-2}$ & $2.9\cdot10^{-3}$ \\
-   2022 vs 2023 & $1.1\cdot10^{-2}$ & $3.1\cdot10^{-3}$ \\
-   2022 National vs International & $2\cdot10^{-6}$ & $1.1\cdot10^{-3}$ \\
+   2019 vs 2022 & $0.028$ & $0.003$ \\
+   2022 vs 2023 & $0.011$ & $0.003$ \\
+   2022 National vs International & $2\cdot10^{-6}$ & $0.001$ \\
    \bottomrule
   \end{tabular}
   \label{tab:Clusrankresults}
@@ -529,33 +529,15 @@ This is a highly significant test result and shows that athletes who competed at
 2022 World Track and Field Championships were on average, significantly faster
 at reacting than they were just a few months prior. For the 2019 versus 2022
 same athlete comparison with permutation test, the p-value was 
-$2.9\cdot10^{-3}$, which is significant at $\alpha = 0.01$. The result of
-comparing 2022 and 2023 was very similar to the above result, as the p-value
-from the permutation test was $3.0\cdot10^{-3}$. Taken together, these three
+$0.003$, which is significant at $\alpha = 0.01$. The result of
+comparing 2022 and 2023 was very similar (but not exactly the same) to the above
+result, as the p-value from the permutation test was $0.003$. Taken together, these three
 tests help show that athletes competing at the 2022 World Track and Field
 Championships had faster reaction times than when they had competed previously.
 
 
 \subsection{GLMM} \label{subsec:Results_GLMM}
 
-
-The estimated parameters of the GLMM model from our analysis are shown in 
-Table~\ref{tab:Gamma_parameters}. These statistics reflect the inclusion of 2022
-in our analysis and shows the three models we considered. The standard deviation
-of the heat effect is $\sigma_h^2$, the standard deviation of the venue effect
-is $\sigma_v^2$, the intercept is $\alpha$ and we report $\sqrt{\phi}$ as the
-standard deviation of the dispersion parameter $\phi$
-\jy{read what you wrote. These are variances not sd. Do not start a sentence
-  with a symbol (see my writing guidelines).}
-\of{Resolved}
-The GLMM with both venue and heat random
-effects was the best model as evidenced by a decrease in the AIC compared to the
-other models with only one random effect. 
-Thus, results from the GLMM with both venue and heat random effects
-will be presented throughout the rest
-of the paper.
-
-\jy{do a thorough check on the captions of tables and figures.}
 
 \begin{table}
   \centering
@@ -564,7 +546,7 @@ of the paper.
   \label{tab:Gamma_parameters}
   \begin{tabular}{c c c c c c}
       \toprule
-      Model & AIC & $\sigma_h^2$ & $\sigma_v^2$ & $\alpha$ & $\sqrt{\phi}$ \\
+      Model & AIC & $\sigma_h$ & $\sigma_v$ & $\alpha$ & $\sqrt{\phi}$ \\
       \midrule
       Venue Effect Only & $-2023.5$ &   & 0.054 & $-1.871$ & 0.150\\
       Heat Effect Only & $-2070.7$ & 0.073 &  & $-1.890$ & 0.135\\
@@ -574,13 +556,45 @@ of the paper.
 \end{table}
 
 
-Two aims of this section are to determine how extreme a reaction time below
-0.1 seconds is, and to determine how the exclusion of 2022 could alter the results.
-Using the gamma function with link set to log, the probability of the reaction 
-time being less than 0.1 seconds can be calculated in R using the methods 
-described in Section~\ref{sec:glmm}. A simulation size of $10,000,000$ was 
-chosen to estimate the probability of observing a reaction time below 
-two thresholds: 0.1 and 0.08. 
+The estimated parameters of the GLMM model from our analysis are shown in 
+Table~\ref{tab:Gamma_parameters}. These statistics reflect the inclusion of 2022
+in our analysis and shows the three models we considered. The standard deviation
+of the heat effect is $\sigma_h$, the standard deviation of the venue effect
+is $\sigma_v$, the intercept is $\alpha$ and we report $\sqrt{\phi}$ as the
+square root of the dispersion parameter $\phi$
+\jy{read what you wrote. These are variances not sd. Do not start a sentence
+  with a symbol (see my writing guidelines).}
+\of{Actually Resolved}
+The GLMM with both venue and heat random effects was the best model as evidenced
+by a decrease in the AIC compared to the other models with only one random effect. 
+Thus, results from the GLMM with both venue and heat random effects will be 
+presented throughout the rest of the paper.
+
+
+\jy{do a thorough check on the captions of tables and figures.}
+
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics{ComparisonOfVenueEffects}
+  \caption{The venue effects from 1999 to 2023 for the data including 2022 (top)
+  and excluding 2022 (bottom)}
+  \label{fig:VenueEffects}
+\end{figure}
+
+
+Figure~\ref{fig:VenueEffects} shows the venue effects from 1999 to 2023 based
+on the full model both with and without 2022.  As this graph does not show heat
+effects, the estimates may not align exactly with the box plot presented in
+figure~\ref{fig:Boxplot}.  The venue effect for 2022 is lower than any other
+effect, confirming that 2022 was a low outlier.  Two aims of this section are to
+determine how extreme a reaction time below 0.1 seconds is, and although the
+venue effects did not differ significantly, to determine how the exclusion of 
+2022 could alter the results. Using the gamma function with \texttt{link = log},
+the probability of the reaction time being less than 0.1 seconds can be 
+calculated in R using the methods described in Section~\ref{sec:glmm}. A 
+simulation size of $10,000,000$ was chosen to estimate the probability of 
+observing a reaction time below two thresholds: 0.1 and 0.08. 
 
 
 \begin{table}
@@ -638,9 +652,7 @@ results presented in section~\ref{subsec:Results_Rank}.
 
 
 \jy{be consistent in using scienfit format of numbers; 0.0001 vs $10^{-4}$}
-\of{In our meeting you said to convert scientific notation like $10^{-2}$ to 
-0.01, and I agree I think 0.01 makes much more sense. So should I convert
-everything to decimals or scientific notation?}
+\of{I think we should be good now, let me know if there is anything else}
 
 We can use the same model but alter our interpretation slightly to select a 
 reaction time barrier given the probability of observing a time less than the 
