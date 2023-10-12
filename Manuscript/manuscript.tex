@@ -561,6 +561,9 @@ should I block by model?}
   \end{tabular}
 \end{table}
 
+\jy{Hopefully, the full model is preferred for both with and without 2022}
+\of{It is but the AIC are more similar without 2022}
+
 
 The estimated parameters of the GLMM model from our analysis are shown in 
 Table~\ref{tab:Gamma_parameters}. These statistics reflect the inclusion of 2022
@@ -573,7 +576,15 @@ by a decrease in the AIC compared to the other models with only one random
 effect.  When we exclude 2022 from the full model, we observe small but intriguing
 discrepancies in the models. The standard deviation of the venue effect, 
 $\sigma_v$, decreases from 0.40 to 0.33 when 2022 is excluded.  Thus, 2022
-increased the noise in the overall data and confirms that it is an outlier.
+increased the noise in the overall data, but many of the other statistics
+remained relatively similar, such as the standard deviation of the heat effect
+and the dispersion parameter.
+
+%\of{Can I just refer to it as the dispersion parameter or should I say "square
+%root of the dispersion parameter" Mathematically it shouldn't make a difference 
+%right as 0.134^2 and 0.136^2 are very similar and I am applying a function to 
+%both? Also should I be saying "standard deviation of heat effect", or sigma_v 
+%or both?} 
 
 
 \jy{discuss the differences in the parameter estimates with and without 2022
@@ -585,11 +596,11 @@ on the full model both with and without 2022.  As this graph does not show heat
 \jy{discuss the years the venue effects are high and low}
 effects, the estimates may not align exactly with the box plot presented in
 figure~\ref{fig:Boxplot}.  The venue effect for 2022 is lower than any other
-effect, confirming that 2022 was a low outlier. \jy{but may not be as extreme as
-  one would think considering the whole history.}
+effect, but may not be as extreme as one would think considering the history
+of reaction times going back to 1999.
 
 
-\jy{Hopefully, the full model is preferred for both with and without 2022}
+
 
 Thus, results from the GLMM with both venue and heat random effects will be 
 presented throughout the rest of the paper.
