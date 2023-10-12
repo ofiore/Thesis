@@ -397,7 +397,7 @@ each athlete is a cluster and the multiple reaction times from the same athlete
 can be from either the 2022 World Championships or otherwise.
 Let $X_{ij}$ be the $j$th reaction time of athlete~$i$, $i = 1, \ldots, n$,
 $j = 1, \ldots, m_i$ where $m_i$ is the number of observations from
-athelete~$i$. Let $\delta_{ij}$ be the group indicator of $X_{ij}$; $\delta_{ij}
+athlete~$i$. Let $\delta_{ij}$ be the group indicator of $X_{ij}$; $\delta_{ij}
 = 1$ if $X_{ij}$ is in group~1 (2022 World Championships) and $\delta_{ij} = 0$ 
 otherwise. Athletes are
 assumed to be independent, while subunit observations from the same athlete are
@@ -434,7 +434,7 @@ with \texttt{method = `ds'} (for \underline{D}atta and \underline{S}atten) and
 
 \subsection{GLMM}\label{sec:glmm}
 Based on an exploratory analysis using the GLMM model for the reaction times
-from the World Championships, the we chose a gamma mixed-effect model as our 
+from the World Championships, we chose a gamma mixed-effect model as our 
 final model. As suggested by the log-likelihood and the Akaike Information
 Criterion (AIC), the normal error model on the log-scale was found to be
 much inferior to the gamma model which better captures the skewness of the
@@ -539,6 +539,8 @@ Championships had faster reaction times than when they had competed previously.
 \subsection{GLMM} \label{subsec:Results_GLMM}
 
 \jy{Add the results without 2022 to this table.}
+\of{Does it make sense to order the table how I did, and block by dataset or
+should I block by model?}
 \begin{table}
   \centering
   \caption{AIC and estimated parameters for the three models fitted to all the
@@ -548,9 +550,13 @@ Championships had faster reaction times than when they had competed previously.
       \toprule
       Model & AIC & $\sigma_h$ & $\sigma_v$ & $\alpha$ & $\sqrt{\phi}$ \\
       \midrule
-      Venue Effect Only & $-2023.5$ &   & 0.054 & $-1.871$ & 0.150\\
-      Heat Effect Only & $-2070.7$ & 0.073 &  & $-1.890$ & 0.135\\
-      Venue and Heat Effect & $-2075.7$ & 0.057 & 0.040 & $-1.880$ & 0.134\\
+      With 2022 Venue Effect Only & $-2023.5$ &   & 0.054 & $-1.871$ & 0.150\\
+      With 2022 Heat Effect Only & $-2070.7$ & 0.073 &  & $-1.890$ & 0.135\\
+      With 2022 Venue and Heat Effect & $-2075.7$ & 0.057 & 0.040 & $-1.880$ & 0.134\\
+      \midrule
+      Without 2022 Venue Effect Only & $-1862.2$ &   & 0.048 & $-1.857$ & 0.152\\
+      Without 2022 Heat Effect Only & $-1910.9$ & 0.069 &  & $-1.877$ & 0.136\\
+      Without 2022 Venue and Heat Effect & $-1912.9$ & 0.058 & 0.033 & $-1.880$ & 0.136\\
       \bottomrule
   \end{tabular}
 \end{table}
@@ -564,7 +570,12 @@ is $\sigma_v$, the intercept is $\alpha$ and we report $\sqrt{\phi}$ as the
 square root of the dispersion parameter $\phi$.
 The GLMM with both venue and heat random effects was the best model as evidenced
 by a decrease in the AIC compared to the other models with only one random
-effect.
+effect.  When we exclude 2022 from the full model, we observe small but intriguing
+discrepancies in the models. The standard deviation of the venue effect, 
+$\sigma_v$, decreases from 0.40 to 0.33 when 2022 is excluded.  Thus, 2022
+increased the noise in the overall data and confirms that it is an outlier.
+
+
 \jy{discuss the differences in the parameter estimates with and without 2022
   data, especially the sd of the random effect of venue.}
 
