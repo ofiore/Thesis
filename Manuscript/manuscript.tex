@@ -538,7 +538,7 @@ Championships had faster reaction times than when they had competed previously.
 
 \subsection{GLMM} \label{subsec:Results_GLMM}
 
-
+\jy{Add the results without 2022 to this table.}
 \begin{table}
   \centering
   \caption{AIC and estimated parameters for the three models fitted to all the
@@ -561,18 +561,27 @@ Table~\ref{tab:Gamma_parameters}. These statistics reflect the inclusion of 2022
 in our analysis and shows the three models we considered. The standard deviation
 of the heat effect is $\sigma_h$, the standard deviation of the venue effect
 is $\sigma_v$, the intercept is $\alpha$ and we report $\sqrt{\phi}$ as the
-square root of the dispersion parameter $\phi$
-\jy{read what you wrote. These are variances not sd. Do not start a sentence
-  with a symbol (see my writing guidelines).}
-\of{Actually Resolved}
+square root of the dispersion parameter $\phi$.
 The GLMM with both venue and heat random effects was the best model as evidenced
-by a decrease in the AIC compared to the other models with only one random effect. 
+by a decrease in the AIC compared to the other models with only one random
+effect.
+\jy{discuss the differences in the parameter estimates with and without 2022
+  data, especially the sd of the random effect of venue.}
+
+
+Figure~\ref{fig:VenueEffects} shows the venue effects from 1999 to 2023 based
+on the full model both with and without 2022.  As this graph does not show heat
+\jy{discuss the years the venue effects are high and low}
+effects, the estimates may not align exactly with the box plot presented in
+figure~\ref{fig:Boxplot}.  The venue effect for 2022 is lower than any other
+effect, confirming that 2022 was a low outlier. \jy{but may not be as extreme as
+  one would think considering the whole history.}
+
+
+\jy{Hopefully, the full model is preferred for both with and without 2022}
+
 Thus, results from the GLMM with both venue and heat random effects will be 
 presented throughout the rest of the paper.
-
-
-\jy{do a thorough check on the captions of tables and figures.}
-
 
 \begin{figure}[tbp]
   \centering
@@ -583,17 +592,13 @@ presented throughout the rest of the paper.
 \end{figure}
 
 
-Figure~\ref{fig:VenueEffects} shows the venue effects from 1999 to 2023 based
-on the full model both with and without 2022.  As this graph does not show heat
-effects, the estimates may not align exactly with the box plot presented in
-figure~\ref{fig:Boxplot}.  The venue effect for 2022 is lower than any other
-effect, confirming that 2022 was a low outlier.  Two aims of this section are to
+Two aims of this section are to
 determine how extreme a reaction time below 0.1 seconds is, and although the
 venue effects did not differ significantly, to determine how the exclusion of 
-2022 could alter the results. Using the gamma function with \texttt{link = log},
+2022 could alter the results. Using the gamma family with \texttt{link = log},
 the probability of the reaction time being less than 0.1 seconds can be 
 calculated in R using the methods described in Section~\ref{sec:glmm}. A 
-simulation size of $10,000,000$ was chosen to estimate the probability of 
+simulation size of $10,000,000$ was used to estimate the probability of 
 observing a reaction time below two thresholds: 0.1 and 0.08. 
 
 
@@ -631,11 +636,6 @@ reaction time, suggesting that 2022 was peculiarly fast, which aligns with the
 results presented in section~\ref{subsec:Results_Rank}.
 
 
-\jy{discuss the differences between with/without 2022 data; comment on the
-  pecularity of the 2022 data (as suggested by the rank based method); In a
-  longer run, it may not be as strange as it looks at the first time.}
-\of{Resolved}
-
 \begin{table}
   \centering
   \caption{Suggested reaction time barriers based on tail probabilities.}
@@ -649,10 +649,6 @@ results presented in section~\ref{subsec:Results_Rank}.
   \end{tabular}
   \label{tab:Sim_time}
 \end{table}
-
-
-\jy{be consistent in using scienfit format of numbers; 0.0001 vs $10^{-4}$}
-\of{I think we should be good now, let me know if there is anything else}
 
 We can use the same model but alter our interpretation slightly to select a 
 reaction time barrier given the probability of observing a time less than the 
