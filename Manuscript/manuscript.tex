@@ -543,21 +543,22 @@ Championships had faster reaction times than when they had competed previously.
 should I block by model?}
 \begin{table}
   \centering
-  \caption{AIC and estimated parameters for the three models fitted to all the
+  \caption{AIC and estimated parameters for the three models fitted to the
     data.}
   \label{tab:Gamma_parameters}
-  \begin{tabular}{c c c c c c}
-      \toprule
-      Model & AIC & $\sigma_h$ & $\sigma_v$ & $\alpha$ & $\sqrt{\phi}$ \\
-      \midrule
-      With 2022 Venue Effect Only & $-2023.5$ &   & 0.054 & $-1.871$ & 0.150\\
-      With 2022 Heat Effect Only & $-2070.7$ & 0.073 &  & $-1.890$ & 0.135\\
-      With 2022 Venue and Heat Effect & $-2075.7$ & 0.057 & 0.040 & $-1.880$ & 0.134\\
-      \midrule
-      Without 2022 Venue Effect Only & $-1862.2$ &   & 0.048 & $-1.857$ & 0.152\\
-      Without 2022 Heat Effect Only & $-1910.9$ & 0.069 &  & $-1.877$ & 0.136\\
-      Without 2022 Venue and Heat Effect & $-1912.9$ & 0.058 & 0.033 & $-1.880$ & 0.136\\
-      \bottomrule
+  \begin{tabular}{c c c c c c c}
+    \toprule
+    Data set & Model & AIC & $\sigma_h$ & $\sigma_v$ & $\alpha$ & $\sqrt{\phi}$ \\
+    \midrule
+    Excluding 2022 &
+      Venue Effect Only & $-1862.2$ &   & 0.048 & $-1.857$ & 0.152\\
+     & Heat Effect Only & $-1910.9$ & 0.069 &  & $-1.877$ & 0.136\\
+     & Venue and Heat Effect & $-1912.9$ & 0.058 & 0.033 & $-1.880$ & 0.136\\[1ex]
+    Including 2022 &
+    Venue Effect Only & $-2023.5$ &   & 0.054 & $-1.871$ & 0.150\\
+    & Heat Effect Only & $-2070.7$ & 0.073 &  & $-1.890$ & 0.135\\
+    & Venue and Heat Effect & $-2075.7$ & 0.057 & 0.040 & $-1.880$ & 0.134\\
+    \bottomrule
   \end{tabular}
 \end{table}
 
