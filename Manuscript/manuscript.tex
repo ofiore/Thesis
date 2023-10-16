@@ -313,9 +313,15 @@ different athletes than those who competed at both the 2022 and 2023 World
 Championships. This data was only for athletes who competed
 in at least one race at each championship, however it is possible for athletes
 to have competed in one race in 2019 and two races in 2022.
+%The 2022 World
+%Championship Heats and Semifinals both had on average lower reaction times than
+%their respective 2019 races, and the 2022 finals were substantially faster. 
 The 2022 World
 Championship Heats and Semifinals both had on average lower reaction times than
-their respective 2019 races, and the 2022 finals were substantially faster. It
+their respective other (2019, 2023 or 2022 national) races, and the 2022 World 
+Championship finals were substantially faster. 
+\eds{please check change}
+It
 is also worth noting is that the fastest reaction time in the 2022 World
 Championships Finals and Semifinals both came from Devon Allen, but the 
 difference between 0.101 and 0.099
@@ -342,7 +348,7 @@ particular year of interest.
 
 The data under consideration is summarized using side-by-side boxplots in 
 Figure~\ref{fig:Boxplot}. It is clear that the reaction times in the 2022
-box plot are lower (indicating faster reaction times) than in many of the other
+boxplot are lower (indicating faster reaction times) than in many of the other
 years. The median reaction time in 2022 was 0.129 seconds,  compared to 0.156
 seconds, which is what \citet{brosnan2017effects} found when looking at data
 from 1999 to 2014. We can also see from Figure~\ref{fig:Boxplot} that the 
@@ -455,7 +461,7 @@ dispersion parameter~$\phi > 0$. The conditional mean is characterized by
 \[
 g\{E(Y_{ijk} | v_i, h_{i/j})\} = \alpha + v_i + h_{i/j},
 \]
-where $g$ is a known link function,
+where $g$ is a known link function, $\alpha$ is a (fixed) intercept,
 $v_i$ is normally distributed with mean zero and
 variance~$\sigma_v^2$, and $h_{i/j}$ 
 is normally distributed with mean
@@ -529,11 +535,17 @@ This is a highly significant test result and shows that athletes who competed at
 2022 World Track and Field Championships were on average, significantly faster
 at reacting than they were just a few months prior. For the 2019 versus 2022
 same athlete comparison with permutation test, the p-value was 
-$0.003$, which is significant at $\alpha = 0.01$. The result of
+$0.003$, which is significant at $\alpha = 0.01$. 
+\eds{According to the table, this p-value is 0.028 (significant at the 0.05 
+level.)}
+The result of
 comparing 2022 and 2023 was very similar (but not exactly the same) to the above
-result, as the p-value from the permutation test was $0.003$. Taken together, these three
+result, as the p-value from the permutation test was $0.003$.
+\eds{According to the table, this p-value is $0.011$.} 
+Taken together, these three
 tests help show that athletes competing at the 2022 World Track and Field
-Championships had faster reaction times than when they had competed previously.
+Championships had faster reaction times than when they had competed at other
+competitions.
 
 
 \subsection{GLMM} \label{subsec:Results_GLMM}
@@ -561,8 +573,8 @@ Championships had faster reaction times than when they had competed previously.
 
 
 The estimated parameters of the GLMM model under the log link are shown in 
-Table~\ref{tab:Gamma_parameters}, with both including and excluding 2022 data.
-Three models were considered, differing in there random effects: venue effect
+Table~\ref{tab:Gamma_parameters}, both excluding and including 2022 data.
+Three models were considered, differing in their random effects: venue effect
 only; heat effect only, and both venue and heat effects. Reported are the AIC
 and estimated model parameters: the standard deviation
 of the heat effect $\sigma_h$, the standard deviation of the venue
@@ -573,7 +585,7 @@ by the AIC compared to the other models with only one random
 effect.  When we exclude 2022 from the full model, we observe small but intriguing
 discrepancies in the models. The standard deviation of the venue effect, 
 $\sigma_v$, increases from 0.33 to 0.40 when 2022 is included, however, the
-changes to the estimates of other parameters
+ estimates of other parameters
 remained relatively similar, such as the standard deviation of the heat effect
 and the dispersion parameter.
 
@@ -592,10 +604,12 @@ Figure~\ref{fig:VenueEffects} further illustrates the venue effect from 1999 to
 of the two sets of effects look very similar, except that the positive effects
 estimated with 2022 included have higher magnitude than those estimated without
 2022, which compensates the negative effect of the 2022 with a large magnitude.
-Both plots agree to some extent with the pattern of the centers of the box plots in
+Both plots agree to some extent with the pattern of the centers of the boxplots in
 Figure~\ref{fig:Boxplot}. The mismatch is due to the venue effect, which has a
-higher standard deviation than the venue effect. The venue effect for 2022 is
-lower than that for any other years, but may not be as extreme as one would
+higher standard deviation than the venue effect. 
+\eds{I do not understand what is meant by the previous sentence.}
+The venue effect for 2022 is
+lower than that for any other year, but may not be as extreme as one would
 think considering the history of reaction times going back to 1999.
 
 
@@ -623,9 +637,9 @@ Table~\ref{tab:Sim_probability} summarizes the estimated probabilities of
 observing a reaction time below 0.08, 0.09, and 0.10 seconds under two different
 scenarios: one excluding and the other including data from 2022. Apparently,
 excluding 2022 lowered the probability of observing a fast reaction time, but
-the difference is not in a any big magtinude. For example, the probability for
+the difference is not big in magnitude. For example, the probability for
 seeing a reaction time below 0.10 seconds changes from $3.54\cdot 10^{-3}$ to
-$4.20\cdot 10^{-3}$ when 2022 is included. They corresponding to roughly one in
+$4.20\cdot 10^{-3}$ when 2022 is included. These values correspond to roughly one in
 every 230 starts and 283 starts, respectively. The table shows that changing the
 reaction time barrier from 0.1 seconds to 0.08 seconds drastically reduces the
 chance of observing a reaction time below the barrier, from one in roughly every
