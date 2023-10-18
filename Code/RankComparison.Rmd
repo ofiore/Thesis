@@ -111,19 +111,4 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_data,
                 method = "ds", 
                 exact = TRUE, B = 1000000)
 ```
-```{r}
-new_2023 <- read.csv("../Data/ClusrankNatVsWorld2023.csv")
-colnames(new_2023) <- c("Time", 'Athlete', "Year")
-```
-
-```{r}
-set.seed(1)
-library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = new_2023,
-                method = "ds")
-
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = new_2023,
-                method = "ds",
-                exact = TRUE, B = 1000000)
-```
 
