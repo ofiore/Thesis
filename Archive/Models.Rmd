@@ -1,0 +1,148 @@
+---
+title: "Models"
+author: "Owen Fiore"
+date: "2023-02-07"
+output: pdf_document
+---
+
+```{r}
+times <- read.csv("../Data/ThesisData.csv")
+colnames(times) <- c("Year", "Type", "Time", "RxnTime", "Gender", "Batch")
+```
+
+```{r}
+men_finals <- subset(times, Type == "F" & Gender == "M" & Time != 'DQ') # & Year < 2022)
+men_pooled <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & Time != 'DQ')
+```
+
+```{r}
+men_old_finals <- subset(times, Type == "F" & Gender == "M" & Time != 'DQ' & Year < 2022)
+men_old_pooled <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & Time != 'DQ' & Year < 2022)
+```
+
+```{r}
+library(lme4)
+men_finals_one <- glm(RxnTime ~ 1, data = men_finals)
+men_finals_year <- lmer(RxnTime ~ (1|Year), data = men_finals)
+men_finals_one_gamma <- glm(RxnTime ~ 1, data = men_finals, family = Gamma)
+men_finals_year_gamma <- glmer(RxnTime ~ (1|Year), data = men_finals, family = Gamma)
+men_finals_one_gamma_log <- glm(RxnTime ~ 1, data = men_finals, family = Gamma(link = "log"))
+men_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_finals, family = Gamma(link = "log"))
+
+paste("Linear without year effect has AIC of", AIC(men_finals_one), "and log-lik of", logLik(men_finals_one))
+paste("Linear with year effect has AIC of", AIC(men_finals_year), "and log-lik of", logLik(men_finals_year))
+paste("Gamma without year effect has AIC of", AIC(men_finals_one_gamma), "and log-lik of", logLik(men_finals_one_gamma))
+paste("Gamma with year effect has AIC of", AIC(men_finals_year_gamma), "and log-lik of", logLik(men_finals_year_gamma))
+paste("Gamma and log without year effect has AIC of", AIC(men_finals_one_gamma_log), "and log-lik of", logLik(men_finals_one_gamma_log))
+paste("Gamma and log with year effect has AIC of", AIC(men_finals_year_gamma_log), "and log-lik of", logLik(men_finals_year_gamma_log))
+```
+
+The best selected model is men_finals_year_gamma as that has the smallest AIC: -491 and largest log-lik of 248.5
+
+
+
+```{r}
+library(lme4)
+men_old_finals_one <- glm(RxnTime ~ 1, data = men_old_finals)
+men_old_finals_year <- lmer(RxnTime ~ (1|Year), data = men_old_finals)
+men_old_finals_one_gamma <- glm(RxnTime ~ 1, data = men_old_finals, family = Gamma)
+men_old_finals_year_gamma <- glmer(RxnTime ~ (1|Year), data = men_old_finals, family = Gamma)
+men_old_finals_one_gamma_log <- glm(RxnTime ~ 1, data = men_old_finals, family = Gamma(link = "log"))
+men_old_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_finals, family = Gamma(link = "log"))
+
+paste("Linear without year effect has AIC of", AIC(men_old_finals_one), "and log-lik of", logLik(men_old_finals_one))
+paste("Linear with year effect has AIC of", AIC(men_old_finals_year), "and log-lik of", logLik(men_old_finals_year))
+paste("Gamma without year effect has AIC of", AIC(men_old_finals_one_gamma), "and log-lik of", logLik(men_old_finals_one_gamma))
+paste("Gamma with year effect has AIC of", AIC(men_old_finals_year_gamma), "and log-lik of", logLik(men_old_finals_year_gamma))
+paste("Gamma and log without year effect has AIC of", AIC(men_old_finals_one_gamma_log), "and log-lik of", logLik(men_old_finals_one_gamma_log))
+paste("Gamma and log with year effect has AIC of", AIC(men_old_finals_year_gamma_log), "and log-lik of", logLik(men_old_finals_year_gamma_log))
+```
+
+The best selected model is men_old_finals_year_gamma as that has the smallest AIC: -465 and largest log-lik of 235.5.  The models for the older data does not seem to fit the data as good as for the full data set.
+
+```{r}
+library(lme4)
+men_pooled_one <- glm(RxnTime ~ 1, data = men_pooled)
+men_pooled_year <- lmer(RxnTime ~ (1|Year), data = men_pooled)
+men_pooled_one_gamma <- glm(RxnTime ~ 1, data = men_pooled, family = Gamma)
+men_pooled_year_gamma <- glmer(RxnTime ~ (1|Year), data = men_pooled, family = Gamma)
+men_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = men_pooled, family = Gamma(link = "log"))
+men_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_pooled, family = Gamma(link = "log"))
+
+paste("Linear without year effect has AIC of", AIC(men_pooled_one), "and log-lik of", logLik(men_pooled_one))
+paste("Linear with year effect has AIC of", AIC(men_pooled_year), "and log-lik of", logLik(men_pooled_year))
+paste("Gamma without year effect has AIC of", AIC(men_pooled_one_gamma), "and log-lik of", logLik(men_pooled_one_gamma))
+paste("Gamma with year effect has AIC of", AIC(men_pooled_year_gamma), "and log-lik of", logLik(men_pooled_year_gamma))
+paste("Gamma and log without year effect has AIC of", AIC(men_pooled_one_gamma_log), "and log-lik of", logLik(men_pooled_one_gamma_log))
+paste("Gamma and log with year effect has AIC of", AIC(men_pooled_year_gamma_log), "and log-lik of", logLik(men_pooled_year_gamma_log))
+```
+
+The best selected model is men_pooled_year_gamma_log as it had the smallest AIC and the largest log-lik
+
+
+```{r}
+library(lme4)
+men_old_pooled_one <- glm(RxnTime ~ 1, data = men_old_pooled)
+men_old_pooled_year <- lmer(RxnTime ~ (1|Year), data = men_old_pooled)
+men_old_pooled_one_gamma <- glm(RxnTime ~ 1, data = men_old_pooled, family = Gamma)
+men_old_pooled_year_gamma <- glmer(RxnTime ~ (1|Year), data = men_old_pooled, family = Gamma)
+men_old_pooled_one_gamma_log <- glm(RxnTime ~ 1, data = men_old_pooled, family = Gamma(link = "log"))
+men_old_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_pooled, family = Gamma(link = "log"))
+
+paste("Linear without year effect has AIC of", AIC(men_old_pooled_one), "and log-lik of", logLik(men_old_pooled_one))
+paste("Linear with year effect has AIC of", AIC(men_old_pooled_year), "and log-lik of", logLik(men_old_pooled_year))
+paste("Gamma without year effect has AIC of", AIC(men_old_pooled_one_gamma), "and log-lik of", logLik(men_old_pooled_one_gamma))
+paste("Gamma with year effect has AIC of", AIC(men_old_pooled_year_gamma), "and log-lik of", logLik(men_old_pooled_year_gamma))
+paste("Gamma and log without year effect has AIC of", AIC(men_old_pooled_one_gamma_log), "and log-lik of", logLik(men_old_pooled_one_gamma_log))
+paste("Gamma and log with year effect has AIC of", AIC(men_old_pooled_year_gamma_log), "and log-lik of", logLik(men_old_pooled_year_gamma_log))
+```
+
+The best model is men_old_pooled_year_gamma as that has the smallest AIC: -1687.5 and the largest log-lik: 846.8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Trying out identity link
+```{r}
+men_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_finals, family = Gamma(link = "log"))
+t1 <- glmer(RxnTime ~ (1|Year), data = men_finals, family = Gamma(link = "identity"))
+paste("Gamma and log with year effect has AIC of", AIC(men_finals_year_gamma_log), "and log-lik of", logLik(men_finals_year_gamma_log))
+paste("Linear without year effect has AIC of", AIC(t1), "and log-lik of", logLik(t1))
+```
+
+```{r}
+men_old_finals_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_finals, family = Gamma(link = "log"))
+t2 <- glmer(RxnTime ~ (1|Year), data = men_old_finals, family = Gamma(link = "identity"))
+paste("Linear without year effect has AIC of", AIC(men_old_finals_year_gamma_log), "and log-lik of", logLik(men_old_finals_year_gamma_log))
+paste("Linear without year effect has AIC of", AIC(t2), "and log-lik of", logLik(t2))
+```
+
+```{r}
+men_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_pooled, family = Gamma(link = "log"))
+t3 <- glmer(RxnTime ~ (1|Year), data = men_pooled, family = Gamma(link = "identity"))
+paste("Gamma and log with year effect has AIC of", AIC(men_pooled_year_gamma_log), "and log-lik of", logLik(men_pooled_year_gamma_log))
+paste("Linear without year effect has AIC of", AIC(t3), "and log-lik of", logLik(t3))
+```
+
+```{r}
+men_old_pooled_year_gamma_log <- glmer(RxnTime ~ (1|Year), data = men_old_pooled, family = Gamma(link = "log"))
+t4 <- glmer(RxnTime ~ (1|Year), data = men_old_pooled, family = Gamma(link = "identity"))
+paste("Gamma and log with year effect has AIC of", AIC(men_old_pooled_year_gamma_log), "and log-lik of", logLik(men_old_pooled_year_gamma_log))
+paste("Linear without year effect has AIC of", AIC(t4), "and log-lik of", logLik(t4))
+
+```
+
