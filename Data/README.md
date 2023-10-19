@@ -1,6 +1,6 @@
 # GLMM
 ## Relevant Files
-+ Thesis2023.csv: contains the updated data to include 2023
++ GLMMData.csv: contains the updated data to include 2023
 
 ## About the data
 The data from the spreadsheet was taken from results found on the World Athletics
