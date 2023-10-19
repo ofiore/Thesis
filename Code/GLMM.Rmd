@@ -51,6 +51,7 @@ with2022_venue_gamma_log <- glmer(RxnTime ~ (1|Venue), data = with2022,
 
 ```{r}
 summary(with2022_venue_gamma_log)
+summary(without2022_venue_gamma_log)
 ```
 
 This creates the heat effect only models.
@@ -65,6 +66,7 @@ with2022_heat_gamma_log <-glmer(RxnTime ~ (1 | Heat), data = with2022,
 
 ```{r}
 summary(with2022_heat_gamma_log)
+summary(without2022_heat_gamma_log)
 ```
 
 
@@ -80,6 +82,7 @@ with2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat),
 
 ```{r}
 summary(with2022_two_effect_gamma_log)
+summary(without2022_two_effect_gamma_log)
 ```
 
 
