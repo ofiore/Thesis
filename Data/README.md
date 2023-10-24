@@ -30,8 +30,12 @@ at the bottom of the RankComparison.Rmd file.
 
 + ClusrankNatvsWorld.csv: Data was from NatvsWorld.csv (found in Archive folder)
 to be able to be used by the clusrank R functions. Each athlete was given a
-number 1-11 (numbers are not important) and the column 'Year' was coded as 1 if the observation took place at a national championships and 2 if at the World Championships. This data was difficult to find as it is not centrally located; each country records their data differently and often times in their native language and we could not
-find data for many countries.  Attached below are the links to the data as of September 2023.
+number 1-11 (numbers are not important) and the column 'Year' was coded as 1 if
+the observation took place at a national championships and 2 if at the World
+Championships. This data was difficult to find as it is not centrally located; 
+each country records their data differently and often times in their native
+language and we could not find data for many countries.  Here are the
+links to the data as of September 2023:
 
 + [France](https://bases.athle.fr/asp.net/liste.aspx?frmbase=lives&frmmode=1&frmespace=0&frmcompetition=264985&frmepreuvem=110m+Haies+(106)+%2f+TCM&frmtour=7&frmserie=)
 + [Britain](https://www.watchathletics.com/page/3278/results-british-athletics-championships-2022)
@@ -51,6 +55,6 @@ and the column 'Year' was coded as 2 if the observation took place in 2022 and
 
 + WomenClusrank2019vs2022.csv: Data was altered from Women2019vs2022.csv (found)
 in Archive folder to be able to be used by the clusrank R functions. 
-Each athlete was given a number 1-9 (numbers are not 
+Each athlete was given an id number 1-9 (numbers are not 
 important) and the column 'Year' was coded as 1 if the observation took place in
 2019 and 2 if in 2022.
