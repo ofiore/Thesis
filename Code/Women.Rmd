@@ -5,6 +5,8 @@ date: "2023-02-28"
 output: pdf_document
 ---
 
+
+The code below loads in the data sets from the csv file.
 ```{r}
 times <- read.csv("../Data/ThesisData.csv")
 colnames(times) <- c("Year", "Type", "Time", "RxnTime", "Gender", "Batch")
