@@ -53,8 +53,3 @@ Each athlete was given a number 1-22 (numbers are not important)
 and the column 'Year' was coded as 2 if the observation took place in 2022 and 
 3 if in 2023.
 
-+ WomenClusrank2019vs2022.csv: Data was altered from Women2019vs2022.csv (found)
-in Archive folder to be able to be used by the clusrank R functions. 
-Each athlete was given an id number 1-9 (numbers are not 
-important) and the column 'Year' was coded as 1 if the observation took place in
-2019 and 2 if in 2022.
