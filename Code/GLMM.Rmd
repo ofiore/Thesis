@@ -146,7 +146,8 @@ sim_two_effect_time <- function(model, base, RxnTime) {
 
 
 This next chunk of code runs the simulation code for each dataset comparing the
-two effect model to the base model
+two effect model to the base model. We run this code at 3 reaction time barriers:
+0.08, 0.09, and 0.1 seconds.
 ```{r}
 #7
 set.seed(1)
