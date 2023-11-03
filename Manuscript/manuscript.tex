@@ -1,4 +1,5 @@
-\documentclass[12pt, letterpaper, titlepage]{article}
+%\documentclass[12pt, letterpaper, titlepage]{article}
+\documentclass[12pt, letterpaper]{article}
 
 \usepackage{amsmath, amsfonts}
 \usepackage{booktabs}
@@ -12,7 +13,7 @@
 \usepackage{float}
 \usepackage{setspace}
 \usepackage{pdfpages}
-\usepackage[pagewise]{lineno}
+\usepackage{lineno}
 \usepackage{mwe}
 \usepackage{comment}
 \linenumbers*[1]
@@ -49,21 +50,53 @@
 \newcommand{\eds}[1]{\textcolor{red}{EDS: (#1)}}
 \newcommand{\of}[1]{\textcolor{violet}{OF: #1}}
 
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{0}
 
-\title{On Devon Allen's Disqualification at the 2022 World Track and Field 
-Championships} 
+%\title{On Devon Allen's Disqualification at the 2022 World Track and Field 
+%Championships} 
+%
+%\author{Owen Fiore\\
+%%   \href{mailto:owen.fiore@uconn.edu}
+%% {\nolinkurl{owen.fiore@uconn.edu}}\\
+  %Elizabeth D. Schifano\\
+  %Jun Yan\\[1ex]
+  %Department of Statistics, University of Connecticut\\
+%}
+%\date{}
 
-\author{Owen Fiore\\
+\begin{document}
+%\maketitle
+
+\if0\blind
+{
+  \title{\bf On Devon Allen's Disqualification at the 2022 World Track and Field 
+Championships}
+  \author{Owen Fiore, %\\
 %   \href{mailto:owen.fiore@uconn.edu}
 % {\nolinkurl{owen.fiore@uconn.edu}}\\
-  Elizabeth D. Schifano\\
+  Elizabeth D. Schifano, %\\
   Jun Yan\\[1ex]
   Department of Statistics, University of Connecticut\\
 }
 \date{}
+  \maketitle
+} \fi
 
-\begin{document}
-\maketitle
+\if1\blind
+{
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+  {\LARGE\bf On Devon Allen's Disqualification at the 2022 World Track and Field 
+Championships}
+\end{center}
+  \bigskip
+} \fi
+
+
+\doublespace
 
 %Abstract should be 200 words
 %Devon Allen was disqualified in 2022... discussions about dq, talk methods and 

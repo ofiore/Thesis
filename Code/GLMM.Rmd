@@ -1,7 +1,7 @@
 ---
 title: "GLMM"
 author: "Owen Fiore"
-date: "2023-05-31"
+date: "2023-11-03"
 output:
   pdf_document: default
   html_document:
@@ -44,7 +44,6 @@ with2022_one_gamma_log <- glm(RxnTime ~ 1, data = with2022,
 ### 3
 This code creates the venue effect only models.
 ```{r}
-library(lme4)
 without2022_venue_gamma_log <- glmer(RxnTime ~ (1|Venue), data = without2022, 
                                        family = Gamma(link = "log"))
 with2022_venue_gamma_log <- glmer(RxnTime ~ (1|Venue), data = with2022, 
@@ -52,10 +51,9 @@ with2022_venue_gamma_log <- glmer(RxnTime ~ (1|Venue), data = with2022,
 ```
 
 
-### 5
+### 4
 This creates the heat effect only models.
 ```{r}
-library(lme4)
 without2022_heat_gamma_log <-glmer(RxnTime ~ (1 | Heat), data = without2022, 
                              family = Gamma(link = "log"))
 with2022_heat_gamma_log <-glmer(RxnTime ~ (1 | Heat), data = with2022, 
@@ -66,7 +64,6 @@ with2022_heat_gamma_log <-glmer(RxnTime ~ (1 | Heat), data = with2022,
 ### 5
 This creates the models with a venue effect and heat effect.
 ```{r}
-library(lme4)
 without2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat), 
                                    data = without2022,
                                    family = Gamma(link = "log"))
@@ -103,7 +100,6 @@ summary(without2022_two_effect_gamma_log)
 ### 9
 This test compares the full model with the heat effect only model.
 ```{r}
-#9
 anova(with2022_heat_gamma_log, with2022_two_effect_gamma_log)
 ```
 This anova test determined that the two effect model is an improvement over the
@@ -114,7 +110,6 @@ $\alpha = 0.05$.
 ### 10
 This test compares the full model with the venue effect only model.
 ```{r}
-#10
 anova(with2022_venue_gamma_log, with2022_two_effect_gamma_log)
 ```
 This anova test determined that the two effect model is a significant
@@ -128,9 +123,6 @@ time, it is important that the two models that are compared are from the same
 data set; we want to compare `old_finals_two_effect` and 
 `old_finals_one_gamma_log`.
 ```{r}
-#6
-set.seed(1)
-library(lme4)
 sim_two_effect_time <- function(model, base, RxnTime) {
   simfit <- function(model, n = 10000000) {
     vc <- as.data.frame(VarCorr(model))
@@ -165,7 +157,6 @@ This next chunk of code runs the simulation code for each dataset comparing the
 two effect model to the base model. We run this code at 3 reaction time barriers:
 0.08, 0.09, and 0.1 seconds.
 ```{r}
-#7
 set.seed(1)
 sim_two_effect_time(without2022_two_effect_gamma_log,
                     without2022_one_gamma_log, 0.1)
@@ -203,9 +194,6 @@ barrier as it is less probable to observe a reaction time of 0.08 rather than
 0.09.  Below are the recommended reaction time barriers to disqualify on average
 1 in every 1,000 starts.
 ```{r}
-#8
-set.seed(1)
-library(lme4)
 sim_two_effect_prob <- function(model, base, prob) {
   simfit <- function(model, n = 10000000) {
     vc <- as.data.frame(VarCorr(model))
@@ -246,7 +234,6 @@ sim_two_effect_prob(with2022_two_effect_gamma_log,
 The code below repeats the previous section but for an average of 1 in every
 10,000 sprinters.
 ```{r}
-#10
 set.seed(1)
 sim_two_effect_prob(without2022_two_effect_gamma_log,
                     without2022_one_gamma_log, 0.0001)
