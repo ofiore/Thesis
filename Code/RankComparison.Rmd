@@ -14,7 +14,7 @@ colnames(national) <- c("Time", "Athlete", "Stage")
 
 
 The code below performs two clustered Wilcox tests, the first one without using
-exact = True, and the second one with exact = True and 10,000 random
+exact = True, and the second one with exact = True and 1,000,000 random
 permutations. The tests compare the times and group by the Stage of the
 competition which in the data is coded as 1 if it was a national championship
 and 2 if it was the world championships. The tests cluster by athlete, of which
@@ -23,7 +23,7 @@ For more information about the "ds" method, please look at the Rank-based
 Comparison subsection of the Methods section of the paper or at this link here:
 https://www.jstatsoft.org/article/view/v096i06.  The second test also includes
 exact = TRUE which is used when sample sizes are small (as they are in this
-case), additionally the number of random permutations (B) is set to be 10,000.
+case), additionally the number of random permutations (B) is set to be 1,000,000.
 
 ```{r}
 set.seed(1)
@@ -82,30 +82,15 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = new_clusrank,
 This is seeing what would happen if we remove prelims, the sample sizes in the
 test become very small: 26 observations and 9 clusters.
 ```{r}
-nations_noprelim <- read.csv("../Data/Clusrank2019vs2022NoPrelims.csv")
-colnames(nations_noprelim) <- c("Time", "Athlete", "Year")
+#nations_noprelim <- read.csv("../Data/Clusrank2019vs2022NoPrelims.csv")
+#colnames(nations_noprelim) <- c("Time", "Athlete", "Year")
 ``` 
 
 ```{r}
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations_noprelim,
-                method = "ds")
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations_noprelim,
-                method = "ds", 
-                exact = TRUE, B = 10000)
-```
-
-```{r}
-women_data <- read.csv("../Data/WomenClusrank2019vs2022.csv")
-colnames(women_data) <- c("Time", "Athlete", "Year")
-```
-
-```{r}
-set.seed(1)
-library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_data,
-                method = "ds")
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_data,
-                method = "ds", 
-                exact = TRUE, B = 1000000)
+#clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations_noprelim,
+#                method = "ds")
+#clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations_noprelim,
+#                method = "ds", 
+#                exact = TRUE, B = 10000)
 ```
 
