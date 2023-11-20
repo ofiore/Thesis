@@ -14,16 +14,14 @@ colnames(national) <- c("Time", "Athlete", "Stage")
 
 
 The code below performs two clustered Wilcox tests, the first one without using
-exact = True, and the second one with exact = True and 1,000,000 random
+exact = TRUE, and the second one with exact = TRUE and 1,000,000 random
 permutations. The tests compare the times and group by the Stage of the
-competition which in the data is coded as 1 if it was a national championship
+competition, which in the data is coded as 1 if it was a national championship
 and 2 if it was the world championships. The tests cluster by athlete, of which
-for each dataset an integer from 1-11 is used (the values are not significant).
+for each dataset an integer from 1-11 is used (the values are arbitrary).
 For more information about the "ds" method, please look at the Rank-based
 Comparison subsection of the Methods section of the paper or at this link here:
-https://www.jstatsoft.org/article/view/v096i06.  The second test also includes
-exact = TRUE which is used when sample sizes are small (as they are in this
-case), additionally the number of random permutations (B) is set to be 1,000,000.
+https://www.jstatsoft.org/article/view/v096i06.  
 
 ```{r}
 set.seed(1)
@@ -39,9 +37,7 @@ clusWilcox.test(Time, group=Stage, cluster = Athlete, data = national,
 The code below reads in the data comparing the 2019 and 2022 World Championships.
 ```{r}
 old_clusrank <- read.csv("../Data/Clusrank2019vs2022.csv")
-#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
 colnames(old_clusrank) <- c("Time", "Athlete", "Year")
-#View(comp)
 ```
 
 
@@ -61,9 +57,7 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = old_clusrank,
 The code below reads in data comparing the 2022 and 2023 World Championships
 ```{r}
 new_clusrank <- read.csv("../Data/Clusrank2022vs2023.csv")
-#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
 colnames(new_clusrank) <- c("Time", "Athlete", "Year")
-#View(comp)
 ```
 
 
@@ -79,8 +73,8 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = new_clusrank,
                 exact = TRUE, B = 1000000)
 ```
 
-This is seeing what would happen if we remove prelims, the sample sizes in the
-test become very small: 26 observations and 9 clusters.
+The following code could be used to see what happens if we remove prelims. 
+The sample sizes in the test become very small: 26 observations and 9 clusters.
 ```{r}
 #nations_noprelim <- read.csv("../Data/Clusrank2019vs2022NoPrelims.csv")
 #colnames(nations_noprelim) <- c("Time", "Athlete", "Year")

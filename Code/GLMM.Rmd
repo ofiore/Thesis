@@ -103,7 +103,7 @@ This test compares the full model with the heat effect only model.
 anova(with2022_heat_gamma_log, with2022_two_effect_gamma_log)
 ```
 This anova test determined that the two effect model is an improvement over the
-heat effect model. The test statistic is 0.008305 which is significant at 
+heat effect model. The p-value is 0.008305 which is significant at 
 $\alpha = 0.05$.
 
 
