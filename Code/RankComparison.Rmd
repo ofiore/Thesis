@@ -20,8 +20,8 @@ competition, which in the data is coded as 1 if it was a national championship
 and 2 if it was the world championships. The tests cluster by athlete, of which
 for each dataset an integer from 1-11 is used (the values are arbitrary).
 For more information about the "ds" method, please look at the Rank-based
-Comparison subsection of the Methods section of the paper or at this link here:
-https://www.jstatsoft.org/article/view/v096i06.  
+Comparison subsection of the Methods section of the paper or
+[at this link here](https://www.jstatsoft.org/article/view/v096i06.)  
 
 ```{r}
 set.seed(1)
@@ -42,7 +42,7 @@ colnames(old_clusrank) <- c("Time", "Athlete", "Year")
 
 
 The tests below are very similar to the ones above, the only difference being
-grouping by Year instead of Stage (1 if 2019 and 2 if 2022).
+grouping by Year instead of Stage (0 if 2019 and 1 if 2022).
 ```{r}
 set.seed(1)
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = old_clusrank,
@@ -62,7 +62,7 @@ colnames(new_clusrank) <- c("Time", "Athlete", "Year")
 
 
 The tests below are very similar to the ones above, the only difference being
-grouping by Year (2 if 2022 and 3 if 2023).
+grouping by Year (0 if 2022 and 1 if 2023).
 ```{r}
 set.seed(1)
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = new_clusrank,
@@ -73,18 +73,4 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = new_clusrank,
                 exact = TRUE, B = 1000000)
 ```
 
-The following code could be used to see what happens if we remove prelims. 
-The sample sizes in the test become very small: 26 observations and 9 clusters.
-```{r}
-#nations_noprelim <- read.csv("../Data/Clusrank2019vs2022NoPrelims.csv")
-#colnames(nations_noprelim) <- c("Time", "Athlete", "Year")
-``` 
-
-```{r}
-#clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations_noprelim,
-#                method = "ds")
-#clusWilcox.test(Time, group=Year, cluster = Athlete, data = nations_noprelim,
-#                method = "ds", 
-#                exact = TRUE, B = 10000)
-```
 
