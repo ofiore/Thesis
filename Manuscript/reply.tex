@@ -55,35 +55,13 @@ comments quoted in \emph{\color{darkblue} italic and blue}.
 \subsection*{To Associate Editor}
 
 \begin{comment}
-In this article, the author explains how the Kolmogorov-Smirnov (KS) test is 
-often misused in practice and show through simulation, that under the null 
-hypothesis the KS p-value is very likely to not have a uniform distribution if 
-the parameters are estimated from the data or when the data are serial 
-correlated. The authors also give solutions to correct the test in both of these 
-situations using the parametric or semiparametric bootstrap.
-
-
-I found the article informative and well written as the problem and proposed 
-solutions were clearly explained and demonstrated. It seemed to me there is 
-possibly enough there to warrant publishing the article. However, as it was 
-submitted to Teacher’s corner, I wanted an opinion on the value of the article
-as a teaching tool.
-
-
-Therefore, the article was reviewed by one referee who is an educator and could 
-assess the impact and usefulness on teaching (I tried for two, but that proved 
-hard to come by). This referee also found the article clear and well written, 
-but wanted the authors to include a detailed explanation of how to present
-this material to students and where/how to include it in the course material.
-
-
-It would seem that this could be taught while teaching statistical tests and 
-methods as a clear warning to students to always assess how well their data fits 
-the assumptions of the method. But how to present this? It sounds like, from the 
-referee’s opinion, that this would require significant work. One way to do this 
-is if the author included a new section dedicated to the implementing of this 
-method in the classroom. As the rest of the article seems clear and informative, 
-the rest of paper could be left mostly unchanged.
+Using Devon Allen's disqualification at the 2022 World Track and Field
+championships as a hook, this paper poses two questions. First, were reaction
+times at the 2022 World Track and Field Championships faster than they had been
+earlier in 2022 national-level competitions, the 2019 World Track and Field
+Championships, and the 2023 World Track and Field Championships? Second, based
+on modeled reaction times, is the current standard of a 0.1 second threshold for
+reaction times before disqualification too conservative?
 \end{comment}
 
 
@@ -130,49 +108,228 @@ bootstrap method as a corrective measure.
 
 
 \begin{comment}
-In this paper we read about a misfit between the KS test as it was developed and 
-how it is often used in practice. The author shows, via simulation, that the KS 
-p-value does not have a uniform distribution (as it should) when H0 is true but 
-parameters are estimated from the data, nor when there is serial correlation 
-(or both). At least we see this for two settings: the normal and the gamma. The 
-problem is clearly presented, as is the solution (use of the parametric or 
-semiparametric bootstrap).
+To address the first point, the paper relies on descriptive statistics, ranked
+tests, and the results of a set of GLMMs. The descriptive data analysis lends
+credence to the authors' argument that the reaction times at the 2022 World
+Championships was faster than at any of the relevant comparisons. The rank test
+appears to be set up correctly and I believe the authors are interpreting the
+results correctly. Similarly, I believe the GLMM results are arrived at
+correctly given the provided code.
+
+The paper attempts to answer the second question by applying the GLMMs they
+already fit. To do so, it presents simulations from the fitted GLMM. It then
+uses the simulated results to estimate the probability of observing reaction
+times below a set of thresholds. I think it does a good job of contextualizing
+these in terms of the number of races per an occurrence.
 \end{comment}
 
 
-Thank you for this encouraging comment.  
+Thank you for these encouraging comments.  
 
 
 \begin{comment}
-The figures are easy to read and convey the necessary information. (It would 
-help if Table 1 appeared on page 14, rather than page 13.)
+However, I do believe the analysis to answer this first question could be
+substantially improved. First, the paper only presents results for men running
+the 110 meter hurdles. Women also competed at these events as they later
+acknowledge in the discussion section. Why not use data from those competitors?
+(There is a suggestion that the systematic effect seen at the 2022 World
+Championships for men would not/did not appear for women because they may have
+slower reaction times. No analysis is provided to support that though. Could
+that be provided?) Similarly, other sprinting events were held using the same
+block-sensor technology. Were similar patterns present in the 100-meter and
+200-meter dashes? What about in the longer 400-meter dash and 400-meter hurdle
+races? I think expanding the sample here would yield helpful insights into the
+systematic nature of the problem the paper is trying to investigate. These
+expanded samples could improve both the ranked-test results and the GLMM results
+and improve the generalizability of the conclusions.
 \end{comment}
 
 
-This is a very good point.  We have moved the location of Table 1 to be closer 
-to the end of Section 4 (page 15 in the revised manuscript).  
+One of the reasons why we did not include data from other sprinting evetns is
+because we wanted to ground the article in Devon Allen's story and to be about
+the hurdles events.  Athletes who compete in the longer events such as 400 meters
+may not have as good of a start as those in the 100 meter events because reaction
+time plays a much smaller role in the outcome of the race. While it is common
+for amateur and collegiate athletes to compete in multiple sprinting events, it
+seems reasonable that a world championship 100 meter runner may be only a top 20
+200 meter runner.  We are trying to estimate the probabilty of observing a extreme
+reaction time to determine whether 0.1 seconds is fair but if we include data
+from competitions with slower reaction times, then 0.1 seconds is going to be
+more extreme.
 
 
 \begin{comment}
-Since this is a Teacher's Corner submission, I was hoping to read about how 
-these ideas have been presented in specific courses and also how students 
-reacted to this. What background did the students have? What level of detail 
-was given to them? That is, it is one thing to say "use the bootstrap" and 
-another thing to present to students, e.g., a Markdown file with all necessary
-code included. Was that done? Were students invited to conduct their own 
-simulations? Etc.
+
+  
+Relatedly, I believe the GLMM results could be improved by considering a few
+more factors. Currently, the GLMMs regress reaction time onto models that only
+contains predictors for year and whether or not an observation comes from a
+preliminary heat or a final (both as random intercepts). It strikes me that the
+authors may also want to account for confounding factors such as the overall
+speed-level of the heat (especially relative to that point in time) and the
+speed of the given runner relative to the others in the heat, as these factors
+are likely to inform whether a runner tries to push their reaction to the limit
+or not and are potentially correlated with year and race type, biasing the
+results. Accounting for these additional features (in addition to expanding the
+analysis) should help clarify if there was a specific difference attributable to
+2022.
 \end{comment} 
 
 
-Thank you for highlighting this important omission. Taking the suggestion of the 
-Associate Editor, we have now included a new section, Section 5 Classroom 
-Implementation, that discusses how elements of
-this manuscript have been incorporated into both graduate- and 
-undergraduate-level teaching at the authors' home university. 
-Please see our response to the Associate Editor for additional details. 
+The heat effect measures the speed-level of the heat. 
+Perhaps we need to better explain the heat effect in the methods section.
+
+
+\begin{comment}
+Otherwise, I think the manuscript could be improved by streamlining the
+presentation of the organizing material like the problem statements and theory.
+The literature review currently reads like an itemized list of all the relevant
+studies; revising to focus on the specific arguments the paper hopes to make
+could help improve clarity. As it is, I am not entirely sure if the paper is
+specifically trying to test a hypothesis offered by others (e.g. the sensors
+were calibrated in some way to lead to faster reaction times) or just present a
+general framework for studying track and field down the road. I believe the
+former is stronger and of more interest than the latter, so making clear the
+purpose would help.
+\end{comment}  
+We do not have enough evidence to conclude that the sensors were calibrated
+differently, so thus we make general recommendations for World Athletics.
+
+
+
+\subsection*{Reviewer2}
+
+
+\begin{comment}
+The paper’s topic is very important, but has significant issues with the writing
+quality and statistical rigor. Right now, the manuscript reads more like report
+than a paper. The text lacks significant direction, and does not explain the
+goals of the study until the 4th page. Even then, “checking for abnormalities”
+is very vague.
+
+\end{comment}
+
+
+We can restructure the paper but doesn't the abstract mention the goals of the
+paper? I suppose the introduction is really more of a background section.
+
+
+\begin{comment}
+Concerns about statistical tests:
+
+I am not convinced that the rank-based comparison test is the best choice here.
+There are two questions: 1) Was the venue for the 2022 championships faster than
+usual? 2) Was the final heat for the 2022 championships faster than usual?
+
+If you are trying to answer question (1), you should include reaction times from
+every spring event, not just the hurdles. If you are trying to answer question
+2, why not do the following Monte Carlo test:
+
+1. Sample a single reaction time for each athlete in the final.
+2. Calculate the mean reaction time for the simulated final.
+3. Compute the probability of seeing the observed average reaction time deviate
+as much as it did in the 2022 Championships.
+
+This test seems better than a rank sum test, as ranks do not capture the
+differences between times.
+
+\end{comment}
+
+From what distribution are we sampling athlete's reaction times from?
+
+
+\begin{comment}
+I am also not convinced that the GLMM methods used for evaluating the
+probability of disqualification are valid. The tests use data of reaction times
+from performances that were NOT disqualified.  The data is therefore truncated
+with no samples from the “left” or “disqualified” tail. This means that any
+conclusions about the probability of a reaction time falling below this
+threshold is purely extrapolation from the distributional assumptions. The
+authors use a gamma distribution based on its fit to the data they have. In my
+opinion, the choice of a gamma distribution is not sufficiently justified to
+make extrapolating claims about the probability mass in the upsampled tail. I am
+not convinced there is enough data to make a strong argument here, especially
+when the previous literature on reaction time uses different distributions.
+\end{comment}
+Athletes may be disqualified based on PED use, and athletes may not finish a race
+due to injury, thus we did not consider these times.  However, it does seem
+reasonable to include times from people who were disqualified based on their
+reaction time.
+
+In terms of the choice of distribution, Brosnan and Harrison used a exponentially
+modified gaussian distribution using athletes sex, ruling periods, competition
+rounds. The article is now behind a pay wall.
+
+
+\begin{comment}
+The paper also mentions another claim that I think would be worth investigating:
+Devon Allen’s reaction times might be faster due to innate ability. I think it
+would be nice to show that his average reaction time faster, and that this
+difference is statistically significant. It would also be nice to see how Devon
+Allen’s DIFFERENCE in reaction time compares to the differences of the other
+competitors (relative to previous heats, or averages, or whatever). If Devon
+Allen’s time improved anomalously in the final heat, this would suggest a false
+start. Based on the fact that he recorded a .101 reaction time earlier, I am
+guessing he did not improve anomalously.  
+\end{comment}
+
+Do we want to perform some formal statistical analysis of Allen's times? What
+data do we want to use? I don't think it makes sense to use Allen's times at
+lower level competitions versus sprinters at the world championships.
+
+\begin{comment}
+A point that is not sufficiently emphasized is that the track officials consider
+low reaction times to be false starts because an athlete can ANTICIPATE a start
+faster than they can REACT to the starting gun. I think this is important to
+discuss so that a general audience understands why an athlete might be
+disqualified even through they started running after the race began.  
+\end{comment}
+
+This can be pretty easily addressed with a 1-2 sentence explanation in the
+introduction.
+
+\begin{comment}I have no idea how to interpret the numbers displayed in Table 2. These
+need to be made interpretable, or they add nothing to the paper.
+\end{comment}
+
+Table 2 is the table with the parameters from the models.  This can be moved to
+the appendix? We pretty explicity define all the terms in the methods section.
+
+\begin{comment}
+Line 127: Is there a reason you are commenting on the difficult of data
+gathering? I am not sure it adds much.
+\end{comment}
+
+Can be removed.
+
+\begin{comment}
+Line 141: “We compare the times” - do you mean reaction times?
+\end{comment}
+
+Yes, this can be easily resolved.
+
+\begin{comment}
+Figure 3 is extremely inefficient. Maybe show the deltas on one plot? I'm not
+sure a plot is even needed. What is the goal here? If you want to show that 2022
+is anomalous you need to show where it stands in the distribution. Trying to
+show that 2022 is anomalous based on a shift in the calculated venue effects
+seems very roundabout.
+\end{comment}
+
+This was meant to be used as further evidence to show 2022 is an outlier. Perhaps
+we delete this graph? I am unsure what the reviewer means by where "2022 stands
+in the distribution"
+
+
+\subsection*{Associate Editor}
+\begin{comment}
+I encourage you to consider the issues raised by the reviewers carefully. I have
+little additional material to add, other than to emphasize the need to
+re-organize the manuscript to more clearly identify the key goals of the work at
+the start, and to provide a more concise and focused presentation of the key
+findings.
+\end{comment}
 
 %\bibliographystyle{chicago}
 %\bibliography{citations}
-
-
 \end{document}
