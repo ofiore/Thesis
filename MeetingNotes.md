@@ -1,3 +1,21 @@
+# Meeting Notes 6/6
++ Include all comments including positive ones at the start
++ Include 100 meter dash results. If on different days than we can't say for sure.
+Maybe include 200 meter
++ Need to respond and say that we improved structure of paper. Introduction is problem and move background/lit review into the background. Puts goals in beginning. Or move goals to start of introduction
++ Repeat analysis on 100 meter hurdle data and look at boxplot. Figure 2
++ Use 0.1 as truncation, fit legit qualification times and say there can be nothing below 0.1
++ Get pdf of Brosnan Hayes Harrison article. May need to admit this is a limitation but that this is a upper bound, bound may be even lower if we don't cut off at 0.1
++ See how they did theirs and compare
++ add some discussion about Allen's exceptionalism and admit limitations of discussions. BUt it is not reasonable to compare Allen's times to others. There are not that many races. People improve over time on their reaction times (unless they get old). Do some descriptive/informal analysis and talk about it in discussion section.
++ Allen had fastest reaction times in 2022 semifinals and finals, see if he is always the fastest or faster than the mean in every race.
++ Statistician may want to see table 2. Argue that this is fine.  Say that variables in the table are defined in the methods section and add reference.
++ Important for readers to know data difficult to collect. Indicating need for standardization of data
++ Venue effects are mean 0 with variance sigma squared. Plot a normal distribution and then show where 2022 is. Probability of observing as extreme as the venue effect. More meaningful of 2022 curve on the curve that did not use 2022. Use sigma squared v that did not include 2022.
+
+
+
+
 # Meetings Notes 9/6
 + Do I need to change the Rmd file variable names: Yes
 + Should I still include the code that has the finals functions/results: no
