@@ -241,3 +241,87 @@ sim_two_effect_prob(with2022_two_effect_gamma_log,
                     with2022_one_gamma_log, 0.0001)
 ```
 
+
+### 18
+We now examine the men's 100 meter dash times from 1999 to 2023.
+```{r}
+times <- read.csv("../Data/GLMMData.csv")
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Event")
+dash_2022 <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & (Time != 'DQ' | Time != "DNS")
+                   & Event == "Dash")
+dash_no_2022 <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & (Time != 'DQ' | Time != "DNS")
+                   & Event == "Dash" & Venue != 2022)
+```
+
+```{r}
+library(tidyverse)
+dash_2022 <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime != 0) |>
+  mutate(RxnTime = ifelse(RxnTime < 0.1, 0.1, RxnTime))
+
+dash_no_2022 <- times |>
+  filter(Venue != 2022) |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime != 0) |>
+  mutate(RxnTime = ifelse(RxnTime < 0.1, 0.1, RxnTime))
+```
+
+
+
+### 19
+Baseline models
+```{r}
+library(lme4)
+dash_no_2022_one_gamma_log <- glm(RxnTime ~ 1, data = dash_no_2022, 
+                                    family = Gamma(link = "log"))
+dash_2022_one_gamma_log <- glm(RxnTime ~ 1, data = dash_2022, 
+                                family = Gamma(link = "log"))
+```
+
+
+### 20
+This code creates the venue effect only models.
+```{r}
+dash_no_20222022_venue_gamma_log <- glmer(RxnTime ~ (1|Venue), data = dash_no_2022, 
+                                       family = Gamma(link = "log"))
+dash_2022_venue_gamma_log <- glmer(RxnTime ~ (1|Venue), data = dash_2022, 
+                                   family = Gamma(link = "log"))
+```
+
+
+### 21
+This creates the heat effect only models.
+```{r}
+dash_no_2022_heat_gamma_log <-glmer(RxnTime ~ (1 | Heat), data = dash_no_2022, 
+                             family = Gamma(link = "log"))
+dash_2022_heat_gamma_log <-glmer(RxnTime ~ (1 | Heat), data = dash_2022, 
+                         family = Gamma(link = "log"))
+```
+
+
+### 22
+This creates the models with a venue effect and heat effect.
+```{r}
+dash_no_2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat), 
+                                   data = dash_no_2022,
+                                   family = Gamma(link = "log"))
+dash_2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat), 
+                               data = dash_2022,
+                               family = Gamma(link = "log"))
+```
+
+
+### 23
+Now we test
+```{r}
+sim_two_effect_time(dash_no_2022_two_effect_gamma_log,
+                    dash_no_2022_one_gamma_log, 0.1)
+sim_two_effect_time(dash_2022_two_effect_gamma_log,
+                    dash_2022_one_gamma_log, 0.1)
+```
+
