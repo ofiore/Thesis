@@ -6,12 +6,12 @@ output: html_document
 ---
 
 ```{r}
-times <- read.csv("../Data/Thesis2023.csv")
-colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat")
+times <- read.csv("../Data/GLMMData.csv")
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Event")
 ```
 
 ```{r}
-with2022 <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & Time != 'DQ')
+with2022 <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & Time != 'DQ' & Event == "Hurdles")
 library(ggplot2)
 ggplot(with2022, aes(x = Venue, y = RxnTime, group = Venue)) +
   geom_boxplot() +
@@ -20,7 +20,7 @@ ggplot(with2022, aes(x = Venue, y = RxnTime, group = Venue)) +
                             breaks = seq(0.1, 0.225, 0.025)) +
   expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
                                               breaks = seq(1999, 2024, 2))
-ggsave(filename="Boxplot.pdf", path = "../Manuscript", height = 4, width = 6)
+#ggsave(filename="Boxplot.pdf", path = "../Manuscript", height = 4, width = 6)
 ```
 
 
@@ -86,10 +86,10 @@ ggsave(filename = "RankScatterPlots.pdf", path = "../Manuscript", plot=rank_scat
 library(lme4)
 library(ggplot2)
 library(dplyr)
-times <- read.csv("../Data/Thesis2023.csv")
-colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat")
+times <- read.csv("../Data/GLMMData.csv")
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Event")
 with2022 <- subset(times, (Type == "F" | Type == "S") & 
-                       Gender == "M" & Time != 'DQ')
+                       Gender == "M" & Time != 'DQ' & Event == "Hurdles")
 with2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat), 
                                data = with2022, family = Gamma(link = "log"))
 ranef_results <- data.frame(ranef(with2022_two_effect_gamma_log))
@@ -97,10 +97,24 @@ venues <- subset(ranef_results, ranef_results["grpvar"] == "Venue")
 venues$year <- as.character(venues$grp)
 venues$year <- as.numeric(venues$year)
 
-venue_effects_with2022<- ggplot(venues, aes(x=year, y = condval)) + geom_point() + 
+ggplot(venues, aes(x=year, y = condval)) + geom_point() + 
   labs(x = "Venue", y = "Venue Effect") +
   scale_x_continuous(limits = c(1998,2024), breaks = seq(1999, 2024, 2)) +
   scale_y_continuous(limits = c(-0.1, 0.1))
+```
+
+```{r}
+x_values <- seq(-3, 3, length.out = 1000)  # Generate a sequence of x values
+y_values <- dnorm(x_values, mean = 0, sd = sqrt(0.04))  # Calculate the corresponding y values for the normal distribution
+
+normal_df <- data.frame(x = x_values, y = y_values)
+ggplot(normal_df, aes(x = x, y = y)) +
+  geom_line(color = "black", size = 1) +
+  geom_point(data = venues, aes(x = condval, y = 0), color = "red", size = 2) +
+  labs(title = "Normal Distribution (Mean = 0, SD = sqrt(0.4))",
+       x = "Value",
+       y = "Density") +
+  theme_minimal() + xlim(-1, 1)
 ```
 
 
@@ -108,10 +122,10 @@ venue_effects_with2022<- ggplot(venues, aes(x=year, y = condval)) + geom_point()
 library(lme4)
 library(ggplot2)
 library(dplyr)
-times <- read.csv("../Data/Thesis2023.csv")
-colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat")
+times <- read.csv("../Data/GLMMData.csv")
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Event")
 without2022 <- subset(times, (Type == "F" | Type == "S") & 
-                           Gender == "M" & Time != 'DQ' & Venue != 2022)
+                           Gender == "M" & Time != 'DQ' & Venue != 2022 & Event == "Hurdles")
 without2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat), 
                                data = without2022, family = Gamma(link = "log"))
 ranef_results <- data.frame(ranef(without2022_two_effect_gamma_log))
@@ -132,5 +146,51 @@ venue_effects_combined <- grid.arrange(venue_effects_with2022,
                                        venue_effects_without2022, ncol = 1)
 ggsave(filename = "ComparisonOfVenueEffects.pdf", path = "../Manuscript",
        plot=venue_effects_combined, height = 6.5, width = 7)
+```
+
+### 100 meter dash plots
+```{r}
+dash <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & (Time != 'DQ' | Time != "DNS")
+                   & Event == "Dash")
+library(ggplot2)
+dash_plot <- ggplot(dash, aes(x = Venue, y = RxnTime, group = Venue)) +
+  geom_boxplot() +
+  labs(x = "Year", y = "Reaction Time (s)") +
+       scale_y_continuous(limits = c(0, 0.25),
+                            breaks = seq(0, 0.25, 0.05)) +
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
+                                              breaks = seq(1999, 2024, 2))
+
+hurdle_plot <- ggplot(with2022, aes(x = Venue, y = RxnTime, group = Venue)) +
+  geom_boxplot() +
+  labs(x = "Year", y = "Reaction Time (s)") +
+       scale_y_continuous(limits = c(0, 0.25),
+                            breaks = seq(0, 0.25, 0.05)) +
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
+                                              breaks = seq(1999, 2024, 2))
+library(gridExtra)
+grid.arrange(dash_plot, hurdle_plot, ncol = 1)
+```
+```{r}
+dash <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & (Time != 'DQ' | Time != "DNS")
+                   & Event == "Dash")
+library(ggplot2)
+dash_plot <- ggplot(dash, aes(x = Venue, y = RxnTime, group = Venue)) +
+  geom_boxplot() +
+  labs(x = "Year", y = "Reaction Time (s)") +
+       scale_y_continuous(limits = c(0.1, 0.25),
+                            breaks = seq(0.1, 0.25, 0.05)) +
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
+                                              breaks = seq(1999, 2024, 2))
+
+hurdle_plot <- ggplot(with2022, aes(x = Venue, y = RxnTime, group = Venue)) +
+  geom_boxplot() +
+  labs(x = "Year", y = "Reaction Time (s)") +
+       scale_y_continuous(limits = c(0.1, 0.25),
+                            breaks = seq(0.1, 0.25, 0.05)) +
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
+                                              breaks = seq(1999, 2024, 2))
+library(gridExtra)
+grid.arrange(dash_plot, hurdle_plot, ncol = 1)
 ```
 
