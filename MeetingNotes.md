@@ -1,3 +1,21 @@
+# Meeting Notes 6/13
++ Add 200 meter data
++ Want probability not curve
++ venue effect figure is still useful, just need to explain it more and include talk about probabilities
++ in terms of devon allen, just use what I can find about Devon Allen. Explain data collection is difficult. There is need for centralized data
++ add womens dash
++ add 2022 vs 2023 womens data
++ continue with replies
+
+
+
+
+
+
+
+
+
+
 # Meeting Notes 6/6
 + Include all comments including positive ones at the start
 + Include 100 meter dash results. If on different days than we can't say for sure.
