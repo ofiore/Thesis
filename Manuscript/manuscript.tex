@@ -471,12 +471,13 @@ from the World Championships, we chose a gamma mixed-effect model as our
 final model. As suggested by the log-likelihood and the Akaike Information
 Criterion (AIC), the normal error model on the log-scale was found to be
 much inferior to the gamma model which better captures the skewness of the
-data. Two random effects were found useful: one capturing the venue effect in
-each year and the other capturing the heat effect within each year. The heat
-effect is important as it captures the variability in the amount of time
-athletes are on the starting blocks before the gun goes off. Thus, we can try
-to reduce this variability by accounting for it in the model through the heat
-effect.
+data. Two random effects were found useful: one capturing the venue effect, which
+is used to contrast years, and the second being the heat effect, where every
+race was given a unique identifier with typically five to nine observations
+per race. The heat effect is important as it captures the variability in the
+amount of time athletes are on the starting blocks before the gun goes off.
+Thus, we can try to reduce this variability by accounting for it in the model
+through the heat effect.
 
 
 Let $Y_{ijk}$ be the reaction time of observation~$k$ in heat~$j$ in year~$i$.
