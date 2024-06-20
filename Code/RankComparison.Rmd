@@ -73,4 +73,21 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = new_clusrank,
                 exact = TRUE, B = 1000000)
 ```
 
+Now we test the womens 2022 vs 2023
+```{r}
+womens <- read.csv("../Data/Clusrank2022vs2023Womens.csv")
+colnames(womens) <- c("Time", "Athlete", "Year")
+```
+
+The tests below are very similar to the ones above, the only difference being
+grouping by Year (0 if 2022 and 1 if 2023).
+```{r}
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = womens,
+                method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = womens,
+                method = "ds",
+                exact = TRUE, B = 500000)
+```
 
