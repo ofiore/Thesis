@@ -21,11 +21,11 @@ The code below loads in the data sets from the csv file.
 ```{r}
 
 times <- read.csv("../Data/GLMMData.csv")
-colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat")
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Event")
 with2022 <- subset(times, (Type == "F" | Type == "S") & 
-                       Gender == "M" & Time != 'DQ')
+                       Gender == "M" & Time != 'DQ' & Event == "Hurdles")
 without2022 <- subset(times, (Type == "F" | Type == "S") & 
-                           Gender == "M" & Time != 'DQ' & Venue != 2022)
+                           Gender == "M" & Time != 'DQ' & Venue != 2022 & Event == "Hurdles")
 ```
 
 
@@ -287,7 +287,7 @@ dash_2022_one_gamma_log <- glm(RxnTime ~ 1, data = dash_2022,
 ### 20
 This code creates the venue effect only models.
 ```{r}
-dash_no_20222022_venue_gamma_log <- glmer(RxnTime ~ (1|Venue), data = dash_no_2022, 
+dash_no_2022_venue_gamma_log <- glmer(RxnTime ~ (1|Venue), data = dash_no_2022, 
                                        family = Gamma(link = "log"))
 dash_2022_venue_gamma_log <- glmer(RxnTime ~ (1|Venue), data = dash_2022, 
                                    family = Gamma(link = "log"))
@@ -323,5 +323,127 @@ sim_two_effect_time(dash_no_2022_two_effect_gamma_log,
                     dash_no_2022_one_gamma_log, 0.1)
 sim_two_effect_time(dash_2022_two_effect_gamma_log,
                     dash_2022_one_gamma_log, 0.1)
+```
+## 24
+In response to reviewer 2's comments that questioned the probability of observing
+the venue effect for 2022 we perform the following analysis. We store the venue
+effect for 2022 in `effect2022` and we store the standard deviation in `sd2022`
+```{r}
+library(tidyverse)
+ranef_results <- data.frame(ranef(with2022_two_effect_gamma_log))
+venues <- subset(ranef_results, ranef_results["grpvar"] == "Venue")
+venues$year <- as.character(venues$grp)
+venues$year <- as.numeric(venues$year)
+effect2022 <- venues |> filter(grp == 2022) |> select(condval) |> pull()
+sd2022 <- as.data.frame(VarCorr(with2022_two_effect_gamma_log)) |> filter(grp == "Venue") |> select(sdcor)|> pull()
+
+```
+Now we can calculate how extreme this value is
+```{r}
+pnorm(effect2022, mean = 0, sd = sd2022)
+```
+
+## Now we look at the 200 meter dash results
+```{r}
+times <- read.csv("../Data/GLMMData.csv")
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Event")
+```
+
+```{r}
+library(tidyverse)
+dash200_2022 <- times |>
+  filter(Event == "200 Dash") |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime != 0) |>
+  mutate(RxnTime = ifelse(RxnTime < 0.1, 0.1, RxnTime))
+
+dash200_no_2022 <- times |>
+  filter(Event == "200 Dash") |>
+  filter(Venue != 2022) |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime != 0) |>
+  mutate(RxnTime = ifelse(RxnTime < 0.1, 0.1, RxnTime))
+```
+
+```{r}
+library(lme4)
+dash200_no_2022_one_gamma_log <- glm(RxnTime ~ 1, data = dash200_no_2022, 
+                                    family = Gamma(link = "log"))
+dash200_2022_one_gamma_log <- glm(RxnTime ~ 1, data = dash200_2022, 
+                                family = Gamma(link = "log"))
+
+dash200_no_2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat), 
+                                   data = dash200_no_2022,
+                                   family = Gamma(link = "log"))
+dash200_2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat), 
+                               data = dash200_2022,
+                               family = Gamma(link = "log"))
+```
+Now we test
+```{r}
+sim_two_effect_time(dash200_no_2022_two_effect_gamma_log,
+                    dash_no_2022_one_gamma_log, 0.1)
+sim_two_effect_time(dash200_2022_two_effect_gamma_log,
+                    dash_2022_one_gamma_log, 0.1)
+```
+These are low probabilities indicating that a reaction time below 0.1 seconds
+is unlikely for the 200 meter dash.
+```{r}
+library(ggplot2)
+ggplot(dash200_2022, aes(x = Venue, y = RxnTime, group = Venue)) +
+  geom_boxplot() +
+  labs(x = "Year", y = "Reaction Time (s)") +
+       scale_y_continuous(limits = c(0.1, 0.25),
+                            breaks = seq(0.1, 0.25, 0.05)) +
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
+                                              breaks = seq(1999, 2024, 2))
+```
+
+
+
+## We will compare our results to the womens data starting with hurdles and then dash
+
+```{r}
+library(tidyverse)
+women_hurdles <- times |>
+  filter(Event == "100 Hurdles") |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "F") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime != 0) |>
+  mutate(RxnTime = ifelse(RxnTime < 0.1, 0.1, RxnTime))
+
+women_dash <- times |>
+  filter(Event == "100 Dash") |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "F") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime != 0) |>
+  mutate(RxnTime = ifelse(RxnTime < 0.1, 0.1, RxnTime))
+```
+
+```{r}
+library(ggplot2)
+ggplot(women_hurdles, aes(x = Venue, y = RxnTime, group = Venue)) +
+  geom_boxplot() +
+  labs(x = "Year", y = "Reaction Time (s)") +
+       scale_y_continuous(limits = c(0.1, 0.25),
+                            breaks = seq(0.1, 0.25, 0.05)) +
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(2000,2024),
+                                              breaks = seq(2001, 2024, 2))
+```
+```{r}
+library(ggplot2)
+ggplot(women_dash, aes(x = Venue, y = RxnTime, group = Venue)) +
+  geom_boxplot() +
+  labs(x = "Year", y = "Reaction Time (s)") +
+       scale_y_continuous(limits = c(0.1, 0.25),
+                            breaks = seq(0.1, 0.25, 0.05)) +
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
+                                              breaks = seq(1999, 2024, 2))
 ```
 
