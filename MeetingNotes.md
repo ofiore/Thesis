@@ -1,3 +1,13 @@
+# Meeting Notes 6/20
++ try and pool 110m hurdles, 100m dash and add fixed effect for dash vs hurdles
++ 100 meter dash is closest to 100m hurdles
++ Add mens and womens 100m dash clusrank analysis
++ we may want to present mens and womens data. 100m dash and hurdles. Potentially 200m in supplement
++ we can try to answer womens glmm data. Could pool womens dash/hurdles if we pool men's
+
+
+
+
 # Meeting Notes 6/13
 + Add 200 meter data
 + Want probability not curve
