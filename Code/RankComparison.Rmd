@@ -91,3 +91,33 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = womens,
                 exact = TRUE, B = 500000)
 ```
 
+Now we test for the men's dash
+```{r}
+dash <- read.csv("../Data/Clusrank2022vs2023Dash.csv")
+colnames(dash) <- c("Time", "Athlete", "Year")
+```
+
+```{r}
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = dash,
+                method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = dash,
+                method = "ds",
+                exact = TRUE, B = 500000)
+```
+```{r}
+women_dash <- read.csv("../Data/Clusrank2022vs2023WomensDash.csv")
+colnames(women_dash) <- c("Time", "Athlete", "Year")
+```
+
+```{r}
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_dash,
+                method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_dash,
+                method = "ds",
+                exact = TRUE, B = 500000)
+```
+
