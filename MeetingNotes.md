@@ -1,3 +1,16 @@
+# Meeting NOtes 7/11
++ Ok to pool but use only 2 effects
++ Put womens glmm data in supplement/discussion section but keep it relevant.
+It dilutes the purpose of the GLMM section so not particularly relevant to that
++ Go through replies and point out changes to the manuscript
++ Structure needs to emphasize the contributions to the paper
++ 2 points: was venue for 2022 faster than usual? and whether reaction threshold is reasonable. If its not related to those then don't include it
++ Introduce the 2 main points sooner.  Any literature we cite should relate to those 2 questions
+
+
+
+
+
 # Meeting Notes 6/20
 + try and pool 110m hurdles, 100m dash and add fixed effect for dash vs hurdles
 + 100 meter dash is closest to 100m hurdles
