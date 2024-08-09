@@ -69,14 +69,10 @@ hurdles_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat),
 anova(dash_and_hurdles_two_effect_gamma_log, dash_and_hurdles_three_effect_gamma_log)
 ```
 What we observe is that there is not a significant difference between these
-models as the p value is quite large.
+models as the p value is quite large. Thus we will not include `Event` as a
+feature in our final model.
 
 
-Lets compare the two models
-```{r}
-summary(dash_and_hurdles_three_effect_gamma_log)
-summary(hurdles_two_effect_gamma_log)
-```
 Now we will see how the inclusion of the pooled data will influence the results
 ```{r}
 sim_three_effect_time <- function(model, base, RxnTime) {
@@ -108,11 +104,46 @@ sim_three_effect_time <- function(model, base, RxnTime) {
 }
 ```
 
-Now we test
+## 200m test
+Does it make sense to include the 200m dash data as well?
+
 ```{r}
-set.seed(1)
-sim_three_effect_time(dash_and_hurdles_three_effect_gamma_log, dash_and_hurdles_one_gamma_log, 0.1)
+all_events <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime != 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles" | Event == "200 Dash") |>
+  mutate(RxnTime = ifelse(RxnTime < 0.1, 0.1, RxnTime))
 ```
+
+```{r}
+all_events_three_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
+                                                   (1 | Heat) + Event, 
+                                   data = all_events,
+                                   family = Gamma(link = "log"))
+all_events_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
+                                                   (1 | Heat), 
+                                   data = all_events,
+                                   family = Gamma(link = "log"))
+```
+
+```{r}
+anova(all_events_three_effect_gamma_log, all_events_two_effect_gamma_log)
+```
+Now we see that the event become significant
+
+```{r}
+library(car)
+TukeyHSD(aov(RxnTime ~ Event, data = all_events))
+```
+Using a Tukey's Honestly Significant Difference test, we see that the 200m dash
+differs significantly from 100m dash/hurdles.
+
+Based on all the following evidence we are going to perform our men's analysis
+on data from the 100 meter dash and 110 meter hurdles exclusively.
+
+
 ## Now for women
 We want to make sure we get similar results when we pool the women's 100m hurdle
 and 100m dash. 
@@ -148,38 +179,3 @@ women_dash_and_hurdles_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
 anova(women_dash_and_hurdles_two_effect_gamma_log, women_dash_and_hurdles_three_effect_gamma_log)
 ```
 There seems to be more of a difference but the test is still not significant.
-
-## 200m test
-Does it make sense to include the 200m dash data as well?
-
-```{r}
-all_events <- times |>
-  filter(Type == "F" | Type == "S") |>
-  filter(Gender == "M") |>
-  filter(Time != "DNS") |>
-  filter(RxnTime != 0) |>
-  filter(Event == "100 Dash" | Event == "110 Hurdles" | Event == "200 Dash") |>
-  mutate(RxnTime = ifelse(RxnTime < 0.1, 0.1, RxnTime))
-```
-
-```{r}
-all_events_three_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
-                                                   (1 | Heat) + Event, 
-                                   data = all_events,
-                                   family = Gamma(link = "log"))
-all_events_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
-                                                   (1 | Heat), 
-                                   data = all_events,
-                                   family = Gamma(link = "log"))
-```
-
-```{r}
-anova(all_events_three_effect_gamma_log, all_events_two_effect_gamma_log)
-```
-Now we see that the event become significant
-
-```{r}
-library(car)
-TukeyHSD(aov(RxnTime ~ Event, data = all_events))
-```
-We see that the 200m dash differs significantly from 100m dash/hurdles
