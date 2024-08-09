@@ -52,57 +52,6 @@ has enhanced the both the quality and utility of this paper.
 Point-by-point responses to the comments are as follows, with the
 comments quoted in \emph{\color{darkblue} italic and blue}.
 
-\subsection*{To Associate Editor}
-
-\begin{comment}
-Using Devon Allen's disqualification at the 2022 World Track and Field
-championships as a hook, this paper poses two questions. First, were reaction
-times at the 2022 World Track and Field Championships faster than they had been
-earlier in 2022 national-level competitions, the 2019 World Track and Field
-Championships, and the 2023 World Track and Field Championships? Second, based
-on modeled reaction times, is the current standard of a 0.1 second threshold for
-reaction times before disqualification too conservative?
-\end{comment}
-
-
-Thank you very much for your encouraging comments and great suggestion.  
-We have now included a new section, \textit{Section 5 Classroom Implementation},
-that discusses how elements of this manuscript have been incorporated into both 
-graduate- and undergraduate-level teaching at the authors' home university. 
- 
-
-For blinding purposes, course numbers, author initials and websites, and 
-university name have been redacted, but all this information appears in the 
-unblinded version.  In brief, this material has been covered at the graduate
-level in a statistical computing course, open to all graduate students in 
-Statistics and others with permission, that covers the bootstrap. Detailed R 
-code and graphical illustrations were provided to students in the open-access 
-course notes to elucidate the distinctions between employing null
-hypotheses with and without defined parameters.  This link is included in the 
-unblinded version of the paper; for the blinded review, we printed the 
-relevant portion of the notes to pdf and included this blinded pdf file in the 
-Supplemental Materials. %\eds{Not sure how we can blind your github 
-%website for the submission unless we actually don't include it in the blinded 
-%version. Could we print to PDF the relevant section of the notes and include as 
-%a supplement for review purposes?} 
-
-
-Similarly at the undergraduate-level, students in an R-based applied regression 
-course were provided with an R Markdown file with simulation code in order to 
-demonstrate how the KS test fails with estimated parameters in the hypothesized 
-distribution. The R Markdown file that was provided to students is included in 
-the Supplemental Materials. This R-based applied linear regression course 
-has the following prerequisites: two semesters of introductory statistics OR a 
-Calculus~2-based statistical methods course.
-
-
-At both the graduate and undergraduate level, students were able to follow the 
-demonstrations closely and gain a clear understanding of the implications of 
-using estimated parameters within test statistics.  At the graduate level, 
-students further were able to appreciate the efficacy of the parametric 
-bootstrap method as a corrective measure.
-
-
 
 \subsection*{To Reviewer}
 
@@ -242,7 +191,28 @@ differences between times.
 
 \end{comment}
 
-We have included other sprinting events in our analysis.
+We are attempting to answer question 1 and have included reaction times from
+additional sprinting events from World Championships.  We hypothesized that
+as the length of the race increased, reaction time would be less impactful and
+thus not as important. We started by adding data for the 100 meter dash and that
+is the most similar event in terms of length to the 110 meter hurdles.  When we
+added an additional variable to the model based on whether the observation came
+from a dash event or hurdles event the coefficient was not significant.  An 
+ANOVA test likewise produced a not signficant coefficient indicating to us that
+it seems reasonable to pool the 100 meter dash and 110 meter hurdles.  We
+hypothesized that longer sprinting events (200 meter dash, 400 meter dash, 400
+meter hurdles) would be more difficult to add as those are longer races where
+athletes reactions times are not as important to their overall time in the race.
+When we repeat the procedure we did for the 100 meter dash, now looking at data
+that included the 100 meter dash, 110 meter hurdles, and the 200 meter dash we
+found that the coefficient on event type was signficant, and a p value of 0.01586.
+When we peformed a TukeyHSD test to compare the times in the three categories:
+100 meter dash, 110 meter hurdles, 200 meter dash, we found a p-value of
+0.0020625 comparing the means of the 200 meter dash and the 110 meter hurdles
+and a p-value of 0.0000174 comparing the means of the 100 meter dash and the 200
+meter dash.  This indicated to us that the reaction times for the 200 meter were
+too slow to fit into our study on extreme reaction times and thus we chose to
+exclude 200 meter data.
 
 
 \begin{comment}
@@ -311,7 +281,10 @@ that we worked hard to find as much data as we could and as a note to World
 Athletics (track and field governing body) that they need to do a better job
 at data standardization.  Currently the races on their website do not include
 reaction times, which meant that we had to look in alternative places to perform
-the analysis that we did.
+the analysis that we did.  The data we found from national level meets in 2022
+was difficult to come by as it required searching for every country's championship
+results individually and when we did find it, it was often in the native language
+making it harder to understand and interpret.
 
 \begin{comment}
 Line 141: “We compare the times” - do you mean reaction times?
@@ -341,6 +314,12 @@ little additional material to add, other than to emphasize the need to
 re-organize the manuscript to more clearly identify the key goals of the work at
 the start, and to provide a more concise and focused presentation of the key
 findings.
+\end{comment}
+
+\begin{comment}
+We have taken additional steps to streamline the manuscript and enhance the
+presentation of our work. Thank you for your time and we appreciate re-considering
+our submission.
 \end{comment}
 
 %\bibliographystyle{chicago}
