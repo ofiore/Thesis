@@ -130,90 +130,86 @@ False Start, GLMM, Hurdle, Reaction Time, Seiko, rank-based test
 \section{Introduction}
 \label{sec:intro}
 
-
-Devon Allen, a University of Oregon alumnus, was a strong 
-contender for the 2022 World Track and Field Championships 
-in the 110-meter hurdle event. After running the event in 
-12.84 seconds in June 2022, just 0.04 seconds short of the 
-world record \citep{wa2022preview}, and placing third at 
-the U.S. Track and Field Championships, Allen was well-prepared 
-for the World Championships in August, also held in Eugene, 
-Oregon. He advanced through the preliminary heats and semifinals 
-with reaction times of 0.123 and 0.101 seconds, respectively. 
-However, in the final heat, Allen was disqualified for a 
-reaction time of 0.099 seconds, just 0.001 seconds faster 
-than the 0.1-second threshold set by the International 
-Association of Athletics Federations (IAAF). This decision 
-was met with significant public outcry \citep{nbc2022devon}.
-
-
-Allen's disqualification has been discussed extensively in online 
-communities such as \url{www.LetsRun.com}, a website that functions 
-as both a message board and a news outlet. The message board, 
-similar to Reddit, is very active during major running events, 
-including the Olympics and the World Track and Field Championships. 
-The news section of the website featured articles such as 
-\citep{johnson2022data} and \citep{johnson2022was} by Robert Johnson, 
-the site’s founder. Johnson argued that there may have been an 
-error with the timing equipment at the 2022 Championships. He 
-cited graphs, descriptive statistics like median reaction times, 
-and compared the reaction times at the 2022 Championships to 
-those from other competitions, including the U.S. Championships 
-and previous World Championships. However, these comparisons 
-lacked formal statistical analysis. Johnson estimated a 99.95\% 
-chance that Allen was wrongfully disqualified, based on his claim 
-that the probability of the fastest reaction times from the men's 
-100 meter, men's 110 meter hurdle, and women's 100 meter all 
-occurring in the same year was approximately $(1/13)^3$ 
-\citep{johnson2022was}.
+Devon Allen’s highly anticipated performance at the 2022 World 
+Track and Field Championships in Eugene, Oregon, ended in 
+controversy when he was disqualified for a reaction time of 
+0.099 seconds, just 0.001 seconds below the allowable threshold.
+Allen, a University of Oregon alumnus, 
+had recently run a time of 12.84 seconds in the 110-meter hurdle 
+event, just 0.04 seconds short of the world record. After placing 
+third at the U.S. Track and Field Championships, he advanced 
+through the preliminary heats and semifinals at the World 
+Championships, with reaction times of 0.123 and 0.101 seconds, 
+respectively. However, in the final heat, competing in front of his 
+home audience, Allen’s reaction time was just 0.001 seconds faster 
+than the 0.1-second threshold set by the International Association 
+of Athletics Federations (IAAF), resulting in his disqualification, a 
+decision that was met with widespread public outcry.
 
 
-The first objective of this paper is to determine whether athletes’ 
-reaction times at the 2022 World Track and Field Championships 
-were significantly different from other competitions. Our analysis 
-compares reaction times for athletes who competed in multiple events, 
-using a matched-pairs design. By comparing the same athletes' reaction
-times across different competitions, we can assess whether the 2022 
-reaction times differed significantly. While this investigation was 
-motivated by Allen's disqualification, it also addresses broader concerns 
-about potential variation in timing equipment across different venues
-in short-distance dash or hurdle.
+The disqualification of Allen was widely discussed in online 
+communities, with some questioning the accuracy of the timing 
+equipment. One of the most active platforms was \url{www.LetsRun.com}, 
+a website that functions as both a message board and a news outlet. 
+The message board, similar to Reddit, is particularly active during 
+major running events, including the Olympics and the World Track 
+and Field Championships. The news section of the website featured 
+articles such as \citep{johnson2022data} and \citep{johnson2022was} 
+by Robert Johnson, the site’s founder. Johnson argued that there may 
+have been an error with the timing equipment at the 2022 Championships. 
+He cited graphs and descriptive statistics, like median reaction 
+times, comparing the reaction times at the 2022 Championships to 
+those from other competitions, including the U.S. Championships and 
+previous World Championships. However, these comparisons lacked formal 
+statistical analysis. 
 
 
-Given the observed variation in reaction times across venues, the 
-question arises: is the 0.1-second disqualification threshold truly 
-justified? Studies have presented evidence supporting both sides of 
-the debate. \citet{pain2007sprint} examined reaction times in nine 
-male athletes and found that the fastest athlete had an average 
-reaction time of 0.087 seconds, with a standard deviation of 0.004 
-seconds. Similarly, \citet{komi2009iaaf}, in a study commissioned by 
-the IAAF, recommended lowering the disqualification threshold to 0.08 
+The first objective of this paper is to investigate whether reaction
+times at the 2022 World Championships were significantly different
+from other competitions, focusing specifically on athletes who
+competed in multiple events. By employing a matched-pairs design, we
+compare reaction times from the same athletes across different
+championships, including the 2022, 2019, and 2023 World Championships,
+as well as the 2022 national-level competitions. This approach allows
+us to isolate the effect of the competition year on reaction times
+while controlling for individual athlete performance. Our analysis
+provide a more formal statistical evaluation of the disqualification 
+threshold, building upon the informal comparisons previously made 
+by others.
+
+
+There is an ongoing debate over the appropriateness of the 0.1-second
+threshold for disqualification, with past studies suggesting both
+lower and higher limits. \citet{pain2007sprint} examined 
+reaction times in nine male athletes and found that the fastest athlete 
+had an average reaction time of 0.087 seconds, with a standard deviation 
+of 0.004 seconds. Similarly, \citet{komi2009iaaf}, in a study commissioned 
+by the IAAF, recommended lowering the disqualification threshold to 0.08 
 or 0.085 seconds, arguing that athletes are capable of faster reaction 
 times than the current threshold allows. On the other hand, some 
-researchers have argued for increasing the reaction time threshold. 
-\citet{brosnan2017effects} suggested raising it to 0.115 seconds based 
-on data from European and World Championships, while a study of the 
-2008 Olympics supported the conclusion that athletes cannot reliably 
-react within 0.1 seconds \citep{lipps2011implications}. Despite these 
-findings, the IAAF has not revised the threshold since its implementation 
-in 1999. It is important to note that \citet{brosnan2017effects} and 
-\citet{lipps2011implications} relied on retrospective event data, 
-whereas \citet{pain2007sprint} and \citet{komi2009iaaf} conducted 
-controlled experiments to assess reaction time capabilities.
+researchers have argued for increasing the threshold.
+\citet{brosnan2017effects} suggested raising it to 0.115 seconds based
+on data from European and World Championships, while a study of the
+2008 Olympics supported the conclusion that athletes cannot reliably
+react within 0.1 seconds \citep{lipps2011implications}. Interestingly,
+\citet{brosnan2017effects} and \citet{lipps2011implications} relied on
+retrospective event data, whereas \citet{pain2007sprint} and
+\citet{komi2009iaaf} conducted controlled experiments to assess
+reaction time capabilities. The IAAF has not revised the threshold
+since its implementation in 1999.
 
 
-The second objective of this paper is to model reaction times for 
-non-disqualified athletes from the 1999 World Championships onward. 
-We employ a gamma linear mixed-effects model with two random effects: 
-one for the venue (year) and another for the heat nested within each venue.
-This model allows us to estimate the probability of an athlete's 
-reaction time falling below a specific threshold, such as 0.1 seconds. 
-By examining reaction times across years and heats, we aim to assess 
-the consistency of reaction times and whether the current 
-disqualification threshold is statistically justified. This modeling 
-approach provides a more detailed understanding of the factors that 
-influence reaction times, offering insights into whether the 0.1-second 
-threshold should be reconsidered for future competitions.
+The second objective of this paper is to further investigate the
+appropriateness of the 0.1-second threshold by modeling reaction times
+from athletes who competed in world championships from 1999 onward. We
+employ a gamma linear mixed-effects model with two random effects: one
+for the venue (year) and another for the heat nested within each
+venue. This model allows us to estimate the probability of an
+athlete’s reaction time falling below a specific threshold, such as
+0.1 seconds. By examining reaction times across different years and
+heats, we can assess the consistency of reaction times and whether the
+current disqualification threshold is supported by statistical
+evidence.
 
 
 The rest of this paper is organized as follows. Section~\ref{sec:Data} 
