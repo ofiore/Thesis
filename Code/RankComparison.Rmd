@@ -120,4 +120,46 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_dash,
                 method = "ds",
                 exact = TRUE, B = 500000)
 ```
+```{r}
+old_dash <- read.csv("../Data/Clusrank2019vs2022Dash.csv")
+colnames(old_dash) <- c("Time", "Athlete", "Year")
+```
+
+```{r}
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = old_dash,
+                method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = old_dash,
+                method = "ds",
+                exact = TRUE, B = 500000)
+```
+```{r}
+old_women_hurdles <- read.csv("../Data/Clusrank2019vs2022Womens.csv")
+colnames(old_women_hurdles) <- c("Time", "Athlete", "Year")
+```
+
+```{r}
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = old_women_hurdles,
+                method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = old_women_hurdles,
+                method = "ds",
+                exact = TRUE, B = 500000)
+```
+```{r}
+old_women_dash <- read.csv("../Data/Clusrank2019vs2022WomensDash.csv")
+colnames(old_women_dash) <- c("Time", "Athlete", "Year")
+```
+
+```{r}
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = old_women_dash,
+                method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = old_women_dash,
+                method = "ds",
+                exact = TRUE, B = 500000)
+```
 
