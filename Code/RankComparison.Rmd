@@ -5,12 +5,6 @@ date: "2023-12-01"
 output: pdf_document
 ---
 
-The code below reads in the data comparing the 2022 National Competitions to the
-2022 World Championships.
-```{r}
-national <- read.csv("../Data/ClusrankNatvsWorld.csv")
-colnames(national) <- c("Time", "Athlete", "Stage")
-```
 
 # Overview
 This analysis consists of twelve comparisons looking at all combinations of
