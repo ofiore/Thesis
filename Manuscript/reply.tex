@@ -19,7 +19,7 @@ amssymb, enumerate}
 
 \newcommand{\jy}[1]{\textcolor{red}{JY: #1}}
 \newcommand{\eds}[1]{\textcolor{blue}{(EDS: #1)}}
-\newcommand{\mc}[1]{\textcolor{green}{(MC: #1)}}
+\newcommand{\of}[1]{\textcolor{green}{(MC: #1)}}
 
 \sloppy
 
@@ -45,8 +45,8 @@ express our appreciation to the reviewer for their valuable comments.
 
 
 The manuscript has been revised accordingly with the most notable change being 
-the addition of Section 5 (Classroom Implementation). We believe this revision 
-has enhanced the both the quality and utility of this paper.
+the addition of new data in both the GLMM and rank comparison sections in an
+attempt to expand the scope of the analysis and derive beter insights. 
 
 
 Point-by-point responses to the comments are as follows, with the
@@ -58,9 +58,17 @@ comments quoted in \emph{\color{darkblue} italic and blue}.
 
 \jy{What is ``the first point?''  Please quote everything from the
   reviewer, including the positive comments.}
+\of{resolved}
 
 \begin{comment}
-To address the first point, the paper relies on descriptive statistics, ranked
+Using Devon Allen's disqualification at the 2022 World Track and Field
+championships as a hook, this paper poses two questions. First, were reaction
+times at the 2022 World Track and Field Championships faster than they had been
+earlier in 2022 national-level competitions, the 2019 World Track and Field
+Championships, and the 2023 World Track and Field Championships? Second, based
+on modeled reaction times, is the current standard of a 0.1 second threshold
+for reaction times before disqualification too conservative? To
+address the first point, the paper relies on descriptive statistics, ranked
 tests, and the results of a set of GLMMs. The descriptive data analysis lends
 credence to the authors' argument that the reaction times at the 2022 World
 Championships was faster than at any of the relevant comparisons. The rank test
@@ -101,9 +109,9 @@ Thank you for these suggestions, we were able to expand the scope of our data
 by including results from the men's and women's 100 meter dash.  We considered
 adding additional sprinting events such as the 200 meter dash but
 when we included a term for type of event in our model the coefficient on this
-event term was significant for the 200 meter dash for both men's and women's
-data. The coefficient was not signficant when we included the 100 meter dash
-results. This is not particularly suprising as athletes who compete in the longer
+event term was not significant for when we included the 100 meter dash
+but became significant after we added the 200 meter dash.
+This is not particularly suprising as athletes who compete in the longer
 events may not have as good of a start as those in the 100
 meter events because reaction time plays a much smaller role in the outcome of
 the race. While it is common for amateur and collegiate athletes to compete in
@@ -167,9 +175,8 @@ The second reviewer shared a similar sentiment about not effectively
 presenting ideas so we we made improvements to the introduction section to try
 and more clearly present our ideas.  We shortened the literature review to only
 cite papers that were actually of interest to the paper and tried to clearly
-define the two purposes of the paper: to decide of 0.1 seconds is fair, and to
-\jy{The order is reversed in the paper.}
-identify inconsistensies with the 2022 reaction times. We try to be precise in
+define the two purposes of the paper: to identify inconsistensies with the 2022
+reaction times and to decide of 0.1 seconds is a fair barrier. We try to be precise in
 our language as we do not have enough evidence to conclude that the sensors were
 calibrated differently, or that Seiko (who make the timing devices) is at fault
 for the 2022 reaction times being inexplicably faster. Thus we make general
@@ -182,8 +189,15 @@ benefit from expanded scope and analysis.
 \end{comment}
 
 
-Thank you for these encouraging words. \jy{State what expansions we
+Thank you for these encouraging words, we have added additional data to both
+the GLMM and clusrank section in order to strengthen our arguments: there was
+an anomaly in 2022 and that the reaction time barrier of 0.1 seconds is not
+grounded in formal statistical analysis.
+
+\jy{State what expansions we
   have done.}
+\of{After we are wrapped up with the manuscript it will be easier to identify
+all the improvements we made. Let's just leave this here for now.}  
 
 \subsection*{Reviewer2}
 
@@ -273,10 +287,35 @@ make extrapolating claims about the probability mass in the upsampled tail. I am
 not convinced there is enough data to make a strong argument here, especially
 when the previous literature on reaction time uses different distributions.
 \end{comment}
-Athletes may be disqualified based on PED use, and athletes may not finish a race
-due to injury, thus we did not consider these times.  However, it does seem
-reasonable to include times from people who were disqualified based on their
-reaction time.
+We will start by addressing the comments related to runners who have been
+disqualified.  Some of the runners who were disqualified had a negative reaction
+time, indicating they were trying to predict the starting gun and actually left
+before the gun even fired.  These runners cannot be included in the analysis
+because the point of the GLMM section is to question the current reaction barrier
+methods by determining how fast athletes can react in; but athletes with a
+negative time left before the gun even went off (Also practically speaking
+a negative reaction time makes little sense).  As for the roughly 20 athletes
+across men's and women's data without negative times but were disqualified, we
+analyzed how the inclusion of these athletes effected our results.  What we found
+was that the probability of a reaction time below 0.1 seconds increased from
+0.0029 to 0.0039 and we have attached the R code so that you can see our work.
+\of{Not sure the technical details of how this is going to work but we will come
+back to this before we submit.} Additionally there were similar parameter values
+for the standard deviations of the random effects and we decided that we were
+going to keep these observations in our data.
+
+As for why the particular model was
+chosen, we looked at several types of models and chose the one that we thought
+fit the residual qq plot the best and had the largest log likelihood. After
+selecting the gamma generalized linear model we again looked at several link
+functions such as "identity", "log",
+
+\of{Need to justify why we did what we did and disadvantages of including the
+disqualified
+Do this in the paper and reply. Say section where we made any changes. Give
+justifications for any reasons for disagreeing}
+
+\of{Will clean this up based on Prof Yan and Schifano's comments to 11/5 email}
 
 In terms of the choice of distribution, Brosnan and Harrison used a exponentially
 modified gaussian distribution using athletes sex, ruling periods, competition
@@ -380,11 +419,11 @@ the start, and to provide a more concise and focused presentation of the key
 findings.
 \end{comment}
 
-\begin{comment}
+
 We have taken additional steps to streamline the manuscript and enhance the
 presentation of our work. Thank you for your time and we appreciate re-considering
 our submission.
-\end{comment}
+
 
 %\bibliographystyle{chicago}
 %\bibliography{citations}
