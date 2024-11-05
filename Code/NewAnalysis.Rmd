@@ -223,7 +223,8 @@ dash_and_hurdles_with_dq <- times |>
   filter(Gender == "M") |>
   filter(RxnTime != 0) |>
   filter(Event == "100 Dash" | Event == "110 Hurdles") |>
-  mutate(RxnTime = ifelse(RxnTime < 0, 0.000001, RxnTime))
+  filter(RxnTime > 0)
+  #mutate(RxnTime = ifelse(RxnTime < 0, 0.000001, RxnTime))
 ```
 
 ```{r}
@@ -249,6 +250,19 @@ dash_and_hurdles_with_dq_one_gamma_log <- glm(RxnTime ~ 1, data = dash_and_hurdl
 set.seed(1)
 sim_two_effect_time(dash_and_hurdles_with_dq_two_effect_gamma_log, dash_and_hurdles_with_dq_one_gamma_log, 0.1)
 ```
+## Comparison of model stats with and without dq
+These are model stats for model without any disqualifications
+```{r}
+summary(dash_and_hurdles_two_effect_gamma_log)
+```
+
+These are model stats for model with positive disqualifications
+```{r}
+summary(dash_and_hurdles_with_dq_two_effect_gamma_log)
+```
+
+
+
 ## Lets repeat the previous section but exclude 2022 from our results
 ```{r}
 dash_and_hurdles_no2022 <- times |>
@@ -299,4 +313,49 @@ dash_and_hurdles_no2022_with_dq_one_gamma_log <- glm(RxnTime ~ 1, data = dash_an
 ```{r}
 sim_two_effect_time(dash_and_hurdles_no2022_with_dq_two_effect_gamma_log, dash_and_hurdles_no2022_with_dq_one_gamma_log, 0.1)
 ```
+## Log normal Model?
+```{r}
+library(tidyverse)
+times <- read.csv("../Data/GLMMData.csv")
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Event")
+```
+The data we use
+```{r}
+dash_and_hurdles_with_dq <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(RxnTime != 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles") |>
+  filter(RxnTime > 0)
+```
+
+Log normal model
+```{r}
+library(lme4)
+log_normal_model <- lmer(log(RxnTime) ~ (1 | Venue) + (1 | Heat), 
+                                   data = dash_and_hurdles_with_dq)
+log_normal_model
+```
+
+Current best fit model (Included DQs because that is what I believe we will
+use as final model.)
+```{r}
+dash_and_hurdles_with_dq_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
+                                                   (1 | Heat), 
+                                   data = dash_and_hurdles_with_dq,
+                                   family = Gamma(link = "log"))
+```
+
+Here is the qq plot for both. It looks very similar in my opinion with only some
+small differences.  I think it is reasonable to keep the gamma model.  Is it not
+possible to compare the AIC's? When I try to find the AIC for log normal model
+I am unable to.
+```{r}
+library(car)
+resids_log_normal <- residuals(log_normal_model)
+resids_gamma <- residuals(dash_and_hurdles_with_dq_two_effect_gamma_log)
+qqPlot(resids_log_normal)
+qqPlot(resids_gamma)
+```
+
 
