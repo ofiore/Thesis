@@ -7,31 +7,55 @@ output: pdf_document
 
 
 # Overview
-This analysis consists of twelve comparisons looking at all combinations of
-the men's 100 meter dash, men's 110 meter hurdle, women's 100 meter dash, and
-women's 100 meter hurdle.  In each comparison we will first read in the data
+This analysis consists of six comparisons of times comparing athletes who
+competed at the 2022 World Championships and another major event. The six
+analyses are listed below. Men's data contains values from athletes who competed
+in either the men's 110 meter hurdles or 100 meter dash at championship level
+events. Women's data contains values from athletes who competed
+in either the women's 100 meter hurdles or 100 meter dash at championship level
+events.
+
++ 2019 and 2022 World Championships men's data
++ 2019 and 2022 World Championships women's data
++ 2022 national championships and 2022 World Championships men's data
++ 2022 national championships and 2022 World Championships women's data
++ 2023 and 2022 World Championships men's data
++ 2023 and 2022 World Championships women's data
+
+In each comparison we will first read in the data
 and then perform two clustered Wilcox tests, the first one without using
 exact = TRUE, and the second one with exact = TRUE and 1,000,000 random
 permutations. The tests compare the times and group by the Stage of the
-competition, which in the data is coded as 1 if it took place during the 2022
-World Championship and 0 otherwise. The tests cluster by athlete, of which for
-each data set an integer from 1-11 is used (the values are arbitrary).
+competition, and cluster by athlete.  An explanation of the features of each
+data is below.
+
++ `Time` is the athlete's reaction time
++ `Athlete` is an arbitrary integer assigned to each athlete.  Each value is
+unique within each data set.
++ `Year` is coded as 1 if it took place during the 2022 World Championship and
+0 otherwise.
++ `Event` is coded as 0 for a hurdles event and 1 as a dash event, although this
+has no impact on the analysis.
+
+
 For more information about the "ds" method, please look at the Rank-based
 Comparison subsection of the Methods section of the paper or
-[at this link here.](https://www.jstatsoft.org/article/view/v096i06.)  
+[at this link here.](https://www.tandfonline.com/doi/abs/10.1198/016214504000001583)  
+
+
+
+# 2019 versus 2022
 
 First we will look compare the reaction times from athletes who competed in both
 the 2019 and 2022 World Track and Field Championship.
 
-# 2019 versus 2022
-
-### Men's 110 meter hurdles
+### Men's Data
 
 First we read in the data from the appropriate source.
 
 ```{r}
-men_hurdle_2019 <- read.csv("../Data/Clusrank2019vs2022.csv")
-colnames(men_hurdle_2019) <- c("Time", "Athlete", "Year")
+men_2019 <- read.csv("../Data/Clusrank2019vs2022.csv")
+colnames(men_2019) <- c("Time", "Athlete", "Year", "Event")
 ```
 
 Then we perform the clustered Wilcox tests.
@@ -39,21 +63,21 @@ Then we perform the clustered Wilcox tests.
 ```{r}
 set.seed(1)
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_hurdle_2019,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2019,
                 method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_hurdle_2019,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2019,
                 method = "ds",
                 exact = TRUE, B = 1000000)
 ```
 
-### Women's 100 meter hurdles
+### Women's Data
 
 First we read in the data from the appropriate source.
 
 ```{r}
-women_hurdle_2019 <- read.csv("../Data/Clusrank2019vs2022Womens.csv")
-colnames(women_hurdle_2019) <- c("Time", "Athlete", "Year")
+women_2019 <- read.csv("../Data/Clusrank2019vs2022Womens.csv")
+colnames(women_2019) <- c("Time", "Athlete", "Year", "Event")
 ```
 
 Then we perform the clustered Wilcox tests.
@@ -61,68 +85,26 @@ Then we perform the clustered Wilcox tests.
 ```{r}
 set.seed(1)
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_hurdle_2019,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2019,
                 method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_hurdle_2019,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2019,
                 method = "ds",
                 exact = TRUE, B = 1000000)
 ```
 
-### Men's 110 meter dash
-
-First we read in the data from the appropriate source.
-
-```{r}
-men_dash_2019 <- read.csv("../Data/Clusrank2019vs2022Dash.csv")
-colnames(men_dash_2019) <- c("Time", "Athlete", "Year")
-```
-
-Then we perform the clustered Wilcox tests.
-
-```{r}
-set.seed(1)
-library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_dash_2019,
-                method = "ds")
-
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_dash_2019,
-                method = "ds",
-                exact = TRUE, B = 1000000)
-```
-### Women's 100 meter dash
-
-First we read in the data from the appropriate source.
-
-```{r}
-women_dash_2019 <- read.csv("../Data/Clusrank2019vs2022WomensDash.csv")
-colnames(women_dash_2019) <- c("Time", "Athlete", "Year")
-```
-
-Then we perform the clustered Wilcox tests.
-
-```{r}
-set.seed(1)
-library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_dash_2019,
-                method = "ds")
-
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_dash_2019,
-                method = "ds",
-                exact = TRUE, B = 1000000)
-```
 
 # 2022 National versus World
 Now we will look compare the reaction times from athletes at their 2022 national
 track and field championships with the 2022 World Championships.
 
-### Men's 110 meter hurdles
+### Men's Data
 
 First we read in the data from the appropriate source.
 
 ```{r}
-men_hurdle_2022 <- read.csv("../Data/ClusrankNatvsWorld.csv")
-colnames(men_hurdle_2022) <- c("Time", "Athlete", "Year")
+men_2022 <- read.csv("../Data/ClusrankNatvsWorld.csv")
+colnames(men_2022) <- c("Time", "Athlete", "Year", "Event")
 ```
 
 Then we perform the clustered Wilcox tests.
@@ -130,21 +112,21 @@ Then we perform the clustered Wilcox tests.
 ```{r}
 set.seed(1)
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_hurdle_2022,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2022,
                 method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_hurdle_2022,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2022,
                 method = "ds",
                 exact = TRUE, B = 1000000)
 ```
 
-### Women's 100 meter hurdles
+### Women's Data
 
 First we read in the data from the appropriate source.
 
 ```{r}
-women_hurdle_2022 <- read.csv("../Data/ClusrankNatvsWorldWomens.csv")
-colnames(women_hurdle_2022) <- c("Time", "Athlete", "Year")
+women_2022 <- read.csv("../Data/ClusrankNatvsWorldWomens.csv")
+colnames(women_2022) <- c("Time", "Athlete", "Year", "Event")
 ```
 
 Then we perform the clustered Wilcox tests.
@@ -152,68 +134,27 @@ Then we perform the clustered Wilcox tests.
 ```{r}
 set.seed(1)
 library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2022,
+                method = "ds")
+
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_hurdle_2022,
-                method = "ds")
-
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_hurdle_2022,
                 method = "ds",
                 exact = TRUE, B = 1000000)
 ```
 
-### Men's 110 meter dash
 
-First we read in the data from the appropriate source.
-
-```{r}
-men_dash_2022 <- read.csv("../Data/ClusrankNatvsWorldDash.csv")
-colnames(men_dash_2022) <- c("Time", "Athlete", "Year")
-```
-
-Then we perform the clustered Wilcox tests.
-
-```{r}
-set.seed(1)
-library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_dash_2022,
-                method = "ds")
-
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_dash_2022,
-                method = "ds",
-                exact = TRUE, B = 1000000)
-```
-### Women's 100 meter dash
-
-First we read in the data from the appropriate source.
-
-```{r}
-women_dash_2022 <- read.csv("../Data/ClusrankNatvsWorldWomensDash.csv")
-colnames(women_dash_2022) <- c("Time", "Athlete", "Year")
-```
-
-Then we perform the clustered Wilcox tests.
-
-```{r}
-set.seed(1)
-library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_dash_2022,
-                method = "ds")
-
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_dash_2022,
-                method = "ds",
-                exact = TRUE, B = 1000000)
-```
 # 2022 versus 2023
 
 Lastly we will look compare the reaction times from athletes who competed in both
 the 2022 and 2023 World Track and Field Championship.
 
-### Men's 110 meter hurdles
+### Men's Data
 
 First we read in the data from the appropriate source.
 
 ```{r}
-men_hurdle_2023 <- read.csv("../Data/Clusrank2022vs2023.csv")
-colnames(men_hurdle_2023) <- c("Time", "Athlete", "Year")
+men_2023 <- read.csv("../Data/Clusrank2022vs2023.csv")
+colnames(men_2023) <- c("Time", "Athlete", "Year", "Event")
 ```
 
 Then we perform the clustered Wilcox tests.
@@ -221,21 +162,21 @@ Then we perform the clustered Wilcox tests.
 ```{r}
 set.seed(1)
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_hurdle_2023,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2023,
                 method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_hurdle_2023,
-                method = "ds",
-                exact = TRUE, B = 1000000)
+#clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2023,
+ #               method = "ds",
+  #              exact = TRUE, B = 1000000)
 ```
 
-### Women's 100 meter hurdles
+### Women's Data
 
 First we read in the data from the appropriate source.
 
 ```{r}
-women_hurdle_2023 <- read.csv("../Data/Clusrank2022vs2023Womens.csv")
-colnames(women_hurdle_2023) <- c("Time", "Athlete", "Year")
+women_2023 <- read.csv("../Data/Clusrank2022vs2023Womens.csv")
+colnames(women_2023) <- c("Time", "Athlete", "Year", "Event")
 ```
 
 Then we perform the clustered Wilcox tests.
@@ -243,54 +184,12 @@ Then we perform the clustered Wilcox tests.
 ```{r}
 set.seed(1)
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_hurdle_2023,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2023,
                 method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_hurdle_2023,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2023,
                 method = "ds",
                 exact = TRUE, B = 1000000)
 ```
 
-### Men's 110 meter dash
-
-First we read in the data from the appropriate source.
-
-```{r}
-men_dash_2023 <- read.csv("../Data/Clusrank2022vs2023Dash.csv")
-colnames(men_dash_2023) <- c("Time", "Athlete", "Year")
-```
-
-Then we perform the clustered Wilcox tests.
-
-```{r}
-set.seed(1)
-library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_dash_2023,
-                method = "ds")
-
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_dash_2023,
-                method = "ds",
-                exact = TRUE, B = 1000000)
-```
-### Women's 100 meter dash
-
-First we read in the data from the appropriate source.
-
-```{r}
-women_dash_2023 <- read.csv("../Data/Clusrank2022vs2023WomensDash.csv")
-colnames(women_dash_2023) <- c("Time", "Athlete", "Year")
-```
-
-Then we perform the clustered Wilcox tests.
-
-```{r}
-set.seed(1)
-library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_dash_2023,
-                method = "ds")
-
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_dash_2023,
-                method = "ds",
-                exact = TRUE, B = 1000000)
-```
 
