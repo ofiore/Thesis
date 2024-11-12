@@ -103,10 +103,20 @@ and improve the generalizability of the conclusions.
 
 Thank you for these suggestions, we were able to expand the scope of our data
 by including results from the men's and women's 100 meter dash.  We considered
-adding additional sprinting events such as the 200 meter dash but
-when we included a term for type of event in our model the coefficient on this
-event term was not significant for when we included the 100 meter dash
-but became significant after we added the 200 meter dash.
+adding additional sprinting events such as the 200 meter dash but our analysis
+suggested that reaction times were slower in the 200 meter dash.  After running
+a model that included a coefficient for event type on a data set that combined
+the men's 110 meter hurdle and 100 meter dash, the event term was not significant.
+However after we re-ran the model on the 110 meter hurdle, 100 and 200 meter dash,
+the effect became significant. When we peformed a TukeyHSD test to compare the
+times in the three categories: 100 meter dash, 110 meter hurdles, 200 meter dash,
+we found a p-value of 0.0020625 comparing the means of the 200 meter dash and
+the 110 meter hurdlesand a p-value of 0.0000174 comparing the means of the 100
+meter dash and the 200 meter dash.  This indicated to us that the reaction times
+for the 200 meter were too slow to fit into our study on extreme reaction times
+and thus we chose to exclude 200 meter data.
+
+
 This is not particularly suprising as athletes who compete in the longer
 events may not have as good of a start as those in the 100
 meter events because reaction time plays a much smaller role in the outcome of
@@ -115,14 +125,8 @@ multiple sprinting events, it seems reasonable that a world championship 100
 meter runner may be only a very good 200 meter runner.  We are trying to
 estimate the probabilty of observing a extreme reaction time to determine
 whether 0.1 seconds is fair but if we include data from competitions with slower
-reaction times, then 0.1 seconds is going to be more extreme.  To answer later
-thoughts about looking at all sprinting events, we observed boxplots and what we
-found were that reaction times in longer sprinting events were much more stable
-than in the 100 meter dash and hurdle and thus any insights would likely not be
-informative to questioning whether 0.1 seconds is a fair barrier or if athletes
-in those events had faster reaction times in 2022.  This follows the conventional
-wisdom that athletes are more focuesed on not false starting at the start of the
-longer races than they are on getting a perfect start.
+reaction times, then 0.1 seconds is going to be more extreme.  
+
 
 \jy{At the end of each reply, we need to state what changes we made to
   the manuscript with their specific locations. The explanation here
@@ -145,13 +149,14 @@ analysis) should help clarify if there was a specific difference attributable to
 
 
 The heat effect measures the speed-level of the heat.  We added some additional
-explanations to make it clear what the venue and heat effect refer to. We did
-not want to call it a "race effect" as we were worried that may be interpreted
-to mean the race of the athlete.  We did not think it would be informative to 
-add and effect for individual runner's average ability as the majority of
-observations in the data come from runners with very few (1-3) data points,
-so taking an average of such a small sample may not be informative, especially
-if there are outliers or an athlete had a bad start.
+explanations in the first paragraph of section 3.2 to make it clear what the
+venue and heat effect refer to. We did not want to call it a "race effect" as we
+were worried that may be interpreted to mean the race of the athlete.  We did
+not think it would be informative to  add and effect for individual runner's
+average ability as many of observations in the data come from runners
+with very few (1-3) data points, so taking an average of such a small sample may
+not be informative, especially if there are outliers or an athlete had a bad
+start.
 
 
 \begin{comment}
@@ -247,27 +252,10 @@ differences between times.
 \end{comment}
 
 We are attempting to answer question 1 and have included reaction times from
-additional sprinting events from World Championships.  We hypothesized that
-as the length of the race increased, reaction time would be less impactful and
-thus not as important. We started by adding data for the 100 meter dash and that
-is the most similar event in terms of length to the 110 meter hurdles.  When we
-added an additional variable to the model based on whether the observation came
-from a dash event or hurdles event the coefficient was not significant.  An 
-ANOVA test likewise produced a not signficant coefficient indicating to us that
-it seems reasonable to pool the 100 meter dash and 110 meter hurdles.  We
-hypothesized that longer sprinting events (200 meter dash, 400 meter dash, 400
-meter hurdles) would be more difficult to add as those are longer races where
-athletes reactions times are not as important to their overall time in the race.
-When we repeat the procedure we did for the 100 meter dash, now looking at data
-that included the 100 meter dash, 110 meter hurdles, and the 200 meter dash we
-found that the coefficient on event type was signficant, and a p value of 0.01586.
-When we peformed a TukeyHSD test to compare the times in the three categories:
-100 meter dash, 110 meter hurdles, 200 meter dash, we found a p-value of
-0.0020625 comparing the means of the 200 meter dash and the 110 meter hurdles
-and a p-value of 0.0000174 comparing the means of the 100 meter dash and the 200
-meter dash.  This indicated to us that the reaction times for the 200 meter were
-too slow to fit into our study on extreme reaction times and thus we chose to
-exclude 200 meter data.
+additional sprinting events from World Championships.  The inclusion of
+additional data was also suggested by the first reviewer and we have provided
+our explanation of what data we used there.
+
 
 
 \begin{comment}
