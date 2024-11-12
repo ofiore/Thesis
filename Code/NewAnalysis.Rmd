@@ -357,5 +357,11 @@ resids_gamma <- residuals(dash_and_hurdles_with_dq_two_effect_gamma_log)
 qqPlot(resids_log_normal)
 qqPlot(resids_gamma)
 ```
+```{r}
+dotplot(ranef(dash_and_hurdles_with_dq_two_effect_gamma_log, condVar = TRUE))
+```
+```{r}
+dotplot(ranef(log_normal_model, condVar = TRUE))
+```
 
 
