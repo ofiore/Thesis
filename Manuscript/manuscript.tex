@@ -108,7 +108,7 @@ allowable threshold of 0.1 seconds. This paper explores whether the
 reaction times of athletes at the 2022 Championships were unusually
 fast compared to other competitions and evaluates the appropriateness
 of the 0.1-second disqualification barrier. To investigate these
-issues, we employ a signed-rank test for clustered data to compare
+issues, we employ a rank-sum test for clustered data to compare
 athletes' reaction times across multiple competitions, along with a
 generalized linear mixed model (GLMM) that accounts for both venue and
 heat effects. The results indicate that athletes at the 2022
@@ -203,7 +203,7 @@ whether the current threshold is statistically justified.
 
 
 The rest of this paper is organized as follows. Section~\ref{sec:Data} 
-describes how the data were collected. The signed-rank test, detailed 
+describes how the data were collected. The rank-sum test, detailed 
 in Section~\ref{sec:rank}, uses slightly different data from the 
 generalized linear mixed-effects model (GLMM) developed in 
 Section~\ref{sec:glmm}. Section~\ref{sec:Results} presents the results 
@@ -216,11 +216,14 @@ are provided in the supplementary materials.
 \section{Data} \label{sec:Data}
 
 There are two types of data that are explored throughout this paper. For the
-signed-rank tests described in Section~\ref{sec:rank}, the data comes from 
-athletes who competed in the 2022 World Championships and another competition 
+rank-sum tests described in Section~\ref{sec:rank}, the data comes from male 
+athletes who competed in the 110 meter hurdles and 100 meter dash, and female
+athletes who competed 100 meter hurdles and 100 meter dash.
+Athletes must have competed in the 2022 World Championships and another competition 
 (2019 World Championships, 2023 World Championships, or 2022 national 
 championships). For the GLMM described in Section~\ref{sec:glmm}, data comes
-from every world championships from 1999 to 2023. This investigation started 
+from every world championships from 1999 to 2023 and includes reaction times from
+the 110 meter hurdles and 100 meter dash. This investigation started 
 shortly after the 2022 World Championships, but as the 2023 data has now become 
 available, we are pleased to include it in both of our analyses, and it did not
 significantly change our results \citep{WAData}. 
@@ -244,7 +247,7 @@ Every athlete reacted faster in all the World Track and Field Championships
 races compared to the United States Track and Field Championships races. The 
 dataset of the four United States athletes is too small to perform any 
 meaningful statistical analysis, but the data was expanded to include reaction 
-times for 11 more athletes who competed at other national competitions (many of which were 
+times from more athletes who competed at other national competitions (many of which were 
 held from May-July of 2022). This data was difficult to find, as the data is not
 centrally located but instead found on different national websites (often 
 recorded in the national language without translation).
@@ -255,11 +258,13 @@ or international) was specified for each competition within the cluster (athlete
 Thus, this is subunit level grouping where we assign the treatment, national or
 international, within each cluster. Cluster sizes range from three to six, with
 one cluster of size three, six clusters of size four, two clusters of size five,
-and two clusters of size six. We chose to include preliminary rounds in this
-section as well as in Section~\ref{sec:data2019} in order to increase the size 
-of our data. Without data from the preliminary rounds, the number of observations
-dropped from 65 to 26 and the number of athletes included in the analysis
-decreased from 15 to 9.
+and two clusters of size six.
+\of{This explanation is going to need to be re-worked now that we have more data.
+Should we make a table of some sort? It's going to be very wordy without one}
+
+We chose to include preliminary rounds in this section as well as in
+Section~\ref{sec:data2019}, as removing them would have resulted in a much
+narrower analysis with fewer athletes and clusters.
 
 
 \subsubsection{Other World Track and Field Championships}\label{sec:data2019}
@@ -282,6 +287,7 @@ clusters of size four, two clusters of size five, and three clusters of size six
 When comparing 2022 and 2023 we look at data from 22 athletes, with seven 
 clusters of size two, three clusters of size three, six clusters of size four,
 and six clusters of size five.
+\of{This explanation might need to change}
 
 \begin{figure}[tbp]
   \centering
@@ -291,10 +297,10 @@ and six clusters of size five.
 	shows the reaction times of athletes who competed at least once each at the 
 	2022 and 2023 World Championships. The bottom graph shows the reaction times 
 	of athletes who competed at least once at their country's
-        2022 national championships and the 2022 World Championships.}
+  2022 national championships and the 2022 World Championships.}
   \label{fig:RankScatterplots}
 \end{figure}
-
+\of{Need to go through and edit this}
 
 Figure~\ref{fig:RankScatterplots} shows the data that will be analyzed
 with the rank-based methods (described in Section~\ref{sec:rank} with results in 
@@ -353,7 +359,7 @@ study period.
   \caption{The reaction times from 1999 to 2023 for the men's 110 meter hurdle.}
   \label{fig:Boxplot}
 \end{figure}
-
+\of{Do We want 2 boxplot figures: 1 hurdles, 1 dash or combine them}
 
 From 2007 to 2009, the IAAF (the former name for World Athletics, and the 
 governing body for the World Track and Field Championships) instituted a rule 
