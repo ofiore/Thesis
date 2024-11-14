@@ -137,7 +137,7 @@ library(clusrank)
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2022,
                 method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_hurdle_2022,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2022,
                 method = "ds",
                 exact = TRUE, B = 1000000)
 ```
@@ -165,9 +165,9 @@ library(clusrank)
 clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2023,
                 method = "ds")
 
-#clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2023,
- #               method = "ds",
-  #              exact = TRUE, B = 1000000)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2023,
+                method = "ds",
+                exact = TRUE, B = 1000000)
 ```
 
 ### Women's Data
