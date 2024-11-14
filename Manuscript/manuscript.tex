@@ -292,19 +292,17 @@ and six clusters of size five.
 \begin{figure}[tbp]
   \centering
   \includegraphics{RankScatterPlots}
-  \caption{The top graph shows the reaction times of athletes who competed at 
-	least once each at the 2019 and 2022 World Championships. The middle graph 
-	shows the reaction times of athletes who competed at least once each at the 
-	2022 and 2023 World Championships. The bottom graph shows the reaction times 
-	of athletes who competed at least once at their country's
-  2022 national championships and the 2022 World Championships.}
+  \caption{This collection of scatterplots of data used in the rank comparison
+  section shows that times in 2022 were on average lower. On the horizontal
+  axis below each graph "H", "S", and "F" refer to the heats, semifinals, and 
+  finals respectively. Please note that in the last row the 2022 times are to
+  the right of the 2023 times.}
   \label{fig:RankScatterplots}
 \end{figure}
-\of{Need to go through and edit this}
 
 Figure~\ref{fig:RankScatterplots} shows the data that will be analyzed
 with the rank-based methods (described in Section~\ref{sec:rank} with results in 
-Section~\ref{subsec:Results_Rank}). In each of the three graphs, the reaction 
+Section~\ref{subsec:Results_Rank}). In each of the six graphs, the reaction 
 times for athletes who competed at the 2022 World Championships
 are compared to their reaction times at another at which they competed. 
 It is worth noting that each instance of the 2022 data is different, because
@@ -356,7 +354,8 @@ study period.
 \begin{figure}[tbp]
   \centering
   \includegraphics{Boxplot}
-  \caption{The reaction times from 1999 to 2023 for the men's 110 meter hurdle.}
+  \caption{The reaction times from 1999 to 2023 for the men's 110 meter hurdle
+  and 100 meter dash.}
   \label{fig:Boxplot}
 \end{figure}
 \of{Do We want 2 boxplot figures: 1 hurdles, 1 dash or combine them}
@@ -556,13 +555,13 @@ competitions.
      & Heat Effect Only & $-1910.9$ & 0.069 &  & $-1.877$ & 0.136\\
      & Venue and Heat Effect & $-1912.9$ & 0.058 & 0.033 & $-1.868$ & 0.136\\[1ex]
     Including 2022 &
-    Venue Effect Only & $-2023.5$ &   & 0.054 & $-1.871$ & 0.149\\
+    Venue Effect Only & $-3798.8$ &   & 0.054 & $-1.871$ & 0.149\\
     & Heat Effect Only & $-2070.7$ & 0.073 &  & $-1.890$ & 0.135\\
     & Venue and Heat Effect & $-2075.7$ & 0.057 & 0.040 & $-1.881$ & 0.134\\
     \bottomrule
   \end{tabular}
 \end{table}
-
+\of{needs to be updated}
 
 The estimated parameters of the GLMM model under the log link are shown in 
 Table~\ref{tab:Gamma_parameters}, both excluding and including 2022 data.
@@ -615,12 +614,13 @@ extreme as 2022.
    \toprule
    Data Set & Threshold 0.08 & Threshold 0.09 & Threshold 0.10  \\ 
    \midrule
-   Excluding 2022 & $3.31\cdot10^{-5}$ & $4.46\cdot10^{-4}$ &  $3.52\cdot10^{-3}$  \\ 
-   Including 2022 & $4.16\cdot10^{-5}$ & $5.70\cdot10^{-4}$ & $4.38\cdot10^{-3}$ \\
+   Excluding 2022 & $1.10\cdot10^{-5}$ & $2.34\cdot10^{-4}$ &  $2.36\cdot10^{-3}$  \\ 
+   Including 2022 & $1.71\cdot10^{-5}$ & $3.01\cdot10^{-4}$ & $2.90\cdot10^{-3}$ \\
    \bottomrule
   \end{tabular}
   \label{tab:Sim_probability}
 \end{table}
+\of{table has been updated}
 
 The GLMM with both venue and heat random effects helps us to assess how extreme
 a reaction time below a given threshold is. The probability of observing a reaction
@@ -632,12 +632,12 @@ observing a reaction time below 0.08, 0.09, and 0.10 seconds under two different
 scenarios: one excluding and the other including data from 2022. Apparently,
 excluding 2022 lowered the probability of observing a fast reaction time, but
 the difference is not big in magnitude. For example, the probability for
-seeing a reaction time below 0.10 seconds changes from $3.54\cdot 10^{-3}$ to
-$4.20\cdot 10^{-3}$ when 2022 is included. These values correspond to roughly one in
-every 230 starts and 283 starts, respectively. The table shows that changing the
+seeing a reaction time below 0.10 seconds changes from $2.36\cdot 10^{-3}$ to
+$2.90\cdot 10^{-3}$ when 2022 is included. These values correspond to one in
+every 344 starts and 423 starts, respectively. The table shows that changing the
 reaction time barrier from 0.1 seconds to 0.08 seconds drastically reduces the
 chance of observing a reaction time below the barrier, from one in roughly every
-283 starts to one in every 29851 starts using data with 2022 included. The
+283 starts to one in every 58480 starts using data with 2022 included. The
 results substantiates the recommendations by \citet{komi2009iaaf}.
 
 
@@ -648,13 +648,13 @@ results substantiates the recommendations by \citet{komi2009iaaf}.
    \toprule
    Data Set & Tail probability  $10^{-3}$ & Tail probability $10^{-4}$ \\ 
    \midrule
-   Excluding 2022 & $0.094$ & $0.084$ \\ 
-   Including 2022 & $0.092$ & $0.083$ \\
+   Excluding 2022 & $0.096$ & $0.087$ \\ 
+   Including 2022 & $0.095$ & $0.086$ \\
    \bottomrule
   \end{tabular}
   \label{tab:Sim_time}
 \end{table}
-
+\of{table has been updated}
 
 Utilizing the same model, we can subtly shift our interpretation to determine a
 suitable reaction time barrier based on the probability of observing a time
