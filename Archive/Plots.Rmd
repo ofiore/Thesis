@@ -28,7 +28,7 @@ ggplot(with2022, aes(x = Venue, y = RxnTime, group = Venue)) +
 ```{r}
 library(tidyr)
 library(ggplot2)
-nineteen <- read.csv("../Data/2019vs2022.csv")
+nineteen <- read.csv("../Archive/2019vs2022.csv")
 #"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
 colnames(nineteen) <- c("Athlete", "Country", "2019 Heats", "2019 Semifinals", "2019 Finals", "2022 Heats", "2022 Semifinals", "2022 Finals")
 nineteen <- nineteen[, -c(1,2)]
@@ -192,5 +192,142 @@ hurdle_plot <- ggplot(with2022, aes(x = Venue, y = RxnTime, group = Venue)) +
                                               breaks = seq(1999, 2024, 2))
 library(gridExtra)
 grid.arrange(dash_plot, hurdle_plot, ncol = 1)
+```
+```{r}
+library(tidyr)
+library(ggplot2)
+nineteen <- read.csv("../Archive/2019vs2022.csv")
+dash_19 <- read.csv("../Archive/2019vs2022Dash.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(nineteen) <- c("Athlete", "Country", "2019 H", "2019 S", "2019 F", "2022 H", "2022 S", "2022 F")
+colnames(dash_19) <- c("Athlete", "2019 H", "2019 S", "2019 F", "2022 H", "2022 S", "2022 F")
+nineteen <- nineteen[, -c(1,2)]
+dash_19 <- dash_19[, -c(1)]
+nineteen <- rbind(nineteen, dash_19)
+
+df_long <- tidyr::pivot_longer(nineteen, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("2019 H", "2019 S", "2019 F", "2022 H", "2022 S", "2022 F"))
+men_19 <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Reaction Time", x = "") +
+  annotate("text", y = 0.21, x = "2022 S", label = "Men 2019 vs 2022", cex = 3) +
+  ylim(0.08, 0.22) +
+  theme_minimal()
+```
+
+```{r}
+library(tidyr)
+library(ggplot2)
+nineteen_w <- read.csv("../Archive/2019vs2022Womens.csv")
+dash_19_w <- read.csv("../Archive/2019vs2022WomensDash.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(nineteen_w) <- c("Athlete", "Country", "2019 H", "2019 S", "2019 F", "2022 H", "2022 S", "2022 F")
+colnames(dash_19_w) <- c("Athlete", "2019 H", "2019 S", "2019 F", "2022 H", "2022 S", "2022 F")
+nineteen_w <- nineteen_w[, -c(1,2, 9)]
+dash_19_w <- dash_19_w[, -c(1)]
+nineteen_w <- rbind(nineteen_w, dash_19_w)
+
+df_long <- tidyr::pivot_longer(nineteen_w, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("2019 H", "2019 S", "2019 F", "2022 H", "2022 S", "2022 F"))
+women_19 <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Reaction Time", x = "") +
+  annotate("text", y = 0.21, x = "2022 S", label = "Women 2019 vs 2022", cex = 3) +
+  ylim(0.08, 0.22) +
+  theme_minimal()
+```
+
+```{r}
+library(tidyr)
+library(ggplot2)
+df1 <- read.csv("../Archive/NatVSWorld.csv")
+df2 <- read.csv("../Archive/2022NatvsWorldDash.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(df1) <- c("Athlete", "Country", "Nat. H", "Nat. S", "Nat. F", "Inter. H", "Inter. S", "Inter. F")
+colnames(df2) <- c("Athlete", "Country", "Nat. H", "Nat. S", "Nat. F", "Inter. H", "Inter. S", "Inter. F")
+df1 <- df1[, -c(1,2, 9)]
+df2 <- df2[, -c(1, 2)]
+df <- rbind(df1, df2)
+
+df_long <- tidyr::pivot_longer(df, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("Nat. H", "Nat. S", "Nat. F", "Inter. H", "Inter. S", "Inter. F"))
+men_22 <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Reaction Time", x = "") +
+  annotate("text", y = 0.21, x = "Inter. S", label = "Men 2022 Nat. vs Inter.", cex = 3) +
+  ylim(0.08, 0.22) +
+  theme_minimal()
+```
+
+```{r}
+library(tidyr)
+library(ggplot2)
+df1 <- read.csv("../Archive/2022NatvsWorldWomens.csv")
+df2 <- read.csv("../Archive/2022NatvsWorldWomensDash.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(df1) <- c("Athlete", "Country", "Nat. H", "Nat. S", "Nat. F", "Inter. H", "Inter. S", "Inter. F")
+colnames(df2) <- c("Athlete", "Country", "Nat. H", "Nat. S", "Nat. F", "Inter. H", "Inter. S", "Inter. F")
+df1 <- df1[, -c(1, 2)]
+df2 <- df2[, -c(1, 2)]
+df <- rbind(df1, df2)
+
+df_long <- tidyr::pivot_longer(df, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("Nat. H", "Nat. S", "Nat. F", "Inter. H", "Inter. S", "Inter. F"))
+women_22 <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Reaction Time", x = "") +
+  annotate("text", y = 0.21, x = "Inter. S", label = "Women 2022 Nat. vs Inter.", cex = 3) +
+  ylim(0.08, 0.22) +
+  theme_minimal()
+```
+
+```{r}
+library(tidyr)
+library(ggplot2)
+df1 <- read.csv("../Archive/2022vs2023.csv")
+df2 <- read.csv("../Archive/2022vs2023Dash.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(df1) <- c("Athlete", "Country", "2022 H", "2022 S", "2022 F", "2023 H", "2023 S", "2023 F")
+colnames(df2) <- c("Athlete", "2022 H", "2022 S", "2022 F", "2023 H", "2023 S", "2023 F")
+df1 <- df1[, -c(1, 2)]
+df2 <- df2[, -c(1)]
+df <- rbind(df1, df2)
+
+df_long <- tidyr::pivot_longer(df, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("2023 H", "2023 S", "2023 F", "2022 H", "2022 S", "2022 F"))
+men_23 <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Reaction Time", x = "") +
+  annotate("text", y = 0.21, x = "2022 S", label = "Men 2022 vs 2023", cex = 3) +
+  ylim(0.08, 0.22) +
+  theme_minimal()
+```
+
+```{r}
+library(tidyr)
+library(ggplot2)
+df1 <- read.csv("../Archive/2022vs2023Womens.csv")
+df2 <- read.csv("../Archive/2022vs2023WomensDash.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(df1) <- c("Athlete", "Country", "2022 H", "2022 S", "2022 F", "2023 H", "2023 S", "2023 F")
+colnames(df2) <- c("Athlete", "2022 H", "2022 S", "2022 F", "2023 H", "2023 S", "2023 F")
+df1 <- df1[, -c(1, 2)]
+df2 <- df2[, -c(1)]
+df <- rbind(df1, df2)
+
+df_long <- tidyr::pivot_longer(df, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("2023 H", "2023 S", "2023 F", "2022 H", "2022 S", "2022 F"))
+women_23 <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Reaction Time", x = "") +
+  annotate("text", y = 0.21, x = "2022 S", label = "Women 2022 vs 2023", cex = 3) +
+  ylim(0.08, 0.22) +
+  theme_minimal()
+```
+
+```{r}
+library(gridExtra)
+rank_scatter <- grid.arrange(men_19, women_19, men_22,women_22, men_23, women_23, ncol = 2)
+ggsave(filename = "RankScatterPlots.pdf", path = "../Manuscript", plot=rank_scatter, height = 7.5, width = 7)
 ```
 
