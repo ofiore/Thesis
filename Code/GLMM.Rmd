@@ -19,13 +19,23 @@ To see the outputs of Table 4 run code chunks 15-17
 ### 1
 The code below loads in the data sets from the csv file.
 ```{r}
-
 times <- read.csv("../Data/GLMMData.csv")
 colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Event")
-with2022 <- subset(times, (Type == "F" | Type == "S") & 
-                       Gender == "M" & Time != 'DQ' & Event == "Hurdles")
-without2022 <- subset(times, (Type == "F" | Type == "S") & 
-                           Gender == "M" & Time != 'DQ' & Venue != 2022 & Event == "Hurdles")
+
+with2022 <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS" & Time != "DQ" & Time != "D") |>
+  filter(RxnTime != 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles")
+
+without2022 <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS" & Time != "DQ" & Time != "D") |>
+  filter(RxnTime != 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles") |>
+  filter(Venue != 2022)
 ```
 
 
@@ -103,7 +113,7 @@ This test compares the full model with the heat effect only model.
 anova(with2022_heat_gamma_log, with2022_two_effect_gamma_log)
 ```
 This anova test determined that the two effect model is an improvement over the
-heat effect model. The p-value is 0.008305 which is significant at 
+heat effect model. The p-value is $1.21 \cdot 10^{-5}$ which is significant at 
 $\alpha = 0.05$.
 
 
@@ -114,6 +124,9 @@ anova(with2022_venue_gamma_log, with2022_two_effect_gamma_log)
 ```
 This anova test determined that the two effect model is a significant
 improvement over the Venue effect model.
+
+We ran additional tests and found that including `Event` as a predictor in the
+model did not significantly improve the model.
 
 
 ### 11
@@ -445,5 +458,16 @@ ggplot(women_dash, aes(x = Venue, y = RxnTime, group = Venue)) +
                             breaks = seq(0.1, 0.25, 0.05)) +
   expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
                                               breaks = seq(1999, 2024, 2))
+```
+
+
+
+```{r}
+men_dash <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime != 0) |>
+  mutate(RxnTime = ifelse(RxnTime < 0.1, 0.1, RxnTime))
 ```
 
