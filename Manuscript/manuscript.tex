@@ -509,16 +509,24 @@ national championships to the 2022 World Championships.
   Field Championships.}
   \begin{tabular}{c c c c c} 
    \toprule
-   Comparison & Permutation & Asymptotic \\ 
+   Comparison & Permutation & Asymptotic & Athletes & Number observations  \\ 
    \midrule
-   2019 vs 2022 & $0.028$ & $0.003$ \\
-   2022 vs 2023 & $0.011$ & $0.003$ \\
-   2022 National vs International & $<0.001$ & $0.002$ \\
+   2019 vs 2022 Men & $2.8 \cdot 10^{-5}$ & $1.1 \cdot 10^{-5}$ & 34 & 134 \\
+   2019 vs 2022 Female & $ 1.5 \cdot 10^{-3}$ & $6.9 \cdot 10^{-3}$ & 31 & 124 \\
+   2022 National vs International Men & $<0.001$ & $ 6.1 \cdot 10^{-5}$ & 17 & 80 \\
+   2022 National vs International Women & $<0.001$ & $ 1.2 \cdot 10^{-3}$ & 17 & 80 \\
+   2022 vs 2023 Men & $<0.001$ & $1.4 \cdot 10^{-6}$ & 45 & 161 \\
+   2022 vs 2023 Female & $<0.001$ & $9.4 \cdot 10^{-7}$ & 47 & 182 \\
    \bottomrule
   \end{tabular}
   \label{tab:Clusrankresults}
 \end{table}
-
+\of{Table currently doesnt fit on the page but can be fixed by abbreviating some
+of the names in the comparison column.  I used <0.001 becuase that is what we
+had currently been using for any values from the permutation test where the value
+was < 2.2e-16 in R.  Professor Yan will know best, but are the sample sizes now
+sufficiently large enough that the permutation test is not needed? If I recall
+correctlty that was a correction for small sample sizes.}
 
 Table~\ref{tab:Clusrankresults} shows the results generated from both the 
 permutation and asymptotic rank-based tests for the three comparisons, 
@@ -561,7 +569,8 @@ competitions.
     \bottomrule
   \end{tabular}
 \end{table}
-\of{needs to be updated}
+\of{needs to be updated with current values. But I did start to alter something
+then stopped.}
 
 The estimated parameters of the GLMM model under the log link are shown in 
 Table~\ref{tab:Gamma_parameters}, both excluding and including 2022 data.
