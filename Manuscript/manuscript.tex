@@ -513,38 +513,31 @@ national championships to the 2022 World Championships.
    \midrule
    2019 vs 2022 Men & $2.8 \cdot 10^{-5}$ & $1.1 \cdot 10^{-5}$ & 34 & 134 \\
    2019 vs 2022 Female & $ 1.5 \cdot 10^{-3}$ & $6.9 \cdot 10^{-3}$ & 31 & 124 \\
-   2022 National vs International Men & $<0.001$ & $ 6.1 \cdot 10^{-5}$ & 17 & 80 \\
-   2022 National vs International Women & $<0.001$ & $ 1.2 \cdot 10^{-3}$ & 17 & 80 \\
+   2022 Nat. vs Inter. Men & $<0.001$ & $ 6.1 \cdot 10^{-5}$ & 17 & 80 \\
+   2022 Nat. vs Inter. Women & $<0.001$ & $ 1.2 \cdot 10^{-3}$ & 17 & 80 \\
    2022 vs 2023 Men & $<0.001$ & $1.4 \cdot 10^{-6}$ & 45 & 161 \\
    2022 vs 2023 Female & $<0.001$ & $9.4 \cdot 10^{-7}$ & 47 & 182 \\
    \bottomrule
   \end{tabular}
   \label{tab:Clusrankresults}
 \end{table}
-\of{Table currently doesnt fit on the page but can be fixed by abbreviating some
-of the names in the comparison column.  I used <0.001 becuase that is what we
+\of{Table might still be too wide.  I used <0.001 becuase that is what we
 had currently been using for any values from the permutation test where the value
 was < 2.2e-16 in R.  Professor Yan will know best, but are the sample sizes now
 sufficiently large enough that the permutation test is not needed? If I recall
 correctlty that was a correction for small sample sizes.}
 
 Table~\ref{tab:Clusrankresults} shows the results generated from both the 
-permutation and asymptotic rank-based tests for the three comparisons, 
+permutation and asymptotic rank-based tests for the six comparisons, 
 as discussed previously in Section~\ref{sec:rank}. The national versus international
-comparisons produced lower p-values than the 2019 versus 2022 and 2022 versus 2023comparisons.%, with the
-%national vs international permutation test producing a p-value of $2\cdot10^{-6}$.
-The highly significant permutation test result provides substantial evidence 
-that athletes who competed at the
+comparisons produced lower p-values than the 2019 versus 2022 and 2022 versus 2023
+comparisons. The highly significant permutation test results
+provides substantial evidence that both men and women who competed at the
 2022 World Track and Field Championships were on average, significantly faster
-at reacting than they were just a few months prior. For the 2019 versus 2022
-same athlete comparison with permutation test, the p-value was 
-$0.028$, which is significant at level $0.05$.  The result of
-comparing 2022 and 2023 was very similar (but not exactly the same) to the above
-result, as the p-value from the permutation test was $0.011$.
-Taken together, these three
-tests help show that athletes competing at the 2022 World Track and Field
-Championships had faster reaction times than when they had competed at other
-competitions.
+at reacting than they were just a few months prior. When looked at in context
+with other tests, these results show that athletes competing at the 2022 World
+Track and Field Championships had faster reaction times than when they had
+competed at other competitions.
 
 
 \subsection{GLMM} \label{subsec:Results_GLMM}
@@ -680,20 +673,27 @@ without a substantial difference in magnitude.
 
 \section{Discussion}\label{sec:concludingremarks}
 
+We set out to answer two questions: were athletes who competed at the 2022 World
+Track and Field Championships faster than at other races and is the 0.1 second
+reaction time barrier fair.  In regards to the first question, we do believe
+that athletes were faster than in comparable meets.  Ideally we would like to
+be able to draw data from a central database containing every World Athletics
+certified meet which we could use to reference athlete's reaction times.
+Unfortunately that is not available at the moment and nearly all of the results
+listed on the World Athletics website do not contain reaction times.  The results
+of the study could have been stronger if we had been able to look at every race
+that athletes like Devon Allen ran in 2022 and analyzed his results at the World
+Championship against many other data points.
 
-We did not consider data from the women's 100 meter hurdle in the analysis.
-In addition to the concerns over reaction time differences in men and
-women, exploratory analysis showed that 2022 women were at best only
-slightly faster relative to other championships going back to 2003.
-Likewise, the rank-based comparisons resulted in p-values
-that were not drastically significant after adjusting for multiple tests.
-The lack of evidence from the women's data makes it 
-harder to conclude that the sensors used at the 2022 championships were faulty, 
-although it is unknown if the sensors for the men's 110 meter hurdle and women's
-100 meter hurdle were the same. On the other hand, this may be related to 
-another debated question regarding whether the reaction time barrier should be 
-the same for men and women.
+In addition to the GLMM results results presented above women, the supplementary
+file contains results about the women's GLMM results.  We fit a generalized
+gamma model to womens 100 meter dash and 100 meter hurdle data from 1999 to 2023
+to determine an appropriate reaction time barrier.  We chose to separate these
+two studies due to publications suggesting reaction time differences in men and
+women.
 
+\of{I think there are some good ideas in these 2 paragraphs but need help
+integrating them. Prof Schifano can you help with this?}
 
 The uniformity of the reaction time barrier for both men and women is
 perplexing, especially in light of numerous studies that suggest a divergence in
