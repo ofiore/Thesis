@@ -358,10 +358,36 @@ qqPlot(resids_log_normal)
 qqPlot(resids_gamma)
 ```
 ```{r}
+library(lme4)
+library(lattice)
 dotplot(ranef(dash_and_hurdles_with_dq_two_effect_gamma_log, condVar = TRUE))
 ```
 ```{r}
 dotplot(ranef(log_normal_model, condVar = TRUE))
 ```
 
+```{r}
+random_effects <- ranef(log_normal_model)
+random_effects_df <- as.data.frame(random_effects$Venue)
+qqPlot(random_effects_df$`(Intercept)`, 
+       main = "Normal QQ Plot of Venue effect log normal model")
+```
 
+```{r}
+random_effects <- ranef(log_normal_model)
+random_effects_df <- as.data.frame(random_effects$Heat)
+qqPlot(random_effects_df$`(Intercept)`, 
+       main = "Normal QQ Plot of Heat effect log normal model")
+```
+```{r}
+random_effects <- ranef(dash_and_hurdles_with_dq_two_effect_gamma_log)
+random_effects_df <- as.data.frame(random_effects$Venue)
+qqPlot(random_effects_df$`(Intercept)`, 
+       main = "Normal QQ Plot of Venue effect gamma model")
+```
+```{r}
+random_effects <- ranef(dash_and_hurdles_with_dq_two_effect_gamma_log)
+random_effects_df <- as.data.frame(random_effects$Heat)
+qqPlot(random_effects_df$`(Intercept)`, 
+       main = "Normal QQ Plot of Heat effect gamma model")
+```
