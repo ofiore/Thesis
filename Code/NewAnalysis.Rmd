@@ -73,6 +73,23 @@ models as the p value is quite large. Thus we will not include `Event` as a
 feature in our final model.
 
 
+
+### Residual analysis for the gamma GLMM
+
+Reference:
+<https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html>
+
+
+```{r}
+library("DHARMa")
+
+testDispersion(dash_and_hurdles_two_effect_gamma_log)
+simulationOutput <- simulateResiduals(fittedModel = dash_and_hurdles_two_effect_gamma_log, plot = F)
+
+```
+
+
+
 ## 200m test
 Does it make sense to include the 200m dash data as well?
 
@@ -111,6 +128,7 @@ differs significantly from 100m dash/hurdles.
 
 Based on all the following evidence we are going to perform our men's analysis
 on data from the 100 meter dash and 110 meter hurdles exclusively.
+
 
 
 ## Now for women
