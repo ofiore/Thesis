@@ -47,7 +47,10 @@ gg4  <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(
 
 
 AIC(gg1, gg2, gg3, gg3a, gg3b, gg3c, gg4) # gg3b is the best
-qq_conf_plot(residuals(gg3b))
+qq_conf_plot(residuals(gg3b), dparams = list(mean = 0, sd = 1)) ## z-scores have known mean and sd
+qq_conf_plot(gg3b$sigma.coefSmo[[1]]$coef)
+qq_conf_plot(gg3b$mu.coefSmo[[1]]$coef)
+
              
 ### random effects in mu
 gg3b$mu.coefSmo
