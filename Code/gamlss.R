@@ -25,7 +25,7 @@ library("qqconf")
 
 ## log-normal
 ln0  <- gamlss(RxnTime ~ 1, data = dhm, family = LOGNO)
-ln1a  <- gamlss(RxnTime ~ 1 + random(Venue), data = dhm, family = LOGNO)
+ln1  <- gamlss(RxnTime ~ 1 + random(Venue), data = dhm, family = LOGNO)
 ln2  <- gamlss(RxnTime ~ random(Venue) + random(Heat), data = dhm, family = LOGNO)
 ln3  <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Venue), data = dhm, family = LOGNO)
 ln4  <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Venue) + random(Heat), data = dhm, family = LOGNO)
@@ -89,7 +89,7 @@ qq_conf_plot(residuals(we2))
 igau2  <- gamlss(RxnTime ~ random(Venue) + random(Heat), data = dhm, family = IG)
 igau4  <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Venue) + random(Heat), data = dhm, family = IG, control = gamlss.control(n.cyc = 40)) 
 
-qq_conf_plot(residuals(igau4) # good looking
+qq_conf_plot(residuals(igau4)) # good looking
 
 ## inverse gamma
 igam2  <- gamlss(RxnTime ~ random(Venue) + random(Heat), data = dhm, family = IGAMMA)
@@ -101,3 +101,36 @@ igam2  <- gamlss(RxnTime ~ random(Venue) + random(Heat), data = dhm, family = IG
 ## eg2 <- gamlss(RxnTime ~ random(Venue) + random(Heat), data = dhm, family = exGAUS)
 
 ## qq_conf_plot(residuals(eg0))
+
+# Generalized Inverse Gaussian
+gig1 <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat), data = dhm, family = GIG, control = gamlss.control(n.cyc = 40))
+gig2 <- gamlss(RxnTime ~ random(Venue) + random(Heat), data = dhm, family = GIG, control = gamlss.control(n.cyc = 40))
+gig3 <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Heat), data = dhm, family = GIG, control = gamlss.control(n.cyc = 40))
+gig4 <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Venue) + random(Heat), data = dhm, family = GIG, control = gamlss.control(n.cyc = 40))
+
+
+AIC(gig1, gig2, gig3, gig4)
+qq_conf_plot(residuals(gig2))
+# While some of the AIC are strong and better than gg3b, the residuals are weak
+
+
+# Simulation Code
+sim_time <- function(model, RxnTime) {
+  simfit <- function(model, n = 10000000) {
+    
+    sd_Venue <- model$mu.coefSmo[[1]]$sigb
+    sd_Venue_heat <- model$sigma.coefSmo[[1]]$sigb[1]
+    
+    mu <- exp(model$mu.coefficients[1] + rnorm(n, mean = 0 , sd = sd_Venue))
+    sigma <- exp(model$sigma.coefficients[1] + rnorm(n, mean = 0 , sd = sd_Venue_heat))
+    nu <- model$nu.coefficients[1]
+    
+    x <- rGG(n, mu = mu, sigma = sigma, nu = nu)
+    x
+  }
+  x <- simfit(model)
+  print(mean(x < RxnTime))
+}
+sim_time(gg3b, 0.1)
+
+
