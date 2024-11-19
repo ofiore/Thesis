@@ -43,10 +43,11 @@ gg3  <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(
 gg3a  <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Heat), data = dhm, family = GG, control = gamlss.control(n.cyc = 40))
 gg3b  <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat), data = dhm, family = GG, control = gamlss.control(n.cyc = 40))
 gg3c  <- gamlss(RxnTime ~ random(Heat), sigma.formula = ~ random(Heat), data = dhm, family = GG, control = gamlss.control(n.cyc = 40))
+gg3d  <- gamlss(RxnTime ~ random(Heat), sigma.formula = ~ random(Venue), data = dhm, family = GG, control = gamlss.control(n.cyc = 40))
 gg4  <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Venue) + random(Heat), data = dhm, family = GG, control = gamlss.control(n.cyc = 40))
 
 
-AIC(gg1, gg2, gg3, gg3a, gg3b, gg3c, gg4) # gg3b is the best
+AIC(gg1, gg2, gg3, gg3a, gg3b, gg3c, gg3d, gg4) # gg3b is the best
 qq_conf_plot(residuals(gg3b), dparams = list(mean = 0, sd = 1)) ## z-scores have known mean and sd
 qq_conf_plot(gg3b$sigma.coefSmo[[1]]$coef)
 qq_conf_plot(gg3b$mu.coefSmo[[1]]$coef)
@@ -74,7 +75,7 @@ ga4  <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(
 
 AIC(ga2)
 AIC(ga4)
-qq_conf_plot(residuals(ga4))
+qq_conf_plot(residuals(ga4), dparams = list(mean = 0, sd = 1)) ## z-scores have known mean and sd
 
 
 ## weibull
@@ -83,13 +84,18 @@ we1  <- gamlss(RxnTime ~ random(Venue), data = dhm, family = WEI3)
 we2  <- gamlss(RxnTime ~ random(Venue) + random(Heat), data = dhm, family = WEI3)
 
 AIC(we2)
-qq_conf_plot(residuals(we2))
+qq_conf_plot(residuals(we2), dparams = list(mean = 0, sd = 1)) ## z-scores have known mean and sd
 
 ## inverse gaussian
 igau2  <- gamlss(RxnTime ~ random(Venue) + random(Heat), data = dhm, family = IG)
+igau3  <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Venue), data = dhm, family = IG, cont3ol = gamlss.control(n.cyc = 40))
+igau3a  <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Heat), data = dhm, family = IG, control = gamlss.control(n.cyc = 40))
+igau3b  <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat), data = dhm, family = IG, control = gamlss.control(n.cyc = 40))
+igau3c  <- gamlss(RxnTime ~ random(Heat), sigma.formula = ~ random(Heat), data = dhm, family = IG, control = gamlss.control(n.cyc = 40))
 igau4  <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Venue) + random(Heat), data = dhm, family = IG, control = gamlss.control(n.cyc = 40)) 
 
-qq_conf_plot(residuals(igau4)) # good looking
+AIC(igau2, igau3, igau3a, igau3b, igau3c, igau4)
+qq_conf_plot(residuals(igau4), dparams = list(mean = 0, sd = 1)) ## z-scores have known mean and sd # good looking
 
 ## inverse gamma
 igam2  <- gamlss(RxnTime ~ random(Venue) + random(Heat), data = dhm, family = IGAMMA)
@@ -106,15 +112,16 @@ igam2  <- gamlss(RxnTime ~ random(Venue) + random(Heat), data = dhm, family = IG
 gig1 <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat), data = dhm, family = GIG, control = gamlss.control(n.cyc = 40))
 gig2 <- gamlss(RxnTime ~ random(Venue) + random(Heat), data = dhm, family = GIG, control = gamlss.control(n.cyc = 40))
 gig3 <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Heat), data = dhm, family = GIG, control = gamlss.control(n.cyc = 40))
+gig3b <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat), data = dhm, family = GIG, control = gamlss.control(n.cyc = 40))
 gig4 <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Venue) + random(Heat), data = dhm, family = GIG, control = gamlss.control(n.cyc = 40))
 
 
-AIC(gig1, gig2, gig3, gig4)
-qq_conf_plot(residuals(gig2))
+AIC(gig1, gig2, gig3, gig3b, gig4)
+qq_conf_plot(residuals(gig3b), dparams = list(mean = 0, sd = 1)) ## z-scores have known mean and sd
 # While some of the AIC are strong and better than gg3b, the residuals are weak
 
 
-# Simulation Code
+# Simulation Code: only works for gg3b
 sim_time <- function(model, RxnTime) {
   simfit <- function(model, n = 10000000) {
     
