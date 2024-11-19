@@ -203,13 +203,17 @@ whether the current threshold is statistically justified.
 
 
 The rest of this paper is organized as follows. Section~\ref{sec:Data} 
-describes how the data were collected. The rank-sum test, detailed 
-in Section~\ref{sec:rank}, uses slightly different data from the 
-generalized linear mixed-effects model (GLMM) developed in 
-Section~\ref{sec:glmm}. Section~\ref{sec:Results} presents the results 
-of both analyses and discusses the implications of the reaction time 
-barrier. Finally, Section~\ref{sec:concludingremarks} outlines the 
-paper’s impact and limitations. All data and code for our analysis 
+describes the data collection and datasets used for the two
+objectives. Section~\ref{sec:rank} outlines the methods for
+objective~1, analyzing differences in reaction times across
+competitions, including the were collected. Section~\ref{sec:gamlss}
+details the methods for objective~2, the generalized additive model
+for location, scale, and shape (GAMLSS) to evaluate the appropriatenes
+of the 0.1-second threshold. Section~\ref{sec:Results} presents the
+results of both objectives and discusses the implications.
+Finally, Section~\ref{sec:concludingremarks} highlights the 
+paper’s impact, limitations, and potential for future research.
+All data and code for our analysis 
 are provided in the supplementary materials.
 
 
@@ -378,7 +382,7 @@ under more lenient rules.
 
 
 
-\section{Methods} \label{sec:Methods}
+\section{Methods} \label{sec:methods}
 
 The data described in Sections~\ref{sec:databeyond} and~\ref{sec:dataworld} were
 analyzed with rank-based methods and a GAMLSS, respectively.
@@ -431,7 +435,7 @@ with \texttt{method = `ds'} (for \underline{D}atta and \underline{S}atten) and
 \texttt{clusrank} \citep{jiang2020wilcoxon}. 
 
 
-\subsection{GAMLSS}\label{sec:glmm}
+\subsection{GAMLSS}\label{sec:gamlss}
 
 Based on an exploratory analysis, the reaction times are adequately
 modeled by a Generalized Gamma (GG) distribution with random effects in
@@ -439,19 +443,21 @@ model parameters. The GG distribution has three parameters, denoted by
 $\text{GG}(\mu, \sigma, \nu)$ has density function
 \[
 f_Y(y \mid \mu, \sigma, \nu) = 
-\frac{|\nu| \theta^\theta}{\Gamma(\theta) y} 
-z^{\theta} \exp\left(-z \theta\right),
+\frac{|\nu| \theta^\theta z^{\theta}}{\Gamma(\theta) y} 
+\exp\left(-z \theta\right),
 \]
-
 for $y > 0$, $\mu > 0$, $\sigma > 0$, and $\nu \neq 0$,
 where $z = \left(\frac{y}{\mu}\right)^\nu$,
-$\theta = 1 / (\sigma^2 \nu^2)$.
+$\theta = 1 / (\sigma^2 \nu^2)$, and
 $\Gamma(\cdot)$ denotes the Gamma function.
 The GG distribution is highly flexible, encompassing several  
 well-known distributions as special cases, such as the
 Weibull ($\mu = \nu)$ and  Gamma $(\nu = 1)$ distributions.
 Its mean is
-$\mu \frac{\Gamma(\theta + 1 / \nu)}{\theta^{1 / \nu} \Gamma(\theta)}$,
+\[
+  \mu \frac{\Gamma(\theta + 1 / \nu)}
+  {\theta^{1 / \nu} \Gamma(\theta)},
+\]
 provided $\theta > -1 / \nu$. Here,
 $\mu$ scales the central tendency, $\sigma$ controls 
 dispersion, and $\nu$ determines skewness. This parameterization allows 
