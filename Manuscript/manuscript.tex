@@ -381,7 +381,7 @@ under more lenient rules.
 \section{Methods} \label{sec:Methods}
 
 The data described in Sections~\ref{sec:databeyond} and~\ref{sec:dataworld} were
-analyzed with rank-based methods and a GLMM, respectively.
+analyzed with rank-based methods and a GAMLSS, respectively.
 
 
 \subsection{Rank-based Comparison}\label{sec:rank}
@@ -431,60 +431,72 @@ with \texttt{method = `ds'} (for \underline{D}atta and \underline{S}atten) and
 \texttt{clusrank} \citep{jiang2020wilcoxon}. 
 
 
-\subsection{GLMM}\label{sec:glmm}
-Based on an exploratory analysis using the GLMM model for the reaction times
-from the World Championships, we chose a gamma mixed-effect model as our 
-final model. As suggested by the log-likelihood and the Akaike Information
-Criterion (AIC), the normal error model on the log-scale was found to be
-much inferior to the gamma model which better captures the skewness of the
-data. Two random effects were found useful: one capturing the venue effect, which
+\subsection{GAMLSS}\label{sec:glmm}
+
+Based on an exploratory analysis, the reaction times are adequately
+modeled by a Generalized Gamma (GG) distribution with random effects in
+model parameters. The GG distribution has three parameters, denoted by
+$\text{GG}(\mu, \sigma, \nu)$ has density function
+\[
+f_Y(y \mid \mu, \sigma, \nu) = 
+\frac{|\nu| \theta^\theta}{\Gamma(\theta) y} 
+z^{\theta} \exp\left(-z \theta\right),
+\]
+
+for $y > 0$, $\mu > 0$, $\sigma > 0$, and $\nu \neq 0$,
+where $z = \left(\frac{y}{\mu}\right)^\nu$,
+$\theta = 1 / (\sigma^2 \nu^2)$.
+$\Gamma(\cdot)$ denotes the Gamma function.
+The GG distribution is highly flexible, encompassing several  
+well-known distributions as special cases, such as the
+Weibull ($\mu = \nu)$ and  Gamma $(\nu = 1)$ distributions.
+Its mean is
+$\mu \frac{\Gamma(\theta + 1 / \nu)}{\theta^{1 / \nu} \Gamma(\theta)}$,
+provided $\theta > -1 / \nu$. Here,
+$\mu$ scales the central tendency, $\sigma$ controls 
+dispersion, and $\nu$ determines skewness. This parameterization allows 
+the distribution to model asymmetric and heavy-tailed data effectively, making 
+it particularly suitable for reaction times.
+An implementation of this distribution is available from R package
+\texttt{gamlss.dist} \citep{rigby2019distributions}.
+
+
+
+Let $Y_{ijk}$ denote the reaction time of observation~$k$ in heat~$j$
+of year~$i$. Conditioning on a venue effect $v_i$ for year~$i$ 
+and a heat effect $h_{i/j}$ nested within each year~$i$, the
+distribution of $Y_{ijk}$ is
+$\text{GG}(\mu_{ijk}, \sigma_{ijk}, \nu)$, where
+\begin{align}
+\log(\mu_{ijk}) &= \beta_0 + v_i ,\\
+\log(\sigma_{ijk}) &= \gamma_0 + h_{i/j},
+\end{align}
+$v_i$ is normally distributed with mean zero and
+variance~$\sigma_v^2$, and $h_{i/j}$ is normally distributed with mean
+zero and variance~$\sigma_h^2$.
+The two random effects were found useful: one capturing the venue effect, which
 is used to contrast years, and the second being the heat effect, where every
 race was given a unique identifier with typically five to nine observations
 per race. The heat effect is important as it captures the variability in the
 amount of time athletes are on the starting blocks before the gun goes off.
-Thus, we can try to reduce this variability by accounting for it in the model
-through the heat effect.
+This model can be fit with R package \texttt{gamlss}
+\citep{stasinopoulos2024generalized}.
 
 
-Let $Y_{ijk}$ be the reaction time of observation~$k$ in heat~$j$ in year~$i$.
-Conditional on a venue effect $v_i$ of year~$i$ and a heat effect
-$h_{i/j}$ nested within each year~$i$, $Y_{ijk}$ is modeled by a
-gamma distribution. In the classic generalized linear model (GLM) sense,
-$Y_{ijk}$ has conditional mean $E(Y_{ijk} | v_i, h_{i/j}) > 0$ and a
-dispersion parameter~$\phi > 0$. The conditional mean is characterized by
-\[
-g\{E(Y_{ijk} | v_i, h_{i/j})\} = \alpha + v_i + h_{i/j},
-\]
-where $g$ is a known link function, $\alpha$ is a (fixed) intercept,
-$v_i$ is normally distributed with mean zero and
-variance~$\sigma_v^2$, and $h_{i/j}$ 
-is normally distributed with mean
-zero and variance~$\sigma_h^2$.
-Although \citet{lo2015idlink} suggested that the gamma 
-family with an identity link works well for reaction time in cognitive
-psychological research, the logarithm
-link function worked better for our data and additionally ensures the positivity
-of the conditional mean. The gamma mixed-effect model can be fit with the 
-\texttt{glmer()} function in R package \texttt{lme4} \citep{lme4}.
-
-
-To better understand this model, we can identify the gamma model in terms of the
-commonly used shape and scale parameters. For a gamma distribution with
-shape~$a$ and scale~$b$, we have mean $\mu = ab$ and variance $\nu = ab^2$. The
-variance as a function of the mean~$\mu$ in the GLM sense is
-$\text{var}(\mu) = \mu^2 / a$, which implies that the dispersion parameter is
-$\phi = 1 / a$. Therefore, for the gamma mixed-effect model, the conditional
-gamma distribution of the reaction time $Y_{ijk}$ given the venue
-effect~$v_i$ and heat effect~$h_{i/j}$
-has shape $a = 1 / \phi$ and scale
-$b = g^{-1}(\alpha + v_i + h_{i/j}) \phi$. The marginal
-distribution of $Y_{ijk}$ is a scale-mixture of gamma distributions, which can be
+Model diagnosis and tail analysis can be done with the fitted GG model
+from package \texttt{gamlss}. Normalized quantile residuals, or
+z-scores \citep{dunn1996randomized}, of the observations can be
+extracted with the \texttt{residuals} method of a \texttt{gamlss}
+object. The z-scores can then be checked with a Q-Q plot
+\citep{almeida2018ggplot2}. The marginal
+distribution of $Y_{ijk}$ is a scale-mixture of GG distributions, which can be
 easily simulated from once the parameters are estimated. Many
 random numbers generated from the fitted mixture distribution can be used to
 approximate the probability of observing a reaction time faster than any given
 threshold. We are specifically interested in the probability of a reaction time
 being less than 0.1 seconds in order to gauge if that is a reasonable 
 disqualification barrier.
+
 
 
 \section{Results} \label{sec:Results}
