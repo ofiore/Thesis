@@ -108,7 +108,7 @@ allowable threshold of 0.1 seconds. This paper explores whether the
 reaction times of athletes at the 2022 Championships were unusually
 fast compared to other competitions and evaluates the appropriateness
 of the 0.1-second disqualification barrier. To investigate these
-issues, we employ a signed-rank test for clustered data to compare
+issues, we employ a rank-sum test for clustered data to compare
 athletes' reaction times across multiple competitions, along with a
 generalized linear mixed model (GLMM) that accounts for both venue and
 heat effects. The results indicate that athletes at the 2022
@@ -164,23 +164,10 @@ previous World Championships. However, these comparisons lacked formal
 statistical analysis. 
 
 
-The first objective of this paper is to investigate whether reaction
-times at the 2022 World Championships were significantly different
-from other competitions, focusing specifically on athletes who
-competed in multiple events. By employing a matched-pairs design, we
-compare reaction times from the same athletes across different
-championships, including the 2022, 2019, and 2023 World Championships,
-as well as the 2022 national-level competitions. This approach allows
-us to isolate the effect of the competition year on reaction times
-while controlling for individual athlete performance. Our analysis
-provide a more formal statistical evaluation of the disqualification 
-threshold, building upon the informal comparisons previously made 
-by others.
-
-
-There is an ongoing debate over the appropriateness of the 0.1-second
-threshold for disqualification, with past studies suggesting both
-lower and higher limits. \citet{pain2007sprint} examined 
+The 0.1-second disqualification threshold in track events has been 
+a subject of ongoing debate, with researchers presenting evidence 
+both in favor of lowering and raising the
+limit. \citet{pain2007sprint} examined
 reaction times in nine male athletes and found that the fastest athlete 
 had an average reaction time of 0.087 seconds, with a standard deviation 
 of 0.004 seconds. Similarly, \citet{komi2009iaaf}, in a study commissioned 
@@ -199,38 +186,48 @@ reaction time capabilities. The IAAF has not revised the threshold
 since its implementation in 1999.
 
 
-The second objective of this paper is to further investigate the
-appropriateness of the 0.1-second threshold by modeling reaction times
-from athletes who competed in world championships from 1999 onward. We
-employ a gamma linear mixed-effects model with two random effects: one
-for the venue (year) and another for the heat nested within each
-venue. This model allows us to estimate the probability of an
-athlete’s reaction time falling below a specific threshold, such as
-0.1 seconds. By examining reaction times across different years and
-heats, we can assess the consistency of reaction times and whether the
-current disqualification threshold is supported by statistical
-evidence.
+This paper has two primary objectives. First, we investigate whether 
+reaction times at the 2022 World Championships were significantly 
+different from other competitions, focusing on athletes who competed 
+in multiple events. Using a matched-pairs design, we compare reaction 
+times across the 2022, 2019, and 2023 World Championships, as well as 
+the 2022 national-level competitions. This approach isolates the 
+effect of the competition year while controlling for individual 
+performance. The second objective is to assess the 
+appropriateness of the 0.1-second threshold by modeling reaction 
+times from World Championships held from 1999 onward. We use a gamma 
+linear mixed-effects model with random effects for both venue and heat. 
+This model estimates the probability of reaction times falling below 
+the threshold, helping evaluate the consistency of reaction times and 
+whether the current threshold is statistically justified.
 
 
 The rest of this paper is organized as follows. Section~\ref{sec:Data} 
-describes how the data were collected. The signed-rank test, detailed 
-in Section~\ref{sec:rank}, uses slightly different data from the 
-generalized linear mixed-effects model (GLMM) developed in 
-Section~\ref{sec:glmm}. Section~\ref{sec:Results} presents the results 
-of both analyses and discusses the implications of the reaction time 
-barrier. Finally, Section~\ref{sec:concludingremarks} outlines the 
-paper’s impact and limitations. All data and code for our analysis 
+describes the data collection and datasets used for the two
+objectives. Section~\ref{sec:rank} outlines the methods for
+objective~1, analyzing differences in reaction times across
+competitions, including the were collected. Section~\ref{sec:gamlss}
+details the methods for objective~2, the generalized additive model
+for location, scale, and shape (GAMLSS) to evaluate the appropriatenes
+of the 0.1-second threshold. Section~\ref{sec:Results} presents the
+results of both objectives and discusses the implications.
+Finally, Section~\ref{sec:concludingremarks} highlights the 
+paper’s impact, limitations, and potential for future research.
+All data and code for our analysis 
 are provided in the supplementary materials.
 
 
 \section{Data} \label{sec:Data}
 
 There are two types of data that are explored throughout this paper. For the
-signed-rank tests described in Section~\ref{sec:rank}, the data comes from 
-athletes who competed in the 2022 World Championships and another competition 
+rank-sum tests described in Section~\ref{sec:rank}, the data comes from male 
+athletes who competed in the 110 meter hurdles and 100 meter dash, and female
+athletes who competed 100 meter hurdles and 100 meter dash.
+Athletes must have competed in the 2022 World Championships and another competition 
 (2019 World Championships, 2023 World Championships, or 2022 national 
 championships). For the GLMM described in Section~\ref{sec:glmm}, data comes
-from every world championships from 1999 to 2023. This investigation started 
+from every world championships from 1999 to 2023 and includes reaction times from
+the 110 meter hurdles and 100 meter dash. This investigation started 
 shortly after the 2022 World Championships, but as the 2023 data has now become 
 available, we are pleased to include it in both of our analyses, and it did not
 significantly change our results \citep{WAData}. 
@@ -254,7 +251,7 @@ Every athlete reacted faster in all the World Track and Field Championships
 races compared to the United States Track and Field Championships races. The 
 dataset of the four United States athletes is too small to perform any 
 meaningful statistical analysis, but the data was expanded to include reaction 
-times for 11 more athletes who competed at other national competitions (many of which were 
+times from more athletes who competed at other national competitions (many of which were 
 held from May-July of 2022). This data was difficult to find, as the data is not
 centrally located but instead found on different national websites (often 
 recorded in the national language without translation).
@@ -265,11 +262,13 @@ or international) was specified for each competition within the cluster (athlete
 Thus, this is subunit level grouping where we assign the treatment, national or
 international, within each cluster. Cluster sizes range from three to six, with
 one cluster of size three, six clusters of size four, two clusters of size five,
-and two clusters of size six. We chose to include preliminary rounds in this
-section as well as in Section~\ref{sec:data2019} in order to increase the size 
-of our data. Without data from the preliminary rounds, the number of observations
-dropped from 65 to 26 and the number of athletes included in the analysis
-decreased from 15 to 9.
+and two clusters of size six.
+\of{This explanation is going to need to be re-worked now that we have more data.
+Should we make a table of some sort? It's going to be very wordy without one}
+
+We chose to include preliminary rounds in this section as well as in
+Section~\ref{sec:data2019}, as removing them would have resulted in a much
+narrower analysis with fewer athletes and clusters.
 
 
 \subsubsection{Other World Track and Field Championships}\label{sec:data2019}
@@ -292,23 +291,22 @@ clusters of size four, two clusters of size five, and three clusters of size six
 When comparing 2022 and 2023 we look at data from 22 athletes, with seven 
 clusters of size two, three clusters of size three, six clusters of size four,
 and six clusters of size five.
+\of{This explanation might need to change}
 
 \begin{figure}[tbp]
   \centering
   \includegraphics{RankScatterPlots}
-  \caption{The top graph shows the reaction times of athletes who competed at 
-	least once each at the 2019 and 2022 World Championships. The middle graph 
-	shows the reaction times of athletes who competed at least once each at the 
-	2022 and 2023 World Championships. The bottom graph shows the reaction times 
-	of athletes who competed at least once at their country's
-        2022 national championships and the 2022 World Championships.}
+  \caption{This collection of scatterplots of data used in the rank comparison
+  section shows that times in 2022 were on average lower. On the horizontal
+  axis below each graph "H", "S", and "F" refer to the heats, semifinals, and 
+  finals respectively. Please note that in the last row the 2022 times are to
+  the right of the 2023 times.}
   \label{fig:RankScatterplots}
 \end{figure}
 
-
 Figure~\ref{fig:RankScatterplots} shows the data that will be analyzed
 with the rank-based methods (described in Section~\ref{sec:rank} with results in 
-Section~\ref{subsec:Results_Rank}). In each of the three graphs, the reaction 
+Section~\ref{subsec:Results_Rank}). In each of the six graphs, the reaction 
 times for athletes who competed at the 2022 World Championships
 are compared to their reaction times at another at which they competed. 
 It is worth noting that each instance of the 2022 data is different, because
@@ -360,10 +358,11 @@ study period.
 \begin{figure}[tbp]
   \centering
   \includegraphics{Boxplot}
-  \caption{The reaction times from 1999 to 2023 for the men's 110 meter hurdle.}
+  \caption{The reaction times from 1999 to 2023 for the men's 110 meter hurdle
+  and 100 meter dash.}
   \label{fig:Boxplot}
 \end{figure}
-
+\of{Do We want 2 boxplot figures: 1 hurdles, 1 dash or combine them}
 
 From 2007 to 2009, the IAAF (the former name for World Athletics, and the 
 governing body for the World Track and Field Championships) instituted a rule 
@@ -383,10 +382,10 @@ under more lenient rules.
 
 
 
-\section{Methods} \label{sec:Methods}
+\section{Methods} \label{sec:methods}
 
 The data described in Sections~\ref{sec:databeyond} and~\ref{sec:dataworld} were
-analyzed with rank-based methods and a GLMM, respectively.
+analyzed with rank-based methods and a GAMLSS, respectively.
 
 
 \subsection{Rank-based Comparison}\label{sec:rank}
@@ -436,60 +435,74 @@ with \texttt{method = `ds'} (for \underline{D}atta and \underline{S}atten) and
 \texttt{clusrank} \citep{jiang2020wilcoxon}. 
 
 
-\subsection{GLMM}\label{sec:glmm}
-Based on an exploratory analysis using the GLMM model for the reaction times
-from the World Championships, we chose a gamma mixed-effect model as our 
-final model. As suggested by the log-likelihood and the Akaike Information
-Criterion (AIC), the normal error model on the log-scale was found to be
-much inferior to the gamma model which better captures the skewness of the
-data. Two random effects were found useful: one capturing the venue effect, which
+\subsection{GAMLSS}\label{sec:gamlss}
+
+Based on an exploratory analysis, the reaction times are adequately
+modeled by a Generalized Gamma (GG) distribution with random effects in
+model parameters. The GG distribution has three parameters, denoted by
+$\text{GG}(\mu, \sigma, \nu)$ has density function
+\[
+f_Y(y \mid \mu, \sigma, \nu) = 
+\frac{|\nu| \theta^\theta z^{\theta}}{\Gamma(\theta) y} 
+\exp\left(-z \theta\right),
+\]
+for $y > 0$, $\mu > 0$, $\sigma > 0$, and $\nu \neq 0$,
+where $z = \left(\frac{y}{\mu}\right)^\nu$,
+$\theta = 1 / (\sigma^2 \nu^2)$, and
+$\Gamma(\cdot)$ denotes the Gamma function.
+The GG distribution is highly flexible, encompassing several  
+well-known distributions as special cases, such as the
+Weibull ($\mu = \nu)$ and  Gamma $(\nu = 1)$ distributions.
+Its mean is
+\[
+  \mu \frac{\Gamma(\theta + 1 / \nu)}
+  {\theta^{1 / \nu} \Gamma(\theta)},
+\]
+provided $\theta > -1 / \nu$. Here,
+$\mu$ scales the central tendency, $\sigma$ controls 
+dispersion, and $\nu$ determines skewness. This parameterization allows 
+the distribution to model asymmetric and heavy-tailed data effectively, making 
+it particularly suitable for reaction times.
+An implementation of this distribution is available from R package
+\texttt{gamlss.dist} \citep{rigby2019distributions}.
+
+
+
+Let $Y_{ijk}$ denote the reaction time of observation~$k$ in heat~$j$
+of year~$i$. Conditioning on a venue effect $v_i$ for year~$i$ 
+and a heat effect $h_{i/j}$ nested within each year~$i$, the
+distribution of $Y_{ijk}$ is
+$\text{GG}(\mu_{ijk}, \sigma_{ijk}, \nu)$, where
+\begin{align}
+\log(\mu_{ijk}) &= \beta_0 + v_i ,\\
+\log(\sigma_{ijk}) &= \gamma_0 + h_{i/j},
+\end{align}
+$v_i$ is normally distributed with mean zero and
+variance~$\sigma_v^2$, and $h_{i/j}$ is normally distributed with mean
+zero and variance~$\sigma_h^2$.
+The two random effects were found useful: one capturing the venue effect, which
 is used to contrast years, and the second being the heat effect, where every
 race was given a unique identifier with typically five to nine observations
 per race. The heat effect is important as it captures the variability in the
 amount of time athletes are on the starting blocks before the gun goes off.
-Thus, we can try to reduce this variability by accounting for it in the model
-through the heat effect.
+This model can be fit with R package \texttt{gamlss}
+\citep{stasinopoulos2024generalized}.
 
 
-Let $Y_{ijk}$ be the reaction time of observation~$k$ in heat~$j$ in year~$i$.
-Conditional on a venue effect $v_i$ of year~$i$ and a heat effect
-$h_{i/j}$ nested within each year~$i$, $Y_{ijk}$ is modeled by a
-gamma distribution. In the classic generalized linear model (GLM) sense,
-$Y_{ijk}$ has conditional mean $E(Y_{ijk} | v_i, h_{i/j}) > 0$ and a
-dispersion parameter~$\phi > 0$. The conditional mean is characterized by
-\[
-g\{E(Y_{ijk} | v_i, h_{i/j})\} = \alpha + v_i + h_{i/j},
-\]
-where $g$ is a known link function, $\alpha$ is a (fixed) intercept,
-$v_i$ is normally distributed with mean zero and
-variance~$\sigma_v^2$, and $h_{i/j}$ 
-is normally distributed with mean
-zero and variance~$\sigma_h^2$.
-Although \citet{lo2015idlink} suggested that the gamma 
-family with an identity link works well for reaction time in cognitive
-psychological research, the logarithm
-link function worked better for our data and additionally ensures the positivity
-of the conditional mean. The gamma mixed-effect model can be fit with the 
-\texttt{glmer()} function in R package \texttt{lme4} \citep{lme4}.
-
-
-To better understand this model, we can identify the gamma model in terms of the
-commonly used shape and scale parameters. For a gamma distribution with
-shape~$a$ and scale~$b$, we have mean $\mu = ab$ and variance $\nu = ab^2$. The
-variance as a function of the mean~$\mu$ in the GLM sense is
-$\text{var}(\mu) = \mu^2 / a$, which implies that the dispersion parameter is
-$\phi = 1 / a$. Therefore, for the gamma mixed-effect model, the conditional
-gamma distribution of the reaction time $Y_{ijk}$ given the venue
-effect~$v_i$ and heat effect~$h_{i/j}$
-has shape $a = 1 / \phi$ and scale
-$b = g^{-1}(\alpha + v_i + h_{i/j}) \phi$. The marginal
-distribution of $Y_{ijk}$ is a scale-mixture of gamma distributions, which can be
+Model diagnosis and tail analysis can be done with the fitted GG model
+from package \texttt{gamlss}. Normalized quantile residuals, or
+z-scores \citep{dunn1996randomized}, of the observations can be
+extracted with the \texttt{residuals} method of a \texttt{gamlss}
+object. The z-scores can then be checked with a Q-Q plot
+\citep{almeida2018ggplot2}. The marginal
+distribution of $Y_{ijk}$ is a scale-mixture of GG distributions, which can be
 easily simulated from once the parameters are estimated. Many
 random numbers generated from the fitted mixture distribution can be used to
 approximate the probability of observing a reaction time faster than any given
 threshold. We are specifically interested in the probability of a reaction time
 being less than 0.1 seconds in order to gauge if that is a reasonable 
 disqualification barrier.
+
 
 
 \section{Results} \label{sec:Results}
@@ -514,37 +527,54 @@ national championships to the 2022 World Championships.
   Field Championships.}
   \begin{tabular}{c c c c c} 
    \toprule
-   Comparison & Permutation & Asymptotic \\ 
+   Comparison & Permutation & Asymptotic & Athletes & Number observations  \\ 
    \midrule
-   2019 vs 2022 & $0.028$ & $0.003$ \\
-   2022 vs 2023 & $0.011$ & $0.003$ \\
-   2022 National vs International & $<0.001$ & $0.002$ \\
+   2019 vs 2022 Men & $2.8 \cdot 10^{-5}$ & $1.1 \cdot 10^{-5}$ & 34 & 134 \\
+   2019 vs 2022 Female & $ 1.5 \cdot 10^{-3}$ & $6.9 \cdot 10^{-3}$ & 31 & 124 \\
+   2022 Nat. vs Inter. Men & $<0.001$ & $ 6.1 \cdot 10^{-5}$ & 17 & 80 \\
+   2022 Nat. vs Inter. Women & $<0.001$ & $ 1.2 \cdot 10^{-3}$ & 17 & 80 \\
+   2022 vs 2023 Men & $<0.001$ & $1.4 \cdot 10^{-6}$ & 45 & 161 \\
+   2022 vs 2023 Female & $<0.001$ & $9.4 \cdot 10^{-7}$ & 47 & 182 \\
    \bottomrule
   \end{tabular}
   \label{tab:Clusrankresults}
 \end{table}
-
+\of{Table might still be too wide.  I used <0.001 becuase that is what we
+had currently been using for any values from the permutation test where the value
+was < 2.2e-16 in R.  Professor Yan will know best, but are the sample sizes now
+sufficiently large enough that the permutation test is not needed? If I recall
+correctlty that was a correction for small sample sizes.}
 
 Table~\ref{tab:Clusrankresults} shows the results generated from both the 
-permutation and asymptotic rank-based tests for the three comparisons, 
+permutation and asymptotic rank-based tests for the six comparisons, 
 as discussed previously in Section~\ref{sec:rank}. The national versus international
-comparisons produced lower p-values than the 2019 versus 2022 and 2022 versus 2023comparisons.%, with the
-%national vs international permutation test producing a p-value of $2\cdot10^{-6}$.
-The highly significant permutation test result provides substantial evidence 
-that athletes who competed at the
+comparisons produced lower p-values than the 2019 versus 2022 and 2022 versus 2023
+comparisons. The highly significant permutation test results
+provides substantial evidence that both men and women who competed at the
 2022 World Track and Field Championships were on average, significantly faster
-at reacting than they were just a few months prior. For the 2019 versus 2022
-same athlete comparison with permutation test, the p-value was 
-$0.028$, which is significant at level $0.05$.  The result of
-comparing 2022 and 2023 was very similar (but not exactly the same) to the above
-result, as the p-value from the permutation test was $0.011$.
-Taken together, these three
-tests help show that athletes competing at the 2022 World Track and Field
-Championships had faster reaction times than when they had competed at other
-competitions.
+at reacting than they were just a few months prior. When looked at in context
+with other tests, these results show that athletes competing at the 2022 World
+Track and Field Championships had faster reaction times than when they had
+competed at other competitions.
 
 
-\subsection{GLMM} \label{subsec:Results_GLMM}
+\subsection{GAMLSS} \label{subsec:Results_GLMM}
+
+\jy{Owen, please prepare the following:
+1) A table of the model parameter estimates (both point estimate and
+standard error). This is similar to the current table, with and
+without 2022 data. Let's focus on model gg3b and leave the model
+comparison results in the supplement.
+2) Figure: random effects at the venue level with/without 2022
+data. Similar to the current figure.
+3) Diagnostic plots: qq-plot for the gg3b model. QQ-plot for the
+normal random effects could be placed in supplement.
+4) Table: assessing the 0.1 threshold, similar to the current table.
+I'll take care of the writing when you get the results.}
+
+\jy{Owen: an additional figure of the GG density without random
+  effects (use \texttt{curve(dGG(x, mu = , sigma = , nu =  ), 0, 0.03)}) and
+  with random effects (through \texttt{density()})}
 
 \begin{table}
   \centering
@@ -560,13 +590,14 @@ competitions.
      & Heat Effect Only & $-1910.9$ & 0.069 &  & $-1.877$ & 0.136\\
      & Venue and Heat Effect & $-1912.9$ & 0.058 & 0.033 & $-1.868$ & 0.136\\[1ex]
     Including 2022 &
-    Venue Effect Only & $-2023.5$ &   & 0.054 & $-1.871$ & 0.149\\
+    Venue Effect Only & $-3798.8$ &   & 0.054 & $-1.871$ & 0.149\\
     & Heat Effect Only & $-2070.7$ & 0.073 &  & $-1.890$ & 0.135\\
     & Venue and Heat Effect & $-2075.7$ & 0.057 & 0.040 & $-1.881$ & 0.134\\
     \bottomrule
   \end{tabular}
 \end{table}
-
+\of{needs to be updated with current values. But I did start to alter something
+then stopped.}
 
 The estimated parameters of the GLMM model under the log link are shown in 
 Table~\ref{tab:Gamma_parameters}, both excluding and including 2022 data.
@@ -619,12 +650,13 @@ extreme as 2022.
    \toprule
    Data Set & Threshold 0.08 & Threshold 0.09 & Threshold 0.10  \\ 
    \midrule
-   Excluding 2022 & $3.31\cdot10^{-5}$ & $4.46\cdot10^{-4}$ &  $3.52\cdot10^{-3}$  \\ 
-   Including 2022 & $4.16\cdot10^{-5}$ & $5.70\cdot10^{-4}$ & $4.38\cdot10^{-3}$ \\
+   Excluding 2022 & $1.10\cdot10^{-5}$ & $2.34\cdot10^{-4}$ &  $2.36\cdot10^{-3}$  \\ 
+   Including 2022 & $1.71\cdot10^{-5}$ & $3.01\cdot10^{-4}$ & $2.90\cdot10^{-3}$ \\
    \bottomrule
   \end{tabular}
   \label{tab:Sim_probability}
 \end{table}
+\of{table has been updated}
 
 The GLMM with both venue and heat random effects helps us to assess how extreme
 a reaction time below a given threshold is. The probability of observing a reaction
@@ -636,12 +668,12 @@ observing a reaction time below 0.08, 0.09, and 0.10 seconds under two different
 scenarios: one excluding and the other including data from 2022. Apparently,
 excluding 2022 lowered the probability of observing a fast reaction time, but
 the difference is not big in magnitude. For example, the probability for
-seeing a reaction time below 0.10 seconds changes from $3.54\cdot 10^{-3}$ to
-$4.20\cdot 10^{-3}$ when 2022 is included. These values correspond to roughly one in
-every 230 starts and 283 starts, respectively. The table shows that changing the
+seeing a reaction time below 0.10 seconds changes from $2.36\cdot 10^{-3}$ to
+$2.90\cdot 10^{-3}$ when 2022 is included. These values correspond to one in
+every 344 starts and 423 starts, respectively. The table shows that changing the
 reaction time barrier from 0.1 seconds to 0.08 seconds drastically reduces the
 chance of observing a reaction time below the barrier, from one in roughly every
-283 starts to one in every 29851 starts using data with 2022 included. The
+283 starts to one in every 58480 starts using data with 2022 included. The
 results substantiates the recommendations by \citet{komi2009iaaf}.
 
 
@@ -652,13 +684,13 @@ results substantiates the recommendations by \citet{komi2009iaaf}.
    \toprule
    Data Set & Tail probability  $10^{-3}$ & Tail probability $10^{-4}$ \\ 
    \midrule
-   Excluding 2022 & $0.094$ & $0.084$ \\ 
-   Including 2022 & $0.092$ & $0.083$ \\
+   Excluding 2022 & $0.096$ & $0.087$ \\ 
+   Including 2022 & $0.095$ & $0.086$ \\
    \bottomrule
   \end{tabular}
   \label{tab:Sim_time}
 \end{table}
-
+\of{table has been updated}
 
 Utilizing the same model, we can subtly shift our interpretation to determine a
 suitable reaction time barrier based on the probability of observing a time
@@ -675,20 +707,27 @@ without a substantial difference in magnitude.
 
 \section{Discussion}\label{sec:concludingremarks}
 
+We set out to answer two questions: were athletes who competed at the 2022 World
+Track and Field Championships faster than at other races and is the 0.1 second
+reaction time barrier fair.  In regards to the first question, we do believe
+that athletes were faster than in comparable meets.  Ideally we would like to
+be able to draw data from a central database containing every World Athletics
+certified meet which we could use to reference athlete's reaction times.
+Unfortunately that is not available at the moment and nearly all of the results
+listed on the World Athletics website do not contain reaction times.  The results
+of the study could have been stronger if we had been able to look at every race
+that athletes like Devon Allen ran in 2022 and analyzed his results at the World
+Championship against many other data points.
 
-We did not consider data from the women's 100 meter hurdle in the analysis.
-In addition to the concerns over reaction time differences in men and
-women, exploratory analysis showed that 2022 women were at best only
-slightly faster relative to other championships going back to 2003.
-Likewise, the rank-based comparisons resulted in p-values
-that were not drastically significant after adjusting for multiple tests.
-The lack of evidence from the women's data makes it 
-harder to conclude that the sensors used at the 2022 championships were faulty, 
-although it is unknown if the sensors for the men's 110 meter hurdle and women's
-100 meter hurdle were the same. On the other hand, this may be related to 
-another debated question regarding whether the reaction time barrier should be 
-the same for men and women.
+In addition to the GLMM results results presented above women, the supplementary
+file contains results about the women's GLMM results.  We fit a generalized
+gamma model to womens 100 meter dash and 100 meter hurdle data from 1999 to 2023
+to determine an appropriate reaction time barrier.  We chose to separate these
+two studies due to publications suggesting reaction time differences in men and
+women.
 
+\of{I think there are some good ideas in these 2 paragraphs but need help
+integrating them. Prof Schifano can you help with this?}
 
 The uniformity of the reaction time barrier for both men and women is
 perplexing, especially in light of numerous studies that suggest a divergence in

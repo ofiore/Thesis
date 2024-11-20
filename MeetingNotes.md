@@ -1,3 +1,18 @@
+# Meeting Notes 11/7
++ 1st paragraph is too long
++ Present 2022 GLMM analysis and womena analysis
++ Put womens results in supplement (which goes online)
+Can say stuff like the supplmentary file contains ...
++ dont include dq analysis in paper or supplement, send only to reviewer
++ Sep rank analysis by gender and pool by event so that we have 3 mens and 3
+womens analysis and make the corresponding graph (3 rows 2 cols facet wrap by
+gender. First col is men and second col is women)
++ Include quantitative analysis for revierwer 1 about 200m dash, can just refer
+to comments to reviewer 2.
++ Make paragraphs smaller
++ code can be one document and just explain that it the next chunk is for supplement
++ extract ranef and then do qqplot of those
+
 # Meeting NOtes 7/11
 + Ok to pool but use only 2 effects
 + Put womens glmm data in supplement/discussion section but keep it relevant.
