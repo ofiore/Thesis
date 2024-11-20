@@ -10,8 +10,8 @@ colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Even
 dhm <- times |>
   filter(Type == "F" | Type == "S") |>
   filter(Gender == "M") |>
-  filter(Time != "DNS" & Time != "DQ" & Time != "D") |>
-  filter(RxnTime != 0) |>
+  filter(Time != "DNS") |>
+  filter(RxnTime > 0) |>
   filter(Event == "100 Dash" | Event == "110 Hurdles")
 
 dhm$Venue <- as.factor(dhm$Venue)
@@ -139,5 +139,57 @@ sim_time <- function(model, RxnTime) {
   print(mean(x < RxnTime))
 }
 sim_time(gg3b, 0.1)
+sim_time(gg3b, 0.09)
+sim_time(gg3b, 0.08)
+
+#Outputs recommended reaction time barrier based on inputted probability
+sim_prob <- function(model, prob) {
+  simfit <- function(model, n = 10000000) {
+    
+    sd_Venue <- model$mu.coefSmo[[1]]$sigb
+    sd_Venue_heat <- model$sigma.coefSmo[[1]]$sigb[1]
+    
+    mu <- exp(model$mu.coefficients[1] + rnorm(n, mean = 0 , sd = sd_Venue))
+    sigma <- exp(model$sigma.coefficients[1] + rnorm(n, mean = 0 , sd = sd_Venue_heat))
+    nu <- model$nu.coefficients[1]
+    
+    x <- rGG(n, mu = mu, sigma = sigma, nu = nu)
+    x
+  }
+  x <- simfit(model)
+  print(quantile(x, probs = prob))
+}
+sim_prob(gg3b, .001)
+sim_prob(gg3b, .0001)
 
 
+## For reproducibility and to ensure that we got the same results. Run the function
+## that takes a GG model as input and prints all important parameters.
+model_print <- function(model) {
+  cat("AIC: ", AIC(model), "\n")
+  cat("mu (intercept): ", model$mu.coefficients[1], "\n")
+  cat("sigma (intercept): ", model$sigma.coefficients[1], "\n")
+  cat("nu: ", model$nu.coefficients[1], "\n")
+  cat("sigma_v or std dev of venue effect: ", model$mu.coefSmo[[1]]$sigb, "\n")
+  cat("sigma_h or std dev of heat effect: ", model$sigma.coefSmo[[1]]$sigb[1], "\n")
+}
+model_print(gg3b)
+
+dhm_no2022 <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime > 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles") |>
+  filter(Venue != 2022) |>
+  mutate(Venue = as.factor(Venue), Heat = as.factor(Heat))
+
+
+gg3b_no2022  <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat), data = dhm_no2022, family = GG, control = gamlss.control(n.cyc = 40))
+
+model_print(gg3b_no2022)
+sim_time(gg3b_no2022, 0.1)
+sim_time(gg3b_no2022, 0.09)
+sim_time(gg3b_no2022, 0.08)
+sim_prob(gg3b_no2022, .001)
+sim_prob(gg3b_no2022, .0001)
