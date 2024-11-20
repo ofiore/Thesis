@@ -571,33 +571,29 @@ data. Similar to the current figure.
 normal random effects could be placed in supplement.
 4) Table: assessing the 0.1 threshold, similar to the current table.
 I'll take care of the writing when you get the results.}
+\of{1) Is resolved in table 2, 2) is resolved in figure 4, 3) is resolved in
+figure 3. 4) is resolved in tables 3 and 4.}
 
 \jy{Owen: an additional figure of the GG density without random
   effects (use \texttt{curve(dGG(x, mu = , sigma = , nu =  ), 0, 0.03)}) and
   with random effects (through \texttt{density()})}
+\of{Please see figure 5}
 
 \begin{table}
   \centering
-  \caption{AIC and estimated parameters for the three models fitted to the
-    data.}
+  \caption{AIC and estimated parameters for the gg3b model fit}
   \label{tab:Gamma_parameters}
   \begin{tabular}{c c c c c c c}
     \toprule
-    Data set & Model & AIC & $\sigma_h$ & $\sigma_v$ & $\alpha$ & $\sqrt{\phi}$ \\
+    Data set & AIC & $\mu$ & $\sigma$ & $\nu$ & $\sigma_v$ & $\sigma_h$ \\
     \midrule
-    Excluding 2022 &
-      Venue Effect Only & $-1862.2$ &   & 0.048 & $-1.857$ & 0.152\\
-     & Heat Effect Only & $-1910.9$ & 0.069 &  & $-1.877$ & 0.136\\
-     & Venue and Heat Effect & $-1912.9$ & 0.058 & 0.033 & $-1.868$ & 0.136\\[1ex]
-    Including 2022 &
-    Venue Effect Only & $-3798.8$ &   & 0.054 & $-1.871$ & 0.149\\
-    & Heat Effect Only & $-2070.7$ & 0.073 &  & $-1.890$ & 0.135\\
-    & Venue and Heat Effect & $-2075.7$ & 0.057 & 0.040 & $-1.881$ & 0.134\\
+    Excluding 2022 & -3660 & -1.900 & -2.192 & -1.315 & 0.0434 & 0.3259 \\
+    Including 2022 & -4103 & -1.910 & -2.200 & -1.178 & 0.0576 & 0.3198 \\
     \bottomrule
   \end{tabular}
 \end{table}
-\of{needs to be updated with current values. But I did start to alter something
-then stopped.}
+\of{Created these with the function I wrote model-name at bottom of gamlss.R. Do
+any other parametes need to be added?}
 
 The estimated parameters of the GLMM model under the log link are shown in 
 Table~\ref{tab:Gamma_parameters}, both excluding and including 2022 data.
@@ -616,6 +612,12 @@ estimates of other parameters
 remained relatively similar, such as the standard deviation of the heat effect
 and the dispersion parameter.
 
+\begin{figure}[tbp]
+  \centering
+  \includegraphics{GGResiduals}
+  \caption{Residuals from the GG model}
+  \label{fig:Residuals}
+\end{figure}
 
 \begin{figure}[tbp]
   \centering
@@ -623,6 +625,14 @@ and the dispersion parameter.
   \caption{The venue effects from 1999 to 2023 estimated from the GLMM for the
     data including 2022 (top) and excluding 2022 (bottom).}
   \label{fig:VenueEffects}
+\end{figure}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics{GGDensity}
+  \caption{The densities of the GG distribution with random effects for heat
+  and venue (black), and without random effects (blue)}
+  \label{fig:DensityPlot}
 \end{figure}
 
 
@@ -650,13 +660,13 @@ extreme as 2022.
    \toprule
    Data Set & Threshold 0.08 & Threshold 0.09 & Threshold 0.10  \\ 
    \midrule
-   Excluding 2022 & $1.10\cdot10^{-5}$ & $2.34\cdot10^{-4}$ &  $2.36\cdot10^{-3}$  \\ 
-   Including 2022 & $1.71\cdot10^{-5}$ & $3.01\cdot10^{-4}$ & $2.90\cdot10^{-3}$ \\
+   Excluding 2022 & $5.31\cdot10^{-5}$ & $3.53\cdot10^{-4}$ &  $1.94\cdot10^{-3}$  \\ 
+   Including 2022 & $6.84\cdot10^{-5}$ & $4.95\cdot10^{-4}$ & $2.76\cdot10^{-3}$ \\
    \bottomrule
   \end{tabular}
   \label{tab:Sim_probability}
 \end{table}
-\of{table has been updated}
+\of{table has been updated with gg3b results}
 
 The GLMM with both venue and heat random effects helps us to assess how extreme
 a reaction time below a given threshold is. The probability of observing a reaction
@@ -684,13 +694,13 @@ results substantiates the recommendations by \citet{komi2009iaaf}.
    \toprule
    Data Set & Tail probability  $10^{-3}$ & Tail probability $10^{-4}$ \\ 
    \midrule
-   Excluding 2022 & $0.096$ & $0.087$ \\ 
-   Including 2022 & $0.095$ & $0.086$ \\
+   Excluding 2022 & $0.096$ & $0.083$ \\ 
+   Including 2022 & $0.094$ & $0.082$ \\
    \bottomrule
   \end{tabular}
   \label{tab:Sim_time}
 \end{table}
-\of{table has been updated}
+\of{table has been updated with gg3b results}
 
 Utilizing the same model, we can subtly shift our interpretation to determine a
 suitable reaction time barrier based on the probability of observing a time
