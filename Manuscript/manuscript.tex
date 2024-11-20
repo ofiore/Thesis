@@ -154,7 +154,7 @@ a website that functions as both a message board and a news outlet.
 The message board, similar to Reddit, is particularly active during 
 major running events, including the Olympics and the World Track 
 and Field Championships. The news section of the website featured 
-articles such as \citep{johnson2022data} and \citep{johnson2022was} 
+articles such as \citet{johnson2022data} and \citet{johnson2022was} 
 by Robert Johnson, the site’s founder. Johnson argued that there may 
 have been an error with the timing equipment at the 2022 Championships. 
 He cited graphs and descriptive statistics, like median reaction 
@@ -197,6 +197,7 @@ performance. The second objective is to assess the
 appropriateness of the 0.1-second threshold by modeling reaction 
 times from World Championships held from 1999 onward. We use a gamma 
 linear mixed-effects model with random effects for both venue and heat. 
+\eds{edit previous as needed for new GAMLSS analysis}
 This model estimates the probability of reaction times falling below 
 the threshold, helping evaluate the consistency of reaction times and 
 whether the current threshold is statistically justified.
@@ -206,7 +207,10 @@ The rest of this paper is organized as follows. Section~\ref{sec:Data}
 describes the data collection and datasets used for the two
 objectives. Section~\ref{sec:rank} outlines the methods for
 objective~1, analyzing differences in reaction times across
-competitions, including the were collected. Section~\ref{sec:gamlss}
+competitions, including the were collected. 
+\eds{end of previous sentence does not make sense; some text may have been 
+mistakenly deleted?}
+Section~\ref{sec:gamlss}
 details the methods for objective~2, the generalized additive model
 for location, scale, and shape (GAMLSS) to evaluate the appropriatenes
 of the 0.1-second threshold. Section~\ref{sec:Results} presents the
@@ -220,17 +224,21 @@ are provided in the supplementary materials.
 \section{Data} \label{sec:Data}
 
 There are two types of data that are explored throughout this paper. For the
-rank-sum tests described in Section~\ref{sec:rank}, the data comes from male 
-athletes who competed in the 110 meter hurdles and 100 meter dash, and female
-athletes who competed 100 meter hurdles and 100 meter dash.
+rank-based comparisons described in Section~\ref{sec:rank}, the data described in 
+Section~\ref{sec:databeyond} come from male 
+athletes who competed in the 110 meter hurdles and \eds{or?} 100 meter dash, and 
+female athletes who competed 100 meter hurdles and \eds{or?} 100 meter dash.
 Athletes must have competed in the 2022 World Championships and another competition 
-(2019 World Championships, 2023 World Championships, or 2022 national 
-championships). For the GLMM described in Section~\ref{sec:glmm}, data comes
+(2022 national championships, 2019 World Championships, or 2023 World Championships) 
+in order to be included in the rank-based comparisons. 
+For the GAMLSS analysis described in Section~\ref{sec:gamlss}, the data described 
+in Section~\ref{sec:dataworld} come
 from every world championships from 1999 to 2023 and includes reaction times from
 the 110 meter hurdles and 100 meter dash. This investigation started 
 shortly after the 2022 World Championships, but as the 2023 data has now become 
 available, we are pleased to include it in both of our analyses, and it did not
-significantly change our results \citep{WAData}. 
+significantly change our results \citep{WAData}. \eds{Should we remove this 
+last sentence, since now likely 2024 data is available?}
 
 
 \subsection{Comparison Data with 2022 World Championships}
@@ -250,7 +258,8 @@ of both events: Trey Cunningham, Daniel Roberts, Grant Holloway, and Devon Allen
 Every athlete reacted faster in all the World Track and Field Championships 
 races compared to the United States Track and Field Championships races. The 
 dataset of the four United States athletes is too small to perform any 
-meaningful statistical analysis, but the data was expanded to include reaction 
+meaningful statistical analysis, so the data for the rank-based analyses was 
+expanded to include reaction 
 times from more athletes who competed at other national competitions (many of which were 
 held from May-July of 2022). This data was difficult to find, as the data is not
 centrally located but instead found on different national websites (often 
@@ -265,8 +274,13 @@ one cluster of size three, six clusters of size four, two clusters of size five,
 and two clusters of size six.
 \of{This explanation is going to need to be re-worked now that we have more data.
 Should we make a table of some sort? It's going to be very wordy without one}
+\eds{We are only doing two analyses with this data, right, one for women 
+and one for men?  So perhaps only two sentences needed here? But then 4 sentences
+in the next subsection?  Maybe you can just report ranges of cluster sizes and 
+median cluster size?}
 
-We chose to include preliminary rounds in this section as well as in
+We chose to include reaction times from preliminary heats, in addition to 
+reaction times from semifinals and finals, in this section and in
 Section~\ref{sec:data2019}, as removing them would have resulted in a much
 narrower analysis with fewer athletes and clusters.
 
@@ -274,9 +288,9 @@ narrower analysis with fewer athletes and clusters.
 \subsubsection{Other World Track and Field Championships}\label{sec:data2019}
 The 2019 and 2023 World Track and Field Championships data is included in the 
 larger dataset described in Section~\ref{sec:dataworld}, but we can also use it
-similarly to how we used national level in Section~\ref{sec:datanational}. We
-can compare the times of athletes who participated in the 2022 Championships with
-their times at another World Championships: 2019 and/or 2023.
+similarly to how we used national competitions in Section~\ref{sec:datanational}. 
+We can compare the reaction times of athletes who participated in the 2022 World 
+Championships with their times at another World Championships: 2019 and/or 2023.
 
 
 While it is theoretically possible that athletes got faster 
@@ -296,11 +310,16 @@ and six clusters of size five.
 \begin{figure}[tbp]
   \centering
   \includegraphics{RankScatterPlots}
-  \caption{This collection of scatterplots of data used in the rank comparison
-  section shows that times in 2022 were on average lower. On the horizontal
+  \caption{Reaction times for athletes who competed at the 2022 World Championships
+	and at another championship (2022 national, 2019 World, or 2023 World) at which 
+	they competed. On the horizontal
   axis below each graph "H", "S", and "F" refer to the heats, semifinals, and 
   finals respectively. Please note that in the last row the 2022 times are to
-  the right of the 2023 times.}
+  the right of the 2023 times.
+	\eds{Please check my edited caption; also, I suggest rearranging the rows to 
+	use the same ordering as the data was described: put national vs international 
+	in first row, 2019 vs 2022 in second row, and 2022 vs 2023 in third row}
+	}
   \label{fig:RankScatterplots}
 \end{figure}
 
@@ -309,16 +328,23 @@ with the rank-based methods (described in Section~\ref{sec:rank} with results in
 Section~\ref{subsec:Results_Rank}). In each of the six graphs, the reaction 
 times for athletes who competed at the 2022 World Championships
 are compared to their reaction times at another at which they competed. 
-It is worth noting that each instance of the 2022 data is different, because
-those who competed at both the 2019 and 2022 World Championships will be
-different athletes than those who competed at both the 2022 and 2023 World
-Championships. This data was only for athletes who competed
-in at least one race at each championship, however it is possible for athletes
-to have competed in one race in 2019 and two races in 2022. The 2022 World
+It is worth noting that for each row of the figure, the athletes compromising 
+the 2022 data is different.  This is because the set of athletes who competed at 
+both the 2019 and 2022 World Championships is not the same as the set of athletes 
+who competed at both the 2022 and 2023 World Championships. %This data was only for athletes who competed
+%in at least one race at each championship, however it is possible for athletes
+%to have competed in one race in 2019 and two races in 2022. 
+Athletes must have competed in at least one race at each championship to be 
+included.  The 2022 World
 Championship heats and semifinals both had on average lower reaction times than
-their respective other (2019, 2023 or 2022 national) races, and the 2022 World 
-Championship finals were substantially faster.  It
-is also worth noting is that the fastest reaction time in the 2022 World
+their respective other (2019, 2023 or 2022 national) races, and the reaction times 
+from the 2022 World Championship finals were substantially faster. 
+\eds{I would consider removing or rephrasing the last part of the previous 
+sentence. With the women's data, it is not as clear the 2022F is lower than 2022S.}
+\eds{I also think we need to comment on the men and women's data. But within row
+of the figure, don't the distributions appear similar?  If that is so, would a 
+reviewer ask why we didn't pool the data for men and women?}
+It is also worth noting is that the fastest reaction time in the 2022 World
 Championships Finals and Semifinals both came from Devon Allen, but the 
 difference between 0.101 and 0.099
 seconds was the difference in what caused him to be disqualified. 
