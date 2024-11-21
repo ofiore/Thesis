@@ -604,6 +604,8 @@ figure 3. 4) is resolved in tables 3 and 4.}
   effects (use \texttt{curve(dGG(x, mu = , sigma = , nu =  ), 0, 0.03)}) and
   with random effects (through \texttt{density()})}
 \of{Please see figure 5}
+\jy{This cannot be right. Black is always above blue. Both need to
+  integrate to one.}
 
 We considered many types of models from various continuous distribution families
 before ultimately deciding on the Generalized Gamma model desrcribed in
@@ -613,6 +615,7 @@ the lower residuals as we are trying to estimate the probability of a low reacti
 time.  While there are two outliers present in the residual plot, we accept that
 this is relatively small in relation to the rest of the roughly 770 observations.
 
+\jy{Use aspect ratio 1 for QQ plot}
 
 \begin{figure}[tbp]
   \centering
@@ -700,6 +703,8 @@ of the section.}
   \label{tab:Sim_probability}
 \end{table}
 \of{table has been updated with gg3b results}
+\jy{Could you also test sensitivity for excluding the positive but
+  fault reaction times?}
 
 The GLMM with both venue and heat random effects helps us to assess how extreme
 a reaction time below a given threshold is. The probability of observing a reaction
