@@ -579,6 +579,22 @@ figure 3. 4) is resolved in tables 3 and 4.}
   with random effects (through \texttt{density()})}
 \of{Please see figure 5}
 
+We considered many types of models from various continuous distribution families
+before ultimately deciding on the Generalized Gamma model desrcribed in
+Section~\ref{sec:gamlss}.  The residuals of the GG model were particularly
+strong, as evidenced by Figure~\ref{fig:Residuals}.  We care especially about
+the lower residuals as we are trying to estimate the probability of a low reaction
+time.  While there are two outliers present in the residual plot, we accept that
+this is relatively small in relation to the rest of the roughly 770 observations.
+
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics{GGResiduals}
+  \caption{Residuals from the GG model}
+  \label{fig:Residuals}
+\end{figure}
+
 \begin{table}
   \centering
   \caption{AIC and estimated parameters for the gg3b model fit}
@@ -597,27 +613,15 @@ any other parametes need to be added?}
 
 The estimated parameters of the GLMM model under the log link are shown in 
 Table~\ref{tab:Gamma_parameters}, both excluding and including 2022 data.
-Three models were considered, differing in their random effects: venue effect
-only; heat effect only, and both venue and heat effects. Reported are the AIC
-and estimated model parameters: the standard deviation
-of the heat effect $\sigma_h$, the standard deviation of the venue
-effect~$\sigma_v$, the intercept~$\alpha$, and the
-square root of the dispersion parameter $\phi$. With or without 2022,
-the GLMM with both venue and heat random effects was the best model as evidenced
-by the AIC compared to the other models with only one random
-effect.  When we exclude 2022 from the full model, we observe small but intriguing
-discrepancies in the models. The standard deviation of the venue effect, 
-$\sigma_v$, increases from 0.33 to 0.40 when 2022 is included, however, the
-estimates of other parameters
-remained relatively similar, such as the standard deviation of the heat effect
-and the dispersion parameter.
+.  We report the AIC, the point estimates for $\mu$,
+$\sigma$, and $\mu$, as well as the standard deviations of the venue and heat
+effects: $\sigma_v$ and $\sigma_h$ respectively. When we exclude 2022 from the
+full model, we observe small but intriguing discrepancies in the models. The
+standard deviation of the venue effect, $\sigma_v$, increases from 0.0434 to
+0.0576 when 2022 is included. This suggests that by including 2022 in the model,
+there is more of a variation in venue effects.
 
-\begin{figure}[tbp]
-  \centering
-  \includegraphics{GGResiduals}
-  \caption{Residuals from the GG model}
-  \label{fig:Residuals}
-\end{figure}
+
 
 \begin{figure}[tbp]
   \centering
@@ -627,17 +631,10 @@ and the dispersion parameter.
   \label{fig:VenueEffects}
 \end{figure}
 
-\begin{figure}[tbp]
-  \centering
-  \includegraphics{GGDensity}
-  \caption{The densities of the GG distribution with random effects for heat
-  and venue (black), and without random effects (blue)}
-  \label{fig:DensityPlot}
-\end{figure}
 
 
-Figure~\ref{fig:VenueEffects} further illustrates the venue effect from 1999 to
-2023 based on the full GLMM both with and without 2022.  The temporal patterns
+The uniqueness of 2022 is further demonstrated by Figure~\ref{fig:VenueEffects},
+which shows the values of the venue random effects.  The temporal patterns
 of the two sets of effects look very similar, except that the positive effects
 estimated with 2022 included have higher magnitude than those estimated without
 2022, which compensates the negative effect of the 2022 with a large magnitude.
@@ -651,6 +648,16 @@ and the estimate of the 2022 heat effect is $-0.93$. We find the tail probabilit
 to be $0.0128$ indicating there is a low chance of observing a venue effect as
 extreme as 2022.
 
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics{GGDensity}
+  \caption{The densities of the GG distribution with random effects for heat
+  and venue (black), and without random effects (blue)}
+  \label{fig:DensityPlot}
+\end{figure}
+\of{Not sure what to write about the density plot or how to fit it into the rest
+of the section.}
 
 \begin{table}
   \centering
