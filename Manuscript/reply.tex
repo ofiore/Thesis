@@ -40,23 +40,37 @@ amssymb, enumerate}
   {\Large\bf TAS-23-296: Response to the Comments}
 \end{center}
 
-We extend our gratitude to the Editor and Associate Editor for 
-granting us the opportunity to revise this manuscript. We also want to
-express our appreciation to the reviewers for their valuable comments. 
+We sincerely thank the Editor and Associate Editor for the opportunity
+to revise our manuscript. The insightful comments and constructive
+feedback from the reviewers have greatly enhanced the quality of this
+work, and we are deeply grateful for their efforts.
 
 
-The manuscript has been revised accordingly with the most notable change being 
-the addition of new data in both the GLMM and rank comparison sections in an
-attempt to expand the scope of the analysis and derive better insights. 
-
+The manuscript has been revised accordingly with the following most
+notable changes:
+\begin{enumerate}
+\item
+  The focus of the study has been clarified in the completely
+  rewritten introduction. The two objectives are 1) to investigate
+  whether the reaction times at the 2022 World Championships were
+  significantly different from the other competitions; and 2) to
+  assess the appropriateness of the 0.1-second threshold.
+\item
+  Additional data (reaction times from the 100-meter dash) have been
+  added to the analysis for both objectives to expand the scope of the
+  analysis and derive better insights.
+\item
+  In the assessment of the 0.1-second threshold, the Gamma GLMM has
+  been replaced with a generalized Gamma distributions in the flexible
+  framework of Generalized Additive Models for Location, Scale, and
+  Shape (GAMLSS) \citep{stasinopoulos2024generalized}, with random
+  effects of venue and heat in two of its parameters, respectively.
+  The new model provides an adequate fit to the data, as confirmed by
+  diagnostic checks.
+\end{enumerate}
 
 Point-by-point responses to the comments are as follows, with the
 comments quoted in \emph{\color{darkblue} italic and blue}.
-
-\jy{The density plot does not look right. The areas under the two
-  curves should be the same, which does not look so in the figure.}
-
-\jy{Cite references in the reply letter too.}
 
 
 \subsection*{To Associate Editor}
@@ -69,12 +83,12 @@ the start, and to provide a more concise and focused presentation of the key
 findings.
 \end{comment}
 
-Thank you for your feedback. We have carefully addressed the
-reviewers' comments and taken additional steps to streamline the
-manuscript, focusing on a clearer presentation of the key goals and
-findings from the outset. We appreciate your time and consideration in
-re-evaluating our submission.
 
+Thank you for your feedback. As detailed in the summary of notable changes, 
+we have thoroughly addressed the reviewers' comments and restructured the 
+manuscript to clearly identify its key goals and present the main findings 
+concisely. We appreciate your time and consideration in re-evaluating our 
+submission.
 
 \subsection*{To Reviewer 1}
 
@@ -102,7 +116,12 @@ these in terms of the number of races per an occurrence.
 \end{comment}
 
 We thank the reviewer for the accurate summary of our contributions
-and these encouraging comments.  
+and for the encouraging feedback. As part of our revisions, we have
+expanded the analysis to include reaction times from the 100-meter
+dash. Additionally, we replaced the gamma GLMM with a generalized
+Gamma distribution in the flexible framework of GAMLSS,  featuring
+random effects in its parameters, which provides an improved and
+adequate fit to the data.
 
 
 \begin{comment}
@@ -123,38 +142,35 @@ and improve the generalizability of the conclusions.
 \end{comment}
 
 
-Thank you for the valuable suggestions. We have extended our analysis
-by including data from both men's and women's 100-meter dash. This was
-justified by a GLMM fit to these data and the event type was not found
-to be significantly different in reaction time.
+Thank you for the valuable suggestions. In response, we expanded our
+analysis to include reaction time data from both men and women's
+100-meter dashes. A generalized gamma model fit to these data showed
+no significant differences in reaction times by event type.
 
 
-We also considered including additional sprinting events such as the
-200-meter dash; however, in a GLMM fit to an expanded dataset that
-additionally included 200-meter, the event type effect became
-significant. Subsequent pairwise comparisons using Tukey’s Honest
-Significant Difference (HSD) test revealed a p-value of 0.0021 when
-comparing the reaction times of the 200-meter dash and the 110-meter
-hurdles, and a p-value of 0.000017 when comparing the 100-meter dash
-and the 200-meter dash. These results indicate that reaction times in
-the 200-meter dash are significantly slower, suggesting that this
-event does not align well with our focus on extreme reaction times.
-Consequently, we decided to exclude the 200-meter data from our
-primary analysis.
+We also explored adding data from the 200-meter dash. However, a
+generalized gamma model fit to the expanded dataset that included the
+200-meter event revealed a significant effect of event type. Tukey’s
+Honest Significant Difference (HSD) test found a p-value of 0.0021 for
+the 200-meter dash compared to the 110-meter hurdles, and a p-value of
+0.000017 for the 100-meter dash compared to the 200-meter dash.
+These results indicate that reaction times in the 200-meter dash are
+significantly slower. Consequently, we excluded the 200-meter event
+from the main analysis, as its systematic differences in reaction
+times could bias conclusions about extreme reaction times and the
+appropriateness of the 0.1-second threshold.
 
 
-This difference in reaction times is not unexpected, however, as athletes 
-competing in longer sprint
-events, such as the 200-meter dash, may not prioritize reaction time
-as highly as those specializing in shorter sprints like the 100-meter
-dash. While it is common for amateur and collegiate athletes to
-compete across multiple sprint distances, elite athletes at the World
-Championship level may not exhibit equally strong performances in all
-sprint events. Our study aims to evaluate the probability of observing
-extreme reaction times, particularly in the context of the 0.1-second
-threshold. Including data from events with systematically slower
-reaction times would artificially inflate the extremity of a
-0.1-second reaction time, potentially biasing our conclusions.
+The observed differences in reaction times between events are not
+unexpected. Athletes competing in longer sprints, such as the
+200-meter dash, may place less emphasis on reaction time compared to
+those in shorter sprints like the 100-meter dash. Elite athletes at
+the World Championship level often specialize in specific distances,
+and performance across events may vary. Including data from events
+with systematically slower reaction times would inflate the extremity
+of a 0.1-second reaction time, potentially skewing the results of our
+study, which focuses on the likelihood of extreme reaction times
+relative to this threshold.
 
 
 In the revision, we have added explanation about why 100-meter dash
@@ -182,19 +198,29 @@ analysis) should help clarify if there was a specific difference attributable to
 \end{comment} 
 
 
-We apologize for the confusion. The heat effect actually measures the speed-level 
-of the heat, not the type of heat.  We added some additional
-explanations in the first paragraph of section 3.2 to make it clear what the
-venue and heat effect refer to. We did not want to call it a ``race effect" as we
-were worried that may be interpreted to mean the race of the athlete.  We did
-not think it would be informative to  add and effect for individual runner's
-average ability as many of observations in the data come from runners
-\jy{It's the number of runners with 1 data point that determines how
-  hard the athlete effect can be estimated. How many runners had only 1
-  data point?}
-with very few (1-3) data points, so taking an average of such a small sample may
-not be informative, especially if there are outliers or an athlete had a bad
-start.
+Thank you for this thoughtful suggestion. We apologize for any
+confusion regarding the heat effect. In our model, the heat effect
+captures the speed-level of the heat rather than the type of heat
+(e.g., preliminary vs. final). To clarify this, we have added
+additional explanations in the first paragraph of Section~3.2 to
+explicitly define the venue and heat effects. We avoided calling it a
+``race effect'' to prevent misinterpretation as referring to the
+athlete's race.
+
+
+We considered adding an effect for an individual runner’s average
+ability; however, many observations in our dataset come from athletes
+with only 1–-3 data points. Taking an average for such small samples
+may not be informative, especially in the presence of outliers or
+cases where an athlete had an atypical start. As such, we opted not to
+include this factor in the model.
+
+
+In the revision, we replaced the Gamma GLMM with a generalized Gamma
+distribution in the GAMLSS framework. The venue effect and heat effect
+were incorporated into two parameters controlling the scale of the
+distribution. This revised model provides an improved and adequate fit
+to the data compared to the original Gamma GLMM.
 \eds{let's revisit this again after objective 2 analyses are set}
 
 
@@ -211,17 +237,20 @@ former is stronger and of more interest than the latter, so making clear the
 purpose would help.
 \end{comment}  
 
-We appreciate the feedback, which was echoed by the second
-reviewer. To address these concerns, we revised the introduction to
-better structure our arguments. We streamlined the literature review
-to focus only on studies directly relevant to our analysis and
-clarified the paper’s two main objectives: (1) identifying
-inconsistencies in the 2022 reaction times and (2) assessing whether
-the 0.1-second threshold is fair. We avoided speculating on sensor
-calibration or implicating Seiko due to a lack of direct evidence, and
-instead, we provide general recommendations for World Athletics while
-noting that the unusually fast reaction times in 2022 remain
-unexplained.
+We appreciate the feedback, which aligns with concerns raised by
+Reviewer~2. To address this, we completely rewrote the introduction to
+better structure our arguments and focus the problem statements. The
+literature review was streamlined to highlight studies directly
+relevant to our analysis. We clarified the paper’s two main
+objectives: (1) identifying inconsistencies in reaction times at the
+2022 World Championships, and (2) assessing the fairness of the
+0.1-second threshold.
+
+
+We avoided speculation about sensor calibration or implicating Seiko,
+as there is no direct evidence to support such claims. Instead, we
+provide general recommendations for World Athletics while noting that
+the unusually fast reaction times observed in 2022 remain unexplained.
 
 
 \begin{comment}
@@ -229,16 +258,15 @@ Altogether, I see a lot of promising work here and think it would generally
 benefit from expanded scope and analysis.
 \end{comment}
 
-Thank you for the positive feedback. We expanded both the rank
-comparison and the GLMM sections with additional data to strengthen our
-analysis. These enhancements support our findings of an anomaly in
-2022 and highlight that the 0.1-second reaction time threshold lacks a
-foundation in formal statistical evidence.
+Thank you for the positive feedback. We have expanded both the rank
+comparison and the GAMLSS model sections with additional data to
+strengthen our analysis. These enhancements support our findings of an
+anomaly in 2022 and highlight that the 0.1-second reaction time
+threshold lacks a foundation in formal statistical evidence.
 \eds{let's revisit this again after objective 2 analyses are set}
 
 
 \subsection*{To Reviewer 2}
-
 
 \begin{comment}
 The paper’s topic is very important, but has significant issues with the writing
