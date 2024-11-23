@@ -63,12 +63,17 @@ quantile(samplefit, c(.001, .0001))
 
 samplefit0 <- samplefit[1:1000000]
 
-hist(dhm$RxnTime, freq=FALSE, breaks=seq(.05, .40, by = .01))
+pdf("diagnosis.pdf", height=3.25, width = 7, pointsize = 9)
+par(mfrow = c(1, 2), mar = c(2.5, 2.5, .1, .1), mgp = c(1.5, 0.5, 0))
+hist(dhm$RxnTime, freq=FALSE, breaks=seq(.05, .40, by = .01),
+     xlab = "Reaction time", main = "")
 kernfit <- density(samplefit0)
-lines(kernfit$x, kernfit$y) # /1.434) ## density seems to have a bug for n too large
-curve(dGG(x, mu = exp(gg0$mu.coefficients[1]),
-          sigma = exp(gg0$sigma.coefficients[1]),
-          nu = gg0$nu.coefficients[1]), add = TRUE, col = "blue")
+lines(kernfit$x, kernfit$y) # /1.434) ## density() seems to have a bug for n too large
+## curve(dGG(x, mu = exp(gg0$mu.coefficients[1]),
+##           sigma = exp(gg0$sigma.coefficients[1]),
+##           nu = gg0$nu.coefficients[1]), add = TRUE, col = "blue")
+qq_conf_plot(residuals(gg3b), dparams = list(mean = 0, sd = 1)) ## z-scores have known mean and sd
+dev.off()
 
 # Should we pool dash and hurdles?
 dhm <- times |>
