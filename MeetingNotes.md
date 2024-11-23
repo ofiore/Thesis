@@ -1,3 +1,13 @@
+# Phone Call 11/22
++ make data and model names shorter and more readable
++ retest whether we can pool hurdles and dash using the gg model
++ Put event parameter in mu
++ scale residual plot so its 1:1 and put side by side with density plot
++ repeat analysis for with/without dq
++ gamlss.R is for other models, gg.R is just for gg3b model
+
+
+
 # Meeting Notes 11/7
 + 1st paragraph is too long
 + Present 2022 GLMM analysis and womena analysis
