@@ -223,55 +223,84 @@ are provided in the supplementary materials.
 
 \section{Data} \label{sec:Data}
 
-There are two types of data that are explored throughout this paper. For the
-rank-based comparisons described in Section~\ref{sec:rank}, the data described in 
-Section~\ref{sec:databeyond} come from male 
-athletes who competed in the 110 meter hurdles and \eds{or?} 100 meter dash, and 
-female athletes who competed 100 meter hurdles and \eds{or?} 100 meter dash.
-Athletes must have competed in the 2022 World Championships and another competition 
-(2022 national championships, 2019 World Championships, or 2023 World Championships) 
-in order to be included in the rank-based comparisons. 
-For the GAMLSS analysis described in Section~\ref{sec:gamlss}, the data described 
-in Section~\ref{sec:dataworld} come
-from every world championships from 1999 to 2023 and includes reaction times from
-the 110 meter hurdles and 100 meter dash. This investigation started 
-shortly after the 2022 World Championships, but as the 2023 data has now become 
-available, we are pleased to include it in both of our analyses, and it did not
-significantly change our results \citep{WAData}. \eds{Should we remove this 
-last sentence, since now likely 2024 data is available?}
+
+This study focuses on reaction times from sprint events where reaction
+time plays a critical role. Specifically, we included data from men’s
+100-meter dashes and 110-meter hurdles, as well as women’s 100-meter
+dashes and 100-meter hurdles. Statistical tests showed no significant
+differences in reaction times between these events, supporting their
+inclusion in a unified analysis. However, we excluded data from
+200-meter dashes and longer events, as their reaction times were found
+to be significantly different. This difference is not unexpected, as
+reaction time is generally less critical in longer sprint events
+compared to shorter distances where explosive starts are paramount.
+
+
+Two datasets were used to address the study's objectives. To
+investigate whether reaction times at the 2022 World Championships
+were significantly different from other competitions (Objective 1), we
+used data from male athletes in the 110-meter hurdles and 100-meter
+dash, and female athletes in the 100-meter hurdles and 100-meter dash,
+provided they competed in the 2022 World Championships and at least
+one other competition (2022 national championships, 2019 World
+Championships, or 2023 World Championships). To assess the
+appropriateness of the 0.1-second reaction time threshold (Objective
+2), we used reaction times from the 110-meter hurdles and 100-meter
+dash across all World Championships held from 1999 to 2023. This
+investigation began shortly after the 2022 World Championships, and we
+are pleased to include data from 2023, which did not significantly
+alter our results \citep{WAData}.
 
 
 \subsection{Comparison Data with 2022 World Championships}
 \label{sec:databeyond}
 
-The motivation for looking beyond World Championships data came from an 
-exploratory analysis examining how United States athletes reacted at the 
-2022 United States Track and Field Championships.
+The motivation for including data beyond the World Championships arose from 
+an exploratory analysis of how United States athletes performed at the 2022 
+United States Track and Field Championships, held from June 23--26, 2022, at 
+Hayward Field in Eugene, Oregon. Since the same venue hosted the 2022 World 
+Championships in August, this provided a unique opportunity to establish a 
+baseline for reaction times.
 
 
-\subsubsection{2022 National Competitions}\label{sec:datanational}
-From June 23-26, 2022, the United States held its Track and Field Championships 
-at Hayward Field in Eugene, Oregon to decide who to send to the World 
-Championships being held at the same venue in August. Thus, we can establish a 
-baseline for the four United States athletes who competed in at least one round 
-of both events: Trey Cunningham, Daniel Roberts, Grant Holloway, and Devon Allen.  
-Every athlete reacted faster in all the World Track and Field Championships 
-races compared to the United States Track and Field Championships races. The 
-dataset of the four United States athletes is too small to perform any 
-meaningful statistical analysis, so the data for the rank-based analyses was 
-expanded to include reaction 
-times from more athletes who competed at other national competitions (many of which were 
-held from May-July of 2022). This data was difficult to find, as the data is not
-centrally located but instead found on different national websites (often 
-recorded in the national language without translation).
+\subsubsection{2022 National Competitions}
+\label{sec:datanational}
 
 
-Each athlete was designated as a ``cluster'' and the stage of competition (national
-or international) was specified for each competition within the cluster (athlete).
-Thus, this is subunit level grouping where we assign the treatment, national or
-international, within each cluster. Cluster sizes range from three to six, with
-one cluster of size three, six clusters of size four, two clusters of size five,
-and two clusters of size six.
+To compare reaction times at the 2022 World Championships with those
+recorded at national competitions, we constructed a dataset of athletes 
+who competed in both settings. Initially, we examined data from four 
+United States athletes---Trey Cunningham, Daniel Roberts, Grant 
+Holloway, and Devon Allen---who participated in both the United States 
+Track and Field Championships and the World Championships. Each athlete 
+recorded faster reaction times in all World Championships races compared 
+to their performances at the national-level event. However, this small 
+sample size was insufficient for meaningful statistical analysis. To 
+expand the dataset, we included reaction times from additional national 
+competitions held between May and July 2022 across various countries. 
+Compiling this data was challenging, as reaction times were not centrally 
+located and often required searching country-specific websites, with many 
+results recorded in native languages.
+
+\jy{Owen, does this include both dash and hurdle? Could you do a
+  pooled analysis since there is no gender difference and event
+  differece? Need to summarize how many athletes are included in each
+  analysis.}
+
+
+
+The final dataset consisted of reaction times from athletes who competed 
+in both national and international competitions. Reaction times from 
+preliminary heats, semifinals, and finals were included to ensure 
+sufficient data for analysis. Excluding preliminary heats would have 
+significantly reduced the number of athletes and clusters, narrowing the 
+scope of the analysis. Each athlete can be considered as a cluster, with
+reaction times from the `treatment' group (2022 World Championships) and 
+the `control' group (national competition) within the cluster. Cluster 
+sizes ranged from three to six, with a median size of four. This
+setting forms the basis for rank-based comparison where the
+within-cluster dependence needs to be accounted for.
+
 \of{This explanation is going to need to be re-worked now that we have more data.
 Should we make a table of some sort? It's going to be very wordy without one}
 \eds{We are only doing two analyses with this data, right, one for women 
@@ -279,13 +308,10 @@ and one for men?  So perhaps only two sentences needed here? But then 4 sentence
 in the next subsection?  Maybe you can just report ranges of cluster sizes and 
 median cluster size?}
 
-We chose to include reaction times from preliminary heats, in addition to 
-reaction times from semifinals and finals, in this section and in
-Section~\ref{sec:data2019}, as removing them would have resulted in a much
-narrower analysis with fewer athletes and clusters.
 
 
-\subsubsection{Other World Track and Field Championships}\label{sec:data2019}
+\subsubsection{2019 and 2023 World Championships}
+\label{sec:data2019}
 The 2019 and 2023 World Track and Field Championships data is included in the 
 larger dataset described in Section~\ref{sec:dataworld}, but we can also use it
 similarly to how we used national competitions in Section~\ref{sec:datanational}. 
@@ -305,7 +331,7 @@ clusters of size four, two clusters of size five, and three clusters of size six
 When comparing 2022 and 2023 we look at data from 22 athletes, with seven 
 clusters of size two, three clusters of size three, six clusters of size four,
 and six clusters of size five.
-\of{This explanation might need to change}
+
 
 \begin{figure}[tbp]
   \centering
