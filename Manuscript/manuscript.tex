@@ -484,9 +484,9 @@ standardized to form a $Z$ statistic which follows a standard normal distributio
 asymptotically \citep[p.910]{datta2005rank}.
 
 
-With our small sample size, the asymptotic normal distribution may not be
-reliable, so we also use 1~million random permutations to simulate the null 
-distribution of the test statistic.
+When the sample size is small, the asymptotic normal distribution may
+not be reliable, so we also use 1~million random permutations to
+simulate the null distribution of the test statistic.
 This method is available from the \texttt{clusWilcox.test()} function
 with \texttt{method = `ds'} (for \underline{D}atta and \underline{S}atten) and 
 \texttt{exact = TRUE} from R package
@@ -524,7 +524,6 @@ the distribution to model asymmetric and heavy-tailed data effectively, making
 it particularly suitable for reaction times.
 An implementation of this distribution is available from R package
 \texttt{gamlss.dist} \citep{rigby2019distributions}.
-
 
 
 Let $Y_{ijk}$ denote the reaction time of observation~$k$ in heat~$j$
@@ -568,93 +567,82 @@ disqualification barrier.
 
 \subsection{Rank-based Comparison} \label{subsec:Results_Rank}
 
-The rank-based methods described in Section~\ref{sec:rank} are used
-to determine if the reaction times for athletes who had competed at other 
-championships differed significantly from the 2022 World Championships. This is
-a two group comparison performed three times: comparing 2019 and 2022 World
-Championships, comparing 2022 and 2023 World Championships, and comparing 2022 
-national championships to the 2022 World Championships.
+The rank-based methods described in Section~\ref{sec:rank} were used to 
+compare reaction times between the 2022 World Championships and other 
+competitions in which the same athletes participated. These comparisons 
+were conducted separately for men and women, resulting in six total 
+comparisons: reaction times from the 2022 national-level championships 
+versus the 2022 World Championships for men and women, reaction times 
+from the 2019 versus 2022 World Championships for men and women, and 
+reaction times from the 2022 versus 2023 World Championships for men and 
+women.
 
 
 \begin{table}
   \centering
-  \caption{2019 vs 2022 compares data from the same athletes who competed at the
-  2019 and 2022 World Track and Field Championships. 2022 vs 2023 compares data
-  from the same athletes who competed at the 2022 and 2023 World Track and Field
-  Championships. National vs International compares data from the same athletes
-  who competed at 2022 national-level championships and the 2022 World Track and
-  Field Championships.}
+  \caption{Summaries of the results of comparisons between 
+    reaction times from different competitions for the same athletes. 
+    2022 Nat. vs Inter. compares reaction times from 2022 national-level 
+    championships and the 2022 World Track and Field Championships. 2019 
+    vs 2022 compares reaction times from the 2019 and 2022 World Track and 
+    Field Championships. 2022 vs 2023 compares reaction times from the 
+    2022 and 2023 World Track and Field Championships.}
   \begin{tabular}{c c c c c} 
    \toprule
    Comparison & Permutation & Asymptotic & Athletes & Number observations  \\ 
    \midrule
+   2022 Nat. vs Inter. Men & $1.0 \cdot 10^{-6}$ & $ 6.1 \cdot 10^{-5}$ & 17 & 80 \\
+   2022 Nat. vs Inter. Women & $1.0 \cdot 10^{-6}$ & $ 1.2 \cdot 10^{-3}$ & 17 & 80 \\[1ex]
    2019 vs 2022 Men & $2.8 \cdot 10^{-5}$ & $1.1 \cdot 10^{-5}$ & 34 & 134 \\
-   2019 vs 2022 Female & $ 1.5 \cdot 10^{-3}$ & $6.9 \cdot 10^{-3}$ & 31 & 124 \\
-   2022 Nat. vs Inter. Men & $<0.001$ & $ 6.1 \cdot 10^{-5}$ & 17 & 80 \\
-   2022 Nat. vs Inter. Women & $<0.001$ & $ 1.2 \cdot 10^{-3}$ & 17 & 80 \\
-   2022 vs 2023 Men & $<0.001$ & $1.4 \cdot 10^{-6}$ & 45 & 161 \\
-   2022 vs 2023 Female & $<0.001$ & $9.4 \cdot 10^{-7}$ & 47 & 182 \\
+   2019 vs 2022 Female & $ 1.5 \cdot 10^{-3}$ & $6.9 \cdot 10^{-3}$ & 31 & 124 \\[1ex]
+   2022 vs 2023 Men & $1.0 \cdot 10^{-6}$ & $1.4 \cdot 10^{-6}$ & 45 & 161 \\
+   2022 vs 2023 Female & $1.0 \cdot 10^{-6}$ & $9.4 \cdot 10^{-7}$ & 47 & 182 \\
    \bottomrule
   \end{tabular}
   \label{tab:Clusrankresults}
 \end{table}
-\of{Table might still be too wide.  I used <0.001 becuase that is what we
-had currently been using for any values from the permutation test where the value
-was < 2.2e-16 in R.  Professor Yan will know best, but are the sample sizes now
-sufficiently large enough that the permutation test is not needed? If I recall
-correctlty that was a correction for small sample sizes.}
 
-Table~\ref{tab:Clusrankresults} shows the results generated from both the 
-permutation and asymptotic rank-based tests for the six comparisons, 
-as discussed previously in Section~\ref{sec:rank}. The national versus international
-comparisons produced lower p-values than the 2019 versus 2022 and 2022 versus 2023
-comparisons. The highly significant permutation test results
-provides substantial evidence that both men and women who competed at the
-2022 World Track and Field Championships were on average, significantly faster
-at reacting than they were just a few months prior. When looked at in context
-with other tests, these results show that athletes competing at the 2022 World
-Track and Field Championships had faster reaction times than when they had
-competed at other competitions.
+
+
+Table~\ref{tab:Clusrankresults} presents the results from both permutation 
+and asymptotic rank-based tests for these six comparisons. The tests reveal 
+that the national versus international comparisons yielded the lowest 
+p-values, indicating stronger evidence of faster reaction times at the 
+2022 World Championships compared to the 2022 national competitions. For 
+both men and women, permutation test results were highly significant, 
+providing substantial evidence that athletes competing at the 2022 World 
+Championships had significantly faster reaction times than they did just 
+a few months earlier at national-level events. The comparisons between the 
+2019 and 2022 World Championships and between the 2022 and 2023 World 
+Championships also produced significant results. Collectively, 
+these results suggest that athletes consistently achieved faster reaction 
+times at the 2022 World Championships compared to other competitions. This 
+finding supports the hypothesis that the 2022 World Championships presented 
+conditions conducive to faster reaction times, potentially due to systematic 
+or environmental factors.
 
 
 \subsection{GAMLSS} \label{subsec:Results_GLMM}
 
-\jy{Owen, please prepare the following:
-1) A table of the model parameter estimates (both point estimate and
-standard error). This is similar to the current table, with and
-without 2022 data. Let's focus on model gg3b and leave the model
-comparison results in the supplement.
-2) Figure: random effects at the venue level with/without 2022
-data. Similar to the current figure.
-3) Diagnostic plots: qq-plot for the gg3b model. QQ-plot for the
-normal random effects could be placed in supplement.
-4) Table: assessing the 0.1 threshold, similar to the current table.
-I'll take care of the writing when you get the results.}
-\of{1) Is resolved in table 2, 2) is resolved in figure 4, 3) is resolved in
-figure 3. 4) is resolved in tables 3 and 4.}
-
-\jy{Owen: an additional figure of the GG density without random
-  effects (use \texttt{curve(dGG(x, mu = , sigma = , nu =  ), 0, 0.03)}) and
-  with random effects (through \texttt{density()})}
-\of{Please see figure 5}
-\jy{This cannot be right. Black is always above blue. Both need to
-  integrate to one.}
 
 We considered many types of models from various continuous distribution families
-before ultimately deciding on the Generalized Gamma model desrcribed in
+before ultimately deciding on the generalized Gamma model desrcribed in
 Section~\ref{sec:gamlss}.  The residuals of the GG model were particularly
 strong, as evidenced by Figure~\ref{fig:Residuals}.  We care especially about
 the lower residuals as we are trying to estimate the probability of a low reaction
 time.  While there are two outliers present in the residual plot, we accept that
 this is relatively small in relation to the rest of the roughly 770 observations.
 
-\jy{Use aspect ratio 1 for QQ plot}
 
 \begin{figure}[tbp]
   \centering
-  \includegraphics{GGResiduals}
-  \caption{Residuals from the GG model}
-  \label{fig:Residuals}
+  \includegraphics{diagnosis.pdf}
+  \caption{Diagnosis of the fitted generalized Gamma distribution with
+    random effects in model parameters: kernerl density of 1 million
+    observations drawn from the fitted model overlaid with the
+    histogram of the observed reaction times (left); Q-Q plot of the
+    z-score of the quantile residuals from the fitted model.}
+  \label{fig:diagnosis}
 \end{figure}
 
 \begin{table}
@@ -670,8 +658,10 @@ this is relatively small in relation to the rest of the roughly 770 observations
     \bottomrule
   \end{tabular}
 \end{table}
+
 \of{Created these with the function I wrote model-name at bottom of gamlss.R. Do
-any other parametes need to be added?}
+  any other parametes need to be added?}
+\jy{Remove AIC because there is no comparison. Need their standard errors.}
 
 The estimated parameters of the GLMM model under the log link are shown in 
 Table~\ref{tab:Gamma_parameters}, both excluding and including 2022 data.
