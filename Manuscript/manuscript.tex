@@ -193,11 +193,15 @@ in multiple events. Using a matched-pairs design, we compare reaction
 times across the 2022, 2019, and 2023 World Championships, as well as 
 the 2022 national-level competitions. This approach isolates the 
 effect of the competition year while controlling for individual 
-performance. The second objective is to assess the 
+performance. The clustered nature of the data, with the goal of
+assessing differences across events within-athletes, were analyzed
+with rank-based comparison approach for clustered data
+\citep{datta2005rank}. The second objective is to assess the 
 appropriateness of the 0.1-second threshold by modeling reaction 
-times from World Championships held from 1999 onward. We use a gamma 
-linear mixed-effects model with random effects for both venue and heat. 
-\eds{edit previous as needed for new GAMLSS analysis}
+times from World Championships held from 1999 onward. We use a
+generalized gamma distribution with random effects for both venue and
+heat in the framework of the generalized additive model for location,
+scale, and shape (GAMLSS) \citep{stasinopoulos2024generalized}.
 This model estimates the probability of reaction times falling below 
 the threshold, helping evaluate the consistency of reaction times and 
 whether the current threshold is statistically justified.
@@ -205,23 +209,22 @@ whether the current threshold is statistically justified.
 
 The rest of this paper is organized as follows. Section~\ref{sec:Data} 
 describes the data collection and datasets used for the two
-objectives. Section~\ref{sec:rank} outlines the methods for
-objective~1, analyzing differences in reaction times across
-competitions, including the were collected. 
-\eds{end of previous sentence does not make sense; some text may have been 
-mistakenly deleted?}
-Section~\ref{sec:gamlss}
-details the methods for objective~2, the generalized additive model
-for location, scale, and shape (GAMLSS) to evaluate the appropriatenes
+objectives. Section~\ref{sec:rank} outlines the rank-based comparison
+methods for objective~1, rank-based comparison for clustered data with
+subunit-level gruping to analyze differences in reaction times
+across different competitions. Section~\ref{sec:gamlss} details the
+methods for objective~2, the GAMLSS to evaluate the appropriatenes
 of the 0.1-second threshold. Section~\ref{sec:Results} presents the
 results of both objectives and discusses the implications.
 Finally, Section~\ref{sec:concludingremarks} highlights the 
 paper’s impact, limitations, and potential for future research.
-All data and code for our analysis 
-are provided in the supplementary materials.
+All data and code for our analysis are provided in the supplementary
+materials.
 
 
-\section{Data} \label{sec:Data}
+
+\section{Data}
+\label{sec:Data}
 
 
 This study focuses on reaction times from sprint events where reaction
@@ -255,7 +258,8 @@ alter our results \citep{WAData}.
 \subsection{Comparison Data with 2022 World Championships}
 \label{sec:databeyond}
 
-The motivation for including data beyond the World Championships arose from 
+For assessing the abnormality of the 2022 World Championship, 
+the motivation for including data beyond the World Championships arose from 
 an exploratory analysis of how United States athletes performed at the 2022 
 United States Track and Field Championships, held from June 23--26, 2022, at 
 Hayward Field in Eugene, Oregon. Since the same venue hosted the 2022 World 
@@ -293,9 +297,9 @@ athlete was considered as a cluster, with observed reaction times
 from both the `treatment' group (2022 World Championships) and
 the `control' group (national competition) within the cluster. Cluster 
 sizes ranged from three to six, with a median size of four. Because gender 
-is known to influence reaction times \citep{lipps2011implications}, we
-prepared data for men and women separately, resulting in 80 reaction
-times from 17 athletes for each
+is known to influence reaction times \citep{babicc2009reaction,
+  lipps2011implications}, we prepared data for men and women
+separately, resulting in 80 reaction times from 17 athletes for each
 gender. This setup forms the basis for the rank-based comparison for
 clustered data with subunit-level grouping, which accounts for the
 within-athlete dependence inherent in this data structure. The top
@@ -373,37 +377,45 @@ reaction time precision in elite-level competition.
 \eds{I also think we need to comment on the men and women's data. But within row
 of the figure, don't the distributions appear similar?  If that is so, would a 
 reviewer ask why we didn't pool the data for men and women?}
+\jy{Let's put the pooled analysis in the supplement.}
+
+\subsection{Data from World Championships 1999--2023}
+\label{sec:dataworld}
+
+The data for evaluating the appropriateness of the 0.1-second
+threshold was obtained from World Athletics and covers the men's
+110-meter hurdles and 100-meter dashes from 1999 to 2023. Due to
+possible gender differences \citep{babicc2009reaction,
+  lipps2011implications}, data for women's 100-meter hurdles and
+100-meter dashes and their analyses were relegated to the
+supplementary material. We focus on the reaction times recorded during
+semifinal and final heats only, as reaction times from preliminary
+heats are often not as fast as those in later heats
+\citep[e.g.,][]{collet1999strategic, tonnessen2013reaction,
+  brosnan2017effects, zhang2021correlation}. For analysis purposes, we
+pooled reaction times from semifinal and final heats to increase sample 
+size, which is particularly important for years with limited final heat 
+observations. For example, in 2022, only five data points were available 
+from the final heat due to two disqualifications and one athlete not 
+competing. Unless otherwise noted, this pooled dataset forms the basis 
+for our analysis throughout the paper. Additionally, we consider datasets 
+that exclude 2022 to assess how our findings might differ when excluding 
+this year of interest.
 
 
-\subsection{World Championships 1999--2023}\label{sec:dataworld}
-
-
-Data was taken from the World Athletics 
-and covers the men's 110 meter hurdles from 1999 to 2023.
-We focus on the reaction times during the 
-semifinal and final heats only, as reaction times from preliminary heats are 
-often not as fast as those in later heats \citep[e.g.,][]{zhang2021correlation}. 
-For analysis purposes, we will pool reaction times of men's final and 
-men's semifinal heats together which increases the sample size. This is 
-advantageous because in some years there are very few finals observations, such
-as in 2022, when there were only five data points due to two disqualifications 
-and one athlete who did not compete. This is the data that we will reference
-throughout the rest of the paper unless otherwise noted. We also consider data 
-that excludes 2022 to see how our analysis differs based on the exclusion of one
-particular year of interest.
-
-
-The data under consideration is summarized using side-by-side boxplots in 
-Figure~\ref{fig:Boxplot}. It is clear that the reaction times in the 2022
-boxplot are lower (indicating faster reaction times) than in many of the other
-years. The median reaction time in 2022 was 0.129 seconds,  compared to 0.156
-seconds, which is what \citet{brosnan2017effects} found when looking at data
-from 1999 to 2014. We can also see from Figure~\ref{fig:Boxplot} that the 
-reaction times clearly differ from year to year. The venue of the World 
-Championships changes each year, so weather or climate related factors such as 
-humidity, precipitation, elevation, may indeed play a role, but additionally,
-both the technology and false start penalization rules have changed over the 
-study period.
+\jy{have the numbers in this paragraph been updated with the
+  additional 100-dash data?}
+The data is summarized in Figure~\ref{fig:Boxplot}, which presents a
+sequence of boxplots of reaction times from 1999 to 2023. It is evident 
+that reaction times in 2022 were notably faster, with a median reaction 
+time of 0.129 seconds compared to the 0.156 seconds observed in earlier 
+studies, such as \citet{brosnan2017effects} for data spanning 1999 to 2014. 
+Figure~\ref{fig:Boxplot} also highlights year-to-year variability in 
+reaction times, likely influenced by changes in the championship venue 
+and environmental conditions such as humidity, precipitation, and 
+elevation. Furthermore, advancements in technology and alterations to 
+false start rules during the study period may have played a role in these 
+variations \citep{willwacher2013novel}.
 
 
 \begin{figure}[tbp]
@@ -413,24 +425,19 @@ study period.
   and 100 meter dash.}
   \label{fig:Boxplot}
 \end{figure}
-\of{Do We want 2 boxplot figures: 1 hurdles, 1 dash or combine them}
 
-From 2007 to 2009, the IAAF (the former name for World Athletics, and the 
-governing body for the World Track and Field Championships) instituted a rule 
-change that allowed one warning false start before a sprinter was disqualified 
-\citep{iaaf2009falsestart}. There were 18 male and 7 female false starts at the 
-2007 World Championships, and 18 male and 7 female false starts at the 2009 World 
-Championships. Starting in 2011, the rule was scrapped, and the old policy which
-automatically disqualifies runners who false start was reinstated. This was 
-desirable for World Athletics as false starts can make already lengthy track 
-meets more tedious, both for athletes and viewers watching the television 
-broadcast. By returning to the harsher policy and cracking down on false starts,
-World Athletics had reduced men's false starts by two thirds in 2011 (6 male and
-4 female disqualifications) \citep{iaaf2009falsestart}. \citet{haugen2013effect}
-examined the effect of different false start rules that IAAF has imposed from 
-1997 to 2009 and found statistically significant improvement in reaction times 
-under more lenient rules.
 
+Between 2007 and 2009, World Athletics (formerly the IAAF) allowed one 
+false start warning before disqualifying a sprinter \citep{iaaf2009falsestart}. 
+This lenient rule led to 18 male and 7 female false starts at both the 2007 
+and 2009 World Championships. In 2011, this rule was replaced with the stricter 
+policy of automatic disqualification for false starts, aimed at reducing the 
+delays caused by repeated warnings. This change reduced men’s false starts 
+by two-thirds in 2011, with only six male and four female disqualifications 
+\citep{iaaf2009falsestart}. \citet{haugen2013effect} demonstrated that more 
+lenient false start rules significantly improved reaction times during the 
+1997–2009 period, suggesting that rule changes over the study period may 
+have contributed to variations in reaction times across years.
 
 
 \section{Methods} \label{sec:methods}
