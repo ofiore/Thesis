@@ -467,11 +467,12 @@ Based on an exploratory analysis, the reaction times are adequately
 modeled by a Generalized Gamma (GG) distribution with random effects in
 model parameters. The GG distribution has three parameters, denoted by
 $\text{GG}(\mu, \sigma, \nu)$ has density function
-\[
+\begin{equation}
+  \label{eq:gg}
 f_Y(y \mid \mu, \sigma, \nu) = 
 \frac{|\nu| \theta^\theta z^{\theta}}{\Gamma(\theta) y} 
 \exp\left(-z \theta\right),
-\]
+\end{equation}
 for $y > 0$, $\mu > 0$, $\sigma > 0$, and $\nu \neq 0$,
 where $z = \left(\frac{y}{\mu}\right)^\nu$,
 $\theta = 1 / (\sigma^2 \nu^2)$, and

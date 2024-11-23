@@ -9,7 +9,7 @@
 \usepackage{booktabs, natbib}
 % \usepackage{breakurl}
 % \usepackage [english]{babel}
-\usepackage{amsmath, amsbsy, amsthm, epsfig, epsf, psfrag, graphicx, 
+\usepackage{amsmath, amsbsy, amsthm, epsfig, epsf, psfrag, graphicx,
 amssymb, enumerate}
 \usepackage{bm}
 \usepackage{multirow, multicol}
@@ -84,10 +84,10 @@ findings.
 \end{comment}
 
 
-Thank you for your feedback. As detailed in the summary of notable changes, 
-we have thoroughly addressed the reviewers' comments and restructured the 
-manuscript to clearly identify its key goals and present the main findings 
-concisely. We appreciate your time and consideration in re-evaluating our 
+Thank you for your feedback. As detailed in the summary of notable changes,
+we have thoroughly addressed the reviewers' comments and restructured the
+manuscript to clearly identify its key goals and present the main findings
+concisely. We appreciate your time and consideration in re-evaluating our
 submission.
 
 \subsection*{To Reviewer 1}
@@ -195,7 +195,7 @@ or not and are potentially correlated with year and race type, biasing the
 results. Accounting for these additional features (in addition to expanding the
 analysis) should help clarify if there was a specific difference attributable to
 2022.
-\end{comment} 
+\end{comment}
 
 
 Thank you for this thoughtful suggestion. We apologize for any
@@ -235,7 +235,7 @@ were calibrated in some way to lead to faster reaction times) or just present a
 general framework for studying track and field down the road. I believe the
 former is stronger and of more interest than the latter, so making clear the
 purpose would help.
-\end{comment}  
+\end{comment}
 
 We appreciate the feedback, which aligns with concerns raised by
 Reviewer~2. To address this, we completely rewrote the introduction to
@@ -277,19 +277,24 @@ is very vague.
 \end{comment}
 
 
-We have revised the Introduction and Discussion sections to clearly
-outline the goals of the study. Both reviewers noted issues with
-organization, so we streamlined the manuscript to emphasize the two
-main objectives: (1) identifying inconsistencies in the 2022 reaction
-times and (2) assessing whether the 0.1-second threshold is fair. We
-removed unrelated sections to keep the focus on these central
-points. Regarding the rank comparison and timing devices at the 2022
+Thank you for your valuable feedback. We have thoroughly revised the
+Introduction and Discussion sections to clearly articulate the study's
+objectives. As both reviewers noted organizational issues, we
+streamlined the manuscript to focus on its two main goals: (1)
+identifying inconsistencies in reaction times at the 2022 World
+Championships, and (2) assessing whether the 0.1-second threshold is
+statistically justified. Unrelated sections were removed to maintain a
+clear and focused narrative.
+
+
+Regarding the rank comparison and timing devices at the 2022
 Championships, we intentionally used cautious language, as there is no
-evidence to claim a miscalibration or fault in Seiko’s timing
-devices. To avoid potential legal risks, we noted the unusually fast
-reaction times in 2022 without making unsubstantiated claims. Instead,
-we allow readers to interpret the underlying cause of the anomaly
-based on the presented data.
+direct evidence to suggest miscalibration or faults in Seiko’s timing
+devices. To avoid potential legal risks, we emphasized the observed
+anomaly of unusually fast reaction times in 2022 without making
+unsubstantiated claims. Instead, we presented the data transparently,
+allowing readers to interpret the possible underlying causes of the
+anomaly.
 
 
 \begin{comment}
@@ -300,30 +305,31 @@ There are two questions: 1) Was the venue for the 2022 championships faster than
 usual? 2) Was the final heat for the 2022 championships faster than usual?
 
 If you are trying to answer question (1), you should include reaction times from
-every spring event, not just the hurdles. If you are trying to answer question
-2, why not do the following Monte Carlo test:
-
-1. Sample a single reaction time for each athlete in the final.
-2. Calculate the mean reaction time for the simulated final.
-3. Compute the probability of seeing the observed average reaction time deviate
-as much as it did in the 2022 Championships.
+every spring event, not just the hurdles. If you are trying to answer
+question~2, why not do the following Monte Carlo test:\\
+\indent 1. Sample a single reaction time for each athlete in the final.\\
+\indent 2. Calculate the mean reaction time for the simulated final.\\
+\indent 3. Compute the probability of seeing the observed average reaction time deviate
+as much as it did in the 2022 Championships.\\
 
 This test seems better than a rank sum test, as ranks do not capture the
 differences between times.
-
 \end{comment}
 
-Thank you for the feedback. We are attempting to address question~(1)
-and have expanded our analysis to include reaction times from
-additional sprint events at the World Championships, including both
-men and women's 100-meter data. This broader dataset helps provide a
-more comprehensive assessment of whether the venue in 2022 was
-unusually fast. 
+Thank you for the feedback. We clarify that our focus is question~(1): 
+evaluating whether the venue in 2022 was unusually fast. To address this, 
+we expanded our analysis to include reaction times from additional sprint 
+events at the World Championships, including both men’s and women’s 
+100-meter dashes. This broader dataset provides a more comprehensive 
+assessment of venue effects in 2022.
 
-Please see our second response to Reviewer 1 for additional 
-comments relating to longer sprint events (200-meter or longer), 
-and why these were not also included in our analyses.
 
+Your suggestion to include reaction times from more sprint events aligns 
+with feedback from Reviewer~1.  While the 100-meter dash reaction times 
+showed no significant differences from the 110-meter hurdles, we excluded 
+200-meter and longer dashes due to their significantly different reaction 
+times. These longer events represent distinct contexts unsuitable for this 
+analysis.
 
 
 \begin{comment}
@@ -340,38 +346,33 @@ not convinced there is enough data to make a strong argument here, especially
 when the previous literature on reaction time uses different distributions.
 \end{comment}
 
-Thank you for raising these points. Regarding the exclusion of
-disqualified runners, we chose not to include athletes with negative
-reaction times, as these indicate an attempt to predict the starting
-gun rather than a true reaction. Negative reaction times do not align
-with the purpose of the GLMM analysis, which aims to evaluate the
-feasibility of the 0.1-second reaction threshold. Including negative
-times would introduce results where the reaction occurred before the
-gun fired, making them unsuitable for this analysis.
+
+
+Thank you for raising these concerns. Regarding the exclusion of 
+disqualified runners, we chose not to include athletes with negative 
+reaction times, as these represent attempts to predict the starting gun 
+rather than true reactions. Negative reaction times do not align with 
+our objective of evaluating the feasibility of the 0.1-second threshold, 
+as they reflect pre-emptive behavior rather than genuine reaction
+times.
+
+
+The Gamma GLMM model has been replaced with a generalized Gamma 
+distribution within the GAMLSS framework, incorporating random effects 
+at the venue and heat levels in its distributional parameters. This 
+revised model provides improved and adequate fit to the data, as shown 
+by diagnostic plots in Figure~3.
 
 
 For the approximately 20 disqualified athletes with positive reaction
 times, we examined the impact of including them in the analysis. The
 probability of observing a reaction time below 0.1 seconds increased
 \jy{Are these based on the expanded dataset or the original dataset?}
+\jy{These numbers need to be updated}
 slightly from 0.0029 to 0.0039, with similar parameter estimates for
 the random effects. Given these results, we opted to include these
 observations in the dataset.
 
-
-Distribution: \jy{need to check R package gamlss.}
-
-
-\jy{Find these references and cite them:
-Sprint Start Regulation in Athletics: A Critical Review.
-Milloz M, Hayes K, Harrison AJ.
-Sports Med. 2021 Jan;51(1):21-31. doi: 10.1007/s40279-020-01350-4.
-PMID: 33125639 Review.
-Reaction time aspects of elite sprinters in athletic world championships.
-Tønnessen E, Haugen T, Shalfawi SA.
-J Strength Cond Res. 2013 Apr;27(4):885-92. doi: 10.1519/JSC.0b013e31826520c3.
-PMID: 22739331
-}
 
 \begin{comment}
 The paper also mentions another claim that I think would be worth investigating:
@@ -382,17 +383,19 @@ Allen’s DIFFERENCE in reaction time compares to the differences of the other
 competitors (relative to previous heats, or averages, or whatever). If Devon
 Allen’s time improved anomalously in the final heat, this would suggest a false
 start. Based on the fact that he recorded a .101 reaction time earlier, I am
-guessing he did not improve anomalously.  
+guessing he did not improve anomalously.
 \end{comment}
 
-Thank you for this suggestion. Unfortunately, comprehensive data on
-Devon Allen's reaction times is not readily available. We gathered as
-much data as we could find online, but there is insufficient
-information from lower-level meets, as reaction times are typically
-only recorded at major competitions (e.g., national and world
-championships). Given the limited data, we could not conduct a formal
-statistical analysis of his reaction times. However, we have added a
-brief discussion of this issue in paragraph~???] of the Discussion Section.
+
+Thank you for this suggestion. Unfortunately, comprehensive data on 
+Devon Allen’s reaction times is not readily available. While we gathered 
+as much data as possible from publicly available sources, reaction times 
+are typically recorded only at major competitions, such as national and 
+world championships. As a result, the dataset is too limited to support 
+a formal statistical analysis of his reaction times.
+To address this point, we have added a brief discussion in 
+paragraph~??? of the Discussion Section, noting the limitations in data 
+availability and the implications of this issue.
 
 
 \begin{comment}
@@ -400,35 +403,40 @@ A point that is not sufficiently emphasized is that the track officials consider
 low reaction times to be false starts because an athlete can ANTICIPATE a start
 faster than they can REACT to the starting gun. I think this is important to
 discuss so that a general audience understands why an athlete might be
-disqualified even through they started running after the race began.  
+disqualified even through they started running after the race began.
 \end{comment}
 
 We added additional explanations to address this in the introductions section.
-\jy{Give paragraph number for specific locations}
+\jy{Owen: Which paragraph?}
 
 \begin{comment}
 I have no idea how to interpret the numbers displayed in Table 2. These
 need to be made interpretable, or they add nothing to the paper.
 \end{comment}
 
-The nomenclature for the greek variables in Table 2 are defined in the GLMM
-subsection of the methods section (3.2).
-\eds{let's revisit this again after objective 2 analyses are set}
+Thank you for pointing out the need for clearer intrepretation of
+Table~2.
+\jy{Owen: please add standard errors of the three intercept  to the table.}
+The table now contains fitted parameters of the generalized Gamma
+distribution GAMLSS as specified Equations (1)--(3). The table caption has been
+expanded to provide detailed explanations of the fitted parameters.
+
 
 \begin{comment}
 Line 127: Is there a reason you are commenting on the difficult of data
 gathering? I am not sure it adds much.
 \end{comment}
 
-Yes, the comments about the difficulty of data gathering are meant to demonstrate
-that we worked hard to find as much data as we could and, as a note to World
-Athletics (track and field governing body), that they need to do a better job
-at data standardization.  Currently the races on their website do not include
-reaction times, which meant that we had to look in alternative places to perform
-the analyses that we did.  The data we found from national level meets in 2022
-was difficult to come by as it required searching for every country's championship
-results individually and when we did find it, it was often in the native language
-making it harder to understand and interpret.
+
+Yes, the comments about the difficulty of data gathering are included
+to highlight the effort required to compile a comprehensive
+dataset. This also serves as a note to World Athletics, emphasizing
+the need for better data standardization. Currently, race results on
+their website do not include reaction times, requiring us to search
+alternative sources. Gathering data from national-level meets in 2022
+involved searching each country’s championship results individually,
+often encountering language barriers that complicated interpretation.
+
 
 \begin{comment}
 Line 141: “We compare the times” - do you mean reaction times?
@@ -444,10 +452,13 @@ show that 2022 is anomalous based on a shift in the calculated venue effects
 seems very roundabout.
 \end{comment}
 
-We included this plot to show the venue effect for each year and to visually
-demonstrate how 2022 compares to other years.  We added additional comments
-about the probability of observing an extreme venue effect to provide
-quantitative data supporting our argument.
+
+Thank you for the feedback. The purpose of Figure~3 is to display the venue 
+effects for each year and visually illustrate how 2022 compares to other years. 
+To address your concern, we added additional comments quantifying the 
+probability of observing an extreme venue effect, which strengthens the 
+argument that 2022 is anomalous. If needed, we are open to revising the plot 
+further or integrating it into a single panel showing deltas, as suggested.
 \eds{let's revisit this again after objective 2 analyses are set}
 
 
