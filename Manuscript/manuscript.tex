@@ -101,27 +101,30 @@ Championships}
 % Abstract should be under 200 words
 
 \begin{abstract}
-Devon Allen was disqualified from the men's 110-meter hurdle final at
-the 2022 World Track and Field Championships after recording a
-reaction time of 0.099 seconds—just 0.001 seconds faster than the
-allowable threshold of 0.1 seconds. This paper explores whether the
-reaction times of athletes at the 2022 Championships were unusually
-fast compared to other competitions and evaluates the appropriateness
-of the 0.1-second disqualification barrier. To investigate these
-issues, we employ a rank-sum test for clustered data to compare
-athletes' reaction times across multiple competitions, along with a
-generalized linear mixed model (GLMM) that accounts for both venue and
-heat effects. The results indicate that athletes at the 2022
-Championships had significantly faster reaction times on average. This
-analysis raises important questions about the validity of the current
-reaction time threshold and suggests potential modifications to the
-rules that could prevent future disqualifications under similar
-circumstances.
+Devon Allen’s disqualification at the men's 110-meter hurdle final at
+the 2022 World Track and Field Championships, 
+due to a reaction time (RT) of 0.099 seconds---just 0.001 seconds below
+the allowable threshold---sparked widespread debate over 
+the fairness and validity of RT rules. This study investigates two key
+issues: variations in timing systems and the justification for the
+0.1-second disqualification threshold. We
+pooled RT data from men’s 110-meter hurdles and 100-meter dash, as
+well as women’s 100-meter hurdles and 100-meter dash, spanning
+national and international competitions. Using a rank-sum test for
+clustered data, we compared RTs across multiple competitions,
+while a generalized Gamma model with random effects for venue and heat
+was applied to evaluate the threshold. Our analyses reveal significant
+differences in RTs between the 2022 World Championships and other
+competitions, pointing to systematic variations in timing
+systems. Additionally, the model shows that RTs below 0.1 seconds,
+though rare, are physiologically plausible. These findings highlight
+the need for standardized timing protocols and a re-evaluation of the
+0.1-second disqualification threshold to promote fairness in
+elite competition.
 
 
 \bigskip\noindent{\sc Keywords}:
-False Start, GLMM, Hurdle, Reaction Time, Seiko, rank-based test
-
+false start, GAMLSS, reaction time, rank-based test, short sprint
 \end{abstract}
 
 \doublespace
@@ -132,88 +135,97 @@ False Start, GLMM, Hurdle, Reaction Time, Seiko, rank-based test
 
 Devon Allen’s highly anticipated performance at the 2022 World
 Track and Field Championships in Eugene, Oregon, ended in
-controversy when he was disqualified for a reaction time of
+controversy when he was disqualified for a reaction time (RT) of
 0.099 seconds, just 0.001 seconds below the allowable threshold.
 Allen, a University of Oregon alumnus,
 had recently run a time of 12.84 seconds in the 110-meter hurdle
 event, just 0.04 seconds short of the world record. After placing
 third at the U.S. Track and Field Championships, he advanced
 through the preliminary heats and semifinals at the World
-Championships, with reaction times of 0.123 and 0.101 seconds,
+Championships, with RTs of 0.123 and 0.101 seconds,
 respectively. However, in the final heat, competing in front of his
-home audience, Allen’s reaction time was just 0.001 seconds faster
+home audience, Allen’s RT was just 0.001 seconds faster
 than the 0.1-second threshold set by the International Association
 of Athletics Federations (IAAF), resulting in his disqualification, a
-decision that was met with widespread public outcry.
+decision that was met with widespread public outcry. This 
+incident highlighted two long-standing issues: variability in the
+measurement of RTs by Start Information Systems (SIS) and the
+appropriateness of the 0.1-second disqualification threshold. As
+reaction times are measured in fractions of a second, inconsistencies
+in timing technologies and rules can significantly affect athlete
+outcomes, raising questions about fairness and standardization.
 
 
-The disqualification of Allen was widely discussed in online
-communities, with some questioning the accuracy of the timing
-equipment. One of the most active platforms was \url{www.LetsRun.com},
-a website that functions as both a message board and a news outlet.
-The message board, similar to Reddit, is particularly active during
-major running events, including the Olympics and the World Track
-and Field Championships. The news section of the website featured
-articles such as \citet{johnson2022data} and \citet{johnson2022was}
-by Robert Johnson, the site’s founder. Johnson argued that there may
-have been an error with the timing equipment at the 2022 Championships.
-He cited graphs and descriptive statistics, like median reaction
-times, comparing the reaction times at the 2022 Championships to
-those from other competitions, including the U.S. Championships and
-previous World Championships. However, these comparisons lacked formal
-statistical analysis.
+World Athletics (formerly IAAF) uses certified SIS to measure RTs, yet
+variation in technology persist. Discussions at online forums such as
+\url{www.LetsRun.com}questioned consistencies with the SIS as a
+contributing factor to RT anormalies \citep{johnson2022data,
+  johnson2022was}. ALthough lacking formal statistical analysis, the
+discussions sparkled broader concerns about SIS
+variability. Historically, ``loud gun'' systems caused signal delays
+for athletes in outer lanes  due to the speed of sound, an issue
+addressed with the introduction of ``silent gun'' systems in 2010,
+which electronically synchronize sound delivery to all athletes
+\citep{tonnessen2013reaction}. Despite these advances, variability
+persists due to differences in sensor technologies, such as force
+transducers and accelerometers, and inconsistencies in event detection
+algorithms \citep{willwacher2013novel}. For example, simple
+force-threshold systems may delay RT detection by up to 26~ms compared
+to more sophisticated methods \citep{pain2007sprint}. These findings
+emphasize the need for standardized certification protocols to reduce
+discrepancies and ensure fairness in RT measurements, as recently
+reviewed by \citet{milloz2021sprint}.
 
 
-The 0.1-second disqualification threshold in track events has been
-a subject of ongoing debate, with researchers presenting evidence
-both in favor of lowering and raising the
-limit. \citet{pain2007sprint} examined
-reaction times in nine male athletes and found that the fastest athlete
-had an average reaction time of 0.087 seconds, with a standard deviation
-of 0.004 seconds. Similarly, \citet{komi2009iaaf}, in a study commissioned
-by the IAAF, recommended lowering the disqualification threshold to 0.08
-or 0.085 seconds, arguing that athletes are capable of faster reaction
-times than the current threshold allows. On the other hand, some
-researchers have argued for increasing the threshold.
-\citet{brosnan2017effects} suggested raising it to 0.115 seconds based
-on data from European and World Championships, while a study of the
-2008 Olympics supported the conclusion that athletes cannot reliably
-react within 0.1 seconds \citep{lipps2011implications}. Interestingly,
-\citet{brosnan2017effects} and \citet{lipps2011implications} relied on
-retrospective event data, whereas \citet{pain2007sprint} and
-\citet{komi2009iaaf} conducted controlled experiments to assess
-reaction time capabilities. The IAAF has not revised the threshold
-since its implementation in 1999.
+The 0.1-second disqualification threshold, introduced in the 1990s,
+has been the subject of significant debate. Partly based on limited
+data from Finnish national-level athletes~\cite{mero1990reaction}, the
+threshold may not adequately represent the capabilities of elite
+sprinters. Controlled experiments have shown that reaction times below
+0.1 seconds are physiologically plausible \citep{pain2007sprint,
+  komi2009iaaf}, while retrospective analyses of competition data
+often advocate for raising the threshold~\cite{brosnan2017effects,
+  lipps2011implications}. Stricter false-start rules, introduced to
+minimize race disruptions, have also discouraged sprinters from
+attempting faster starts, which may artificially inflate RTs recorded
+in competition~\cite{haugen2013effect}. This divergence between
+experimental findings and competition-based analyses illustrates the
+complexity of defining a universally fair threshold. Addressing these
+debates requires modern data collection and advanced methodologies to
+ensure equity and consistency in elite
+competition~\cite{milloz2021sprint}.
 
 
-This paper has two primary objectives. First, we investigate whether
-reaction times at the 2022 World Championships were significantly
-different from other competitions, focusing on athletes who competed
-in multiple events. Using a matched-pairs design, we compare reaction
-times across the 2022, 2019, and 2023 World Championships, as well as
-the 2022 national-level competitions. This approach isolates the
-effect of the competition year while controlling for individual
-performance. The clustered nature of the data, with the goal of
-assessing differences across events within-athletes, were analyzed
-with rank-based comparison approach for clustered data
-\citep{datta2005rank}. The second objective is to assess the
-appropriateness of the 0.1-second threshold by modeling reaction
-times from World Championships held from 1999 onward. We use a
+This paper addresses two primary objectives from a statistical
+perspective, using modern methodologies to analyze historical
+data. First, we investigate whether reaction times (RTs) at the 2022
+World Championships were significantly different from other
+competitions, focusing on athletes who competed in multiple
+events. Using a matched-pairs design, we compare RTs across the 2022,
+2019, and 2023 World Championships, as well as the 2022 national-level
+competitions. This approach isolates the effect of the competition
+year while controlling for individual performance. The clustered
+nature of the data, with the goal of assessing differences across
+events within athletes, was analyzed using a rank-based comparison
+approach for clustered data \citep{datta2005rank}. Second, we evaluate
+the appropriateness of the 0.1-second disqualification threshold by
+modeling RTs from World Championships held from 1999 onward. A
 generalized gamma distribution with random effects for both venue and
-heat in the framework of the generalized additive model for location,
-scale, and shape (GAMLSS) \citep{stasinopoulos2024generalized}.
-This model estimates the probability of reaction times falling below
-the threshold, helping evaluate the consistency of reaction times and
-whether the current threshold is statistically justified.
+heat was applied within the framework of the generalized additive
+model for location, scale, and shape (GAMLSS)
+\citep{stasinopoulos2024generalized}. This model estimates the
+probability of RTs falling below the threshold, providing a
+statistical assessment of RT consistency and the validity of the
+current threshold.
 
 
 The rest of this paper is organized as follows. Section~\ref{sec:Data}
 describes the data collection and datasets used for the two
 objectives. Section~\ref{sec:rank} outlines the rank-based comparison
 methods for objective~1, rank-based comparison for clustered data with
-subunit-level gruping to analyze differences in reaction times
-across different competitions. Section~\ref{sec:gamlss} details the
-methods for objective~2, the GAMLSS to evaluate the appropriatenes
+subunit-level gruping to analyze differences in RTs across different
+competitions. Section~\ref{sec:gamlss} details the methods for
+objective~2, the gernalized Gamma GAMLSS to evaluate the appropriatenes
 of the 0.1-second threshold. Section~\ref{sec:Results} presents the
 results of both objectives and discusses the implications.
 Finally, Section~\ref{sec:concludingremarks} highlights the
@@ -227,28 +239,28 @@ materials.
 \label{sec:Data}
 
 
-This study focuses on reaction times from sprint events where reaction
+This study focuses on RTs from sprint events where reaction
 time plays a critical role. Specifically, we included data from men’s
 100-meter dashes and 110-meter hurdles, as well as women’s 100-meter
 dashes and 100-meter hurdles. Statistical tests showed no significant
-differences in reaction times between these events, supporting their
+differences in RTs between these events, supporting their
 inclusion in a unified analysis. However, we excluded data from
-200-meter dashes and longer events, as their reaction times were found
+200-meter dashes and longer events, as their RTs were found
 to be significantly different. This difference is not unexpected, as
-reaction time is generally less critical in longer sprint events
+RT is generally less critical in longer sprint events
 compared to shorter distances where explosive starts are paramount.
 
 
 Two datasets were used to address the study's objectives. To
-investigate whether reaction times at the 2022 World Championships
+investigate whether RTs at the 2022 World Championships
 were significantly different from other competitions (Objective 1), we
 used data from male athletes in the 110-meter hurdles and 100-meter
 dash, and female athletes in the 100-meter hurdles and 100-meter dash,
 provided they competed in the 2022 World Championships and at least
 one other competition (2022 national championships, 2019 World
 Championships, or 2023 World Championships). To assess the
-appropriateness of the 0.1-second reaction time threshold (Objective
-2), we used reaction times from the 110-meter hurdles and 100-meter
+appropriateness of the 0.1-second RT threshold (Objective
+2), we used RTs from the 110-meter hurdles and 100-meter
 dash across all World Championships held from 1999 to 2023. This
 investigation began shortly after the 2022 World Championships, and we
 are pleased to include data from 2023, which did not significantly
@@ -264,7 +276,7 @@ an exploratory analysis of how United States athletes performed at the 2022
 United States Track and Field Championships, held from June 23--26, 2022, at
 Hayward Field in Eugene, Oregon. Since the same venue hosted the 2022 World
 Championships in August, this provided a unique opportunity to establish a
-baseline for reaction times.
+baseline for RTs.
 
 
 \subsubsection{2022 National Competitions}
@@ -272,38 +284,38 @@ baseline for reaction times.
 
 
 \jy{Owen, are there names from 100-m dash?}
-To compare reaction times at the 2022 World Championships with those
+To compare RTs at the 2022 World Championships with those
 recorded at national competitions, we constructed a dataset of athletes
 who competed in both settings. Initially, we examined data from four
 United States athletes---Trey Cunningham, Daniel Roberts, Grant
 Holloway, and Devon Allen---who participated in both the United States
 Track and Field Championships and the World Championships. Each athlete
-recorded faster reaction times in all World Championships races compared
+recorded faster RTs in all World Championships races compared
 to their performances at the national-level event. However, this small
 sample size was insufficient for meaningful statistical analysis. To
-expand the dataset, we included reaction times from additional national
+expand the dataset, we included RTs from additional national
 competitions held between May and July 2022 across various countries.
-Compiling this data was challenging, as reaction times were not centrally
+Compiling this data was challenging, as RTs were not centrally
 located and often required searching country-specific websites, with many
 results recorded in native languages.
 
 
-The final dataset consisted of reaction times from athletes who competed
-in both national and international competitions. Reaction times from
+The final dataset consisted of RTs from athletes who competed
+in both national and international competitions. RTs from
 preliminary heats, semifinals, and finals were included to ensure
 sufficient data for analysis. Excluding preliminary heats would have
 significantly reduced the number of athletes and clusters. Each
-athlete was considered as a cluster, with observed reaction times
+athlete was considered as a cluster, with observed RTs
 from both the `treatment' group (2022 World Championships) and
 the `control' group (national competition) within the cluster. Cluster
 sizes ranged from three to six, with a median size of four. Because gender
-is known to influence reaction times \citep{babicc2009reaction,
+is known to influence RTs \citep{babicc2009reaction,
   lipps2011implications}, we prepared data for men and women
-separately, resulting in 80 reaction times from 17 athletes for each
+separately, resulting in 80 RTs from 17 athletes for each
 gender. This setup forms the basis for the rank-based comparison for
 clustered data with subunit-level grouping, which accounts for the
 within-athlete dependence inherent in this data structure. The top
-panel of Figure!~\ref{fig:RankScatterplots} shows the reaction times
+panel of Figure!~\ref{fig:RankScatterplots} shows the RTs
 of those who competed both at national competitions and the 2022 World
 Championships.
 
@@ -316,7 +328,7 @@ Championships.
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=\textwidth]{RankScatterPlots}
-  \caption{Reaction times for athletes who competed at the 2022 World Championships
+  \caption{RTs for athletes who competed at the 2022 World Championships
 	and at another championship (2022 national, 2019 World, or 2023 World) at which
 	they competed. On the horizontal
   axis below each graph "H", "S", and "F" refer to the heats, semifinals, and
@@ -332,35 +344,35 @@ Championships.
 \subsubsection{2019 and 2023 World Championships}
 \label{sec:data2019}
 
-To compare reaction times at the 2022 World Championships with those
+To compare RTs at the 2022 World Championships with those
 recorded in the 2019 and 2023 World Championships, we prepared datasets
-including reaction times from athletes who competed in the 2022 World
+including RTs from athletes who competed in the 2022 World
 Championships and at least one of the 2019 or 2023 World Championships.
 Specifically, we identified athletes who participated in both the 2019
 and 2022 World Championships, as well as those who participated in both
 the 2022 and 2023 World Championships. In the 2019-2022 comparison,
-reaction times from 2022 were treated as the `treatment' group, with
+RTs from 2022 were treated as the `treatment' group, with
 2019 serving as the `control' group. Similarly, in the 2022-2023
-comparison, reaction times from 2022 were treated as the `treatment'
+comparison, RTs from 2022 were treated as the `treatment'
 group, with 2023 serving as the `control' group. This structure allowed
-us to prepare datasets suitable for examining reaction times of athletes
+us to prepare datasets suitable for examining RTs of athletes
 who competed across multiple World Championships.
 
 
 Each athlete was treated as a single cluster, containing their reaction
 times from different World Championships. The dataset for the 2019-2022
-comparison contained 134 reaction times from 34 male athletes and 124
-reaction times from 31 female athletes. The dataset for the 2022-2023
-comparison contained 161 reaction times from 45 male athletes and 182
-reaction times from 47 female athletes. While it is theoretically
-possible that athletes improved their reaction times between 2019 and
+comparison contained 134 RTs from 34 male athletes and 124
+RTs from 31 female athletes. The dataset for the 2022-2023
+comparison contained 161 RTs from 45 male athletes and 182
+RTs from 47 female athletes. While it is theoretically
+possible that athletes improved their RTs between 2019 and
 2022 or between 2022 and 2023, such improvements are highly unlikely for
 elite sprinters, as they already operate near the limits of human
 performance. Consequently, consistent improvements observed in 2022
 would suggest systematic differences rather than natural variability.
 
 
-Figure~\ref{fig:RankScatterplots} shows the reaction times of athletes
+Figure~\ref{fig:RankScatterplots} shows the RTs of athletes
 who competed in both the 2019 and 2022 World Championships (middle
 panel) and those who competed in both the 2022 and 2023 World
 Championships (lower panel). The athletes included in the 2022 data
@@ -368,11 +380,11 @@ differ between these two comparisons, as the set of athletes who
 competed in both 2019 and 2022 is not the same as the set who competed
 in both 2022 and 2023. To be included, athletes must have competed in
 at least one race at each championship. Notably, Devon Allen recorded
-the fastest reaction times in both the Finals and Semifinals of the
+the fastest RTs in both the Finals and Semifinals of the
 2022 World Championships, but his disqualification was determined by a
-difference of just 0.002 seconds, with reaction times of 0.101 and
+difference of just 0.002 seconds, with RTs of 0.101 and
 0.099 seconds, respectively. This highlights the critical role of
-reaction time precision in elite-level competition.
+RT precision in elite-level competition.
 
 \eds{I also think we need to comment on the men and women's data. But within row
 of the figure, don't the distributions appear similar?  If that is so, would a
@@ -388,12 +400,12 @@ threshold was obtained from World Athletics and covers the men's
 possible gender differences \citep{babicc2009reaction,
   lipps2011implications}, data for women's 100-meter hurdles and
 100-meter dashes and their analyses were relegated to the
-supplementary material. We focus on the reaction times recorded during
-semifinal and final heats only, as reaction times from preliminary
+supplementary material. We focus on the RTs recorded during
+semifinal and final heats only, as RTs from preliminary
 heats are often not as fast as those in later heats
 \citep[e.g.,][]{collet1999strategic, tonnessen2013reaction,
   brosnan2017effects, zhang2021correlation}. For analysis purposes, we
-pooled reaction times from semifinal and final heats to increase sample
+pooled RTs from semifinal and final heats to increase sample
 size, which is particularly important for years with limited final heat
 observations. For example, in 2022, only five data points were available
 from the final heat due to two disqualifications and one athlete not
@@ -406,12 +418,12 @@ this year of interest.
 \jy{have the numbers in this paragraph been updated with the
   additional 100-dash data?}
 The data is summarized in Figure~\ref{fig:Boxplot}, which presents a
-sequence of boxplots of reaction times from 1999 to 2023. It is evident
-that reaction times in 2022 were notably faster, with a median reaction
+sequence of boxplots of RTs from 1999 to 2023. It is evident
+that RTs in 2022 were notably faster, with a median reaction
 time of 0.129 seconds compared to the 0.156 seconds observed in earlier
 studies, such as \citet{brosnan2017effects} for data spanning 1999 to 2014.
 Figure~\ref{fig:Boxplot} also highlights year-to-year variability in
-reaction times, likely influenced by changes in the championship venue
+RTs, likely influenced by changes in the championship venue
 and environmental conditions such as humidity, precipitation, and
 elevation. Furthermore, advancements in technology and alterations to
 false start rules during the study period may have played a role in these
@@ -421,13 +433,13 @@ variations \citep{willwacher2013novel}.
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=\textwidth]{Boxplot}
-  \caption{The reaction times from 1999 to 2023 for the men's 110 meter hurdle
+  \caption{The RTs from 1999 to 2023 for the men's 110 meter hurdle
   and 100 meter dash.}
   \label{fig:Boxplot}
 \end{figure}
 
 
-Between 2007 and 2009, World Athletics (formerly the IAAF) allowed one
+Between 2007 and 2009, World Athletics allowed one
 false start warning before disqualifying a sprinter \citep{iaaf2009falsestart}.
 This lenient rule led to 18 male and 7 female false starts at both the 2007
 and 2009 World Championships. In 2011, this rule was replaced with the stricter
@@ -435,9 +447,9 @@ policy of automatic disqualification for false starts, aimed at reducing the
 delays caused by repeated warnings. This change reduced men’s false starts
 by two-thirds in 2011, with only six male and four female disqualifications
 \citep{iaaf2009falsestart}. \citet{haugen2013effect} demonstrated that more
-lenient false start rules significantly improved reaction times during the
+lenient false start rules significantly improved RTs during the
 1997–2009 period, suggesting that rule changes over the study period may
-have contributed to variations in reaction times across years.
+have contributed to variations in RTs across years.
 
 
 \section{Methods} \label{sec:methods}
@@ -450,13 +462,13 @@ analyzed with rank-based methods and a GAMLSS, respectively.
 
 
 To test the conjecture that the 2022 World Championships timing device may have
-led to faster recorded reaction times, we compare the reaction times of the same
+led to faster recorded RTs, we compare the RTs of the same
 athletes who have attended both the 2022 World Championships and other
 competitions.
 In this setting, we have clustered data with subunit grouping. In particular,
-each athlete is a cluster and the multiple reaction times from the same athlete
+each athlete is a cluster and the multiple RTs from the same athlete
 can be from either the 2022 World Championships or otherwise.
-Let $X_{ij}$ be the $j$th reaction time of athlete~$i$, $i = 1, \ldots, n$,
+Let $X_{ij}$ be the $j$th RT of athlete~$i$, $i = 1, \ldots, n$,
 $j = 1, \ldots, m_i$ where $m_i$ is the number of observations from
 athlete~$i$. Let $\delta_{ij}$ be the group indicator of $X_{ij}$; $\delta_{ij}
 = 1$ if $X_{ij}$ is in group~1 (2022 World Championships) and $\delta_{ij} = 0$
@@ -495,7 +507,7 @@ with \texttt{method = `ds'} (for \underline{D}atta and \underline{S}atten) and
 
 \subsection{GAMLSS}\label{sec:gamlss}
 
-Based on an exploratory analysis, the reaction times are adequately
+Based on an exploratory analysis, the RTs are adequately
 modeled by a Generalized Gamma (GG) distribution with random effects in
 model parameters. The GG distribution has three parameters, denoted by
 $\text{GG}(\mu, \sigma, \nu)$ has density function
@@ -521,12 +533,12 @@ provided $\theta > -1 / \nu$. Here,
 $\mu$ scales the central tendency, $\sigma$ controls
 dispersion, and $\nu$ determines skewness. This parameterization allows
 the distribution to model asymmetric and heavy-tailed data effectively, making
-it particularly suitable for reaction times.
+it particularly suitable for RTs.
 An implementation of this distribution is available from R package
 \texttt{gamlss.dist} \citep{rigby2019distributions}.
 
 
-Let $Y_{ijk}$ denote the reaction time of observation~$k$ in heat~$j$
+Let $Y_{ijk}$ denote the RT of observation~$k$ in heat~$j$
 of year~$i$. Conditioning on a venue effect $v_i$ for year~$i$
 and a heat effect $h_{i/j}$ nested within each year~$i$, the
 distribution of $Y_{ijk}$ is
@@ -556,8 +568,8 @@ object. The z-scores can then be checked with a Q-Q plot
 distribution of $Y_{ijk}$ is a scale-mixture of GG distributions, which can be
 easily simulated from once the parameters are estimated. Many
 random numbers generated from the fitted mixture distribution can be used to
-approximate the probability of observing a reaction time faster than any given
-threshold. We are specifically interested in the probability of a reaction time
+approximate the probability of observing a RT faster than any given
+threshold. We are specifically interested in the probability of a RT
 being less than 0.1 seconds in order to gauge if that is a reasonable
 disqualification barrier.
 
@@ -568,24 +580,24 @@ disqualification barrier.
 \subsection{Rank-based Comparison} \label{subsec:Results_Rank}
 
 The rank-based methods described in Section~\ref{sec:rank} were used to
-compare reaction times between the 2022 World Championships and other
+compare RTs between the 2022 World Championships and other
 competitions in which the same athletes participated. These comparisons
 were conducted separately for men and women, resulting in six total
-comparisons: reaction times from the 2022 national-level championships
-versus the 2022 World Championships for men and women, reaction times
+comparisons: RTs from the 2022 national-level championships
+versus the 2022 World Championships for men and women, RTs
 from the 2019 versus 2022 World Championships for men and women, and
-reaction times from the 2022 versus 2023 World Championships for men and
+RTs from the 2022 versus 2023 World Championships for men and
 women.
 
 
 \begin{table}
   \centering
   \caption{P-values of comparisons between
-    reaction times from different competitions for the same athletes.
-    2022 Nat. vs Inter. compares reaction times from 2022 national-level
+    RTs from different competitions for the same athletes.
+    2022 Nat. vs Inter. compares RTs from 2022 national-level
     championships and the 2022 World Track and Field Championships. 2019
-    vs 2022 compares reaction times from the 2019 and 2022 World Track and
-    Field Championships. 2022 vs 2023 compares reaction times from the
+    vs 2022 compares RTs from the 2019 and 2022 World Track and
+    Field Championships. 2022 vs 2023 compares RTs from the
     2022 and 2023 World Track and Field Championships.}
   \begin{tabular}{c c c c c}
    \toprule
@@ -607,18 +619,18 @@ women.
 Table~\ref{tab:Clusrankresults} presents the results from both permutation
 and asymptotic rank-based tests for these six comparisons. The tests reveal
 that the national versus international comparisons yielded the lowest
-p-values, indicating stronger evidence of faster reaction times at the
+p-values, indicating stronger evidence of faster RTs at the
 2022 World Championships compared to the 2022 national competitions. For
 both men and women, permutation test results were highly significant,
 providing substantial evidence that athletes competing at the 2022 World
-Championships had significantly faster reaction times than they did just
+Championships had significantly faster RTs than they did just
 a few months earlier at national-level events. The comparisons between the
 2019 and 2022 World Championships and between the 2022 and 2023 World
 Championships also produced significant results. Collectively,
 these results suggest that athletes consistently achieved faster reaction
 times at the 2022 World Championships compared to other competitions. This
 finding supports the hypothesis that the 2022 World Championships presented
-conditions conducive to faster reaction times, potentially due to systematic
+conditions conducive to faster RTs, potentially due to systematic
 or environmental factors.
 
 
@@ -665,10 +677,10 @@ indicating robustness, but the venue-level random-effect variance
 increases to 0.0576, reflecting additional variability in the location
 parameter, while the heat-level random-effect variance remains stable.
 decreases slightly to 0.3198. These results
-highlight that reaction times are influenced by both venue and heat-level
+highlight that RTs are influenced by both venue and heat-level
 factors, with heat-level variability playing a more prominent role in the scale
 parameter, and that the inclusion of 2022 introduces greater venue-level
-variability, likely due to systematic differences in reaction times that year.
+variability, likely due to systematic differences in RTs that year.
 
 
 \begin{figure}[tbp]
@@ -677,7 +689,7 @@ variability, likely due to systematic differences in reaction times that year.
   \caption{Diagnosis of the fitted generalized Gamma distribution with
     random effects in model parameters: kernerl density of 1 million
     observations drawn from the fitted model overlaid with the
-    histogram of the observed reaction times (left); Q-Q plot of the
+    histogram of the observed RTs (left); Q-Q plot of the
     normal z-score of the quantile residuals from the fitted model.}
   \label{fig:diagnosis}
 \end{figure}
@@ -686,15 +698,15 @@ variability, likely due to systematic differences in reaction times that year.
 Figure~\ref{fig:diagnosis} presents diagnostic checks for the fitted
 generalized Gamma distribution model with random effects. The left
 panel compares the kernel density estimate of one million simulated reaction
-times from the fitted model to the histogram of the observed reaction times.
+times from the fitted model to the histogram of the observed RTs.
 The close alignment between the density curve and the histogram suggests that
 the fitted GG model adequately captures the overall distribution of the
-reaction times. The right panel shows a Q-Q plot of the z-scores of the
+RTs. The right panel shows a Q-Q plot of the z-scores of the
 quantile residuals from the fitted model. The points lie approximately along
 the 45-degree reference line, indicating that the residuals are consistent
 with the standard normal distribution, supporting the adequacy of the model
 fit. These diagnostics collectively demonstrate that the fitted model provides
-a reasonable representation of the observed reaction time data.
+a reasonable representation of the observed RT data.
 
 
 % \begin{figure}[tbp]
@@ -722,11 +734,11 @@ a reasonable representation of the observed reaction time data.
 
 
 \jy{Could you also test sensitivity for excluding the positive but
-  fault reaction times?}
+  fault RTs?}
 
 \begin{table}
   \centering
-  \caption{Probabilities of observing reaction times less than threshold 0.08,
+  \caption{Probabilities of observing RTs less than threshold 0.08,
   0.09, and 0.10 seconds based on the two effect model.}
   \begin{tabular}{c c c c}
    \toprule
@@ -741,29 +753,29 @@ a reasonable representation of the observed reaction time data.
 
 
 The fitted generalized Gamma GAMLSS model with both venue- and heat-level
-random effects provides a framework for assessing how extreme reaction times
-below certain thresholds are. The probability of observing a reaction time
+random effects provides a framework for assessing how extreme RTs
+below certain thresholds are. The probability of observing a RT
 below a given threshold, assuming no intentional false starts, was approximated
 by generating 10 million realizations from the fitted model.
 Table~\ref{tab:Sim_probability} summarizes the probabilities of observing
-reaction times below 0.08, 0.09, and 0.10 seconds under two scenarios: one
+RTs below 0.08, 0.09, and 0.10 seconds under two scenarios: one
 excluding and the other including data from 2022. Excluding 2022 slightly
-reduces the probability of observing a fast reaction time, but the difference
-is small. For example, the probability of a reaction time below 0.10 seconds
+reduces the probability of observing a fast RT, but the difference
+is small. For example, the probability of a RT below 0.10 seconds
 decreases from $2.76 \cdot 10^{-3}$ (approximately one in 362 starts) to
 $1.94 \cdot 10^{-3}$ (approximately one in 515 starts) when 2022 is excluded.
-Lowering the reaction time threshold from 0.10 to 0.08 seconds drastically
-reduces the likelihood of observing a reaction time below the barrier, with
+Lowering the RT threshold from 0.10 to 0.08 seconds drastically
+reduces the likelihood of observing a RT below the barrier, with
 the probability dropping from one in every 362 starts (at 0.10 seconds) to one
 in every 14620 starts (at 0.09 seconds) and one in every 146198 starts (at 0.08
 seconds) when 2022 is included. These results highlight the rarity of extremely
-fast reaction times and substantiate the recommendations of \citet{komi2009iaaf}
-to carefully consider the selection of reaction time thresholds.
+fast RTs and substantiate the recommendations of \citet{komi2009iaaf}
+to carefully consider the selection of RT thresholds.
 
 
 \begin{table}
   \centering
-  \caption{Suggested reaction time barriers based on tail probabilities.}
+  \caption{Suggested RT barriers based on tail probabilities.}
   \begin{tabular}{c c c}
    \toprule
    Data Set & Tail probability  $10^{-3}$ & Tail probability $10^{-4}$ \\
@@ -775,16 +787,16 @@ to carefully consider the selection of reaction time thresholds.
   \label{tab:Sim_time}
 \end{table}
 
-Utilizing the same model, we can determine suitable reaction time barriers
+Utilizing the same model, we can determine suitable RT barriers
 based on the probability of observing a time below the barrier. As shown in
-Table~\ref{tab:Sim_time}, including the 2022 data suggests a reaction time
+Table~\ref{tab:Sim_time}, including the 2022 data suggests a RT
 barrier of 0.094 seconds to maintain a 0.1\% chance of observing an
-exceptionally fast reaction time, while a stricter threshold of 0.082 seconds
+exceptionally fast RT, while a stricter threshold of 0.082 seconds
 is needed to limit this probability to 0.01\%. Excluding the 2022 data results
 in slightly higher thresholds of 0.096 and 0.083 seconds for the respective
 probability levels. These results indicate that while the inclusion of 2022
 data slightly reduces the recommended barrier, the magnitude of the difference
-is relatively small. This approach allows for tailoring reaction time
+is relatively small. This approach allows for tailoring RT
 thresholds to desired levels of false positive rates, balancing fairness and
 precision in disqualification criteria.
 
@@ -794,12 +806,12 @@ precision in disqualification criteria.
 
 This study sought to answer two primary questions: were athletes who
 competed at the 2022 World Track and Field Championships faster than
-at other races, and is the 0.1-second reaction time barrier fair?
+at other races, and is the 0.1-second RT barrier fair?
 Regarding the first question, our analyses suggest that athletes were
 indeed faster at the 2022 World Championships compared to comparable
-meets. Ideally, a centralized database containing reaction times from
+meets. Ideally, a centralized database containing RTs from
 all World Athletics-certified meets would have allowed for a more
-comprehensive analysis. Currently, however, reaction times are seldom
+comprehensive analysis. Currently, however, RTs are seldom
 included in the results available on the World Athletics website. This
 limitation constrained our ability to evaluate athletes like Devon
 Allen, as data from his races leading up to the World Championships in
@@ -808,7 +820,7 @@ insights by allowing comparisons across a larger set of races.
 
 
 In addressing the second question, our analyses of the GAMLSS model
-reveal that the 0.1-second reaction time barrier, while rare, may not
+reveal that the 0.1-second RT barrier, while rare, may not
 be as extraordinary  as traditionally assumed. For men,
 Table~\ref{tab:Sim_time} shows that reaction  times below 0.1 seconds
 occur with a probability of approximately one in 362 starts  when
