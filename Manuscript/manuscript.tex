@@ -158,11 +158,9 @@ outcomes, raising questions about fairness and standardization.
 
 World Athletics (formerly IAAF) uses certified SIS to measure RTs, yet
 variation in technology persist. Discussions at online forums such as
-\url{www.LetsRun.com}questioned consistencies with the SIS as a
+\url{www.LetsRun.com} questioned consistencies in the SIS as a
 contributing factor to RT anormalies \citep{johnson2022data,
-  johnson2022was}. ALthough lacking formal statistical analysis, the
-discussions sparkled broader concerns about SIS
-variability. Historically, ``loud gun'' systems caused signal delays
+  johnson2022was}. Historically, ``loud gun'' systems caused signal delays
 for athletes in outer lanes  due to the speed of sound, an issue
 addressed with the introduction of ``silent gun'' systems in 2010,
 which electronically synchronize sound delivery to all athletes
@@ -213,7 +211,8 @@ modeling RTs from World Championships held from 1999 onward. A
 generalized Gamma (GG) distribution with random effects for both venue and
 heat was applied within the framework of the generalized additive
 model for location, scale, and shape (GAMLSS)
-\citep{stasinopoulos2024generalized}. This model estimates the
+\citep{rigby2005generalized, stasinopoulos2024generalized}.
+This model enables estimation of the
 probability of RTs falling below the threshold, providing a
 statistical assessment of RT consistency and the validity of the
 current threshold.
@@ -556,7 +555,7 @@ race was given a unique identifier with typically five to nine observations
 per race. The heat effect is important as it captures the variability in the
 amount of time athletes are on the starting blocks before the gun goes off.
 This model can be fit with R package \texttt{gamlss}
-\citep{stasinopoulos2024generalized}.
+\citep{stasinopoulos2008generalized}.
 
 
 Model diagnosis and tail analysis can be done with the fitted GG model
