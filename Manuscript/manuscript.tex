@@ -532,8 +532,8 @@ and a heat effect $h_{i/j}$ nested within each year~$i$, the
 distribution of $Y_{ijk}$ is
 $\text{GG}(\mu_{ijk}, \sigma_{ijk}, \nu)$, where
 \begin{align}
-\log(\mu_{ijk}) &= \beta_0 + v_i ,\\
-\log(\sigma_{ijk}) &= \gamma_0 + h_{i/j},
+\log(\mu_{ijk}) &= \beta_0 + v_i , \label{eq:mu}\\
+\log(\sigma_{ijk}) &= \gamma_0 + h_{i/j} , \label{eq:sigma}
 \end{align}
 $v_i$ is normally distributed with mean zero and
 variance~$\sigma_v^2$, and $h_{i/j}$ is normally distributed with mean
@@ -580,7 +580,7 @@ women.
 
 \begin{table}
   \centering
-  \caption{Summaries of the results of comparisons between 
+  \caption{P-values of comparisons between 
     reaction times from different competitions for the same athletes. 
     2022 Nat. vs Inter. compares reaction times from 2022 national-level 
     championships and the 2022 World Track and Field Championships. 2019 
@@ -589,7 +589,7 @@ women.
     2022 and 2023 World Track and Field Championships.}
   \begin{tabular}{c c c c c} 
    \toprule
-   Comparison & Permutation & Asymptotic & Athletes & Number observations  \\ 
+   Comparison & Permutation & Asymptotic & \# of athletes & \# of observations  \\ 
    \midrule
    2022 Nat. vs Inter. Men & $1.0 \cdot 10^{-6}$ & $ 6.1 \cdot 10^{-5}$ & 17 & 80 \\
    2022 Nat. vs Inter. Women & $1.0 \cdot 10^{-6}$ & $ 1.2 \cdot 10^{-3}$ & 17 & 80 \\[1ex]
@@ -624,92 +624,105 @@ or environmental factors.
 
 \subsection{GAMLSS} \label{subsec:Results_GLMM}
 
+\jy{Please add standard errors, which could be from \texttt{summary(gg3b)}}
 
-We considered many types of models from various continuous distribution families
-before ultimately deciding on the generalized Gamma model desrcribed in
-Section~\ref{sec:gamlss}.  The residuals of the GG model were particularly
-strong, as evidenced by Figure~\ref{fig:Residuals}.  We care especially about
-the lower residuals as we are trying to estimate the probability of a low reaction
-time.  While there are two outliers present in the residual plot, we accept that
-this is relatively small in relation to the rest of the roughly 770 observations.
-
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics{diagnosis.pdf}
-  \caption{Diagnosis of the fitted generalized Gamma distribution with
-    random effects in model parameters: kernerl density of 1 million
-    observations drawn from the fitted model overlaid with the
-    histogram of the observed reaction times (left); Q-Q plot of the
-    z-score of the quantile residuals from the fitted model.}
-  \label{fig:diagnosis}
-\end{figure}
+\jy{Are these numbers correct? I modified with the gg3b in gg.R}
 
 \begin{table}
   \centering
-  \caption{AIC and estimated parameters for the gg3b model fit}
-  \label{tab:Gamma_parameters}
-  \begin{tabular}{c c c c c c c}
+  \caption{Estimated fixed-effect parameters with standard errors in
+    parentheses and estimated variance of the random effects from the
+    fitted generalized Gamma distribution with venue level random
+    effects in $\mu$ and heat level random effects in $\sigma$ in
+    Models~\eqref{eq:gg}--\eqref{eq:sigma}.}
+  \label{tab:ggfit}
+  \begin{tabular}{c c c c c c}
     \toprule
-    Data set & AIC & $\mu$ & $\sigma$ & $\nu$ & $\sigma_v$ & $\sigma_h$ \\
+    Data set & $\beta_0$ & $\gamma_0$ & $\nu$ & $\sigma_v$ & $\sigma_h$ \\
     \midrule
-    Excluding 2022 & -3660 & -1.900 & -2.192 & -1.315 & 0.0434 & 0.3259 \\
-    Including 2022 & -4103 & -1.910 & -2.200 & -1.178 & 0.0576 & 0.3198 \\
+    Excluding 2022 & $-$1.910 (0.005)  & $-$2.200 (0.025) & $-$1.177 (0.442) & 0.043 & 0.326 \\
+    Including 2022 & $-$1.910 & $-$2.200 & $-$1.178 & 0.058 & 0.320 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-\of{Created these with the function I wrote model-name at bottom of gamlss.R. Do
-  any other parametes need to be added?}
-\jy{Remove AIC because there is no comparison. Need their standard errors.}
 
-The estimated parameters of the GLMM model under the log link are shown in 
-Table~\ref{tab:Gamma_parameters}, both excluding and including 2022 data.
-.  We report the AIC, the point estimates for $\mu$,
-$\sigma$, and $\mu$, as well as the standard deviations of the venue and heat
-effects: $\sigma_v$ and $\sigma_h$ respectively. When we exclude 2022 from the
-full model, we observe small but intriguing discrepancies in the models. The
-standard deviation of the venue effect, $\sigma_v$, increases from 0.0434 to
-0.0576 when 2022 is included. This suggests that by including 2022 in the model,
-there is more of a variation in venue effects.
-
-
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics{ComparisonOfVenueEffects}
-  \caption{The venue effects from 1999 to 2023 estimated from the GLMM for the
-    data including 2022 (top) and excluding 2022 (bottom).}
-  \label{fig:VenueEffects}
-\end{figure}
-
-
-
-The uniqueness of 2022 is further demonstrated by Figure~\ref{fig:VenueEffects},
-which shows the values of the venue random effects.  The temporal patterns
-of the two sets of effects look very similar, except that the positive effects
-estimated with 2022 included have higher magnitude than those estimated without
-2022, which compensates the negative effect of the 2022 with a large magnitude.
-Both plots agree to some extent with the pattern of the boxplots in
-Figure~\ref{fig:Boxplot}. The mismatch is due to the heat effect, since the venue
-effect only captures a smaller part of the variation than the heat effect as
-evident from their standard deviations. It is possible to calculate the extremity
-of the 2022 heat effect as we know that the mean of the heat effects is $0$,
-the standard deviation is $0.42$ as given by Table~\ref{tab:Gamma_parameters},
-and the estimate of the 2022 heat effect is $-0.93$. We find the tail probability
-to be $0.0128$ indicating there is a low chance of observing a venue effect as
-extreme as 2022.
+The fitted parameters of the generalized Gamma distribution int he
+GAMLSS framework in Equations~\eqref{eq:gg}--\eqref{eq:sigma} are
+summarized in Table~\ref{tab:ggfit}. Results obtained from both
+excluding and including 2022 data are reported. The fixed-effect
+parameters include $\beta_0$, $\gamma_0$, and $\nu$, corresponding to
+the intercept of the log-location, log-scale, and shape of the GG
+distribution, respectively. Random effects account for variability at
+the venue level $\sigma_v$ on the log-scale of the $\mu$ parameter
+and at the heat level $\sigma_h$ on the log-scale of the $\sigma$
+parameter in the density in Equation~\eqref{eq:gg}. The variance 
+of the venue-level random effect is smaller than the heat-level random
+effect variance, suggesting that heat-level variability in the scale
+parameter is substantial, though on the dispersion parameter. When the
+2022 data is included, the fixed-effect estimates remain stable, 
+indicating robustness, but the venue-level random-effect variance
+increases to 0.0576, reflecting additional variability in the location
+parameter, while the heat-level random-effect variance remains stable.
+decreases slightly to 0.3198. These results
+highlight that reaction times are influenced by both venue and heat-level 
+factors, with heat-level variability playing a more prominent role in the scale 
+parameter, and that the inclusion of 2022 introduces greater venue-level 
+variability, likely due to systematic differences in reaction times that year.
 
 
 \begin{figure}[tbp]
   \centering
-  \includegraphics{GGDensity}
-  \caption{The densities of the GG distribution with random effects for heat
-  and venue (black), and without random effects (blue)}
-  \label{fig:DensityPlot}
+  \includegraphics[width=\textwidth]{diagnosis.pdf}
+  \caption{Diagnosis of the fitted generalized Gamma distribution with
+    random effects in model parameters: kernerl density of 1 million
+    observations drawn from the fitted model overlaid with the
+    histogram of the observed reaction times (left); Q-Q plot of the
+    normal z-score of the quantile residuals from the fitted model.}
+  \label{fig:diagnosis}
 \end{figure}
-\of{Not sure what to write about the density plot or how to fit it into the rest
-of the section.}
+
+
+Figure~\ref{fig:diagnosis} presents diagnostic checks for the fitted 
+generalized Gamma distribution model with random effects. The left 
+panel compares the kernel density estimate of one million simulated reaction 
+times from the fitted model to the histogram of the observed reaction times. 
+The close alignment between the density curve and the histogram suggests that 
+the fitted GG model adequately captures the overall distribution of the 
+reaction times. The right panel shows a Q-Q plot of the z-scores of the 
+quantile residuals from the fitted model. The points lie approximately along 
+the 45-degree reference line, indicating that the residuals are consistent 
+with the standard normal distribution, supporting the adequacy of the model 
+fit. These diagnostics collectively demonstrate that the fitted model provides 
+a reasonable representation of the observed reaction time data.
+
+
+% \begin{figure}[tbp]
+%   \centering
+%   \includegraphics{ComparisonOfVenueEffects}
+%   \caption{The venue effects from 1999 to 2023 estimated from the GLMM for the
+%     data including 2022 (top) and excluding 2022 (bottom).}
+%   \label{fig:VenueEffects}
+% \end{figure}
+
+% The uniqueness of 2022 is further demonstrated by Figure~\ref{fig:VenueEffects},
+% which shows the values of the venue random effects.  The temporal patterns
+% of the two sets of effects look very similar, except that the positive effects
+% estimated with 2022 included have higher magnitude than those estimated without
+% 2022, which compensates the negative effect of the 2022 with a large magnitude.
+% Both plots agree to some extent with the pattern of the boxplots in
+% Figure~\ref{fig:Boxplot}. The mismatch is due to the heat effect, since the venue
+% effect only captures a smaller part of the variation than the heat effect as
+% evident from their standard deviations. It is possible to calculate the extremity
+% of the 2022 heat effect as we know that the mean of the heat effects is $0$,
+% the standard deviation is $0.42$ as given by Table~\ref{tab:Gamma_parameters},
+% and the estimate of the 2022 heat effect is $-0.93$. We find the tail probability
+% to be $0.0128$ indicating there is a low chance of observing a venue effect as
+% extreme as 2022.
+
+
+\jy{Could you also test sensitivity for excluding the positive but 
+  fault reaction times?}
 
 \begin{table}
   \centering
@@ -725,27 +738,27 @@ of the section.}
   \end{tabular}
   \label{tab:Sim_probability}
 \end{table}
-\of{table has been updated with gg3b results}
-\jy{Could you also test sensitivity for excluding the positive but
-  fault reaction times?}
 
-The GLMM with both venue and heat random effects helps us to assess how extreme
-a reaction time below a given threshold is. The probability of observing a reaction
-time below a threshold, assuming no intentional false starts, can be
-approximated by generating a large number of realizations from the fitted
-GLMM. We used 10 millions realizations in the analysis. 
-Table~\ref{tab:Sim_probability} summarizes the estimated probabilities of
-observing a reaction time below 0.08, 0.09, and 0.10 seconds under two different
-scenarios: one excluding and the other including data from 2022. Apparently,
-excluding 2022 lowered the probability of observing a fast reaction time, but
-the difference is not big in magnitude. For example, the probability for
-seeing a reaction time below 0.10 seconds changes from $2.36\cdot 10^{-3}$ to
-$2.90\cdot 10^{-3}$ when 2022 is included. These values correspond to one in
-every 344 starts and 423 starts, respectively. The table shows that changing the
-reaction time barrier from 0.1 seconds to 0.08 seconds drastically reduces the
-chance of observing a reaction time below the barrier, from one in roughly every
-283 starts to one in every 58480 starts using data with 2022 included. The
-results substantiates the recommendations by \citet{komi2009iaaf}.
+
+The fitted generalized Gamma GAMLSS model with both venue- and heat-level 
+random effects provides a framework for assessing how extreme reaction times 
+below certain thresholds are. The probability of observing a reaction time 
+below a given threshold, assuming no intentional false starts, was approximated 
+by generating 10 million realizations from the fitted model. 
+Table~\ref{tab:Sim_probability} summarizes the probabilities of observing 
+reaction times below 0.08, 0.09, and 0.10 seconds under two scenarios: one 
+excluding and the other including data from 2022. Excluding 2022 slightly 
+reduces the probability of observing a fast reaction time, but the difference 
+is small. For example, the probability of a reaction time below 0.10 seconds 
+decreases from $2.76 \cdot 10^{-3}$ (approximately one in 362 starts) to 
+$1.94 \cdot 10^{-3}$ (approximately one in 515 starts) when 2022 is excluded. 
+Lowering the reaction time threshold from 0.10 to 0.08 seconds drastically 
+reduces the likelihood of observing a reaction time below the barrier, with 
+the probability dropping from one in every 362 starts (at 0.10 seconds) to one 
+in every 14620 starts (at 0.09 seconds) and one in every 146198 starts (at 0.08 
+seconds) when 2022 is included. These results highlight the rarity of extremely 
+fast reaction times and substantiate the recommendations of \citet{komi2009iaaf} 
+to carefully consider the selection of reaction time thresholds.
 
 
 \begin{table}
@@ -761,19 +774,19 @@ results substantiates the recommendations by \citet{komi2009iaaf}.
   \end{tabular}
   \label{tab:Sim_time}
 \end{table}
-\of{table has been updated with gg3b results}
 
-Utilizing the same model, we can subtly shift our interpretation to determine a
-suitable reaction time barrier based on the probability of observing a time
-below said barrier. Including 2022 data, a reaction time barrier of 0.092
-seconds is warranted to maintain a 0.1\% chance of observing an illicitly fast
-reaction time, as delineated in Table~\ref{tab:Sim_time}. This calculation can
-be replicated for various probability levels; for instance, a probability of
-0.0001 (equating to one disqualification per 10,000 starts) necessitates a
-reaction time barrier of 0.083 seconds. The exclusion of 2022 data, which
-inherently lowers the probability of observing a swift reaction time, mandates a
-less lenient reaction time barrier when calculated based on probability, albeit
-without a substantial difference in magnitude.
+Utilizing the same model, we can determine suitable reaction time barriers 
+based on the probability of observing a time below the barrier. As shown in 
+Table~\ref{tab:Sim_time}, including the 2022 data suggests a reaction time 
+barrier of 0.094 seconds to maintain a 0.1\% chance of observing an 
+exceptionally fast reaction time, while a stricter threshold of 0.082 seconds 
+is needed to limit this probability to 0.01\%. Excluding the 2022 data results 
+in slightly higher thresholds of 0.096 and 0.083 seconds for the respective 
+probability levels. These results indicate that while the inclusion of 2022 
+data slightly reduces the recommended barrier, the magnitude of the difference 
+is relatively small. This approach allows for tailoring reaction time 
+thresholds to desired levels of false positive rates, balancing fairness and 
+precision in disqualification criteria.
 
 
 \section{Discussion}\label{sec:concludingremarks}
@@ -822,7 +835,7 @@ faster than those recorded at other competitions, with
 Table~\ref{tab:Clusrankresults} presenting multiple significant p-values that
 highlight disparities in average reaction times between the 2022 Championship
 and other competitions. Further, our GLMM results indicate that a reaction time
-of 0.1 seconds may not be as exceptional as commonly believed. According to the
+of 0.1-second may not be as exceptional as commonly believed. According to the
 probabilities in Table~\ref{tab:Sim_time}, World Athletics might contemplate
 adjusting the disqualification barrier to 0.08 seconds, thereby enabling athletes
 like Allen to react more swiftly without the apprehension of
