@@ -210,7 +210,7 @@ events within athletes, was analyzed using a rank-based comparison
 approach for clustered data \citep{datta2005rank}. Second, we evaluate
 the appropriateness of the 0.1-second disqualification threshold by
 modeling RTs from World Championships held from 1999 onward. A
-generalized gamma distribution with random effects for both venue and
+generalized Gamma (GG) distribution with random effects for both venue and
 heat was applied within the framework of the generalized additive
 model for location, scale, and shape (GAMLSS)
 \citep{stasinopoulos2024generalized}. This model estimates the
@@ -225,7 +225,7 @@ objectives. Section~\ref{sec:rank} outlines the rank-based comparison
 methods for objective~1, rank-based comparison for clustered data with
 subunit-level gruping to analyze differences in RTs across different
 competitions. Section~\ref{sec:gamlss} details the methods for
-objective~2, the gernalized Gamma GAMLSS to evaluate the appropriatenes
+objective~2, the GG model with random effects to evaluate the appropriatenes
 of the 0.1-second threshold. Section~\ref{sec:Results} presents the
 results of both objectives and discusses the implications.
 Finally, Section~\ref{sec:concludingremarks} highlights the
@@ -508,7 +508,7 @@ with \texttt{method = `ds'} (for \underline{D}atta and \underline{S}atten) and
 \subsection{GAMLSS}\label{sec:gamlss}
 
 Based on an exploratory analysis, the RTs are adequately
-modeled by a Generalized Gamma (GG) distribution with random effects in
+modeled by a GG distribution with random effects in
 model parameters. The GG distribution has three parameters, denoted by
 $\text{GG}(\mu, \sigma, \nu)$ has density function
 \begin{equation}
@@ -518,15 +518,15 @@ f_Y(y \mid \mu, \sigma, \nu) =
 \exp\left(-z \theta\right),
 \end{equation}
 for $y > 0$, $\mu > 0$, $\sigma > 0$, and $\nu \neq 0$,
-where $z = \left(\frac{y}{\mu}\right)^\nu$,
+where $z = (y / \mu)^\nu$,
 $\theta = 1 / (\sigma^2 \nu^2)$, and
 $\Gamma(\cdot)$ denotes the Gamma function.
 The GG distribution is highly flexible, encompassing several
 well-known distributions as special cases, such as the
 Weibull ($\mu = \nu)$ and  Gamma $(\nu = 1)$ distributions.
-Its mean is
+Its expectation is
 \[
-  \mu \frac{\Gamma(\theta + 1 / \nu)}
+  \frac{\mu \Gamma(\theta + 1 / \nu)}
   {\theta^{1 / \nu} \Gamma(\theta)},
 \]
 provided $\theta > -1 / \nu$. Here,
@@ -644,7 +644,7 @@ or environmental factors.
   \centering
   \caption{Estimated fixed-effect parameters with standard errors in
     parentheses and estimated variance of the random effects from the
-    fitted generalized Gamma distribution with venue level random
+    fitted GG distribution with venue level random
     effects in $\mu$ and heat level random effects in $\sigma$ in
     Models~\eqref{eq:gg}--\eqref{eq:sigma}.}
   \label{tab:ggfit}
@@ -659,7 +659,7 @@ or environmental factors.
 \end{table}
 
 
-The fitted parameters of the generalized Gamma distribution int he
+The fitted parameters of the GG distribution int he
 GAMLSS framework in Equations~\eqref{eq:gg}--\eqref{eq:sigma} are
 summarized in Table~\ref{tab:ggfit}. Results obtained from both
 excluding and including 2022 data are reported. The fixed-effect
@@ -686,7 +686,7 @@ variability, likely due to systematic differences in RTs that year.
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=\textwidth]{diagnosis.pdf}
-  \caption{Diagnosis of the fitted generalized Gamma distribution with
+  \caption{Diagnosis of the fitted GG distribution with
     random effects in model parameters: kernerl density of 1 million
     observations drawn from the fitted model overlaid with the
     histogram of the observed RTs (left); Q-Q plot of the
@@ -696,7 +696,7 @@ variability, likely due to systematic differences in RTs that year.
 
 
 Figure~\ref{fig:diagnosis} presents diagnostic checks for the fitted
-generalized Gamma distribution model with random effects. The left
+GG distribution model with random effects. The left
 panel compares the kernel density estimate of one million simulated reaction
 times from the fitted model to the histogram of the observed RTs.
 The close alignment between the density curve and the histogram suggests that
@@ -752,7 +752,7 @@ a reasonable representation of the observed RT data.
 \end{table}
 
 
-The fitted generalized Gamma GAMLSS model with both venue- and heat-level
+The fitted GG GAMLSS model with both venue- and heat-level
 random effects provides a framework for assessing how extreme RTs
 below certain thresholds are. The probability of observing a RT
 below a given threshold, assuming no intentional false starts, was approximated
