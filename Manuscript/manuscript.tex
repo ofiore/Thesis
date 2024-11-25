@@ -283,6 +283,9 @@ baseline for RTs.
 
 
 \jy{Owen, are there names from 100-m dash?}
+\of{Yes, there were four US athletes in the 100m dash that we have data on.
+Marvin Bracy, Fred Kerley, Travyon Bromwell, and Christian Coleman.  All of whom
+recorded their slowest times at the US Track and Field Championship.}
 To compare RTs at the 2022 World Championships with those
 recorded at national competitions, we constructed a dataset of athletes
 who competed in both settings. Initially, we examined data from four
@@ -321,6 +324,7 @@ Championships.
 
 \jy{Could you do a pooled analysis since there is no gender difference
   and event differece in the supplement?}
+\of{Asked you about this in an email.}
 
 
 
@@ -337,6 +341,7 @@ Championships.
 	use the same ordering as the data was described: put national vs international
 	in first row, 2019 vs 2022 in second row, and 2022 vs 2023 in third row}
 	}
+  \of{I agree and I updated it. I think it looks good now.}
   \label{fig:RankScatterplots}
 \end{figure}
 
@@ -389,6 +394,8 @@ RT precision in elite-level competition.
 of the figure, don't the distributions appear similar?  If that is so, would a
 reviewer ask why we didn't pool the data for men and women?}
 \jy{Let's put the pooled analysis in the supplement.}
+\of{Yes I believe the distributions are similar but I think we cover why we don't
+pool by citing the papers that suggest differences in men and women's times.}
 
 \subsection{Data from World Championships 1999--2023}
 \label{sec:dataworld}
@@ -416,6 +423,7 @@ this year of interest.
 
 \jy{have the numbers in this paragraph been updated with the
   additional 100-dash data?}
+  \of{Funny enough the median reaction time remained exactly the same.}
 The data is summarized in Figure~\ref{fig:Boxplot}, which presents a
 sequence of boxplots of RTs from 1999 to 2023. It is evident
 that RTs in 2022 were notably faster, with a median reaction
@@ -635,29 +643,6 @@ or environmental factors.
 
 \subsection{GAMLSS} \label{subsec:Results_GLMM}
 
-\jy{Please add standard errors, which could be from \texttt{summary(gg3b)}}
-
-\jy{Are these numbers correct? I modified with the gg3b in gg.R}
-
-\begin{table}
-  \centering
-  \caption{Estimated fixed-effect parameters with standard errors in
-    parentheses and estimated variance of the random effects from the
-    fitted GG distribution with venue level random
-    effects in $\mu$ and heat level random effects in $\sigma$ in
-    Models~\eqref{eq:gg}--\eqref{eq:sigma}.}
-  \label{tab:ggfit}
-  \begin{tabular}{c c c c c c}
-    \toprule
-    Data set & $\beta_0$ & $\gamma_0$ & $\nu$ & $\sigma_v$ & $\sigma_h$ \\
-    \midrule
-    Excluding 2022 & $-$1.910 (0.005)  & $-$2.200 (0.025) & $-$1.177 (0.442) & 0.043 & 0.326 \\
-    Including 2022 & $-$1.910 & $-$2.200 & $-$1.178 & 0.058 & 0.320 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-
 The fitted parameters of the GG distribution int he
 GAMLSS framework in Equations~\eqref{eq:gg}--\eqref{eq:sigma} are
 summarized in Table~\ref{tab:ggfit}. Results obtained from both
@@ -681,6 +666,36 @@ factors, with heat-level variability playing a more prominent role in the scale
 parameter, and that the inclusion of 2022 introduces greater venue-level
 variability, likely due to systematic differences in RTs that year.
 
+
+\jy{Please add standard errors, which could be from \texttt{summary(gg3b)}}
+
+\jy{Are these numbers correct? I modified with the gg3b in gg.R}
+\of{Yes I agree with your numbers and have included the ones for the other model}
+
+\of{I moved the table down because in the pdf it was appearing in the rank
+section.} 
+\of{I think it's confusing that sigma appears as a parameter of the model
+and we use it as the standard deviation of the heat effect which appears in the
+sigma parameter. I don't know much about statistical nomenclature in papers, is
+this common?}
+
+\begin{table}
+  \centering
+  \caption{Estimated fixed-effect parameters with standard errors in
+    parentheses and estimated variance of the random effects from the
+    fitted GG distribution with venue level random
+    effects in $\mu$ and heat level random effects in $\sigma$ in
+    Models~\eqref{eq:gg}--\eqref{eq:sigma}.}
+  \label{tab:ggfit}
+  \begin{tabular}{c c c c c c}
+    \toprule
+    Data set & $\beta_0$ & $\gamma_0$ & $\nu$ & $\sigma_v$ & $\sigma_h$ \\
+    \midrule
+    Excluding 2022 & $-$1.910 (0.005) & $-$2.200 (0.025) & $-$1.177 (0.442) & 0.043 & 0.326 \\
+    Including 2022 & $-$1.910 (0.005) & $-$2.200 (0.027) & $-$1.178 (0.447) & 0.058 & 0.320 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \begin{figure}[tbp]
   \centering
@@ -734,6 +749,11 @@ a reasonable representation of the observed RT data.
 
 \jy{Could you also test sensitivity for excluding the positive but
   fault RTs?}
+\of{Yes I explained the code is at the bottom of gg.R and ran code without 2022: for 0.1 the
+probability is $1.97\cdot10^{-3}$ versus $2.76\cdot10^{-3}$. For 0.09: the
+probability is $3.53\cdot10^{-4}$ versus $4.95\cdot10^{-4}$. For 0.08: the
+probability is $4.93\cdot10^{-5}$ versus $6.84\cdot10^{-5}$. I assume we want
+to report these in the supplemental?}
 
 \begin{table}
   \centering
