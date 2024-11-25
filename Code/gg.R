@@ -119,3 +119,7 @@ mean(samplefit_nodq < .09) # sim_time(gg3b, 0.09)
 mean(samplefit_nodq < .08)
 
 ## Values are slighly smaller but are actually very similar to results without 2022
+
+median(filter(dhm, Venue == 2022)$RxnTime)
+median(filter(filter(dhm, Event == "100 Dash"), Venue == 2022)$RxnTime)
+
