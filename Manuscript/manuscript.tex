@@ -66,12 +66,11 @@
 %\date{}
 
 \begin{document}
-%\maketitle
+
+\title{\bf On Devon Allen's Disqualification at the 2022 World Track and Field Championships}
 
 \if0\blind
 {
-  \title{\bf On Devon Allen's Disqualification at the 2022 World Track and Field
-Championships}
   \author{Owen Fiore, %\\
 %   \href{mailto:owen.fiore@uconn.edu}
 % {\nolinkurl{owen.fiore@uconn.edu}}\\
@@ -79,8 +78,6 @@ Championships}
   Jun Yan\\[1ex]
   Department of Statistics, University of Connecticut\\
 }
-\date{}
-  \maketitle
 } \fi
 
 \if1\blind
@@ -88,13 +85,11 @@ Championships}
   \bigskip
   \bigskip
   \bigskip
-  \begin{center}
-  {\LARGE\bf On Devon Allen's Disqualification at the 2022 World Track and Field
-Championships}
-\end{center}
+  \author{Anonymous Authors}
   \bigskip
 } \fi
 
+\maketitle
 
 \doublespace
 
@@ -248,6 +243,10 @@ inclusion in a unified analysis. However, we excluded data from
 to be significantly different. This difference is not unexpected, as
 RT is generally less critical in longer sprint events
 compared to shorter distances where explosive starts are paramount.
+Negative RTs were excluded from the analysis, while positive
+disqualified RTs were included due to their low frequency. A
+sensitivity analysis regarding the inclusion of positive disqualified
+RTs is provided in the Supplementary Material.
 
 
 Two datasets were used to address the study's objectives. To
@@ -262,44 +261,43 @@ appropriateness of the 0.1-second RT threshold (Objective
 2), we used RTs from the 110-meter hurdles and 100-meter
 dash across all World Championships held from 1999 to 2023. This
 investigation began shortly after the 2022 World Championships, and we
-are pleased to include data from 2023, which did not significantly
+were pleased that including data from 2023 did not significantly
 alter our results \citep{WAData}.
 
 
 \subsection{Comparison Data with 2022 World Championships}
 \label{sec:databeyond}
 
-For assessing the abnormality of the 2022 World Championship,
-the motivation for including data beyond the World Championships arose from
-an exploratory analysis of how United States athletes performed at the 2022
-United States Track and Field Championships, held from June 23--26, 2022, at
-Hayward Field in Eugene, Oregon. Since the same venue hosted the 2022 World
-Championships in August, this provided a unique opportunity to establish a
-baseline for RTs.
 
 
 \subsubsection{2022 National Competitions}
 \label{sec:datanational}
-
-
 \jy{Owen, are there names from 100-m dash?}
 \of{Yes, there were four US athletes in the 100m dash that we have data on.
 Marvin Bracy, Fred Kerley, Travyon Bromwell, and Christian Coleman.  All of whom
 recorded their slowest times at the US Track and Field Championship.}
-To compare RTs at the 2022 World Championships with those
-recorded at national competitions, we constructed a dataset of athletes
-who competed in both settings. Initially, we examined data from four
-United States athletes---Trey Cunningham, Daniel Roberts, Grant
-Holloway, and Devon Allen---who participated in both the United States
-Track and Field Championships and the World Championships. Each athlete
-recorded faster RTs in all World Championships races compared
-to their performances at the national-level event. However, this small
-sample size was insufficient for meaningful statistical analysis. To
-expand the dataset, we included RTs from additional national
-competitions held between May and July 2022 across various countries.
-Compiling this data was challenging, as RTs were not centrally
-located and often required searching country-specific websites, with many
-results recorded in native languages.
+
+
+To assess the abnormality of the 2022 World Championships, we examined
+data beyond World Championship events. This decision was motivated by
+an exploratory analysis of how United States (US) athletes performed
+at the 2022 US Track and Field Championships, held from June 23--26,
+2022, at Hayward Field in Eugene, Oregon. Since this venue also hosted
+the 2022 World Championships in August, it
+provided a unique opportunity to compare. There were four US
+110-meter hurdle athletes—Trey Cunningham, Daniel Roberts,
+Grant Holloway, and Devon Allen—who competed in both events. All four
+athletes recorded faster RTs in every World Championships race
+compared to their performances at the national-level event. Similarly,
+all four US 100-meter dash athletes---Marvin Bracy, Fred Kerley,
+Travyon Bromwell, and Christian Coleman---also recorded slower RTs at
+the US Championships than at the World Championships.
+To expand the dataset, we included RTs from 100-meter hurdle
+and 100-meter dash athletes who competed in other national
+competitions held between May and July 2022 across various
+countries. Compiling this data presented challenges, as RTs were not
+centrally archived and often required searching country-specific
+websites, with many results recorded in native languages.
 
 
 The final dataset consisted of RTs from athletes who competed
@@ -321,27 +319,15 @@ panel of Figure!~\ref{fig:RankScatterplots} shows the RTs
 of those who competed both at national competitions and the 2022 World
 Championships.
 
-
-\jy{Could you do a pooled analysis since there is no gender difference
-  and event differece in the supplement?}
-\of{Asked you about this in an email.}
-
-
-
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=\textwidth]{RankScatterPlots}
   \caption{RTs for athletes who competed at the 2022 World Championships
-	and at another championship (2022 national, 2019 World, or 2023 World) at which
-	they competed. On the horizontal
-  axis below each graph "H", "S", and "F" refer to the heats, semifinals, and
-  finals respectively. Please note that in the last row the 2022 times are to
-  the right of the 2023 times.
-	\eds{Please check my edited caption; also, I suggest rearranging the rows to
-	use the same ordering as the data was described: put national vs international
-	in first row, 2019 vs 2022 in second row, and 2022 vs 2023 in third row}
-	}
-  \of{I agree and I updated it. I think it looks good now.}
+    and at another championship (2022 national, 2019 World, or 2023
+    World) at which they competed. On the horizontal
+    axis below each graph ``H'', ``S'', and ``F'' refer to the heats,
+    semifinals, and  finals respectively. Please note that in the last
+    row the 2022 times are to the right of the 2023 times.}
   \label{fig:RankScatterplots}
 \end{figure}
 
@@ -420,9 +406,6 @@ that exclude 2022 to assess how our findings might differ when excluding
 this year of interest.
 
 
-\jy{have the numbers in this paragraph been updated with the
-  additional 100-dash data?}
-  \of{Funny enough the median reaction time remained exactly the same.}
 The data is summarized in Figure~\ref{fig:Boxplot}, which presents a
 sequence of boxplots of RTs from 1999 to 2023. It is evident
 that RTs in 2022 were notably faster, with a median reaction
@@ -554,8 +537,8 @@ $\text{GG}(\mu_{ijk}, \sigma_{ijk}, \nu)$, where
 \log(\sigma_{ijk}) &= \gamma_0 + h_{i/j} , \label{eq:sigma}
 \end{align}
 $v_i$ is normally distributed with mean zero and
-variance~$\sigma_v^2$, and $h_{i/j}$ is normally distributed with mean
-zero and variance~$\sigma_h^2$.
+variance~$\tau_v^2$, and $h_{i/j}$ is normally distributed with mean
+zero and variance~$\tau_h^2$.
 The two random effects were found useful: one capturing the venue effect, which
 is used to contrast years, and the second being the heat effect, where every
 race was given a unique identifier with typically five to nine observations
@@ -607,7 +590,7 @@ women.
     2022 and 2023 World Track and Field Championships.}
   \begin{tabular}{c c c c c}
    \toprule
-   Comparison & Permutation & Asymptotic & \# of athletes & \# of observations  \\
+   Comparison & Permutation & Asymptotic & \# of athletes & \# RTs  \\
    \midrule
    2022 Nat. vs Inter. Men & $1.0 \cdot 10^{-6}$ & $ 6.1 \cdot 10^{-5}$ & 17 & 80 \\
    2022 Nat. vs Inter. Women & $1.0 \cdot 10^{-6}$ & $ 1.2 \cdot 10^{-3}$ & 17 & 80 \\[1ex]
@@ -649,34 +632,19 @@ excluding and including 2022 data are reported. The fixed-effect
 parameters include $\beta_0$, $\gamma_0$, and $\nu$, corresponding to
 the intercept of the log-location, log-scale, and shape of the GG
 distribution, respectively. Random effects account for variability at
-the venue level $\sigma_v$ on the log-scale of the $\mu$ parameter
-and at the heat level $\sigma_h$ on the log-scale of the $\sigma$
+the venue level $\tau_v$ on the log-scale of the $\mu$ parameter
+and at the heat level $\tau_h$ on the log-scale of the $\sigma$
 parameter in the density in Equation~\eqref{eq:gg}. The variance
 of the venue-level random effect is smaller than the heat-level random
 effect variance, suggesting that heat-level variability in the scale
 parameter is substantial, though on the dispersion parameter. When the
-2022 data is included, the fixed-effect estimates remain stable,
-indicating robustness, but the venue-level random-effect variance
-increases to 0.0576, reflecting additional variability in the location
-parameter, while the heat-level random-effect variance remains stable.
-decreases slightly to 0.3198. These results
+2022 data is included, all parameter estimates remain stable except
+the standard deviation of the venue-level random-effect variance,
+which increases from 0.043 to 0.058 . These results
 highlight that RTs are influenced by both venue and heat-level
-factors, with heat-level variability playing a more prominent role in the scale
-parameter, and that the inclusion of 2022 introduces greater venue-level
+factors, and that the inclusion of 2022 introduces greater venue-level
 variability, likely due to systematic differences in RTs that year.
 
-
-\jy{Please add standard errors, which could be from \texttt{summary(gg3b)}}
-
-\jy{Are these numbers correct? I modified with the gg3b in gg.R}
-\of{Yes I agree with your numbers and have included the ones for the other model}
-
-\of{I moved the table down because in the pdf it was appearing in the rank
-section.} 
-\of{I think it's confusing that sigma appears as a parameter of the model
-and we use it as the standard deviation of the heat effect which appears in the
-sigma parameter. I don't know much about statistical nomenclature in papers, is
-this common?}
 
 \begin{table}
   \centering
@@ -688,7 +656,7 @@ this common?}
   \label{tab:ggfit}
   \begin{tabular}{c c c c c c}
     \toprule
-    Data set & $\beta_0$ & $\gamma_0$ & $\nu$ & $\sigma_v$ & $\sigma_h$ \\
+    Data set & $\beta_0$ & $\gamma_0$ & $\nu$ & $\tau_v$ & $\tau_h$ \\
     \midrule
     Excluding 2022 & $-$1.910 (0.005) & $-$2.200 (0.025) & $-$1.177 (0.442) & 0.043 & 0.326 \\
     Including 2022 & $-$1.910 (0.005) & $-$2.200 (0.027) & $-$1.178 (0.447) & 0.058 & 0.320 \\
@@ -721,38 +689,6 @@ with the standard normal distribution, supporting the adequacy of the model
 fit. These diagnostics collectively demonstrate that the fitted model provides
 a reasonable representation of the observed RT data.
 
-
-% \begin{figure}[tbp]
-%   \centering
-%   \includegraphics{ComparisonOfVenueEffects}
-%   \caption{The venue effects from 1999 to 2023 estimated from the GLMM for the
-%     data including 2022 (top) and excluding 2022 (bottom).}
-%   \label{fig:VenueEffects}
-% \end{figure}
-
-% The uniqueness of 2022 is further demonstrated by Figure~\ref{fig:VenueEffects},
-% which shows the values of the venue random effects.  The temporal patterns
-% of the two sets of effects look very similar, except that the positive effects
-% estimated with 2022 included have higher magnitude than those estimated without
-% 2022, which compensates the negative effect of the 2022 with a large magnitude.
-% Both plots agree to some extent with the pattern of the boxplots in
-% Figure~\ref{fig:Boxplot}. The mismatch is due to the heat effect, since the venue
-% effect only captures a smaller part of the variation than the heat effect as
-% evident from their standard deviations. It is possible to calculate the extremity
-% of the 2022 heat effect as we know that the mean of the heat effects is $0$,
-% the standard deviation is $0.42$ as given by Table~\ref{tab:Gamma_parameters},
-% and the estimate of the 2022 heat effect is $-0.93$. We find the tail probability
-% to be $0.0128$ indicating there is a low chance of observing a venue effect as
-% extreme as 2022.
-
-
-\jy{Could you also test sensitivity for excluding the positive but
-  fault RTs?}
-\of{Yes I explained the code is at the bottom of gg.R and ran code without 2022: for 0.1 the
-probability is $1.97\cdot10^{-3}$ versus $2.76\cdot10^{-3}$. For 0.09: the
-probability is $3.53\cdot10^{-4}$ versus $4.95\cdot10^{-4}$. For 0.08: the
-probability is $4.93\cdot10^{-5}$ versus $6.84\cdot10^{-5}$. I assume we want
-to report these in the supplemental?}
 
 \begin{table}
   \centering
@@ -884,7 +820,7 @@ disqualification, may not be categorically extreme.
 The data and R code used for the analysis are available in a compressed file for
 ease of reproducibility.
 
-\bibliographystyle{chicago}
+\bibliographystyle{apalike}
 \bibliography{citations}
 
 
