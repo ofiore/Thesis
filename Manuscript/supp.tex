@@ -1,0 +1,105 @@
+%\documentclass[12pt, letterpaper, titlepage]{article}
+\documentclass[12pt, letterpaper]{article}
+
+\usepackage{amsmath, amsfonts}
+\usepackage{booktabs}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\hypersetup{colorlinks = true, linkcolor = blue, citecolor=blue, urlcolor = blue}
+\usepackage{natbib}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage{pdfpages}
+\usepackage{lineno}
+\usepackage{mwe}
+\usepackage{comment}
+\linenumbers*[1]
+% %% patches to make lineno work better with amsmath
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+ \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+ \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+ \renewenvironment{#1}%
+ {\linenomath\csname old#1\endcsname}%
+ {\csname oldend#1\endcsname\endlinenomath}}%
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+ \patchAmsMathEnvironmentForLineno{#1}%
+ \patchAmsMathEnvironmentForLineno{#1*}}%
+
+\AtBeginDocument{%
+ \patchBothAmsMathEnvironmentsForLineno{equation}%
+ \patchBothAmsMathEnvironmentsForLineno{align}%
+ \patchBothAmsMathEnvironmentsForLineno{flalign}%
+ \patchBothAmsMathEnvironmentsForLineno{alignat}%
+ \patchBothAmsMathEnvironmentsForLineno{gather}%
+ \patchBothAmsMathEnvironmentsForLineno{multline}%
+}
+
+% control floats
+\renewcommand\floatpagefraction{.9}
+\renewcommand\topfraction{.9}
+\renewcommand\bottomfraction{.9}
+\renewcommand\textfraction{.1}
+\setcounter{totalnumber}{50}
+\setcounter{topnumber}{50}
+\setcounter{bottomnumber}{50}
+
+\newcommand{\jy}[1]{\textcolor{blue}{JY: #1}}
+\newcommand{\eds}[1]{\textcolor{red}{EDS: (#1)}}
+\newcommand{\of}[1]{\textcolor{violet}{OF: #1}}
+
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{0}
+
+%\title{On Devon Allen's Disqualification at the 2022 World Track and Field
+%Championships}
+%
+%\author{Owen Fiore\\
+%%   \href{mailto:owen.fiore@uconn.edu}
+%% {\nolinkurl{owen.fiore@uconn.edu}}\\
+  %Elizabeth D. Schifano\\
+  %Jun Yan\\[1ex]
+  %Department of Statistics, University of Connecticut\\
+%}
+%\date{}
+
+\begin{document}
+
+\title{\bf Supplement to ``On Devon Allen's Disqualification at the 2022 World Track and Field Championships''}
+
+\if0\blind
+{
+  \author{Owen Fiore, %\\
+%   \href{mailto:owen.fiore@uconn.edu}
+% {\nolinkurl{owen.fiore@uconn.edu}}\\
+  Elizabeth D. Schifano, %\\
+  Jun Yan\\[1ex]
+  Department of Statistics, University of Connecticut\\
+}
+} \fi
+
+\if1\blind
+{
+  \bigskip
+  \bigskip
+  \bigskip
+  \author{Anonymous Authors}
+  \bigskip
+} \fi
+
+\maketitle 
+
+\section{Rank-Based Comparison with Pooled Men and Women Data}
+
+\section{GAMLSS Results for Women Data}
+
+\section{Results from Data Excluding Positive DQ RTs}
+
+
+\bibliographystyle{apalike}
+\bibliography{citations}
+
+
+\end{document}
