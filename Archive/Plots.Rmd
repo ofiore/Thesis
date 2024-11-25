@@ -171,7 +171,7 @@ women_23 <- ggplot(df_long, aes(x = Column, y = Time)) +
 
 ```{r}
 library(gridExtra)
-rank_scatter <- grid.arrange(men_19, women_19, men_22,women_22, men_23, women_23, ncol = 2)
+rank_scatter <- grid.arrange(men_22, women_22, men_19,women_19, men_23, women_23, ncol = 2)
 ggsave(filename = "RankScatterPlots.pdf", path = "../Manuscript", plot=rank_scatter, height = 7.5, width = 7)
 ```
 
@@ -188,8 +188,6 @@ ggplot(df, aes(x = Venue, y = RxnTime, group = Venue)) +
                                               breaks = seq(1999, 2024, 2))
 ggsave(filename="Boxplot.pdf", path = "../Manuscript", height = 4, width = 6)
 ```
-
-
 
 # Figure 3
 
