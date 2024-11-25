@@ -152,7 +152,7 @@ outcomes, raising questions about fairness and standardization.
 
 
 World Athletics (formerly IAAF) uses certified SIS to measure RTs, yet
-variation in technology persist. Discussions at online forums such as
+variation in technology persists. Discussions at online forums such as
 \url{www.LetsRun.com} questioned consistencies in the SIS as a
 contributing factor to RT anormalies \citep{johnson2022data,
   johnson2022was}. Historically, ``loud gun'' systems caused signal delays
@@ -177,21 +177,21 @@ threshold may not adequately represent the capabilities of elite
 sprinters. Controlled experiments have shown that reaction times below
 0.1 seconds are physiologically plausible \citep{pain2007sprint,
   komi2009iaaf}, while retrospective analyses of competition data
-often advocate for raising the threshold~\cite{brosnan2017effects,
+often advocate for raising the threshold~\citep{brosnan2017effects,
   lipps2011implications}. Stricter false-start rules, introduced to
 minimize race disruptions, have also discouraged sprinters from
 attempting faster starts, which may artificially inflate RTs recorded
-in competition~\cite{haugen2013effect}. This divergence between
+in competition~\citep{haugen2013effect}. This divergence between
 experimental findings and competition-based analyses illustrates the
 complexity of defining a universally fair threshold. Addressing these
 debates requires modern data collection and advanced methodologies to
 ensure equity and consistency in elite
-competition~\cite{milloz2021sprint}.
+competition~\citep{milloz2021sprint}.
 
 
 This paper addresses two primary objectives from a statistical
 perspective, using modern methodologies to analyze historical
-data. First, we investigate whether reaction times (RTs) at the 2022
+data. First, we investigate whether RTs at the 2022
 World Championships were significantly different from other
 competitions, focusing on athletes who competed in multiple
 events. Using a matched-pairs design, we compare RTs across the 2022,
@@ -208,7 +208,7 @@ heat was applied within the framework of the generalized additive
 model for location, scale, and shape (GAMLSS)
 \citep{rigby2005generalized, stasinopoulos2024generalized}.
 This model enables estimation of the
-probability of RTs falling below the threshold, providing a
+probability of RTs falling below a threshold, providing a
 statistical assessment of RT consistency and the validity of the
 current threshold.
 
@@ -217,7 +217,7 @@ The rest of this paper is organized as follows. Section~\ref{sec:Data}
 describes the data collection and datasets used for the two
 objectives. Section~\ref{sec:rank} outlines the rank-based comparison
 methods for objective~1, rank-based comparison for clustered data with
-subunit-level gruping to analyze differences in RTs across different
+subunit-level grouping to analyze differences in RTs across different
 competitions. Section~\ref{sec:gamlss} details the methods for
 objective~2, the GG model with random effects to evaluate the appropriatenes
 of the 0.1-second threshold. Section~\ref{sec:Results} presents the
@@ -315,7 +315,7 @@ separately, resulting in 80 RTs from 17 athletes for each
 gender. This setup forms the basis for the rank-based comparison for
 clustered data with subunit-level grouping, which accounts for the
 within-athlete dependence inherent in this data structure. The top
-panel of Figure!~\ref{fig:RankScatterplots} shows the RTs
+panel of Figure~\ref{fig:RankScatterplots} shows the RTs
 of those who competed both at national competitions and the 2022 World
 Championships.
 
@@ -349,8 +349,8 @@ us to prepare datasets suitable for examining RTs of athletes
 who competed across multiple World Championships.
 
 
-Each athlete was treated as a single cluster, containing their reaction
-times from different World Championships. The dataset for the 2019-2022
+Each athlete was treated as a single cluster, containing their RTs
+from different World Championships. The dataset for the 2019-2022
 comparison contained 134 RTs from 34 male athletes and 124
 RTs from 31 female athletes. The dataset for the 2022-2023
 comparison contained 161 RTs from 45 male athletes and 182
@@ -478,7 +478,7 @@ Wilcoxon rank-sum statistic for the pseudo-sample is
 W^* = \frac{1}{n + 1} + \sum_{i=1}^{n} \delta_{i}^{*} R_{i}^{*},
 \]
 where $R_{i}^{*}$ is the rank of $X_{i}^{*}$ in the pseudo-sample.
-The test statistic $S$ is the average of $W^*$ averaged over all possible
+The test statistic $S$ is the average of $W^*$, averaged over all possible
 pseudo-samples conditioning on the observed data and group indicators.
 The mean and variance of $S$ under $H_0$ can be derived so that $S$ can be
 standardized to form a $Z$ statistic which follows a standard normal distribution
@@ -625,7 +625,7 @@ or environmental factors.
 
 \subsection{GAMLSS} \label{subsec:Results_GLMM}
 
-The fitted parameters of the GG distribution int he
+The fitted parameters of the GG distribution in the
 GAMLSS framework in Equations~\eqref{eq:gg}--\eqref{eq:sigma} are
 summarized in Table~\ref{tab:ggfit}. Results obtained from both
 excluding and including 2022 data are reported. The fixed-effect
@@ -668,7 +668,7 @@ variability, likely due to systematic differences in RTs that year.
   \centering
   \includegraphics[width=\textwidth]{diagnosis.pdf}
   \caption{Diagnosis of the fitted GG distribution with
-    random effects in model parameters: kernerl density of 1 million
+    random effects in model parameters: kernel density of 1 million
     observations drawn from the fitted model overlaid with the
     histogram of the observed RTs (left); Q-Q plot of the
     normal z-score of the quantile residuals from the fitted model.}
@@ -693,7 +693,9 @@ a reasonable representation of the observed RT data.
 \begin{table}
   \centering
   \caption{Probabilities of observing RTs less than threshold 0.08,
-  0.09, and 0.10 seconds based on the two effect model.}
+  0.09, and 0.10 seconds based on the
+    fitted GG GAMLSS model with both venue- and heat-level
+random effects.}
   \begin{tabular}{c c c c}
    \toprule
    Data Set & Threshold 0.08 & Threshold 0.09 & Threshold 0.10  \\
@@ -763,7 +765,9 @@ competed at the 2022 World Track and Field Championships faster than
 at other races, and is the 0.1-second RT barrier fair?
 Regarding the first question, our analyses suggest that athletes were
 indeed faster at the 2022 World Championships compared to comparable
-meets. Ideally, a centralized database containing RTs from
+meets. 
+\eds{are we testing faster (one-sided) or different (two-sided)?}
+Ideally, a centralized database containing RTs from
 all World Athletics-certified meets would have allowed for a more
 comprehensive analysis. Currently, however, RTs are seldom
 included in the results available on the World Athletics website. This
@@ -793,7 +797,7 @@ threshold may  unfairly penalize men, for whom sub-0.1-second reaction
 times are more probable. \citet{brosnan2017effects} advocate for
 gender-specific barriers, a position that  aligns with our findings
 and highlights the importance of tailoring thresholds to  biological
-distinctions.
+distinctions. \eds{is this still true in the updated analyses?}
 
 
 This study provides a statistical framework to examine Devon Allen’s
