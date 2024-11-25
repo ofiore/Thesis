@@ -193,3 +193,60 @@ sim_time(gg3b_no2022, 0.09)
 sim_time(gg3b_no2022, 0.08)
 sim_prob(gg3b_no2022, .001)
 sim_prob(gg3b_no2022, .0001)
+
+##Pool men and women's data?
+##Had a very difficult time fitting the data regularly. On the gg3b_w model I
+## kept getting an error: Error in if (dv > olddv && itn >= 2 && auto == TRUE) { : 
+## missing value where TRUE/FALSE needed.  I manually inspected the data and tried
+## varying datasets with really random results.  As a result we will use a no DQ
+## dataset as that seemed to work better.
+dhmw <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Time != "DNS", Time != "DQ", Time != "D") |>
+  filter(RxnTime > 0) |>
+  filter(Event != "200 Dash") |>
+  mutate(Venue = as.factor(Venue), Heat = as.factor(Heat))
+  
+gg3b_gender  <- gamlss(RxnTime ~ random(Venue) + Gender, sigma.formula = ~ random(Heat), data = dhmw, family = GG, control = gamlss.control(n.cyc = 40))
+gg3b_w  <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat), data = dhmw, family = GG, control = gamlss.control(n.cyc = 40))
+
+
+logLik_1 <- logLik(gg3b_w)
+logLik_2 <- logLik(gg3b_gender)
+LRT <- 2 * (logLik_2 - logLik_1)
+df_diff <- attr(logLik_2, "df") - attr(logLik_1, "df")
+p_value <- pchisq(LRT, df = df_diff, lower.tail = FALSE)
+cat("LRT:", LRT, "\nDegrees of Freedom:", df_diff, "\nP-value:", p_value, "\n")
+
+dhmw$Gender <- as.factor(dhmw$Gender)
+t.test(RxnTime ~ Gender, data = dhmw)
+
+
+##Creates a bunch of graphs to look at differences in men and women
+df <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime > 0) |>
+  filter(Event != "200 Dash") |>
+  mutate(Venue = as.factor(Venue))
+df %>%
+  split(.$Venue) %>%
+  lapply(function(sub_df) {
+    ggplot(sub_df, aes(x = Gender, y = RxnTime, fill = Gender)) +
+      geom_boxplot() +
+      labs(
+        title = paste("Venue:", unique(sub_df$Venue)),
+        x = "Gender",
+        y = "Reaction Time (s)"
+      ) +
+      scale_y_continuous(
+        limits = c(0.1, 0.225),
+        breaks = seq(0.1, 0.225, 0.025)
+      ) +
+      scale_x_discrete(labels = c("M" = "Men", "F" = "Women")) +
+      theme_minimal() +
+      theme(legend.position = "none")
+  })
+
+samplefit_women <- simfit(gg3b_w)
+mean(samplefit_women < .10)
