@@ -192,4 +192,86 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2023,
                 exact = TRUE, B = 1000000)
 ```
 
+# Supplementary Analysis
+We are going to see what happens when we pool men's and women's data together.
+We sill need to separate by year but will have 3 analyses instead of 6.
+
+### 2019 vs 2022
+Data setup
+```{r}
+men_2019 <- read.csv("../Data/Clusrank2019vs2022.csv")
+colnames(men_2019) <- c("Time", "Athlete", "Year", "Event")
+
+women_2019 <- read.csv("../Data/Clusrank2019vs2022Womens.csv")
+colnames(women_2019) <- c("Time", "Athlete", "Year", "Event")
+
+women_2019$Athlete <- women_2019$Athlete + 34 #Correction for unique athlete identifier
+
+all_2019 <- rbind(men_2019, women_2019)
+```
+
+And now we run the tests
+```{r}
+set.seed(1)
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2019,
+                method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2019,
+                method = "ds",
+                exact = TRUE, B = 1000000)
+```
+### 2022 National vs International
+
+Data setup
+```{r}
+men_2022 <- read.csv("../Data/ClusrankNatvsWorld.csv")
+colnames(men_2022) <- c("Time", "Athlete", "Year", "Event")
+
+
+women_2022 <- read.csv("../Data/ClusrankNatvsWorldWomens.csv")
+colnames(women_2022) <- c("Time", "Athlete", "Year", "Event")
+
+women_2022$Athlete <- women_2022$Athlete + 17 #Correction for unique athlete identifier
+
+all_2022 <- rbind(men_2022, women_2022)
+```
+
+And now we run the tests.
+
+```{r}
+set.seed(1)
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2022,
+                method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2022,
+                method = "ds",
+                exact = TRUE, B = 1000000)
+```
+### 2022 vs 2023
+
+```{r}
+men_2023 <- read.csv("../Data/Clusrank2022vs2023.csv")
+colnames(men_2023) <- c("Time", "Athlete", "Year", "Event")
+
+women_2023 <- read.csv("../Data/Clusrank2022vs2023Womens.csv")
+colnames(women_2023) <- c("Time", "Athlete", "Year", "Event")
+
+women_2023$Athlete <- women_2023$Athlete + 45
+
+all_2023 <- rbind(men_2023, women_2023)
+```
+
+Now we run the tests.
+```{r}
+set.seed(1)
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2023,
+                method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2023,
+                method = "ds",
+                exact = TRUE, B = 1000000)
+```
 
