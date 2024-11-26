@@ -17,7 +17,6 @@ dhm <- times |>
 dhm$Venue <- as.factor(dhm$Venue)
 dhm$Heat <- as.factor(dhm$Heat)
 
-
 ## Fit various distributions available from gamlss
 ## Plot standarized residuals q-q plot
 library("gamlss")
@@ -28,14 +27,14 @@ gg0 <- gamlss(RxnTime ~ 1, data = dhm, family = GG)
 gg1 <- gamlss(RxnTime ~ random(Venue), data = dhm, family = GG)
 gg2 <- gamlss(RxnTime ~ random(Venue) + random(Heat), data = dhm, family = GG)
 gg3 <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Venue), data = dhm, family = GG, control = gamlss.control(n.cyc = 40))
-## gg3a  <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Heat), data = dhm, family = GG, control = gamlss.control(n.cyc = 40))
+gg3a  <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Heat), data = dhm, family = GG, control = gamlss.control(n.cyc = 40, mu.step = .5))
 gg3b <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat), data = dhm, family = GG, control = gamlss.control(n.cyc = 40))
 gg3c <- gamlss(RxnTime ~ random(Heat), sigma.formula = ~ random(Heat), data = dhm, family = GG, control = gamlss.control(n.cyc = 40))
-#gg3d <- gamlss(RxnTime ~ random(Heat), sigma.formula = ~ random(Venue), data = dhm, family = GG, control = gamlss.control(n.cyc = 40))
-#gg4 <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Venue) + random(Heat), data = dhm, family = GG, control = gamlss.control(n.cyc = 40))
+gg3d <- gamlss(RxnTime ~ random(Heat), sigma.formula = ~ random(Venue), data = dhm, family = GG, control = gamlss.control(n.cyc = 40, sigma.step = .5))
+gg4 <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Venue) + random(Heat), data = dhm, family = GG, control = gamlss.control(n.cyc = 40, mu.step = .5))
 
 
-AIC(gg1, gg2, gg3, gg3b, gg3c) # gg3b is the best
+AIC(gg1, gg2, gg3, gg3b, gg3a,gg3c, gg3d, gg4) # gg3b is the best
 qq_conf_plot(residuals(gg3b), dparams = list(mean = 0, sd = 1)) ## z-scores have known mean and sd
 qq_conf_plot(gg3b$sigma.coefSmo[[1]]$coef)
 qq_conf_plot(gg3b$mu.coefSmo[[1]]$coef)
@@ -85,15 +84,23 @@ dhm <- times |>
 
 gg_event <- gamlss(RxnTime ~ random(Venue) + Event, sigma.formula = ~ random(Heat), data = dhm, family = GG, control = gamlss.control(n.cyc = 40))
 
-# As the models are not perfectly nested, anova() function does not work. Instead
-# we manually find the appropriate measures and calculate the p value ourselves.
+summary(gg_event)
 
-logLik_gg3b <- logLik(gg3b)
-logLik_gg_event <- logLik(gg_event)
-LRT <- 2 * (logLik_gg_event - logLik_gg3b)
-df_diff <- attr(logLik_gg_event, "df") - attr(logLik_gg3b, "df")
-p_value <- pchisq(LRT, df = df_diff, lower.tail = FALSE)
-cat("LRT:", LRT, "\nDegrees of Freedom:", df_diff, "\nP-value:", p_value, "\n")
+## women 100 dash/hurdle
+dhw <- times |>
+filter(Type == "F" | Type == "S") |>
+filter(Time != "DNS") |>
+filter(Gender == "F") |>
+filter(RxnTime > 0) |>
+filter(Event %in% c("100 Dash", "100 Hurdles"))
+
+dhw <- within(dhw, {Gender = as.factor(Gender); Event = as.factor(Event);
+    Venue = as.factor(Venue); Heat = as.factor(Heat)})
+
+gg_dhw <- gamlss(RxnTime ~ random(Venue) + Event, sigma.formula = ~ random(Heat), data = dhw, family = GG, control = gamlss.control(n.cyc = 40))
+
+summary(gg_dhw) # event is significant for women!
+## one rxn time is too small, probabily really was a DQ
 
 
 ## How much does including dqs matter?
