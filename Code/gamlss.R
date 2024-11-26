@@ -195,14 +195,10 @@ sim_prob(gg3b_no2022, .001)
 sim_prob(gg3b_no2022, .0001)
 
 ##Pool men and women's data?
-##Had a very difficult time fitting the data regularly. On the gg3b_w model I
-## kept getting an error: Error in if (dv > olddv && itn >= 2 && auto == TRUE) { : 
-## missing value where TRUE/FALSE needed.  I manually inspected the data and tried
-## varying datasets with really random results.  As a result we will use a no DQ
-## dataset as that seemed to work better.
+##Had a very difficult time fitting the women's data
 dhmw <- times |>
   filter(Type == "F" | Type == "S") |>
-  filter(Time != "DNS", Time != "DQ", Time != "D") |>
+  filter(Time != "DNS") |>
   filter(RxnTime > 0) |>
   filter(Event != "200 Dash") |>
   mutate(Venue = as.factor(Venue), Heat = as.factor(Heat))
