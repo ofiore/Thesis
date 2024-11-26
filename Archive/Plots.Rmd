@@ -188,6 +188,25 @@ ggplot(df, aes(x = Venue, y = RxnTime, group = Venue)) +
                                               breaks = seq(1999, 2024, 2))
 ggsave(filename="Boxplot.pdf", path = "../Manuscript", height = 4, width = 6)
 ```
+# Supplementary Womens Boxplot
+```{r}
+library(tidyverse)
+dhw <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "F") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime > 0) |>
+  filter(Event == "100 Hurdles" | Event == "110 Hurdles")
+library(ggplot2)
+ggplot(dhw, aes(x = Venue, y = RxnTime, group = Venue)) +
+  geom_boxplot() +
+  labs(x = "Year", y = "Reaction Time (s)") +
+       scale_y_continuous(limits = c(0.05, 0.3),
+                            breaks = seq(0.05, 0.3, 0.025)) +
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(2000,2024),
+                                              breaks = seq(2001, 2024, 2))
+ggsave(filename="WomensBoxplot.pdf", path = "../Manuscript", height = 4, width = 6)
+```
 
 # Figure 3
 
