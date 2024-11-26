@@ -371,11 +371,6 @@ difference of just 0.002 seconds, with RTs of 0.101 and
 0.099 seconds, respectively. This highlights the critical role of
 RT precision in elite-level competition.
 
-\eds{I also think we need to comment on the men and women's data. But within row
-of the figure, don't the distributions appear similar?  If that is so, would a
-reviewer ask why we didn't pool the data for men and women?}
-\jy{Let's put the pooled analysis in the supplement.}
-\of{Please see my email}
 
 \subsection{Data from World Championships 1999--2023}
 \label{sec:dataworld}
@@ -522,6 +517,8 @@ An implementation of this distribution is available from R package
 \texttt{gamlss.dist} \citep{rigby2019distributions}.
 
 
+Random effects at the venue and heat levels are incorporated to the
+parameters in GG distribution in~\eqref{eq:gg}.
 Let $Y_{ijk}$ denote the RT of observation~$k$ in heat~$j$
 of year~$i$. Conditioning on a venue effect $v_i$ for year~$i$
 and a heat effect $h_{i/j}$ nested within each year~$i$, the
@@ -534,13 +531,16 @@ $\text{GG}(\mu_{ijk}, \sigma_{ijk}, \nu)$, where
 $v_i$ is normally distributed with mean zero and
 variance~$\tau_v^2$, and $h_{i/j}$ is normally distributed with mean
 zero and variance~$\tau_h^2$.
-The two random effects were found useful: one capturing the venue effect, which
-is used to contrast years, and the second being the heat effect, where every
-race was given a unique identifier with typically five to nine observations
-per race. The heat effect is important as it captures the variability in the
-amount of time athletes are on the starting blocks before the gun goes off.
-This model can be fit with R package \texttt{gamlss}
-\citep{stasinopoulos2008generalized}.
+The two random effects were found useful: one 
+capturing the venue effect, which is used to contrast years, and the 
+second being the heat effect, where every race was given a unique 
+identifier with typically five to nine observations per race.
+This model can be fit with R package \texttt{gamlss} 
+\citep{stasinopoulos2008generalized}. The heat effect could be added
+to the model for $\mu_{ijk}$ and the venue effect could be added to 
+the model for $\sigma_{ijk}$. From our comparison using the Akaike 
+Information Criterion, Models~\eqref{eq:mu}--\eqref{eq:sigma} turned 
+out to be preferred to more complex models or competing models.
 
 
 Model diagnosis and tail analysis can be done with the fitted GG model
@@ -618,8 +618,15 @@ conditions conducive to faster RTs, potentially due to systematic
 or environmental factors.
 
 
+We also conducted the same analysis with men’s and women’s data
+pooled, yielding similar results. Details are provided in Section~1 of
+the Supplementary Material.
+
+
 \subsection{GAMLSS} \label{subsec:Results_GLMM}
 
+The results reported in this subsection are from men's data only
+because our investigation found significant gender difference.
 The fitted parameters of the GG distribution in the
 GAMLSS framework in Equations~\eqref{eq:gg}--\eqref{eq:sigma} are
 summarized in Table~\ref{tab:ggfit}. Results obtained from both
@@ -751,6 +758,9 @@ is relatively small. This approach allows for tailoring RT
 thresholds to desired levels of false positive rates, balancing fairness and
 precision in disqualification criteria.
 
+
+Results for women's data are reported in Section~2 of the
+Supplementary Material. 
 
 \section{Discussion}\label{sec:concludingremarks}
 
