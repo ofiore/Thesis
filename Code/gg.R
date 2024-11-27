@@ -112,7 +112,6 @@ gg_dhw4 <- gamlss(RxnTime ~ random(Venue) + random(Heat) + Event, sigma.formula 
 AIC(gg_dhw3, gg_dhw3a, gg_dhw3b, gg_dhw3c, gg_dhw3d, gg_dhw4)
 
 
-
 ## How much does including dqs matter?
 dhm <- times |>
   filter(Type == "F" | Type == "S") |>
