@@ -91,7 +91,7 @@ dhw <- times |>
 filter(Type == "F" | Type == "S") |>
 filter(Time != "DNS") |>
 filter(Gender == "F") |>
-filter(RxnTime > 0) |>
+filter(RxnTime > 0.072) |>
 filter(Event %in% c("100 Dash", "100 Hurdles"))
 
 dhw <- within(dhw, {Gender = as.factor(Gender); Event = as.factor(Event);
@@ -101,6 +101,16 @@ gg_dhw <- gamlss(RxnTime ~ random(Venue) + Event, sigma.formula = ~ random(Heat)
 
 summary(gg_dhw) # event is significant for women!
 ## one rxn time is too small, probabily really was a DQ
+
+gg_dhw3 <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Venue) + Event, data = dhw, family = GG, control = gamlss.control(n.cyc = 40))
+gg_dhw3a <- gamlss(RxnTime ~ random(Venue) + random(Heat), sigma.formula = ~ random(Heat) + Event, data = dhw, family = GG, control = gamlss.control(n.cyc = 40))
+gg_dhw3b <- gamlss(RxnTime ~ random(Venue) + Event, sigma.formula = ~ random(Heat), data = dhw, family = GG, control = gamlss.control(n.cyc = 40))
+gg_dhw3c <- gamlss(RxnTime ~ random(Heat), sigma.formula = ~ random(Heat), data = dhw, family = GG, control = gamlss.control(n.cyc = 40))
+gg_dhw3d <- gamlss(RxnTime ~ random(Heat) + Event, sigma.formula = ~ random(Venue), data = dhw, family = GG, control = gamlss.control(n.cyc = 40))
+gg_dhw4 <- gamlss(RxnTime ~ random(Venue) + random(Heat) + Event, sigma.formula = ~random(Venue) + random(Heat), data = dhw, family = GG, control = gamlss.control(n.cyc = 40))
+#qq_conf_plot(residuals(gg_dhw4))
+AIC(gg_dhw3, gg_dhw3a, gg_dhw3b, gg_dhw3c, gg_dhw3d, gg_dhw4)
+
 
 
 ## How much does including dqs matter?
