@@ -1,3 +1,21 @@
+# Meeting Notes 11/26
++ Keep womens gamlss in supplement and include men's in main
++ womens analysis is not as good. residual plot shows one that is really small
++ upper part of womens residual is not too good
++ Can include both effects in mu and both in sigma
++ Look for best womens model, look in gg family, look at gg4 (both random effects)
++ Try seperate dash and hurdles for women
++ try mu.step and sigma.step
++ gender is significant when event is included
++ Just look at summary() not log likelihood
++ pooled analysis gives justification of separation in main paper
++ See if we need to remove outlier for womens
++ Instead of 1 million run 100,000 or smaller number for pooled analysis
++ Use Rmd with sections with names and lots of text. Discuss results
++ Keep code clean
+
+
+
 # Phone Call 11/22
 + make data and model names shorter and more readable
 + retest whether we can pool hurdles and dash using the gg model
