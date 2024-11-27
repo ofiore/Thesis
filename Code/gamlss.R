@@ -200,7 +200,7 @@ dhmw <- times |>
   filter(Type == "F" | Type == "S") |>
   filter(Time != "DNS") |>
   filter(RxnTime > 0) |>
-  filter(Event != "200 Dash") |>
+  filter(Event == "110 Hurdles" | Event == "100 Hurdles" | Event == "100 Dash") |>
   mutate(Venue = as.factor(Venue), Heat = as.factor(Heat))
   
 gg3b_gender  <- gamlss(RxnTime ~ random(Venue) + Gender, sigma.formula = ~ random(Heat), data = dhmw, family = GG, control = gamlss.control(n.cyc = 40))
