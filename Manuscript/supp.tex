@@ -131,12 +131,95 @@ years.
   \label{fig:WomensBoxplot}
 \end{figure}
 
-The results are slightly different from those from the men's data,
-which echoes existing studies reporting gender differences in RTs 
-\citep[e.g.,][]{lipps2011implications, babicc2009reaction,
-  panoutsakopoulos2020gender}.
+We examined several models in the generalized Gamma model and found that the
+best model for women involved a venue effect in $\mu$ and heat effect in
+$\sigma$.  Thus the best model for men was also the best model for women.
 
-\of{Currently cannot fit the gg3b to the men's and womens data}
+\begin{table}
+  \centering
+  \caption{Estimated fixed-effect parameters with standard errors in
+    parentheses and estimated variance of the random effects from the men's and
+    women's fitted GG distribution with venue level random
+    effects in $\mu$ and heat level random effects in $\sigma$. $n$ denotes
+    size of the data.}
+  \label{tab:womensfit}
+  \begin{tabular}{c c c c c c c}
+    \toprule
+    Dataset & $n$ & $\beta_0$ & $\gamma_0$ & $\nu$ & $\tau_v$ & $\tau_h$ \\
+    \midrule
+    Women's & 732 & $-$1.921 (0.007) & $-$2.071 (0.028) & $-$3.691 (0.665) & 0.057 & 0.111 \\
+    Men's & 776 & $-$1.910 (0.005) & $-$2.200 (0.027) & $-$1.178 (0.447) & 0.058 & 0.320 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+One of the most interesting aspects of Table~\ref{tab:womensfit} is that while
+the venue effect standard deviation is nearly identical, the women's heat effect
+standard deviation is smaller and $\nu$ is much larger.  If men's races have
+more variability in times, it seems possible that in men's races that faster
+athletes can influence other athletes to react faster in certain instances.
+It is also interesting that the standard deviation of the venue effect is
+nearly identical for both men's and women's data, indicating that the venue
+effect is not only statistically significant but is consistent in strength
+across men and women.
+
+We can repeat the simulation methods described in the main paper to evaluate
+the probability of an extreme reaction time.  Table~\ref{tab:Sim_prob_women}
+compares the men's and women's results of observing reaction times less than
+0.08, 0.09, and 0.1 seconds.  We find that across all three comparisons that
+women have a lower probability of having a fast time. The results are slightly
+different from those from the men's data, which echoes existing studies
+reporting gender differences in RTs \citep[e.g.,][]{lipps2011implications,
+babicc2009reaction, panoutsakopoulos2020gender}.
+
+\begin{table}
+  \centering
+  \caption{Probabilities of observing RTs less than threshold 0.08,
+  0.09, and 0.10 seconds based on the men's and women's
+    fitted GG GAMLSS model with both venue- and heat-level
+random effects.}
+  \begin{tabular}{c c c c}
+   \toprule
+   Data Set & Threshold 0.08 & Threshold 0.09 & Threshold 0.10  \\
+   \midrule
+   Women's & $1\cdot10^{-7}$ & $1.12\cdot10^{-5}$ &  $5.46\cdot10^{-4}$  \\
+   Men's   & $6.84\cdot10^{-5}$ & $4.95\cdot10^{-4}$ & $2.76\cdot10^{-3}$ \\
+   \bottomrule
+  \end{tabular}
+  \label{tab:Sim_prob_women}
+\end{table}
+
+
+Now we need to perform alter the interpretation of the analyis to determine
+what a fair reaction time barrier for women should be.
+Table~\ref{tab:Sim_time_women} shows the difference in men's and women's
+suggested reaction time barrier.  What we see is that by World Athletics setting
+the same standard for men and women, their rules are not fair, in that men are
+more likely to be disqualified because they are more likely to react quickly.
+One of the biggest takeaways of the reaction time barrier analysis is that the
+current standards imposed by World Athletics are not grounded in statistical
+analysis and that they should be.  It seems reasonable to either raise the
+women's barrier so that they are disqualified at a similar rate as men or to
+lower the men's barrier so they are disqualified at a similar rate as women.  But
+having equal but not neccessarily fair standards does not seem reasonable when
+this study's results echoed results of numerous other papers asking World
+Athletics to change the standards.
+
+\begin{table}
+  \centering
+  \caption{Suggested RT barriers based on tail probabilities.}
+  \begin{tabular}{c c c c}
+   \toprule
+   Data Set & Tail probability  $10^{-2}$ & Tail probability  $10^{-3}$ & Tail probability $10^{-4}$ \\
+   \midrule
+   Women's & $0.111$ & $0.102$ & $0.095$ \\
+   Men's   & $0.108$ & $0.094$ & $0.082$ \\
+   \bottomrule
+  \end{tabular}
+  \label{tab:Sim_time_women}
+\end{table}
+
+
 
 
 \section{Results from Data Excluding Positive Disqualified RTs}
