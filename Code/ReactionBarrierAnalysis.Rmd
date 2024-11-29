@@ -54,6 +54,23 @@ dhm_no2022 <- times |>
   filter(Venue != 2022) |>
   mutate(Venue = as.factor(Venue), Heat = as.factor(Heat))
 ```
+Let's visualize the data.
+```{r}
+boxplot_df <- dhm |>
+  mutate(Venue = as.numeric(as.character(Venue)))
+library(ggplot2)
+ggplot(boxplot_df, aes(x = Venue, y = RxnTime, group = Venue)) +
+  geom_boxplot() +
+  labs(x = "Year", y = "Reaction Time (s)") +
+       scale_y_continuous(limits = c(0.05, 0.275),
+                            breaks = seq(0.05, 0.275, 0.025)) +
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
+                                              breaks = seq(1999, 2024, 2))
+```
+We see that the 2022 boxplot is lower than any other year.  What is particularly
+interesting is that Allen's 0.099 reaction time that led to his disqualification
+does not appear as an outlier in 2022, it is just the minimum value.  Compared
+to in 1999, where a value right around 0.100 was an outlier.
 
 
 We considered many families of models, and formula structures within the
@@ -73,15 +90,15 @@ We can explore some information about this model and replicate the results
 presented in Table 2 of the paper by running the code below.
 ```{r}
 summary(gg3b)
-cat("sigma_v or std dev of venue effect: ", gg3b$mu.coefSmo[[1]]$sigb, "\n")
-cat("sigma_h or std dev of heat effect: ", gg3b$sigma.coefSmo[[1]]$sigb[1], "\n")
+cat("tau_v or std dev of venue effect: ", gg3b$mu.coefSmo[[1]]$sigb, "\n")
+cat("tau_h or std dev of heat effect: ", gg3b$sigma.coefSmo[[1]]$sigb[1], "\n")
 ```
 
 And now for the model excluding 2022
 ```{r}
 summary(gg3b)
-cat("sigma_v or std dev of venue effect: ", gg3b_no2022$mu.coefSmo[[1]]$sigb, "\n")
-cat("sigma_h or std dev of heat effect: ", gg3b_no2022$sigma.coefSmo[[1]]$sigb[1], "\n")
+cat("tau_v or std dev of venue effect: ", gg3b_no2022$mu.coefSmo[[1]]$sigb, "\n")
+cat("tau_h or std dev of heat effect: ", gg3b_no2022$sigma.coefSmo[[1]]$sigb[1], "\n")
 ```
 
 One of the key findings of this section is that by including 2022 in the model,
@@ -318,3 +335,96 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2023,
                 exact = TRUE, B = 100000)
 ```
 
+
+By pooling together all events within the year comparison, we find highly
+significant results, suggesting that on average, the athletes who competed in
+2022 had faster reaction times.
+
+### Women's Gamlss
+We decided to separate women's results after numerous papers suggested that
+men and women have differing reaction times, but we still thought it was important
+to investigate what an appropriate reaction time barrier was for women.  The
+women's data is very similar to the men's, but there is not data from 1999
+available for women and the women compete in the 100 meter hurdle instead of the
+110 meter hurdle.  We are going to replicate many of the same methods used above
+for the men's results.
+
+We read in the women's data by filtering `Gender` and `Event` differently.
+```{r}
+library(tidyverse)
+dhw <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "F") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime > 0) |>
+  filter(Event == "100 Hurdles" | Event == "100 Dash")
+dhw <- dhw[- which.min(dhw$RxnTime), ] #We remove the minimum time as it is an
+#extreme outlier as we want an accurate prediction of the left tail
+```
+
+Lets visualize the women's data.  This appears as Figure 1 in the supplemental
+file.
+```{r}
+library(ggplot2)
+ggplot(dhw, aes(x = Venue, y = RxnTime, group = Venue)) +
+  geom_boxplot() +
+  labs(x = "Year", y = "Reaction Time (s)") +
+       scale_y_continuous(limits = c(0.05, 0.3),
+                            breaks = seq(0.05, 0.3, 0.025)) +
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(2000,2024),
+                                              breaks = seq(2001, 2024, 2))
+```
+We see that 2022 appears as a low outlier, but perhaps not as extreme as for the
+men's data.  The women's data also seems to be more stable than the men's with
+fewer venue to venue differences.
+
+
+Now we are ready to fit the women's model.  We tested several types of generalized
+Gamma models, including those different from the men's model, and found that
+this model, which is the female equivalent to the men's best model, was the best
+fit.
+```{r}
+dhw <- dhw|>
+  mutate(Venue = as.factor(Venue), Heat = as.factor(Heat))
+gg3b0.w <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat),
+                  data = dhw, family = GG, control = gamlss.control(n.cyc = 40))
+```
+
+```{r}
+summary(gg3b0.w)
+cat("tau_v or std dev of venue effect: ", gg3b0.w$mu.coefSmo[[1]]$sigb, "\n")
+cat("tau_h or std dev of heat effect: ", gg3b0.w$sigma.coefSmo[[1]]$sigb[1], "\n")
+```
+We see that the heat and venue effects are statistically significant and
+contribute positively to the model.  We are also going to look at the residuals
+to see how well the data is fit.
+```{r}
+library(qqconf)
+qq_conf_plot(residuals(gg3b0.w))
+```
+Although this fit is not as strong as the men's data, we still found it to be
+acceptable and it was the best of the several women's models that we looked at.
+
+As the structure of the model remains the same, we are able to reuse the `simfit`
+code developed above in order to examine what the women's disqualification
+barrier should look like.
+
+```{r}
+samplefit_w <- simfit(gg3b0.w)
+
+mean(samplefit_w < 0.10)
+cat("\n")
+mean(samplefit_w < 0.09)
+cat("\n")
+mean(samplefit_w < 0.08)
+
+```
+
+```{r}
+quantile(samplefit_w, c(.01, .001, .0001))
+```
+
+It is worth noting that these suggested times are slower than the one's for the
+men's data.  Thus, men and women are not currently held to the same standard
+if men are more likely to react quickly than women and if they share the 0.1
+barrier.
