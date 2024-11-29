@@ -70,6 +70,10 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2019,
                 method = "ds",
                 exact = TRUE, B = 1000000)
 ```
+The p-value from the asymptomatic test was $1.126 \cdot 10^{-5}$ and the p-value
+from the permutation test was $2.8 \cdot 10 ^ {-5}$. Both of these are
+statistically significant results showing a difference in male athletes who
+competed in 2019 and 2022.
 
 ### Women's Data
 
@@ -92,7 +96,10 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2019,
                 method = "ds",
                 exact = TRUE, B = 1000000)
 ```
-
+The p-value from the asymptomatic test was $6.9 \cdot 10^{-3}$ and the p-value
+from the permutation test was $1.5 \cdot 10^{-3}$. Both of these are
+statistically significant results showing a difference in female athletes who
+competed in 2019 and 2022.
 
 # 2022 National versus World
 Now we will look compare the reaction times from athletes at their 2022 national
@@ -120,6 +127,11 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2022,
                 exact = TRUE, B = 1000000)
 ```
 
+The p-value from the asymptomatic test was $6.1 \cdot 10^{-5}$ and the p-value
+from the permutation test was $1.0 \cdot 10^{-6}$. Both of these are
+statistically significant results showing a difference in male athletes who
+competed at various competitions in 2022.
+
 ### Women's Data
 
 First we read in the data from the appropriate source.
@@ -141,7 +153,10 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2022,
                 method = "ds",
                 exact = TRUE, B = 1000000)
 ```
-
+The p-value from the asymptomatic test was $1.2 \cdot 10^{-3}$ and the p-value
+from the permutation test was $1.0 \cdot 10^{-6}$. Both of these are
+statistically significant results showing a difference in female athletes who
+competed at various competitions in 2022.
 
 # 2022 versus 2023
 
@@ -170,6 +185,11 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2023,
                 exact = TRUE, B = 1000000)
 ```
 
+The p-value from the asymptomatic test was $1.4 \cdot 10^{-6}$ and the p-value
+from the permutation test was $2.8 \cdot 10 ^ {-5}$. Both of these are
+statistically significant results showing a difference in male athletes who
+competed in 2022 and 2023.
+
 ### Women's Data
 
 First we read in the data from the appropriate source.
@@ -192,86 +212,8 @@ clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2023,
                 exact = TRUE, B = 1000000)
 ```
 
-# Supplementary Analysis
-We are going to see what happens when we pool men's and women's data together.
-We sill need to separate by year but will have 3 analyses instead of 6.
-
-### 2019 vs 2022
-Data setup
-```{r}
-men_2019 <- read.csv("../Data/Clusrank2019vs2022.csv")
-colnames(men_2019) <- c("Time", "Athlete", "Year", "Event")
-
-women_2019 <- read.csv("../Data/Clusrank2019vs2022Womens.csv")
-colnames(women_2019) <- c("Time", "Athlete", "Year", "Event")
-
-women_2019$Athlete <- women_2019$Athlete + 34 #Correction for unique athlete identifier
-
-all_2019 <- rbind(men_2019, women_2019)
-```
-
-And now we run the tests
-```{r}
-set.seed(1)
-library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2019,
-                method = "ds")
-
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2019,
-                method = "ds",
-                exact = TRUE, B = 1000000)
-```
-### 2022 National vs International
-
-Data setup
-```{r}
-men_2022 <- read.csv("../Data/ClusrankNatvsWorld.csv")
-colnames(men_2022) <- c("Time", "Athlete", "Year", "Event")
-
-
-women_2022 <- read.csv("../Data/ClusrankNatvsWorldWomens.csv")
-colnames(women_2022) <- c("Time", "Athlete", "Year", "Event")
-
-women_2022$Athlete <- women_2022$Athlete + 17 #Correction for unique athlete identifier
-
-all_2022 <- rbind(men_2022, women_2022)
-```
-
-And now we run the tests.
-
-```{r}
-set.seed(1)
-library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2022,
-                method = "ds")
-
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2022,
-                method = "ds",
-                exact = TRUE, B = 1000000)
-```
-### 2022 vs 2023
-
-```{r}
-men_2023 <- read.csv("../Data/Clusrank2022vs2023.csv")
-colnames(men_2023) <- c("Time", "Athlete", "Year", "Event")
-
-women_2023 <- read.csv("../Data/Clusrank2022vs2023Womens.csv")
-colnames(women_2023) <- c("Time", "Athlete", "Year", "Event")
-
-women_2023$Athlete <- women_2023$Athlete + 45
-
-all_2023 <- rbind(men_2023, women_2023)
-```
-
-Now we run the tests.
-```{r}
-set.seed(1)
-library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2023,
-                method = "ds")
-
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2023,
-                method = "ds",
-                exact = TRUE, B = 1000000)
-```
+The p-value from the asymptomatic test was $9.4 \cdot 10^{-7}$ and the p-value
+from the permutation test was $1.5 \cdot 10^{-3}$. Both of these are
+statistically significant results showing a difference in female athletes who
+competed in 2019 and 2022.
 
