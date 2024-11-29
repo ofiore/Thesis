@@ -98,11 +98,14 @@ dhw <- within(dhw, {Gender = as.factor(Gender); Event = as.factor(Event);
     Venue = as.factor(Venue); Heat = as.factor(Heat)})
 dhw <- dhw[- which.min(dhw$RxnTime), ]
 
+
 gg3b.w <- gamlss(RxnTime ~ random(Venue) + Event, sigma.formula = ~ random(Heat), data = dhw, family = GG, control = gamlss.control(n.cyc = 40))
+gg3b0.w <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat), data = dhw, family = GG, control = gamlss.control(n.cyc = 40))
 gg3d.w <- gamlss(RxnTime ~ random(Venue) + Event, sigma.formula = ~ random(Venue) + random(Heat), data = dhw, family = GG, control = gamlss.control(n.cyc = 40))
 
-AIC(gg3b.w, gg3d.w)
-qq_conf_plot(residuals(gg3b.w), dparams = list(mean = 0, sd = 1)) ## z-scores have known mean and sd
+AIC(gg3b.w, gg3b0.w, gg3d.w)
+## Let's report gg3b0.w
+qq_conf_plot(residuals(gg3b0.w), dparams = list(mean = 0, sd = 1)) ## z-scores have known mean and sd
 
 ##  summary(gg_dhw) # event is significant for women!
 ## one rxn time is too small, probabily really was a DQ
