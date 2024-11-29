@@ -1,0 +1,320 @@
+---
+title: "ReactionBarrierAnalysis"
+author: "Owen Fiore"
+date: "2024-11-28"
+output: html_document
+---
+
+The objective of this document is to allow other researchers to replicate our
+results in regards to the GAMLSS section of the paper.
+# Main Analysis
+The first thing we need is our data.  We create the `times` data to be the full
+data, and will create relevant subsets depending on what we need to fit.
+
+```{r}
+times <- read.csv("../Data/rxntime.csv")
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Event")
+```
+
+
+The first data set is the men's dash and hurdles which we will denote as `dhm`.
+The first filter we apply is to look at data from semifinals and finals, as
+previous papers have suggested that reaction times in the heats may not be 
+as fast due to less competitive heats.  We cannot include times from athletes
+who did not start (DNS) as they do not have reaction times, but we do consider
+times from athletes who were disqualified (This is further examined in the
+supplemental analysis).  We cannot fit negative times with our gamma model and
+negative reaction times make little practical sense, so we remove those as well.
+Additionally we need to select the 100 meter dash and 110 meter hurdles as
+there are more events (200 meter dash) included in the data but not included in
+this analysis.  Lastly we convert `Venue` and `Heat` to be factor variables as
+those are used as random effects in the model.
+
+An important part of the paper is examining the results of excluding 2022 from
+the analysis to see the impact 2022 had.  Thus we are going to be replicating
+much of the same methods for the modeling phrase but need to exclude 2022 from
+the dataset.
+```{r}
+library(tidyverse)
+dhm <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime > 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles") |>
+  mutate(Venue = as.factor(Venue), Heat = as.factor(Heat))
+
+#Only difference between these two dataframes is the filter removing 2022
+dhm_no2022 <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime > 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles") |>
+  filter(Venue != 2022) |>
+  mutate(Venue = as.factor(Venue), Heat = as.factor(Heat))
+```
+
+
+We considered many families of models, and formula structures within the
+generalized Gamma but thought that the results from the `gg3b` game strong
+results.  The first term corresponds to the $\mu$ term of the model, which is
+a random effect for `Venue`. $\sigma$ contains a random effect for `Heat`.
+```{r}
+gg3b <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat),
+               data = dhm, family = GG, control = gamlss.control(n.cyc = 40))
+
+gg3b_no2022 <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat),
+                      data = dhm_no2022, family = GG, control = gamlss.control(n.cyc = 40))
+
+```
+
+We can explore some information about this model and replicate the results
+presented in Table 2 of the paper by running the code below.
+```{r}
+summary(gg3b)
+cat("sigma_v or std dev of venue effect: ", gg3b$mu.coefSmo[[1]]$sigb, "\n")
+cat("sigma_h or std dev of heat effect: ", gg3b$sigma.coefSmo[[1]]$sigb[1], "\n")
+```
+
+And now for the model excluding 2022
+```{r}
+summary(gg3b)
+cat("sigma_v or std dev of venue effect: ", gg3b_no2022$mu.coefSmo[[1]]$sigb, "\n")
+cat("sigma_h or std dev of heat effect: ", gg3b_no2022$sigma.coefSmo[[1]]$sigb[1], "\n")
+```
+
+One of the key findings of this section is that by including 2022 in the model,
+the standard deviation of the venue effects increases from 0.043 to 0.058. This
+demonstrates that the reaction times from 2022 helped contribute to more
+variability in the range of venue effects.
+
+The code below plots the venue effects from the model to visually see the
+differences that result by including 2022.
+```{r}
+library(gridExtra)
+venue_effects <- as.data.frame(gg3b$mu.coefSmo[[1]]$coef)
+colnames(venue_effects) <- c("Effect Value")
+
+venue_plot <- ggplot(venue_effects, aes(x = rownames(venue_effects),
+                                               y = `Effect Value`)) +
+  geom_point() + 
+  labs(x = "Venue", y = "Venue Effect")+
+  scale_y_continuous(limits = c(-0.15, 0.1))
+
+
+## Second plot
+venue_effects_no2022 <- as.data.frame(gg3b_no2022$mu.coefSmo[[1]]$coef)
+venue_effects_no2022["2022", ] <- 1 #Arbitrary number out of range of y scale so
+#that the x axis line up
+
+colnames(venue_effects_no2022) <- c("Effect Value")
+
+venue_plot_no2022 <- ggplot(venue_effects_no2022,
+                                   aes(x = rownames(venue_effects_no2022),
+                                       y = `Effect Value`)) +
+  geom_point() + 
+  labs(x = "Venue", y = "Venue Effect") +
+  scale_y_continuous(limits = c(-0.15, 0.1))
+
+#Put it together
+grid.arrange(venue_plot, venue_plot_no2022, ncol = 1)
+```
+In the above figure, the top graph corresponds to the venue effects from `gg3b`,
+and the bottom graph represents the venue effects from `gg3b_no2022` which is
+why there is no 2022 venue effect for 2022.  There is some year to year
+variability in the graphs, with differences in venue effects in 2007 and 2011
+occuring potentially due to the change in disqualification rules that were
+implemented by World Athletics.  The venue effects from 2015 to 2023 were
+very consistent with values very close to 0, with the exception of 2022 which
+had a venue effect of roughly -0.13.
+
+
+We also need to evaluate how well the `gg3b` model fit the data, and we look
+at the standardized residuals to do so.
+
+```{r}
+library(qqconf)
+qq_conf_plot(residuals(gg3b))
+```
+
+We see that the model fits the data extremely well considering the size of the
+data is roughly 775 points.  Thus this seems like a strong model choice that
+will produce good results.
+
+```{r}
+qq_conf_plot(residuals(gg3b_no2022))
+```
+The residual plot when the model is fit without 2022 is very similar with few
+noticeable differences.
+
+
+Now that we have chosen a model and it passed necessary specifications, we can
+use it to simulate times and determine how extreme a 0.1 second reaction time
+barrier is.  The function `simfit` draws 10,000,000 samples from a probability
+distribution determined in the last line of the function, which draws from a
+generalized Gamma distribution parameterized by `mu`, `sigma`, and `nu`.
+
+```{r}
+simfit <- function(model, n = 10000000) {
+    set.seed(1)
+  
+    #Extract standard deviation of venue and heat effect
+    sd_Venue <- model$mu.coefSmo[[1]]$sigb
+    sd_Venue_heat <- model$sigma.coefSmo[[1]]$sigb[1]
+    
+    #Calculate mu, sigma, nu with coefficients and standard deviation of random effects
+    mu <- exp(model$mu.coefficients[1] + rnorm(n, mean = 0 , sd = sd_Venue))
+    sigma <- exp(model$sigma.coefficients[1] + rnorm(n, mean = 0 , sd = sd_Venue_heat))
+    nu <- model$nu.coefficients[1]
+    
+    #Generate the distribution
+    rGG(n, mu = mu, sigma = sigma, nu = nu)
+}
+```
+Using the distribution returned in the last line of code, we then want to
+examine the probability of observing a reaction time less than 0.1 seconds.  We
+do this as a way of measuring whether the 0.1 barrier is fair.  If we see a
+large probability, this indicates that 0.1 seconds is too strict a barrier and
+World Athletics should consider changes.
+
+Now we can fit our distribution and assign it to `samplefit` and repeat for
+the model and thus distribution without 2022.
+
+```{r}
+samplefit <- simfit(gg3b)
+samplefit_no2022 <- simfit(gg3b_no2022)
+```
+
+We use `mean(samplefit < 0.10)` to determine the proportion of the distribution
+less than 0.1 and repeat this for 0.09 and 0.08 to assess how extreme those
+would be.  These probabilities can be found in table 3 of the paper.
+```{r}
+
+mean(samplefit < 0.10)
+mean(samplefit_no2022 < 0.10)
+cat("\n")
+mean(samplefit < 0.09)
+mean(samplefit_no2022 < 0.09)
+cat("\n")
+mean(samplefit < 0.08)
+mean(samplefit_no2022 < 0.08)
+```
+We see that in every comparison, it is more likely to observe an extreme reaction
+time when 2022 is included in the analysis.
+
+Perhaps the more interesting aspect of this analysis, is the ability to
+recommend a new reaction time barrier based on the distribution.  Thus we want
+to know the quantile that certain important probabilities would have.  If World
+Athletics wanted to quantitatively create a reaction time barrier what they
+should do is first decide on what percentage of times they should disqualify
+for being unreasonable.  We are going to look at 1 in every 100, 1000, and 10000
+observations and the result is what the reaction barrier should be.  The results
+below are presented in table 4 of the paper.
+
+```{r}
+quantile(samplefit, c(.01, .001, .0001))
+cat("\n")
+quantile(samplefit_no2022, c(.01, .001, .0001))
+```
+We see that by excluding 2022, the suggested reaction time barrier is higher
+and more strict.  this analysis is important and interesting to repeat in several
+years to see what the effect of future World Championships will be on the barrier.
+If there are more years like 2022, then World Athletics should take steps to
+change the reaction time barrier because that indicates that athletes are
+getting faster and thus reaction times under 0.1 seconds are no longer looked
+at as the athlete predicting the gun, but rather that they have fast reflexes.
+
+
+# Supplemental Analysis
+
+We are going to see what happens when we pool men's and women's data together.
+We sill need to separate by year but will have 3 analyses instead of 6.  As a
+result of the larger data set we are going to run the permutation tests at a
+size of $n = 100,000$ rather than $n = 1,000,000$ as the code takes several
+hours to run otherwise.  The asymptotic results are all highly statistically
+significant, and with the larger data sets, the results from the asymptotic
+tests should be of higher quality.
+
+### 2019 vs 2022
+
+Need to talk about results after running code
+
+Data setup
+```{r}
+men_2019 <- read.csv("../Data/Clusrank2019vs2022.csv")
+colnames(men_2019) <- c("Time", "Athlete", "Year", "Event")
+
+women_2019 <- read.csv("../Data/Clusrank2019vs2022Womens.csv")
+colnames(women_2019) <- c("Time", "Athlete", "Year", "Event")
+
+women_2019$Athlete <- women_2019$Athlete + 34 #Correction for unique athlete identifier
+
+all_2019 <- rbind(men_2019, women_2019)
+```
+
+And now we run the tests
+```{r}
+set.seed(1)
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2019,
+                method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2019,
+                method = "ds",
+                exact = TRUE, B = 100000)
+```
+### 2022 National vs International
+
+Data setup
+```{r}
+men_2022 <- read.csv("../Data/ClusrankNatvsWorld.csv")
+colnames(men_2022) <- c("Time", "Athlete", "Year", "Event")
+
+
+women_2022 <- read.csv("../Data/ClusrankNatvsWorldWomens.csv")
+colnames(women_2022) <- c("Time", "Athlete", "Year", "Event")
+
+women_2022$Athlete <- women_2022$Athlete + 17 #Correction for unique athlete identifier
+
+all_2022 <- rbind(men_2022, women_2022)
+```
+
+And now we run the tests.
+
+```{r}
+set.seed(1)
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2022,
+                method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2022,
+                method = "ds",
+                exact = TRUE, B = 100000)
+```
+### 2022 vs 2023
+
+```{r}
+men_2023 <- read.csv("../Data/Clusrank2022vs2023.csv")
+colnames(men_2023) <- c("Time", "Athlete", "Year", "Event")
+
+women_2023 <- read.csv("../Data/Clusrank2022vs2023Womens.csv")
+colnames(women_2023) <- c("Time", "Athlete", "Year", "Event")
+
+women_2023$Athlete <- women_2023$Athlete + 45 #Correction for unique athlete identifier
+
+all_2023 <- rbind(men_2023, women_2023)
+```
+
+Now we run the tests.
+```{r}
+set.seed(1)
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2023,
+                method = "ds")
+
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = all_2023,
+                method = "ds",
+                exact = TRUE, B = 100000)
+```
+
