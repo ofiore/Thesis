@@ -224,8 +224,8 @@ of the 0.1-second threshold. Section~\ref{sec:Results} presents the
 results of both objectives and discusses the implications.
 Finally, Section~\ref{sec:concludingremarks} highlights the
 paper’s impact, limitations, and potential for future research.
-All data and code for our analysis are provided in the supplementary
-materials.
+All data and code for our analysis are provided in the Supplementary
+Materials.
 
 
 
@@ -244,9 +244,10 @@ to be significantly different. This difference is not unexpected, as
 RT is generally less critical in longer sprint events
 compared to shorter distances where explosive starts are paramount.
 Negative RTs were excluded from the analysis, while positive
-disqualified RTs were included due to their low frequency. A
-sensitivity analysis regarding the inclusion of positive disqualified
-RTs is provided in the Supplementary Material.
+disqualified RTs were included due to their low frequency and not
+being obvious outliters. % A
+% sensitivity analysis regarding the inclusion of positive disqualified
+% RTs is provided in the Supplementary Material.
 
 
 Two datasets were used to address the study's objectives. To
@@ -381,7 +382,7 @@ threshold was obtained from World Athletics and covers the men's
 possible gender differences \citep{babicc2009reaction,
   lipps2011implications}, data for women's 100-meter hurdles and
 100-meter dashes and their analyses were relegated to the
-supplementary material. We focus on the RTs recorded during
+Supplementary Material. We focus on the RTs recorded during
 semifinal and final heats only, as RTs from preliminary
 heats are often not as fast as those in later heats
 \citep[e.g.,][]{collet1999strategic, tonnessen2013reaction,
@@ -599,25 +600,21 @@ women.
 \end{table}
 
 
-
 Table~\ref{tab:Clusrankresults} presents the results from both permutation
-and asymptotic rank-based tests for these six comparisons. The tests reveal
-that the national versus international comparisons yielded the lowest
-p-values, indicating stronger evidence of faster RTs at the
-2022 World Championships compared to the 2022 national competitions. 
-\eds{This does not appear true based on the data currently in Table 1. 
-2022-2023 seem to have the lowest p-values.  Which is correct?}
-For both men and women, permutation test results were highly significant,
-providing substantial evidence that athletes competing at the 2022 World
-Championships had significantly faster RTs than they did just
-a few months earlier at national-level events. The comparisons between the
-2019 and 2022 World Championships and between the 2022 and 2023 World
-Championships also produced significant results. Collectively,
-these results suggest that athletes consistently achieved faster reaction
-times at the 2022 World Championships compared to other competitions. This
-finding supports the hypothesis that the 2022 World Championships presented
-conditions conducive to faster RTs, potentially due to systematic
-or environmental factors.
+and asymptotic rank-based tests for the six comparisons. All tests
+yielded very small p-values, even after applying a Bonferroni
+adjustment for multiple comparisons, indicating consistent evidence of
+faster RTs at the 2022 World Championships relative to other
+competitions. For both men and women, the national versus
+international comparisons showed that RTs at the 2022 World
+Championships were significantly faster than at national-level
+competitions held earlier that year. Similarly, comparisons between
+the 2019 and 2022 World Championships and between the 2022 and 2023
+World Championships produced significant results, reinforcing the
+observation that RTs at the 2022 World Championships were notably
+faster. These findings support the hypothesis that conditions at the
+2022 World Championships, whether systematic or
+environmental, contributed to consistently faster RTs.
 
 
 We also conducted the same analysis with men’s and women’s data
@@ -637,19 +634,15 @@ excluding and including 2022 data are reported. The fixed-effect
 parameters include $\beta_0$, $\gamma_0$, and $\nu$, corresponding to
 the intercept of the log-location, log-scale, and shape of the GG
 distribution, respectively. Random effects account for variability at
-the venue level $\tau_v$ on the log-scale of the $\mu$ parameter
-and at the heat level $\tau_h$ on the log-scale of the $\sigma$
+the venue level on the log-scale of the $\mu$ parameter
+and at the heat level on the log-scale of the $\sigma$
 parameter in the density in Equation~\eqref{eq:gg}. The variance
 of the venue-level random effect is smaller than the heat-level random
 effect variance, suggesting that heat-level variability in the scale
 parameter is substantial, though on the dispersion parameter. When the
 2022 data is included, all parameter estimates remain stable except
 the standard deviation of the venue-level random-effect variance,
-which increases from 0.043 to 0.058 . 
-\eds{are you reporting estimated variances or SDs of the random effects here and 
-in the Table?  In the table, we have $\tau_v$ and $\tau_h$ (SD) labels, not 
-$\tau_v^2$ and $\tau_h^2$ (variances).  Please check and correct as needed.}  
-These results
+which increases from 0.043 to 0.058. These results
 highlight that RTs are influenced by both venue and heat-level
 factors, and that the inclusion of 2022 introduces greater venue-level
 variability, likely due to systematic differences in RTs that year.
@@ -776,8 +769,7 @@ competed at the 2022 World Track and Field Championships faster than
 at other races, and is the 0.1-second RT barrier fair?
 Regarding the first question, our analyses suggest that athletes were
 indeed faster at the 2022 World Championships compared to comparable
-meets. 
-Ideally, a centralized database containing RTs from
+meets. Ideally, a centralized database containing RTs from
 all World Athletics-certified meets would have allowed for a more
 comprehensive analysis. Currently, however, RTs are seldom
 included in the results available on the World Athletics website. This
@@ -807,7 +799,7 @@ threshold may  unfairly penalize men, for whom sub-0.1-second reaction
 times are more probable. \citet{brosnan2017effects} advocate for
 gender-specific barriers, a position that  aligns with our findings
 and highlights the importance of tailoring thresholds to  biological
-distinctions. \eds{is this still true in the updated analyses?}
+distinctions.
 
 
 This study provides a statistical framework to examine Devon Allen’s
@@ -831,8 +823,9 @@ disqualification, may not be categorically extreme.
 
 
 \section*{Supplementary Material}
-\eds{when the supplement is complete, include an additional sentence here
-that summarizes the additional analyses presented in the supplemental material}
+Additional results are summarized in a supplement for rank-based
+comparison with pooled (men and women) data and for the GAMLSS results
+for women data.
 The data and R code used for the analysis are available in a compressed file for
 ease of reproducibility.
 

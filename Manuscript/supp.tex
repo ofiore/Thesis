@@ -93,17 +93,17 @@
 
 \section{Rank-Based Comparison with Pooled Data}
 
-\jy{Keep the order consistent with the text; do the same in the code.}
-
 As an alternative to the methods described in Section 3.1 of the main paper, it
 is possible to combine all men's and women's reaction time (RT) data for each of 
 the three competition
 comparisons.  Thus we shrink our analyses from six to three, but each analysis
-is roughly twice as big as previously.  For the 2019 versus 2022 comparison,
-there were 258 RTs from 65 athletes and the asymptotic
-test result was a p-value of $3.56 \cdot 10^{-8}$. For the 2022 national versus
+is roughly twice as big as previously.
+For the 2022 national versus
 international comparison, there were 160 RTs from 35
 athletes and the asymptotic test result was a p-value of $1.94 \cdot 10^{-7}$.
+For the 2019 versus 2022 comparison,
+there were 258 RTs from 65 athletes and the asymptotic
+test result was a p-value of $3.56 \cdot 10^{-8}$. 
 For the 2023 versus 2022 comparison, there were 343 RTs
 from 92 athletes and the asymptotic test result was a p-value of
 $4.99 \cdot 10^{-12}$.  As a result of the larger sample sizes, the code was
@@ -118,14 +118,12 @@ for athletes competing at multiple championship-level events.
 \section{GAMLSS Results for Women Data}
 
 We can repeat our reaction time barrier analysis described in Section 3.2, but
-fit the same model to women's RT data from 2001 to 2023.  Once again we utilize
-the power of the venue effect within $\mu$ and a heat effect within $\sigma$.
-\eds{what is meant by `power' here?} 
+fit the same model to women's RT data from 2001 to 2023.
 The RT data for women is visualized in Figure~\ref{fig:WomensBoxplot}.
 Similar to the men's data, RTs from 2022 appear lower than in other
-years.
-
-
+years. After removing one obvious outliter, which was a disqualfied
+reaction time, the same model for men's data fits the women's data
+reasonably well.
 
 \begin{figure}[tbp]
   \centering
@@ -135,9 +133,6 @@ years.
   \label{fig:WomensBoxplot}
 \end{figure}
 
-We examined several models in the generalized Gamma model and found that the
-best model for women involved a venue effect in $\mu$ and heat effect in
-$\sigma$.  Thus the best model for men was also the best model for women.
 
 \begin{table}
   \centering
@@ -157,24 +152,18 @@ $\sigma$.  Thus the best model for men was also the best model for women.
   \end{tabular}
 \end{table}
 
-One of the most interesting aspects of Table~\ref{tab:womensfit} is that while
+The fitted parameters in comparison with those from men's data are
+summarized in Table~\ref{tab:womensfit}.  One notable aspect is that while
 the venue effect standard deviation is nearly identical, the women's heat effect
-standard deviation is smaller and $\nu$ is much larger.  If men's races have
-more variability in times, it seems possible that in men's races that faster
-athletes can influence other athletes to react faster in certain instances.
-It is also interesting that the standard deviation of the venue effect is
-nearly identical for both men's and women's data, indicating that the venue
-effect is not only statistically significant but is consistent in strength
-across men and women.
+standard deviation is smaller and $\nu$ is much larger.
+This suggests that men’s races exhibit greater 
+variability in reaction times, possibly due to faster athletes influencing others 
+to react more quickly in certain instances. The consistency in the venue effect 
+standard deviation across men’s and women’s data indicates that the venue effect 
+is not only statistically significant but also consistent in magnitude across 
+genders. These findings highlight the potential impact of competition dynamics 
+on heat variability and the robustness of venue-level effects.
 
-We can repeat the simulation methods described in the main paper to evaluate
-the probability of an extreme reaction time.  Table~\ref{tab:Sim_prob_women}
-compares the men's and women's results of observing reaction times less than
-0.08, 0.09, and 0.1 seconds.  We find that across all three comparisons that
-women have a lower probability of having a fast time. The results are slightly
-different from those from the men's data, which echoes existing studies
-reporting gender differences in RTs \citep[e.g.,][]{lipps2011implications,
-babicc2009reaction, panoutsakopoulos2020gender}.
 
 \begin{table}
   \centering
@@ -193,21 +182,16 @@ random effects.}
   \label{tab:Sim_prob_women}
 \end{table}
 
+We can repeat the simulation methods described in the paper to evaluate
+the probability of an extreme reaction time.  Table~\ref{tab:Sim_prob_women}
+compares the men's and women's results of observing reaction times less than
+0.08, 0.09, and 0.1 seconds.  We find that across all three comparisons that
+women have a lower probability of having a fast time. The results are slightly
+different from those from the men's data, which echoes existing studies
+reporting gender differences in RTs \citep[e.g.,][]{lipps2011implications,
+babicc2009reaction, panoutsakopoulos2020gender}.
 
-Now we need to perform alter the interpretation of the analyis to determine
-what a fair reaction time barrier for women should be.
-Table~\ref{tab:Sim_time_women} shows the difference in men's and women's
-suggested reaction time barrier.  What we see is that by World Athletics setting
-the same standard for men and women, their rules are not fair, in that men are
-more likely to be disqualified because they are more likely to react quickly.
-One of the biggest takeaways of the reaction time barrier analysis is that the
-current standards imposed by World Athletics are not grounded in statistical
-analysis and that they should be.  It seems reasonable to either raise the
-women's barrier so that they are disqualified at a similar rate as men or to
-lower the men's barrier so they are disqualified at a similar rate as women.  But
-having equal but not neccessarily fair standards does not seem reasonable when
-this study's results echoed results of numerous other papers asking World
-Athletics to change the standards.
+
 
 \begin{table}
   \centering
@@ -223,52 +207,62 @@ Athletics to change the standards.
   \label{tab:Sim_time_women}
 \end{table}
 
+To evaluate a fair reaction time (RT) barrier for women, we compared suggested 
+barriers for men and women based on tail probabilities, as shown in 
+Table~\ref{tab:Sim_time_women}. The results indicate that men are more likely 
+to be disqualified under the current uniform 0.1-second threshold due to their 
+generally faster reaction times. This suggests that the same RT standard may not 
+have equivalent implications for men and women. Potential adjustments could 
+involve raising the barrier for women to align with men’s disqualification rates 
+or lowering the barrier for men to match women’s rates. However, further research 
+is needed to validate these findings and explore their broader implications. These 
+results contribute to ongoing discussions about RT thresholds and emphasize the 
+importance of statistical evidence in guiding decisions about competition fairness.
 
 
+% \section{Results from Data Excluding Positive Disqualified RTs}
 
-\section{Results from Data Excluding Positive Disqualified RTs}
+% An earlier iteration of the paper fit a model that did not include RTs from
+% athletes who were disqualified or did not finish but still registered a RT.  
+% However, it was ultimately decided to include these times to better estimate the 
+% left tail of the distribution and more accurately predict the probability of a 
+% low RT, as described in the main paper.  
+% We did not include negative RTs, however, as these represent a mistake 
+% of the runner for starting before
+% the gun is fired and are thus meaningless in our objective to
+% determine a fair RT barrier.  Not all of those disqualified were
+% disqualified because of breaking the 0.1 reaction time barrier; there are many
+% reasons why an athlete may be disqualified, with the most notable being failed
+% drug tests and lane violations.  Nonetheless, in this section,
+% we exclude all disqualified RTs to see their effect on the probability of an
+% extreme RT.  We fit an identical model to the generalized Gamma model
+% presented in Section 3.2 to examine differences results.
 
-An earlier iteration of the paper fit a model that did not include RTs from
-athletes who were disqualified or did not finish but still registered a RT.  
-However, it was ultimately decided to include these times to better estimate the 
-left tail of the distribution and more accurately predict the probability of a 
-low RT, as described in the main paper.  
-We did not include negative RTs, however, as these represent a mistake 
-of the runner for starting before
-the gun is fired and are thus meaningless in our objective to
-determine a fair RT barrier.  Not all of those disqualified were
-disqualified because of breaking the 0.1 reaction time barrier; there are many
-reasons why an athlete may be disqualified, with the most notable being failed
-drug tests and lane violations.  Nonetheless, in this section,
-we exclude all disqualified RTs to see their effect on the probability of an
-extreme RT.  We fit an identical model to the generalized Gamma model
-presented in Section 3.2 to examine differences results.
+% \begin{table}
+%   \centering
+%   \caption{Probabilities of observing RTs less than threshold 0.08,
+%   0.09, and 0.10 seconds based on the
+%     fitted GG GAMLSS model with both venue- and heat-level
+% random effects.}
+%   \begin{tabular}{c c c c}
+%    \toprule
+%    Data Set & Threshold 0.08 & Threshold 0.09 & Threshold 0.10  \\
+%    \midrule
+%    Without DQs & $4.93\cdot10^{-5}$ & $3.53\cdot10^{-4}$ &  $1.97\cdot10^{-3}$  \\
+%    With DQs & $6.84\cdot10^{-5}$ & $4.95\cdot10^{-4}$ & $2.76\cdot10^{-3}$ \\
+%    \bottomrule
+%   \end{tabular}
+%   \label{tab:DQSim_probability}
+% \end{table}
 
-\begin{table}
-  \centering
-  \caption{Probabilities of observing RTs less than threshold 0.08,
-  0.09, and 0.10 seconds based on the
-    fitted GG GAMLSS model with both venue- and heat-level
-random effects.}
-  \begin{tabular}{c c c c}
-   \toprule
-   Data Set & Threshold 0.08 & Threshold 0.09 & Threshold 0.10  \\
-   \midrule
-   Without DQs & $4.93\cdot10^{-5}$ & $3.53\cdot10^{-4}$ &  $1.97\cdot10^{-3}$  \\
-   With DQs & $6.84\cdot10^{-5}$ & $4.95\cdot10^{-4}$ & $2.76\cdot10^{-3}$ \\
-   \bottomrule
-  \end{tabular}
-  \label{tab:DQSim_probability}
-\end{table}
+% \jy{Men's data or pooled data?}
+% \eds{with or without 2022?}
+% \of{I dont know if we have time for this or if this fits the scope of what we
+% are working on.}
 
-\jy{Men's data or pooled data?}
-\eds{with or without 2022?}
-\of{I dont know if we have time for this or if this fits the scope of what we
-are working on.}
-
-Table~\ref{tab:DQSim_probability} shows the effect of removing disqualificated
-times from the analysis.  The probability of observing extreme RTs is lower when
-we remove the 17 observations.
+% Table~\ref{tab:DQSim_probability} shows the effect of removing disqualificated
+% times from the analysis.  The probability of observing extreme RTs is lower when
+% we remove the 17 observations.
 
 \bibliographystyle{apalike}
 \bibliography{citations}
