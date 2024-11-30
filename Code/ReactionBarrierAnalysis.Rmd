@@ -428,3 +428,58 @@ It is worth noting that these suggested times are slower than the one's for the
 men's data.  Thus, men and women are not currently held to the same standard
 if men are more likely to react quickly than women and if they share the 0.1
 barrier.
+
+### Disqualification Analysis
+An earlier form of this paper did not originally include times from athlete's
+who were disqualified, but response from reviewer's prompted us to question
+whether we could include these times.  While we ultimately chose to include
+positive reaction times from athlete's who were disqualified, this section of
+the supplement is dedicated to investigating how much these times matter and
+examining the effect of a few but important times on the overall model.  These
+times are important because most of them fall on the left tail of the
+distribution, which is the part that we care the most about predicting accurately.
+
+```{r}
+dhm_nodq <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS", Time != "DQ", Time != "D") |>
+  filter(RxnTime > 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles")
+
+nrow(dhm) - nrow(dhm_nodq)
+```
+We see that there are 17 male athletes that had positive reaction times but were
+disqualified.  Not all of these athletes were disqualified for having reaction
+times less than 0.1 seconds, in many instances these athletes could have been
+disqualified for failed drug tests and other infractions.
+
+Now we fit the model.
+```{r}
+gg3b_nodq <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat),
+                    data = dhm_no2022, family = GG, control = gamlss.control(n.cyc = 40))
+```
+
+Let us see how we did with residuals
+```{r}
+qq_conf_plot(resid(gg3b_nodq))
+```
+The standardized residual plot looks quite strong.  We are now ready to simulate
+to examine how extreme certain reaction times are.
+
+```{r}
+samplefit_nodq <- simfit(gg3b_nodq)
+```
+
+The results below appear in table 4 of the supplement
+
+```{r}
+mean(samplefit_nodq < .10)
+mean(samplefit_nodq < .09)
+mean(samplefit_nodq < .08)
+```
+We see that these times are smaller when remove disqualifications than when we
+leave them in.  This is not surprising, as we know that some disqualifications
+come from values between 0 and 0.1.  Thus including those values is going to
+alter the model and raise the probability of athletes reacting in the 0 to 0.1
+range.
