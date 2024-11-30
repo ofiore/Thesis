@@ -110,18 +110,18 @@ $4.99 \cdot 10^{-12}$.  As a result of the larger sample sizes, the code was
 very computationally expensive to run and thus we ran it on a smaller size.  All
 three permutation tests had a p-value of $1 \cdot 10^{-5}$, which is the smallest
 possible value given the permutation test size of $100,000$.  When taken together
-with the asymptotic results, the results becoems very clear. These are all
+with the asymptotic results, the message becomes very clear. These are all
 highly significant test results that show substantial differences in average RT
-for athletes competing at multiple championship-level events.
+for athletes competing at multiple championship-level competitions.
 
 
 \section{GAMLSS Results for Women Data}
 
-We can repeat our reaction time barrier analysis described in Section 3.2, but
-fit the same model to women's RT data from 2001 to 2023.
+We also apply the RT barrier analysis described in Section 3.2 to women's data,
+fitting the same model to women's RT data from 2001 to 2023.
 The RT data for women is visualized in Figure~\ref{fig:WomensBoxplot}.
 Similar to the men's data, RTs from 2022 appear lower than in other
-years. After removing one obvious outliter, which was a disqualfied
+years. After removing one obvious outlier, which was a disqualified
 reaction time, the same model for men's data fits the women's data
 reasonably well.
 
@@ -137,7 +137,7 @@ reasonably well.
 \begin{table}
   \centering
   \caption{Estimated fixed-effect parameters with standard errors in
-    parentheses and estimated variance of the random effects from the men's and
+    parentheses and estimated standard deviations of the random effects from the men's and
     women's fitted GG distribution with venue level random
     effects in $\mu$ and heat level random effects in $\sigma$. $n$ denotes
     size of the data.}
@@ -157,7 +157,7 @@ summarized in Table~\ref{tab:womensfit}.  One notable aspect is that while
 the venue effect standard deviation is nearly identical, the women's heat effect
 standard deviation is smaller and $\nu$ is much larger.
 This suggests that men’s races exhibit greater 
-variability in reaction times, possibly due to faster athletes influencing others 
+variability in RTs, possibly due to faster athletes influencing others 
 to react more quickly in certain instances. The consistency in the venue effect 
 standard deviation across men’s and women’s data indicates that the venue effect 
 is not only statistically significant but also consistent in magnitude across 
@@ -182,11 +182,11 @@ random effects.}
   \label{tab:Sim_prob_women}
 \end{table}
 
-We can repeat the simulation methods described in the paper to evaluate
-the probability of an extreme reaction time.  Table~\ref{tab:Sim_prob_women}
-compares the men's and women's results of observing reaction times less than
-0.08, 0.09, and 0.1 seconds.  We find that across all three comparisons that
-women have a lower probability of having a fast time. The results are slightly
+We also repeat the simulation methods described in the paper to evaluate
+the probability of an extreme RT for women.  Table~\ref{tab:Sim_prob_women}
+compares the men's and women's results of observing RTs less than
+0.08, 0.09, and 0.1 seconds.  We find across all three thresholds that
+women have a lower probability of having a fast RT. The results are slightly
 different from those from the men's data, which echoes existing studies
 reporting gender differences in RTs \citep[e.g.,][]{lipps2011implications,
 babicc2009reaction, panoutsakopoulos2020gender}.
@@ -207,11 +207,11 @@ babicc2009reaction, panoutsakopoulos2020gender}.
   \label{tab:Sim_time_women}
 \end{table}
 
-To evaluate a fair reaction time (RT) barrier for women, we compared suggested 
+To evaluate a fair RT barrier for women, we compared suggested 
 barriers for men and women based on tail probabilities, as shown in 
 Table~\ref{tab:Sim_time_women}. The results indicate that men are more likely 
 to be disqualified under the current uniform 0.1-second threshold due to their 
-generally faster reaction times. This suggests that the same RT standard may not 
+generally faster RTs. This suggests that the same RT standard may not 
 have equivalent implications for men and women. Potential adjustments could 
 involve raising the barrier for women to align with men’s disqualification rates 
 or lowering the barrier for men to match women’s rates. However, further research 
@@ -226,20 +226,20 @@ An earlier iteration of the paper fit a model that did not include RTs from
 athletes who were disqualified or did not finish but still registered a RT.  
 However, it was ultimately decided to include these times to better estimate the 
 left tail of the distribution and more accurately predict the probability of a 
-low RT, as described in the main paper.  We consider data from men's dash and
-hurdles and include 2022 in our analysis to try and determine how sensitive
-our model is to the inclusion of these times.
-
+low RT, as described in the main paper. 
 We did not include negative RTs, however, as these represent a mistake of the
 runner for starting before the gun is fired and are thus meaningless in our
 objective to determine a fair RT barrier.  Not all of those disqualified were
 disqualified because of breaking the 0.1 reaction time barrier; there are many
 reasons why an athlete may be disqualified, with the most notable being failed
-drug tests and lane violations.  Nonetheless, in this section,
-we exclude all disqualified RTs to see their effect on the probability of an
-extreme RT.  We fit an identical model to the generalized Gamma model
-presented in Section 3.2 to examine differences results.
+drug tests and lane violations.  
 
+Nonetheless, in this section,
+we exclude all disqualified RTs to see their effect on the probability of an
+extreme RT. We fit an identical model to the generalized Gamma model
+presented in Section 3.2.  As in Section 3.2, we considered data from men's dash and
+hurdles and include 2022 in our analysis to try and determine how sensitive
+our model is to the inclusion/exclusion of these times.
 
 
 \begin{table}
@@ -260,10 +260,10 @@ presented in Section 3.2 to examine differences results.
  \end{table}
 
 
-Table~\ref{tab:DQSim_probability} shows the effect of removing disqualificated
+Table~\ref{tab:DQSim_probability} shows the effect of removing disqualified (DQ)
 times from the analysis.  The probability of observing extreme RTs is lower when
 we remove the 17 observations.  While the probability of observing an extreme
-reaction time is less when we remove disqualfied athletes, many of the same
+RT is less when we remove disqualified athletes, many of the 
 conclusions remain the same: the current standards for disqualification are not
 grounded in statistical analysis, and there appear to be unequal standards for men
 and women.
