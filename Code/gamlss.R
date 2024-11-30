@@ -121,60 +121,6 @@ qq_conf_plot(residuals(gig3b), dparams = list(mean = 0, sd = 1)) ## z-scores hav
 # While some of the AIC are strong and better than gg3b, the residuals are weak
 
 
-# Simulation Code: only works for gg3b
-sim_time <- function(model, RxnTime) {
-  simfit <- function(model, n = 10000000) {
-    
-    sd_Venue <- model$mu.coefSmo[[1]]$sigb
-    sd_Venue_heat <- model$sigma.coefSmo[[1]]$sigb[1]
-    
-    mu <- exp(model$mu.coefficients[1] + rnorm(n, mean = 0 , sd = sd_Venue))
-    sigma <- exp(model$sigma.coefficients[1] + rnorm(n, mean = 0 , sd = sd_Venue_heat))
-    nu <- model$nu.coefficients[1]
-    
-    x <- rGG(n, mu = mu, sigma = sigma, nu = nu)
-    x
-  }
-  x <- simfit(model)
-  print(mean(x < RxnTime))
-}
-sim_time(gg3b, 0.1)
-sim_time(gg3b, 0.09)
-sim_time(gg3b, 0.08)
-
-#Outputs recommended reaction time barrier based on inputted probability
-sim_prob <- function(model, prob) {
-  simfit <- function(model, n = 10000000) {
-    
-    sd_Venue <- model$mu.coefSmo[[1]]$sigb
-    sd_Venue_heat <- model$sigma.coefSmo[[1]]$sigb[1]
-    
-    mu <- exp(model$mu.coefficients[1] + rnorm(n, mean = 0 , sd = sd_Venue))
-    sigma <- exp(model$sigma.coefficients[1] + rnorm(n, mean = 0 , sd = sd_Venue_heat))
-    nu <- model$nu.coefficients[1]
-    
-    x <- rGG(n, mu = mu, sigma = sigma, nu = nu)
-    x
-  }
-  x <- simfit(model)
-  print(quantile(x, probs = prob))
-}
-sim_prob(gg3b, .001)
-sim_prob(gg3b, .0001)
-
-
-## For reproducibility and to ensure that we got the same results. Run the function
-## that takes a GG model as input and prints all important parameters.
-model_print <- function(model) {
-  cat("AIC: ", AIC(model), "\n")
-  cat("mu (intercept): ", model$mu.coefficients[1], "\n")
-  cat("sigma (intercept): ", model$sigma.coefficients[1], "\n")
-  cat("nu: ", model$nu.coefficients[1], "\n")
-  cat("sigma_v or std dev of venue effect: ", model$mu.coefSmo[[1]]$sigb, "\n")
-  cat("sigma_h or std dev of heat effect: ", model$sigma.coefSmo[[1]]$sigb[1], "\n")
-}
-model_print(gg3b)
-
 dhm_no2022 <- times |>
   filter(Type == "F" | Type == "S") |>
   filter(Gender == "M") |>
@@ -217,32 +163,3 @@ cat("LRT:", LRT, "\nDegrees of Freedom:", df_diff, "\nP-value:", p_value, "\n")
 dhmw$Gender <- as.factor(dhmw$Gender)
 t.test(RxnTime ~ Gender, data = dhmw)
 
-
-##Creates a bunch of graphs to look at differences in men and women
-df <- times |>
-  filter(Type == "F" | Type == "S") |>
-  filter(Time != "DNS") |>
-  filter(RxnTime > 0) |>
-  filter(Event != "200 Dash") |>
-  mutate(Venue = as.factor(Venue))
-df %>%
-  split(.$Venue) %>%
-  lapply(function(sub_df) {
-    ggplot(sub_df, aes(x = Gender, y = RxnTime, fill = Gender)) +
-      geom_boxplot() +
-      labs(
-        title = paste("Venue:", unique(sub_df$Venue)),
-        x = "Gender",
-        y = "Reaction Time (s)"
-      ) +
-      scale_y_continuous(
-        limits = c(0.1, 0.225),
-        breaks = seq(0.1, 0.225, 0.025)
-      ) +
-      scale_x_discrete(labels = c("M" = "Men", "F" = "Women")) +
-      theme_minimal() +
-      theme(legend.position = "none")
-  })
-
-samplefit_women <- simfit(gg3b_w)
-mean(samplefit_women < .10)
