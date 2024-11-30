@@ -13,6 +13,3 @@ the generalized Gamma, log normal, gamma, weibull, and inverse gaussian families
 + gg.R contains exploration of several types of generalized Gamma models, as
 well as some miscellaneous/exploratory analysis.
 
-+ NewAnalysis.Rmd contains work completed since reviewer comments, although
-much of it is dedicated to the old GLMM, it contains important Tukey and
-anova tests that validate decisions made.
