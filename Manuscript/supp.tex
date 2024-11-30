@@ -220,49 +220,53 @@ results contribute to ongoing discussions about RT thresholds and emphasize the
 importance of statistical evidence in guiding decisions about competition fairness.
 
 
-% \section{Results from Data Excluding Positive Disqualified RTs}
+\section{Results from Data Excluding Positive Disqualified RTs}
 
-% An earlier iteration of the paper fit a model that did not include RTs from
-% athletes who were disqualified or did not finish but still registered a RT.  
-% However, it was ultimately decided to include these times to better estimate the 
-% left tail of the distribution and more accurately predict the probability of a 
-% low RT, as described in the main paper.  
-% We did not include negative RTs, however, as these represent a mistake 
-% of the runner for starting before
-% the gun is fired and are thus meaningless in our objective to
-% determine a fair RT barrier.  Not all of those disqualified were
-% disqualified because of breaking the 0.1 reaction time barrier; there are many
-% reasons why an athlete may be disqualified, with the most notable being failed
-% drug tests and lane violations.  Nonetheless, in this section,
-% we exclude all disqualified RTs to see their effect on the probability of an
-% extreme RT.  We fit an identical model to the generalized Gamma model
-% presented in Section 3.2 to examine differences results.
+An earlier iteration of the paper fit a model that did not include RTs from
+athletes who were disqualified or did not finish but still registered a RT.  
+However, it was ultimately decided to include these times to better estimate the 
+left tail of the distribution and more accurately predict the probability of a 
+low RT, as described in the main paper.  We consider data from men's dash and
+hurdles and include 2022 in our analysis to try and determine how sensitive
+our model is to the inclusion of these times.
 
-% \begin{table}
-%   \centering
-%   \caption{Probabilities of observing RTs less than threshold 0.08,
-%   0.09, and 0.10 seconds based on the
-%     fitted GG GAMLSS model with both venue- and heat-level
-% random effects.}
-%   \begin{tabular}{c c c c}
-%    \toprule
-%    Data Set & Threshold 0.08 & Threshold 0.09 & Threshold 0.10  \\
-%    \midrule
-%    Without DQs & $4.93\cdot10^{-5}$ & $3.53\cdot10^{-4}$ &  $1.97\cdot10^{-3}$  \\
-%    With DQs & $6.84\cdot10^{-5}$ & $4.95\cdot10^{-4}$ & $2.76\cdot10^{-3}$ \\
-%    \bottomrule
-%   \end{tabular}
-%   \label{tab:DQSim_probability}
-% \end{table}
+We did not include negative RTs, however, as these represent a mistake of the
+runner for starting before the gun is fired and are thus meaningless in our
+objective to determine a fair RT barrier.  Not all of those disqualified were
+disqualified because of breaking the 0.1 reaction time barrier; there are many
+reasons why an athlete may be disqualified, with the most notable being failed
+drug tests and lane violations.  Nonetheless, in this section,
+we exclude all disqualified RTs to see their effect on the probability of an
+extreme RT.  We fit an identical model to the generalized Gamma model
+presented in Section 3.2 to examine differences results.
 
-% \jy{Men's data or pooled data?}
-% \eds{with or without 2022?}
-% \of{I dont know if we have time for this or if this fits the scope of what we
-% are working on.}
 
-% Table~\ref{tab:DQSim_probability} shows the effect of removing disqualificated
-% times from the analysis.  The probability of observing extreme RTs is lower when
-% we remove the 17 observations.
+
+\begin{table}
+  \centering
+   \caption{Probabilities of observing RTs less than threshold 0.08,
+   0.09, and 0.10 seconds based on the
+     fitted GG GAMLSS model with both venue- and heat-level
+ random effects.}
+   \begin{tabular}{c c c c}
+    \toprule
+    Data Set & Threshold 0.08 & Threshold 0.09 & Threshold 0.10  \\
+    \midrule
+    Without DQs & $4.93\cdot10^{-5}$ & $3.53\cdot10^{-4}$ &  $1.97\cdot10^{-3}$  \\
+    With DQs & $6.84\cdot10^{-5}$ & $4.95\cdot10^{-4}$ & $2.76\cdot10^{-3}$ \\
+    \bottomrule
+   \end{tabular}
+   \label{tab:DQSim_probability}
+ \end{table}
+
+
+Table~\ref{tab:DQSim_probability} shows the effect of removing disqualificated
+times from the analysis.  The probability of observing extreme RTs is lower when
+we remove the 17 observations.  While the probability of observing an extreme
+reaction time is less when we remove disqualfied athletes, many of the same
+conclusions remain the same: the current standards for disqualification are not
+grounded in statistical analysis, and there appear to be unequal standards for men
+and women.
 
 \bibliographystyle{apalike}
 \bibliography{citations}
