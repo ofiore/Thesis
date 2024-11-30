@@ -1,5 +1,5 @@
 ---
-title: "ReactionBarrierAnalysis"
+title: "Reaction Barrier Analysis"
 author: "Owen Fiore"
 date: "2024-11-28"
 output: html_document
@@ -7,7 +7,10 @@ output: html_document
 
 The objective of this document is to allow other researchers to replicate our
 results in regards to the GAMLSS section of the paper.
+
+
 # Main Analysis
+
 The first thing we need is our data.  We create the `times` data to be the full
 data, and will create relevant subsets depending on what we need to fit.
 
