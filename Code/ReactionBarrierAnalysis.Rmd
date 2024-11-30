@@ -33,6 +33,9 @@ there are more events (200 meter dash) included in the data but not included in
 this analysis.  Lastly we convert `Venue` and `Heat` to be factor variables as
 those are used as random effects in the model.
 
+
+
+
 An important part of the paper is examining the results of excluding 2022 from
 the analysis to see the impact 2022 had.  Thus we are going to be replicating
 much of the same methods for the modeling phrase but need to exclude 2022 from
@@ -57,7 +60,26 @@ dhm_no2022 <- times |>
   filter(Venue != 2022) |>
   mutate(Venue = as.factor(Venue), Heat = as.factor(Heat))
 ```
-Let's visualize the data.
+
+
+Let's make sure we used appropriate data. There are three events in the data
+file for men: 100 meter dash, 110 meter hurdles, and 200 meter dash.  We
+suspect the results from the 200 meter dash might be slower as that is a longer
+event and thus reaction time plays a smaller role. We will use a TukeyHSD to
+examine any differences between the three events.
+```{r}
+library(car)
+TukeyHSD(aov(RxnTime ~ Event, data = all_events))
+```
+we see that there are relatively similar results for the 100 meter dash and
+110 meter hurdles as the p-value is 0.57 which is quite large.  But either of
+these two events when compared with the 200 meter dash results in a statistically
+significant p-value and thus we are not going to include this data in our
+analysis.
+
+
+Now that we have validated the decision to exclude certain data, let us 
+visualize it.
 ```{r}
 boxplot_df <- dhm |>
   mutate(Venue = as.numeric(as.character(Venue)))
