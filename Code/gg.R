@@ -39,6 +39,19 @@ qq_conf_plot(residuals(gg3b), dparams = list(mean = 0, sd = 1)) ## z-scores have
 qq_conf_plot(gg3b$sigma.coefSmo[[1]]$coef)
 qq_conf_plot(gg3b$mu.coefSmo[[1]]$coef)
 
+
+## For reproducibility and to ensure that we got the same results. Run the function
+## that takes a GG model as input and prints all important parameters.
+model_print <- function(model) {
+  cat("AIC: ", AIC(model), "\n")
+  cat("mu (intercept): ", model$mu.coefficients[1], "\n")
+  cat("sigma (intercept): ", model$sigma.coefficients[1], "\n")
+  cat("nu: ", model$nu.coefficients[1], "\n")
+  cat("sigma_v or std dev of venue effect: ", model$mu.coefSmo[[1]]$sigb, "\n")
+  cat("sigma_h or std dev of heat effect: ", model$sigma.coefSmo[[1]]$sigb[1], "\n")
+}
+model_print(gg3b)
+
 # Simulation Code: only works for gg3b
 simfit <- function(model, n = 10000000) {
     set.seed(1)
