@@ -1,6 +1,6 @@
 ---
 title: "Reaction Barrier Analysis"
-author: "Owen Fiore"
+author: "Blinded"
 date: "2024-11-28"
 output: html_document
 ---
@@ -99,8 +99,8 @@ to in 1999, where a value right around 0.100 was an outlier.
 
 
 We considered many families of models, and formula structures within the
-generalized Gamma but thought that the results from the `gg3b` game strong
-results.  The first term corresponds to the $\mu$ term of the model, which is
+generalized Gamma, but found that `gg3b` gave strong results based on AIC.  
+The first term corresponds to the $\mu$ term of the model, which is
 a random effect for `Venue`. $\sigma$ contains a random effect for `Heat`.
 ```{r}
 gg3b <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat),
@@ -271,16 +271,14 @@ at as the athlete predicting the gun, but rather that they have fast reflexes.
 # Supplemental Analysis
 
 We are going to see what happens when we pool men's and women's data together.
-We sill need to separate by year but will have 3 analyses instead of 6.  As a
+We still need to separate by year but will have 3 analyses instead of 6.  As a
 result of the larger data set we are going to run the permutation tests at a
-size of $n = 100,000$ rather than $n = 1,000,000$ as the code takes several
+size of $B = 100,000$ rather than $B = 1,000,000$ as the code takes several
 hours to run otherwise.  The asymptotic results are all highly statistically
 significant, and with the larger data sets, the results from the asymptotic
 tests should be of higher quality.
 
 ### 2019 vs 2022
-
-Need to talk about results after running code
 
 Data setup
 ```{r}
@@ -365,7 +363,7 @@ By pooling together all events within the year comparison, we find highly
 significant results, suggesting that on average, the athletes who competed in
 2022 had faster reaction times.
 
-### Women's Gamlss
+### Women's GAMLSS
 We decided to separate women's results after numerous papers suggested that
 men and women have differing reaction times, but we still thought it was important
 to investigate what an appropriate reaction time barrier was for women.  The
@@ -489,7 +487,7 @@ Let us see how we did with residuals
 ```{r}
 qq_conf_plot(resid(gg3b_nodq))
 ```
-The standardized residual plot looks quite strong.  We are now ready to simulate
+The standardized residual plot looks quite good.  We are now ready to simulate
 to examine how extreme certain reaction times are.
 
 ```{r}

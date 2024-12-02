@@ -106,11 +106,12 @@ there were 258 RTs from 65 athletes and the asymptotic
 test result was a p-value of $3.56 \cdot 10^{-8}$. 
 For the 2023 versus 2022 comparison, there were 343 RTs
 from 92 athletes and the asymptotic test result was a p-value of
-$4.99 \cdot 10^{-12}$.  As a result of the larger sample sizes, the code was
-very computationally expensive to run and thus we ran it on a smaller size.  All
+$4.99 \cdot 10^{-12}$.  As a result of the larger sample sizes, the 
+permutation-based tests were very computationally expensive to run and so we 
+used a smaller number of permutations ($100,000$ instead of $1,000,000$).  All
 three permutation tests had a p-value of $1 \cdot 10^{-5}$, which is the smallest
-possible value given the permutation test size of $100,000$.  When taken together
-with the asymptotic results, the message becomes very clear. These are all
+possible value given $100,000$ permutations.  When taken together
+with the asymptotic results, the message is very clear. These are all
 highly significant test results that show substantial differences in average RT
 for athletes competing at multiple championship-level competitions.
 
@@ -236,10 +237,9 @@ drug tests and lane violations.
 
 Nonetheless, in this section,
 we exclude all disqualified RTs to see their effect on the probability of an
-extreme RT. We fit an identical model to the generalized Gamma model
-presented in Section 3.2.  As in Section 3.2, we considered data from men's dash and
-hurdles and include 2022 in our analysis to try and determine how sensitive
-our model is to the inclusion/exclusion of these times.
+extreme RT. We otherwise fit an identical generalized Gamma model to the men's 
+dash and hurdles RT data (including 2022), as presented in Section 3.2,
+to determine how sensitive our model is to the inclusion/exclusion of these times.
 
 
 \begin{table}
@@ -263,7 +263,7 @@ our model is to the inclusion/exclusion of these times.
 Table~\ref{tab:DQSim_probability} shows the effect of removing disqualified (DQ)
 times from the analysis.  The probability of observing extreme RTs is lower when
 we remove the 17 observations.  While the probability of observing an extreme
-RT is less when we remove disqualified athletes, many of the 
+RT is less when we remove the RTs of disqualified athletes, many of the 
 conclusions remain the same: the current standards for disqualification are not
 grounded in statistical analysis, and there appear to be unequal standards for men
 and women.

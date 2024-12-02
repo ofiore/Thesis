@@ -1,6 +1,6 @@
-# GLMM
+# GAMLSS
 ## Relevant Files
-+ GLMMData.csv: contains men's 110 meter hurdles data from 1999 to 2023, women's
++ rxntime.csv: contains men's 110 meter hurdles data from 1999 to 2023, women's
 100 meter hurdle data from 2001 to 2023, men's 100 meter dash data from 1999 to
 2023, women's 100 meter dash data from 1999 to 2023, and men's 200 meter dash
 data from 1999 to 2023 (not used in analysis).
