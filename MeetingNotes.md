@@ -1,3 +1,17 @@
+# Meeting Notes 2/13
++ make reply2 with comments and how we addressed them
++ Instead of table, section 2 will be problem 1 section 3 will be problem 2. 
+Within each do data, methods, results
++ discussion section talks about limitations and will go at very end
++ intro, problem 1, problem 2, discussion
++ section 2 and 3 should have better names and should be specific to the problems
+they address. Sec 2 is whether 2022 is faster, sec 3 is whether 0.1 is fair
++ clean up male/female/women/men talk to make it consistent
++ re-org will help make table 2 more understandable
++ Thank reviewer for seasonality age and then we need to write about it in
+discussion 1-2 paragraphs
+
+
 # Meeting Notes 11/26
 + Keep womens gamlss in supplement and include men's in main
 + womens analysis is not as good. residual plot shows one that is really small
