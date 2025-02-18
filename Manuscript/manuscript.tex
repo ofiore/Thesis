@@ -214,6 +214,7 @@ statistical assessment of RT consistency and the validity of the
 current threshold.
 
 
+%Needs to be looked at
 The rest of this paper is organized as follows. Section~\ref{sec:Data}
 describes the data collection and datasets used for the two
 objectives. Section~\ref{sec:rank} outlines the rank-based comparison
@@ -228,11 +229,22 @@ paper’s impact, limitations, and potential for future research.
 All data and code for our analysis are provided in the Supplementary
 Materials.
 
+\section{Analysis of the 2022 World Championships RTs}
 
+\subsection{Data}
+\label{sec:data_2022}
 
-\section{Data}
-\label{sec:Data}
-
+To investigate whether RTs at the 2022 World Championships
+were significantly different from other competitions, we
+used data from male athletes in the 110-meter hurdles and 100-meter
+dash, and female athletes in the 100-meter hurdles and 100-meter dash,
+provided they competed in the 2022 World Championships and at least
+one other competition (2022 national championships, 2019 World
+Championships, or 2023 World Championships).  We excluded data from
+200-meter dashes and longer events, as their RTs were found
+to be significantly different. Negative RTs were excluded from the analysis,
+while positive disqualified RTs were included due to their low frequency and not
+being obvious outliers.
 
 This study focuses on RTs from sprint events where reaction
 time plays a critical role. Specifically, we included data from men’s
@@ -242,7 +254,7 @@ differences in RTs between these events, supporting their
 inclusion in a unified analysis. However, we excluded data from
 200-meter dashes and longer events, as their RTs were found
 to be significantly different. This difference is not unexpected, as
-RT is generally less critical in longer sprint events
+RTs are generally less critical in longer sprint events
 compared to shorter distances where explosive starts are paramount.
 Negative RTs were excluded from the analysis, while positive
 disqualified RTs were included due to their low frequency and not
@@ -250,25 +262,6 @@ being obvious outliers. % A
 % sensitivity analysis regarding the inclusion of positive disqualified
 % RTs is provided in the Supplementary Material.
 
-
-Two datasets were used to address the study's objectives. To
-investigate whether RTs at the 2022 World Championships
-were significantly different from other competitions (Objective 1), we
-used data from male athletes in the 110-meter hurdles and 100-meter
-dash, and female athletes in the 100-meter hurdles and 100-meter dash,
-provided they competed in the 2022 World Championships and at least
-one other competition (2022 national championships, 2019 World
-Championships, or 2023 World Championships). To assess the
-appropriateness of the 0.1-second RT threshold (Objective
-2), we used RTs from the 110-meter hurdles and 100-meter
-dash across all World Championships held from 1999 to 2023. This
-investigation began shortly after the 2022 World Championships, and we
-were pleased that including data from 2023 did not significantly
-alter our results \citep{WAData}.
-
-
-\subsection{Comparison Data with 2022 World Championships}
-\label{sec:databeyond}
 
 
 
@@ -373,73 +366,8 @@ difference of just 0.002 seconds, with RTs of 0.101 and
 0.099 seconds, respectively. This highlights the critical role of
 RT precision in elite-level competition.
 
-
-\subsection{Data from World Championships 1999--2023}
-\label{sec:dataworld}
-
-The data for evaluating the appropriateness of the 0.1-second
-threshold was obtained from World Athletics and covers the men's
-110-meter hurdles and 100-meter dashes from 1999 to 2023. Due to
-possible gender differences \citep{babicc2009reaction,
-  lipps2011implications}, data for women's 100-meter hurdles and
-100-meter dashes and their analyses were relegated to the
-Supplementary Material. We focus on the RTs recorded during
-semifinal and final heats only, as RTs from preliminary
-heats are often not as fast as those in later heats
-\citep[e.g.,][]{collet1999strategic, tonnessen2013reaction,
-  brosnan2017effects, zhang2021correlation}. For analysis purposes, we
-pooled RTs from semifinal and final heats to increase sample
-size, which is particularly important for years with limited final heat
-observations. For example, in 2022, only five data points were available
-from the final heat due to two disqualifications and one athlete not
-competing. Unless otherwise noted, this pooled dataset forms the basis
-for our analyses for Objective 2. Additionally, we consider datasets
-that exclude 2022 to assess how our findings might differ when excluding
-this year of interest.
-
-
-The data is summarized in Figure~\ref{fig:Boxplot}, which presents a
-sequence of boxplots of RTs from 1999 to 2023. It is evident
-that RTs in 2022 were notably faster, with a median reaction
-time of 0.129 seconds compared to the 0.156 seconds observed in earlier
-studies, such as \citet{brosnan2017effects} for data spanning 1999 to 2014.
-Figure~\ref{fig:Boxplot} also highlights year-to-year variability in
-RTs, likely influenced by changes in the championship venue
-and environmental conditions such as humidity, precipitation, and
-elevation. Furthermore, advancements in technology and alterations to
-false start rules during the study period may have played a role in these
-variations \citep{willwacher2013novel}.
-
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=\textwidth]{Boxplot}
-  \caption{The RTs from 1999 to 2023 for the men's 110 meter hurdle
-  and 100 meter dash.}
-  \label{fig:Boxplot}
-\end{figure}
-
-
-Between 2007 and 2009, World Athletics allowed one
-false start warning before disqualifying a sprinter \citep{iaaf2009falsestart}.
-This lenient rule led to 18 male and 7 female false starts at both the 2007
-and 2009 World Championships. In 2011, this rule was replaced with the stricter
-policy of automatic disqualification for false starts, aimed at reducing the
-delays caused by repeated warnings. This change reduced men’s false starts
-by two-thirds in 2011, with only six male and four female disqualifications
-\citep{iaaf2009falsestart}. \citet{haugen2013effect} demonstrated that more
-lenient false start rules significantly improved RTs during the
-1997–2009 period, suggesting that rule changes over the study period may
-have contributed to variations in RTs across years.
-
-
-\section{Methods} \label{sec:methods}
-
-The data described in Sections~\ref{sec:databeyond} and~\ref{sec:dataworld} were
-analyzed with rank-based methods and a GAMLSS, respectively.
-
-
-\subsection{Rank-based Comparison}\label{sec:rank}
+\subsection{Methods}
+\label{sec:methods_2022}
 
 
 To test the conjecture that the 2022 World Championships timing device may have
@@ -486,7 +414,133 @@ with \texttt{method = `ds'} (for \underline{D}atta and \underline{S}atten) and
 \texttt{clusrank} \citep{jiang2020wilcoxon}.
 
 
-\subsection{GAMLSS}\label{sec:gamlss}
+\subsection{Results}
+\label{sec:results_2022}
+
+
+The rank-based methods described in Section~\ref{sec:rank} were used to
+compare RTs between the 2022 World Championships and other
+competitions in which the same athletes participated. These comparisons
+were conducted separately for men and women, resulting in six total
+comparisons: RTs from the 2022 national-level championships
+versus the 2022 World Championships for men and women, RTs
+from the 2019 versus 2022 World Championships for men and women, and
+RTs from the 2022 versus 2023 World Championships for men and
+women.
+
+
+\begin{table}
+  \centering
+  \caption{P-values of comparisons between
+    RTs from different competitions for the same athletes.
+    2022 Nat. vs Inter. compares RTs from 2022 national-level
+    championships and the 2022 World Track and Field Championships. 2019
+    vs 2022 compares RTs from the 2019 and 2022 World Track and
+    Field Championships. 2022 vs 2023 compares RTs from the
+    2022 and 2023 World Track and Field Championships.}
+  \begin{tabular}{c c c c c}
+   \toprule
+   Comparison & Permutation & Asymptotic & \# of athletes & \# RTs  \\
+   \midrule
+   2022 Nat. vs Inter. Men & $1.0 \cdot 10^{-6}$ & $ 6.1 \cdot 10^{-5}$ & 17 & 80 \\
+   2022 Nat. vs Inter. Women & $1.0 \cdot 10^{-6}$ & $ 1.2 \cdot 10^{-3}$ & 17 & 80 \\[1ex]
+   2019 vs 2022 Men & $2.8 \cdot 10^{-5}$ & $1.1 \cdot 10^{-5}$ & 34 & 134 \\
+   2019 vs 2022 Female & $ 1.5 \cdot 10^{-3}$ & $6.9 \cdot 10^{-3}$ & 31 & 124 \\[1ex]
+   2022 vs 2023 Men & $1.0 \cdot 10^{-6}$ & $1.4 \cdot 10^{-6}$ & 45 & 161 \\
+   2022 vs 2023 Female & $1.0 \cdot 10^{-6}$ & $9.4 \cdot 10^{-7}$ & 47 & 182 \\
+   \bottomrule
+  \end{tabular}
+  \label{tab:Clusrankresults}
+\end{table}
+
+
+Table~\ref{tab:Clusrankresults} presents the results from both permutation
+and asymptotic rank-based tests for the six comparisons. All tests
+yielded very small p-values, even after applying a Bonferroni
+adjustment for multiple comparisons, indicating consistent evidence of
+faster RTs at the 2022 World Championships relative to other
+competitions. For both men and women, the national versus
+international comparisons showed that RTs at the 2022 World
+Championships were significantly faster than at national-level
+competitions held earlier that year. Similarly, comparisons between
+the 2019 and 2022 World Championships and between the 2022 and 2023
+World Championships produced significant results, reinforcing the
+observation that RTs at the 2022 World Championships were notably
+faster. These findings support the hypothesis that conditions at the
+2022 World Championships, whether systematic or
+environmental, contributed to consistently faster RTs.
+
+
+We also conducted the same analysis with men’s and women’s data
+pooled, yielding similar results. Details are provided in Section~1 of
+the Supplementary Material.
+
+\section{Analysis of the 0.1 RT Barrier}
+
+\subsection{Data}
+\label{sec:data_barrier}
+
+The data for evaluating the appropriateness of the 0.1-second
+threshold was obtained from World Athletics and covers the men's
+110-meter hurdles and 100-meter dashes from 1999 to 2023. Due to
+possible gender differences \citep{babicc2009reaction,
+  lipps2011implications}, data for women's 100-meter hurdles and
+100-meter dashes and their analyses were relegated to the
+Supplementary Material. We focus on the RTs recorded during
+semifinal and final heats only, as RTs from preliminary
+heats are often not as fast as those in later heats
+\citep[e.g.,][]{collet1999strategic, tonnessen2013reaction,
+  brosnan2017effects, zhang2021correlation}. For analysis purposes, we
+pooled RTs from semifinal and final heats to increase sample
+size, which is particularly important for years with limited final heat
+observations. For example, in 2022, only five data points were available
+from the final heat due to two disqualifications and one athlete not
+competing. Unless otherwise noted, this pooled dataset forms the basis
+for our analyses for Objective 2. Additionally, we consider datasets
+that exclude 2022 to assess how our findings might differ when excluding
+this year of interest. This investigation began shortly after the 2022 World
+Championships, and we were pleased that including data from 2023 did not
+significantly alter our results \citep{WAData}.  
+
+
+The data is summarized in Figure~\ref{fig:Boxplot}, which presents a
+sequence of boxplots of RTs from 1999 to 2023. It is evident
+that RTs in 2022 were notably faster, with a median reaction
+time of 0.129 seconds compared to the 0.156 seconds observed in earlier
+studies, such as \citet{brosnan2017effects} for data spanning 1999 to 2014.
+Figure~\ref{fig:Boxplot} also highlights year-to-year variability in
+RTs, likely influenced by changes in the championship venue
+and environmental conditions such as humidity, precipitation, and
+elevation. Furthermore, advancements in technology and alterations to
+false start rules during the study period may have played a role in these
+variations \citep{willwacher2013novel}.
+
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{Boxplot}
+  \caption{The RTs from 1999 to 2023 for the men's 110 meter hurdle
+  and 100 meter dash.}
+  \label{fig:Boxplot}
+\end{figure}
+
+
+Between 2007 and 2009, World Athletics allowed one
+false start warning before disqualifying a sprinter \citep{iaaf2009falsestart}.
+This lenient rule led to 18 male and 7 female false starts at both the 2007
+and 2009 World Championships. In 2011, this rule was replaced with the stricter
+policy of automatic disqualification for false starts, aimed at reducing the
+delays caused by repeated warnings. This change reduced men’s false starts
+by two-thirds in 2011, with only six male and four female disqualifications
+\citep{iaaf2009falsestart}. \citet{haugen2013effect} demonstrated that more
+lenient false start rules significantly improved RTs during the
+1997–2009 period, suggesting that rule changes over the study period may
+have contributed to variations in RTs across years.
+
+
+\subsection{Methods}
+\label{sec:methods_barrier}
+
 
 Based on an exploratory analysis, the RTs are adequately
 modeled by a GG distribution with random effects in
@@ -561,69 +615,8 @@ disqualification barrier.
 
 
 
-\section{Results} \label{sec:Results}
-
-\subsection{Rank-based Comparison} \label{subsec:Results_Rank}
-
-The rank-based methods described in Section~\ref{sec:rank} were used to
-compare RTs between the 2022 World Championships and other
-competitions in which the same athletes participated. These comparisons
-were conducted separately for men and women, resulting in six total
-comparisons: RTs from the 2022 national-level championships
-versus the 2022 World Championships for men and women, RTs
-from the 2019 versus 2022 World Championships for men and women, and
-RTs from the 2022 versus 2023 World Championships for men and
-women.
-
-
-\begin{table}
-  \centering
-  \caption{P-values of comparisons between
-    RTs from different competitions for the same athletes.
-    2022 Nat. vs Inter. compares RTs from 2022 national-level
-    championships and the 2022 World Track and Field Championships. 2019
-    vs 2022 compares RTs from the 2019 and 2022 World Track and
-    Field Championships. 2022 vs 2023 compares RTs from the
-    2022 and 2023 World Track and Field Championships.}
-  \begin{tabular}{c c c c c}
-   \toprule
-   Comparison & Permutation & Asymptotic & \# of athletes & \# RTs  \\
-   \midrule
-   2022 Nat. vs Inter. Men & $1.0 \cdot 10^{-6}$ & $ 6.1 \cdot 10^{-5}$ & 17 & 80 \\
-   2022 Nat. vs Inter. Women & $1.0 \cdot 10^{-6}$ & $ 1.2 \cdot 10^{-3}$ & 17 & 80 \\[1ex]
-   2019 vs 2022 Men & $2.8 \cdot 10^{-5}$ & $1.1 \cdot 10^{-5}$ & 34 & 134 \\
-   2019 vs 2022 Female & $ 1.5 \cdot 10^{-3}$ & $6.9 \cdot 10^{-3}$ & 31 & 124 \\[1ex]
-   2022 vs 2023 Men & $1.0 \cdot 10^{-6}$ & $1.4 \cdot 10^{-6}$ & 45 & 161 \\
-   2022 vs 2023 Female & $1.0 \cdot 10^{-6}$ & $9.4 \cdot 10^{-7}$ & 47 & 182 \\
-   \bottomrule
-  \end{tabular}
-  \label{tab:Clusrankresults}
-\end{table}
-
-
-Table~\ref{tab:Clusrankresults} presents the results from both permutation
-and asymptotic rank-based tests for the six comparisons. All tests
-yielded very small p-values, even after applying a Bonferroni
-adjustment for multiple comparisons, indicating consistent evidence of
-faster RTs at the 2022 World Championships relative to other
-competitions. For both men and women, the national versus
-international comparisons showed that RTs at the 2022 World
-Championships were significantly faster than at national-level
-competitions held earlier that year. Similarly, comparisons between
-the 2019 and 2022 World Championships and between the 2022 and 2023
-World Championships produced significant results, reinforcing the
-observation that RTs at the 2022 World Championships were notably
-faster. These findings support the hypothesis that conditions at the
-2022 World Championships, whether systematic or
-environmental, contributed to consistently faster RTs.
-
-
-We also conducted the same analysis with men’s and women’s data
-pooled, yielding similar results. Details are provided in Section~1 of
-the Supplementary Material.
-
-
-\subsection{GAMLSS} \label{subsec:Results_GLMM}
+\subsection{Results}
+\label{sec:results_barrier}
 
 The results reported in this subsection are from men's data only
 because our investigation found significant gender difference.
