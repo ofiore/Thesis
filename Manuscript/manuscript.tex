@@ -215,21 +215,19 @@ current threshold.
 
 
 %Needs to be looked at
-The rest of this paper is organized as follows. Section~\ref{sec:Data}
-describes the data collection and datasets used for the two
-objectives. Section~\ref{sec:rank} outlines the rank-based comparison
-methods for objective~1, rank-based comparison for clustered data with
-subunit-level grouping to analyze differences in RTs across different
-competitions. Section~\ref{sec:gamlss} details the methods for
-objective~2, the GG model with random effects to evaluate the appropriatenes
-of the 0.1-second threshold. Section~\ref{sec:Results} presents the
-results of both objectives and discusses the implications.
+The rest of this paper is organized as follows. Section~\ref{sec:problem1}
+investigates RTs of athletes who competed at the 2022 World Championships to
+examine differences between other competitions.  Section~\ref{sec:problem2}
+investigates RTs of athletes from 1999 to 2023 to determine a reaction barrier
+ground in statistical analysis.  Within each of the above sections, the data,
+methods used, and the results are presented.
 Finally, Section~\ref{sec:concludingremarks} highlights the
 paper’s impact, limitations, and potential for future research.
 All data and code for our analysis are provided in the Supplementary
 Materials.
 
 \section{Analysis of the 2022 World Championships RTs}
+\label{sec:problem1}
 
 \subsection{Data}
 \label{sec:data_2022}
@@ -418,7 +416,7 @@ with \texttt{method = `ds'} (for \underline{D}atta and \underline{S}atten) and
 \label{sec:results_2022}
 
 
-The rank-based methods described in Section~\ref{sec:rank} were used to
+The rank-based methods described in Section~\ref{sec:methods_2022} were used to
 compare RTs between the 2022 World Championships and other
 competitions in which the same athletes participated. These comparisons
 were conducted separately for men and women, resulting in six total
@@ -445,9 +443,9 @@ women.
    2022 Nat. vs Inter. Men & $1.0 \cdot 10^{-6}$ & $ 6.1 \cdot 10^{-5}$ & 17 & 80 \\
    2022 Nat. vs Inter. Women & $1.0 \cdot 10^{-6}$ & $ 1.2 \cdot 10^{-3}$ & 17 & 80 \\[1ex]
    2019 vs 2022 Men & $2.8 \cdot 10^{-5}$ & $1.1 \cdot 10^{-5}$ & 34 & 134 \\
-   2019 vs 2022 Female & $ 1.5 \cdot 10^{-3}$ & $6.9 \cdot 10^{-3}$ & 31 & 124 \\[1ex]
+   2019 vs 2022 Women & $ 1.5 \cdot 10^{-3}$ & $6.9 \cdot 10^{-3}$ & 31 & 124 \\[1ex]
    2022 vs 2023 Men & $1.0 \cdot 10^{-6}$ & $1.4 \cdot 10^{-6}$ & 45 & 161 \\
-   2022 vs 2023 Female & $1.0 \cdot 10^{-6}$ & $9.4 \cdot 10^{-7}$ & 47 & 182 \\
+   2022 vs 2023 Women & $1.0 \cdot 10^{-6}$ & $9.4 \cdot 10^{-7}$ & 47 & 182 \\
    \bottomrule
   \end{tabular}
   \label{tab:Clusrankresults}
@@ -476,6 +474,7 @@ pooled, yielding similar results. Details are provided in Section~1 of
 the Supplementary Material.
 
 \section{Analysis of the 0.1 RT Barrier}
+\label{sec:problem2}
 
 \subsection{Data}
 \label{sec:data_barrier}
@@ -763,7 +762,17 @@ competed at the 2022 World Track and Field Championships faster than
 at other races, and is the 0.1-second RT barrier fair?
 Regarding the first question, our analyses suggest that athletes
 indeed had faster RTs at the 2022 World Championships compared to comparable
-meets. Ideally, a centralized database containing RTs from
+meets.  Our findings are strengthened by having multiple comparisons: athletes
+who competed in 2019 and 2022 got older over that timespan but we included an
+analysis in which athletes would have been younger in 2022 and then older in
+2023.  There are validly raised concerns that athletes who compete at their
+national level competitions in 2022 may not react at their fastest due to a less
+competitive environment or because they would try to peak for a more important
+championship.  However, the athletes who competed in 2019 and 2023 are not
+impacted by this factor, so its effect is minimzed to just one subset of a
+broader analysis.
+
+Ideally, a centralized database containing RTs from
 all World Athletics-certified meets would have allowed for a more
 comprehensive analysis. Currently, however, RTs are seldom
 included in the results available on the World Athletics website. This
