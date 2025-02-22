@@ -1,0 +1,162 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{natbib}
+\usepackage{hyperref}
+
+\usepackage{listings}
+\usepackage{rotating, graphicx}
+\graphicspath{{./}, {./image/}}
+\usepackage{booktabs, natbib}
+% \usepackage{breakurl}
+% \usepackage [english]{babel}
+\usepackage{amsmath, amsbsy, amsthm, epsfig, epsf, psfrag, graphicx,
+amssymb, enumerate}
+\usepackage{bm}
+\usepackage{multirow, multicol}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{darkblue}{rgb}{0.1, 0.2, 0.6}
+
+
+\newcommand{\jy}[1]{\textcolor{orange}{JY: #1}}
+\newcommand{\eds}[1]{\textcolor{blue}{(EDS: #1)}}
+\newcommand{\of}[1]{\textcolor{purple}{(OF: #1)}}
+
+\sloppy
+
+% \usepackage{csquotes}
+% \usepackage [autostyle, english = american]{csquotes}
+% \MakeOuterQuote{"}
+
+% \usepackage{bibentry}
+\newenvironment{comment}%
+{\begin{quotation}\noindent\small\it\color{darkblue}\ignorespaces%
+}{\end{quotation}}
+
+
+\begin{document}
+
+\begin{center}
+  {\Large\bf TAS-23-296.R1: Response to the Comments}
+\end{center}
+
+We sincerely thank the Editor and Associate Editor for tentatively accepting our
+submission and are proud to present our most recent revisions.
+
+
+The manuscript has been revised accordingly with the following most
+notable changes:
+\begin{enumerate}
+\item
+  The focus of the study has been clarified in the completely
+  rewritten introduction. The two objectives are 1) to investigate
+  whether the reaction times at the 2022 World Championships were
+  significantly different from the other competitions; and 2) to
+  assess the appropriateness of the 0.1-second threshold.
+\item
+  Additional data
+
+Point-by-point responses to the comments are as follows, with the
+comments quoted in \emph{\color{darkblue} italic and blue}.
+\end{enumerate}
+
+
+\subsection*{To Reviewer 1}
+
+\begin{comment}
+This revision is a solid improvement on the original paper exploring the
+anomalous reaction times at the 2022 World Championships and the implications of
+using 0.100 seconds as the cut off for acceptable reaction times. The updated
+paper addresses many of my original points of feedback, including, notably, data
+from more events, improving the statistical power and generalizability of the
+results. I also think the expansion of the features considered in the model is
+beneficial (although, I do think considering a Bayesian approach to the
+distribution estimation could be beneficial).
+
+However, I still believe there is room to improve the overall quality of the
+paper, both from a technical/methodological perspective and from a more general
+clarity and organization perspective.
+
+
+\end{comment}
+
+We thank the reviewer for the accurate summary of our contributions
+
+
+
+\begin{comment}
+First, I think the description of the data would benefit from an easier to
+follow organization system. Currently, headings repeat and the overall
+difference between the usage of data from the World Championships in one setting
+instead of the other is not as easily understood as it could or probably should
+be. I would recommend a more intuitive organization of this material and, if
+possible, the construction and inclusion of a table summarizing the various data
+details in each analysis. As a reader, I would like a fast way to keep track of
+the important details in each case.
+\end{comment}
+
+
+
+
+\begin{comment}
+Second, I think the results themselves would benefit from organizing around the
+question or problem being addressed instead of the method. Organizing by method
+makes it harder for your reader to connect the results to the research questions
+or prompts.
+\end{comment}
+
+Thank you for this suggestion, we have decided to re-organize our paper as a
+result. Now, the first half of the paper is dedicated to the analysis of
+athletes competing faster in 2022 and the second half is dedicated to the
+analysis of the reaction time barrier, with an introduction and discussion to
+show the connectivity of these problems.
+
+
+
+\begin{comment}
+Third, I think the manuscript as a whole needs some general editing and cleaning
+up before publication. For example, there are discrepancies in the language used
+in some of the tables - in Table 1 the groups are labeled both "Men/Women" and
+"Men/Female" when consistency would be helpful for the readers. Similarly, Table
+2 uses the model notation to as column headers, making it hard to quickly assess
+what it is communicating. A stronger organizational approach could also help the
+overall clarity of the article.
+\end{comment}
+
+
+
+
+
+\begin{comment}
+Finally, I think it is important that the article consider the possible causes
+of differences between the competitions that are not accounted for in the
+matched-pairs design. As I understand the approach, the analysis does not
+account for two important potential sources of change in the reaction times::
+seasonality and age. Seasonality could come into play if athletes' reaction
+times improve as they attempt to peak in their season (likely at the highest
+level competition they will participate in). If athletes expect to compete at
+the World Championships, they might not be as fit or prepared at their national
+championships and produce slower reaction times. Similarly, age could lead to
+differences in an athletes' reaction times as older athletes will react slower
+than younger athletes. While it would be great to see these features accounted
+for directly, I think at a minimum they and their likely influences on the
+results, should be discussed in the overall limitations of the analysis.
+\end{comment}
+
+
+
+\begin{comment}
+Altogether, I think the technical work here is solid and shows that the reaction
+times at the 2022 World Championships were identifiably faster than at other
+major competitions and that 0.100 threshold for acceptable reaction times is
+likely too conservative of a standard given athletes' natural abilities. The
+largest areas of need are mainly in the organization and overall clarity of the
+paper.
+\end{comment}
+
+
+
+
+\bibliographystyle{apalike}
+\bibliography{citations}
+\end{document}

@@ -1,3 +1,60 @@
+# Meeting Notes 2/13
++ make reply2 with comments and how we addressed them
++ Instead of table, section 2 will be problem 1 section 3 will be problem 2. 
+Within each do data, methods, results
++ discussion section talks about limitations and will go at very end
++ intro, problem 1, problem 2, discussion
++ section 2 and 3 should have better names and should be specific to the problems
+they address. Sec 2 is whether 2022 is faster, sec 3 is whether 0.1 is fair
++ clean up male/female/women/men talk to make it consistent
++ re-org will help make table 2 more understandable
++ Thank reviewer for seasonality age and then we need to write about it in
+discussion 1-2 paragraphs
+
+
+# Meeting Notes 11/26
++ Keep womens gamlss in supplement and include men's in main
++ womens analysis is not as good. residual plot shows one that is really small
++ upper part of womens residual is not too good
++ Can include both effects in mu and both in sigma
++ Look for best womens model, look in gg family, look at gg4 (both random effects)
++ Try seperate dash and hurdles for women
++ try mu.step and sigma.step
++ gender is significant when event is included
++ Just look at summary() not log likelihood
++ pooled analysis gives justification of separation in main paper
++ See if we need to remove outlier for womens
++ Instead of 1 million run 100,000 or smaller number for pooled analysis
++ Use Rmd with sections with names and lots of text. Discuss results
++ Keep code clean
+
+
+
+# Phone Call 11/22
++ make data and model names shorter and more readable
++ retest whether we can pool hurdles and dash using the gg model
++ Put event parameter in mu
++ scale residual plot so its 1:1 and put side by side with density plot
++ repeat analysis for with/without dq
++ gamlss.R is for other models, gg.R is just for gg3b model
+
+
+
+# Meeting Notes 11/7
++ 1st paragraph is too long
++ Present 2022 GLMM analysis and womena analysis
++ Put womens results in supplement (which goes online)
+Can say stuff like the supplmentary file contains ...
++ dont include dq analysis in paper or supplement, send only to reviewer
++ Sep rank analysis by gender and pool by event so that we have 3 mens and 3
+womens analysis and make the corresponding graph (3 rows 2 cols facet wrap by
+gender. First col is men and second col is women)
++ Include quantitative analysis for revierwer 1 about 200m dash, can just refer
+to comments to reviewer 2.
++ Make paragraphs smaller
++ code can be one document and just explain that it the next chunk is for supplement
++ extract ranef and then do qqplot of those
+
 # Meeting NOtes 7/11
 + Ok to pool but use only 2 effects
 + Put womens glmm data in supplement/discussion section but keep it relevant.
