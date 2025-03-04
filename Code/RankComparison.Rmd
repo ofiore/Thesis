@@ -1,123 +1,219 @@
 ---
 title: "Rank Comparison"
 author: "Blinded"
-date: "2023-12-01"
+date: "2024-11-29"
 output: pdf_document
 ---
 
-The code below reads in the data comparing the 2022 National Competitions to the
-2022 World Championships.
-```{r}
-national <- read.csv("../Data/ClusrankNatvsWorld.csv")
-colnames(national) <- c("Time", "Athlete", "Stage")
-```
 
+# Overview
+This analysis consists of six comparisons of times comparing athletes who
+competed at the 2022 World Championships and another major event. The six
+analyses are listed below. Men's data contains values from athletes who competed
+in either the men's 110 meter hurdles or 100 meter dash at championship level
+events. Women's data contains values from athletes who competed
+in either the women's 100 meter hurdles or 100 meter dash at championship level
+events.
 
-The code below performs two clustered Wilcox tests, the first one without using
++ 2019 and 2022 World Championships men's data
++ 2019 and 2022 World Championships women's data
++ 2022 national championships and 2022 World Championships men's data
++ 2022 national championships and 2022 World Championships women's data
++ 2023 and 2022 World Championships men's data
++ 2023 and 2022 World Championships women's data
+
+In each comparison we will first read in the data
+and then perform two clustered Wilcox tests, the first one without using
 exact = TRUE, and the second one with exact = TRUE and 1,000,000 random
 permutations. The tests compare the times and group by the Stage of the
-competition, which in the data is coded as 1 if it was a national championship
-and 2 if it was the world championships. The tests cluster by athlete, of which
-for each dataset an integer from 1-11 is used (the values are arbitrary).
+competition, and cluster by athlete.  An explanation of the features of each
+data is below.
+
++ `Time` is the athlete's reaction time
++ `Athlete` is an arbitrary integer assigned to each athlete.  Each value is
+unique within each data set.
++ `Year` is coded as 1 if it took place during the 2022 World Championship and
+0 otherwise.
++ `Event` is coded as 0 for a hurdles event and 1 as a dash event, although this
+has no impact on the analysis.
+
+
 For more information about the "ds" method, please look at the Rank-based
 Comparison subsection of the Methods section of the paper or
-[at this link here](https://www.jstatsoft.org/article/view/v096i06.)  
+[at this link here.](https://www.tandfonline.com/doi/abs/10.1198/016214504000001583)  
+
+
+
+# 2019 versus 2022
+
+First we will look compare the reaction times from athletes who competed in both
+the 2019 and 2022 World Track and Field Championship.
+
+### Men's Data
+
+First we read in the data from the appropriate source.
+
+```{r}
+men_2019 <- read.csv("../Data/Clusrank2019vs2022.csv")
+colnames(men_2019) <- c("Time", "Athlete", "Year", "Event")
+```
+
+Then we perform the clustered Wilcox tests.
 
 ```{r}
 set.seed(1)
 library(clusrank)
-clusWilcox.test(Time, group=Stage, cluster = Athlete, data = national,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2019,
                 method = "ds")
 
-clusWilcox.test(Time, group=Stage, cluster = Athlete, data = national,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2019,
                 method = "ds",
                 exact = TRUE, B = 1000000)
 ```
+The p-value from the asymptomatic test was $1.126 \cdot 10^{-5}$ and the p-value
+from the permutation test was $2.8 \cdot 10 ^ {-5}$. Both of these are
+statistically significant results showing a difference in male athletes who
+competed in 2019 and 2022.
 
-The code below reads in the data comparing the 2019 and 2022 World Championships.
+### Women's Data
+
+First we read in the data from the appropriate source.
+
 ```{r}
-old_clusrank <- read.csv("../Data/Clusrank2019vs2022.csv")
-colnames(old_clusrank) <- c("Time", "Athlete", "Year")
+women_2019 <- read.csv("../Data/Clusrank2019vs2022Womens.csv")
+colnames(women_2019) <- c("Time", "Athlete", "Year", "Event")
 ```
 
+Then we perform the clustered Wilcox tests.
 
-The tests below are very similar to the ones above, the only difference being
-grouping by Year instead of Stage (0 if 2019 and 1 if 2022).
 ```{r}
 set.seed(1)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = old_clusrank,
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2019,
                 method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = old_clusrank,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2019,
                 method = "ds",
                 exact = TRUE, B = 1000000)
 ```
+The p-value from the asymptomatic test was $6.9 \cdot 10^{-3}$ and the p-value
+from the permutation test was $1.5 \cdot 10^{-3}$. Both of these are
+statistically significant results showing a difference in female athletes who
+competed in 2019 and 2022.
 
+# 2022 National versus World
+Now we will look compare the reaction times from athletes at their 2022 national
+track and field championships with the 2022 World Championships.
 
-The code below reads in data comparing the 2022 and 2023 World Championships
+### Men's Data
+
+First we read in the data from the appropriate source.
+
 ```{r}
-new_clusrank <- read.csv("../Data/Clusrank2022vs2023.csv")
-colnames(new_clusrank) <- c("Time", "Athlete", "Year")
+men_2022 <- read.csv("../Data/ClusrankNatvsWorld.csv")
+colnames(men_2022) <- c("Time", "Athlete", "Year", "Event")
 ```
 
+Then we perform the clustered Wilcox tests.
 
-The tests below are very similar to the ones above, the only difference being
-grouping by Year (0 if 2022 and 1 if 2023).
 ```{r}
 set.seed(1)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = new_clusrank,
+library(clusrank)
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2022,
                 method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = new_clusrank,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2022,
                 method = "ds",
                 exact = TRUE, B = 1000000)
 ```
 
-Now we test the womens 2022 vs 2023
+The p-value from the asymptomatic test was $6.1 \cdot 10^{-5}$ and the p-value
+from the permutation test was $1.0 \cdot 10^{-6}$. Both of these are
+statistically significant results showing a difference in male athletes who
+competed at various competitions in 2022.
+
+### Women's Data
+
+First we read in the data from the appropriate source.
+
 ```{r}
-womens <- read.csv("../Data/Clusrank2022vs2023Womens.csv")
-colnames(womens) <- c("Time", "Athlete", "Year")
+women_2022 <- read.csv("../Data/ClusrankNatvsWorldWomens.csv")
+colnames(women_2022) <- c("Time", "Athlete", "Year", "Event")
 ```
 
-The tests below are very similar to the ones above, the only difference being
-grouping by Year (0 if 2022 and 1 if 2023).
+Then we perform the clustered Wilcox tests.
+
 ```{r}
+set.seed(1)
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = womens,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2022,
                 method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = womens,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2022,
                 method = "ds",
-                exact = TRUE, B = 500000)
+                exact = TRUE, B = 1000000)
+```
+The p-value from the asymptomatic test was $1.2 \cdot 10^{-3}$ and the p-value
+from the permutation test was $1.0 \cdot 10^{-6}$. Both of these are
+statistically significant results showing a difference in female athletes who
+competed at various competitions in 2022.
+
+# 2022 versus 2023
+
+Lastly we will look compare the reaction times from athletes who competed in both
+the 2022 and 2023 World Track and Field Championship.
+
+### Men's Data
+
+First we read in the data from the appropriate source.
+
+```{r}
+men_2023 <- read.csv("../Data/Clusrank2022vs2023.csv")
+colnames(men_2023) <- c("Time", "Athlete", "Year", "Event")
 ```
 
-Now we test for the men's dash
-```{r}
-dash <- read.csv("../Data/Clusrank2022vs2023Dash.csv")
-colnames(dash) <- c("Time", "Athlete", "Year")
-```
+Then we perform the clustered Wilcox tests.
 
 ```{r}
+set.seed(1)
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = dash,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2023,
                 method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = dash,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = men_2023,
                 method = "ds",
-                exact = TRUE, B = 500000)
-```
-```{r}
-women_dash <- read.csv("../Data/Clusrank2022vs2023WomensDash.csv")
-colnames(women_dash) <- c("Time", "Athlete", "Year")
+                exact = TRUE, B = 1000000)
 ```
 
+The p-value from the asymptomatic test was $1.4 \cdot 10^{-6}$ and the p-value
+from the permutation test was $2.8 \cdot 10 ^ {-5}$. Both of these are
+statistically significant results showing a difference in male athletes who
+competed in 2022 and 2023.
+
+### Women's Data
+
+First we read in the data from the appropriate source.
+
 ```{r}
+women_2023 <- read.csv("../Data/Clusrank2022vs2023Womens.csv")
+colnames(women_2023) <- c("Time", "Athlete", "Year", "Event")
+```
+
+Then we perform the clustered Wilcox tests.
+
+```{r}
+set.seed(1)
 library(clusrank)
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_dash,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2023,
                 method = "ds")
 
-clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_dash,
+clusWilcox.test(Time, group=Year, cluster = Athlete, data = women_2023,
                 method = "ds",
-                exact = TRUE, B = 500000)
+                exact = TRUE, B = 1000000)
 ```
+
+The p-value from the asymptomatic test was $9.4 \cdot 10^{-7}$ and the p-value
+from the permutation test was $1.5 \cdot 10^{-3}$. Both of these are
+statistically significant results showing a difference in female athletes who
+competed in 2019 and 2022.
 

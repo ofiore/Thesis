@@ -1,3 +1,4 @@
+code/*_files/
 data/
 R/
 reference/
@@ -42,6 +43,7 @@ babel/
 # compiled object
 *.o
 *.so
+**.pdf
 
 # temp files
 .DS_Store

@@ -1,0 +1,184 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{natbib}
+\usepackage{hyperref}
+
+\usepackage{listings}
+\usepackage{rotating, graphicx}
+\graphicspath{{./}, {./image/}}
+\usepackage{booktabs, natbib}
+% \usepackage{breakurl}
+% \usepackage [english]{babel}
+\usepackage{amsmath, amsbsy, amsthm, epsfig, epsf, psfrag, graphicx,
+amssymb, enumerate}
+\usepackage{bm}
+\usepackage{multirow, multicol}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{darkblue}{rgb}{0.1, 0.2, 0.6}
+
+
+\newcommand{\jy}[1]{\textcolor{orange}{JY: #1}}
+\newcommand{\eds}[1]{\textcolor{blue}{(EDS: #1)}}
+\newcommand{\of}[1]{\textcolor{purple}{(OF: #1)}}
+
+\sloppy
+
+% \usepackage{csquotes}
+% \usepackage [autostyle, english = american]{csquotes}
+% \MakeOuterQuote{"}
+
+% \usepackage{bibentry}
+\newenvironment{comment}%
+{\begin{quotation}\noindent\small\it\color{darkblue}\ignorespaces%
+}{\end{quotation}}
+
+
+\begin{document}
+
+\begin{center}
+  {\Large\bf TAS-23-296.R1: Response to the Comments}
+\end{center}
+
+We sincerely thank the Editor for tentatively accepting our submission
+and Reviewer~1 for the additional suggestions. We are pleased to
+present our final revisions.
+
+
+The manuscript has been revised as follows, with the most notable
+changes being:
+\begin{enumerate}
+\item
+  Restructuring: The manuscript is now organized into four
+  sections: Introduction, Analysis of 2022 Times, Analysis of a Proper
+  RT Barrier, and Discussion. The second and third sections
+  further include subsections for Data, Methods, and Results to
+  enhance clarity and readability.
+\item
+  General Refinements: The manuscript has been carefully revised to
+  improve clarity, coherence, and overall presentation.
+\end{enumerate}
+
+Point-by-point responses to the comments are as follows, with the
+original comments quoted in \emph{\color{darkblue} italic blue}.
+
+
+\subsection*{To Reviewer 1}
+
+\begin{comment}
+This revision is a solid improvement on the original paper exploring the
+anomalous reaction times at the 2022 World Championships and the implications of
+using 0.100 seconds as the cut off for acceptable reaction times. The updated
+paper addresses many of my original points of feedback, including, notably, data
+from more events, improving the statistical power and generalizability of the
+results. I also think the expansion of the features considered in the model is
+beneficial (although, I do think considering a Bayesian approach to the
+distribution estimation could be beneficial).
+
+However, I still believe there is room to improve the overall quality of the
+paper, both from a technical/methodological perspective and from a more general
+clarity and organization perspective.
+
+
+\end{comment}
+
+Thank you for the thoughtful feedback and for recognizing the
+improvements in our revision. The remaining points are well taken, and
+we address them below.
+
+\begin{comment}
+First, I think the description of the data would benefit from an easier to
+follow organization system. Currently, headings repeat and the overall
+difference between the usage of data from the World Championships in one setting
+instead of the other is not as easily understood as it could or probably should
+be. I would recommend a more intuitive organization of this material and, if
+possible, the construction and inclusion of a table summarizing the various data
+details in each analysis. As a reader, I would like a fast way to keep track of
+the important details in each case.
+\end{comment}
+
+Distinguishing between the datasets used in each section was a valid
+concern. To improve clarity, the paper has been restructured so that
+each problem’s data, methods, and results appear consecutively, making
+it easier to follow. The dataset for the 2022 analysis is now
+described in the second paragraph of Section~2.1.1, while the dataset
+for the RT barrier analysis is introduced in the first paragraph of
+Section~3.1.
+
+
+\begin{comment}
+Second, I think the results themselves would benefit from organizing around the
+question or problem being addressed instead of the method. Organizing by method
+makes it harder for your reader to connect the results to the research questions
+or prompts.
+\end{comment}
+
+This was an excellent suggestion, and we appreciate the insight. To
+improve clarity and better align the results with the research
+questions, the paper has been reorganized. Section~2 now focuses
+on whether athletes competed faster in 2022, while Section~3
+examines the RT barrier. The Introduction and Discussion
+sections provide context and highlight the connection between these
+two analyses.
+
+
+\begin{comment}
+Third, I think the manuscript as a whole needs some general editing and cleaning
+up before publication. For example, there are discrepancies in the language used
+in some of the tables - in Table 1 the groups are labeled both "Men/Women" and
+"Men/Female" when consistency would be helpful for the readers. Similarly, Table
+2 uses the model notation to as column headers, making it hard to quickly assess
+what it is communicating. A stronger organizational approach could also help the
+overall clarity of the article.
+\end{comment}
+
+The manuscript has been further refined for clarity and
+consistency. The language in Table~1 is now uniform. With the
+restructuring, the definitions of the symbols in Table~2 are now
+included within the same section, making them easier to connect.
+
+\begin{comment}
+Finally, I think it is important that the article consider the possible causes
+of differences between the competitions that are not accounted for in the
+matched-pairs design. As I understand the approach, the analysis does not
+account for two important potential sources of change in the reaction times::
+seasonality and age. Seasonality could come into play if athletes' reaction
+times improve as they attempt to peak in their season (likely at the highest
+level competition they will participate in). If athletes expect to compete at
+the World Championships, they might not be as fit or prepared at their national
+championships and produce slower reaction times. Similarly, age could lead to
+differences in an athletes' reaction times as older athletes will react slower
+than younger athletes. While it would be great to see these features accounted
+for directly, I think at a minimum they and their likely influences on the
+results, should be discussed in the overall limitations of the analysis.
+\end{comment}
+
+We appreciate this thoughtful comment and have addressed it in the
+discussion section. The revised text clarifies that comparisons across
+multiple years (2019, 2022, and 2023) help mitigate the effects of
+seasonality and age, as athletes contribute to different pairings
+across years. Additionally, while seasonal peaking may influence RTs
+at national competitions, the inclusion of both national and
+international events provides a broader competitive context, reducing
+the likelihood that seasonality alone explains the observed
+differences. This clarification has been added to the first paragraph
+of the discussion.
+
+\begin{comment}
+Altogether, I think the technical work here is solid and shows that the reaction
+times at the 2022 World Championships were identifiably faster than at other
+major competitions and that 0.100 threshold for acceptable reaction times is
+likely too conservative of a standard given athletes' natural abilities. The
+largest areas of need are mainly in the organization and overall clarity of the
+paper.
+\end{comment}
+
+We are delighted that the technical work
+is recognized as solid. The revisions have focused on improving the
+organization and clarity of the paper to better communicate the key
+findings.
+
+
+% \bibliographystyle{apalike}
+% \bibliography{citations}
+\end{document}

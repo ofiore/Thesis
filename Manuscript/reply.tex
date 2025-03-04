@@ -9,17 +9,18 @@
 \usepackage{booktabs, natbib}
 % \usepackage{breakurl}
 % \usepackage [english]{babel}
-\usepackage{amsmath, amsbsy, amsthm, epsfig, epsf, psfrag, graphicx, 
+\usepackage{amsmath, amsbsy, amsthm, epsfig, epsf, psfrag, graphicx,
 amssymb, enumerate}
 \usepackage{bm}
 \usepackage{multirow, multicol}
 
-\usepackage[dvipsnames]{color}
+\usepackage[dvipsnames]{xcolor}
 \definecolor{darkblue}{rgb}{0.1, 0.2, 0.6}
 
-\newcommand{\jy}[1]{\textcolor{red}{JY: #1}}
+
+\newcommand{\jy}[1]{\textcolor{orange}{JY: #1}}
 \newcommand{\eds}[1]{\textcolor{blue}{(EDS: #1)}}
-\newcommand{\mc}[1]{\textcolor{green}{(MC: #1)}}
+\newcommand{\of}[1]{\textcolor{purple}{(OF: #1)}}
 
 \sloppy
 
@@ -36,28 +37,74 @@ amssymb, enumerate}
 \begin{document}
 
 \begin{center}
-  {\Large\bf Response to the Comments}
+  {\Large\bf TAS-23-296: Response to the Comments}
 \end{center}
 
-We extend our gratitude to the Editor and Associate Editor for 
-granting us the opportunity to revise this manuscript. We also want to
-express our appreciation to the reviewer for their valuable comments. 
+We sincerely thank the Editor and Associate Editor for the opportunity
+to revise our manuscript. The insightful comments and constructive
+feedback from the reviewers have greatly enhanced the quality of this
+work, and we are deeply grateful for their efforts.
 
 
-The manuscript has been revised accordingly with the most notable change being 
-the addition of Section 5 (Classroom Implementation). We believe this revision 
-has enhanced the both the quality and utility of this paper.
-
+The manuscript has been revised accordingly with the following most
+notable changes:
+\begin{enumerate}
+\item
+  The focus of the study has been clarified in the completely
+  rewritten introduction. The two objectives are 1) to investigate
+  whether the reaction times at the 2022 World Championships were
+  significantly different from the other competitions; and 2) to
+  assess the appropriateness of the 0.1-second threshold.
+\item
+  Additional data (reaction times from the 100-meter dash) have been
+  added to the analysis for both objectives to expand the scope of the
+  analysis and derive better insights.
+\item
+  In the assessment of the 0.1-second threshold, the Gamma GLMM has
+  been replaced with a generalized Gamma distributions in the flexible
+  framework of Generalized Additive Models for Location, Scale, and
+  Shape (GAMLSS) \citep{stasinopoulos2024generalized}, with random
+  effects of venue and heat in two of its parameters, respectively.
+  The new model provides an adequate fit to the data, as confirmed by
+  diagnostic checks.
+\item
+  Given the expanded dataset and change to GAMLSS, the corresponding
+  sections of the paper, including data preparation, methods, results,
+  and discussions have all been rewritten at large.
+\end{enumerate}
 
 Point-by-point responses to the comments are as follows, with the
 comments quoted in \emph{\color{darkblue} italic and blue}.
 
 
-\subsection*{To Reviewer}
-
+\subsection*{To Associate Editor}
 
 \begin{comment}
-To address the first point, the paper relies on descriptive statistics, ranked
+I encourage you to consider the issues raised by the reviewers carefully. I have
+little additional material to add, other than to emphasize the need to
+re-organize the manuscript to more clearly identify the key goals of the work at
+the start, and to provide a more concise and focused presentation of the key
+findings.
+\end{comment}
+
+
+Thank you for your feedback. As detailed in the summary of notable changes,
+we have thoroughly addressed the reviewers' comments and restructured the
+manuscript to clearly identify its key goals and present the main findings
+concisely. We appreciate your time and consideration in re-evaluating our
+submission.
+
+\subsection*{To Reviewer 1}
+
+\begin{comment}
+Using Devon Allen's disqualification at the 2022 World Track and Field
+championships as a hook, this paper poses two questions. First, were reaction
+times at the 2022 World Track and Field Championships faster than they had been
+earlier in 2022 national-level competitions, the 2019 World Track and Field
+Championships, and the 2023 World Track and Field Championships? Second, based
+on modeled reaction times, is the current standard of a 0.1 second threshold
+for reaction times before disqualification too conservative? To
+address the first point, the paper relies on descriptive statistics, ranked
 tests, and the results of a set of GLMMs. The descriptive data analysis lends
 credence to the authors' argument that the reaction times at the 2022 World
 Championships was faster than at any of the relevant comparisons. The rank test
@@ -72,8 +119,13 @@ times below a set of thresholds. I think it does a good job of contextualizing
 these in terms of the number of races per an occurrence.
 \end{comment}
 
-
-Thank you for these encouraging comments.  
+We thank the reviewer for the accurate summary of our contributions
+and for the encouraging feedback. As part of our revisions, we have
+expanded the analysis to include reaction times from the 100-meter
+dash. Additionally, we replaced the gamma GLMM with a generalized
+Gamma distribution in the flexible framework of GAMLSS,  featuring
+random effects in its parameters, which provides an improved and
+adequate fit to the data.
 
 
 \begin{comment}
@@ -94,17 +146,42 @@ and improve the generalizability of the conclusions.
 \end{comment}
 
 
-One of the reasons why we did not include data from other sprinting evetns is
-because we wanted to ground the article in Devon Allen's story and to be about
-the hurdles events.  Athletes who compete in the longer events such as 400 meters
-may not have as good of a start as those in the 100 meter events because reaction
-time plays a much smaller role in the outcome of the race. While it is common
-for amateur and collegiate athletes to compete in multiple sprinting events, it
-seems reasonable that a world championship 100 meter runner may be only a top 20
-200 meter runner.  We are trying to estimate the probabilty of observing a extreme
-reaction time to determine whether 0.1 seconds is fair but if we include data
-from competitions with slower reaction times, then 0.1 seconds is going to be
-more extreme.
+Thank you for the valuable suggestions. In response, we expanded our
+analysis to include reaction time data from both men and women's
+100-meter dashes. A generalized gamma model fit to these data showed
+no significant differences in reaction times by event type.
+
+
+We also explored adding data from the 200-meter dash. However, a
+generalized gamma model fit to the expanded dataset that included the
+200-meter event revealed a significant effect of event type. Tukey’s
+Honest Significant Difference (HSD) test found a p-value of 0.00179 for
+the 200-meter dash compared to the 110-meter hurdles, and a p-value of
+0.00007 for the 100-meter dash compared to the 200-meter dash.
+These results indicate that reaction times in the 200-meter dash are
+significantly slower. Consequently, we excluded the 200-meter event
+from the main analysis, as its systematic differences in reaction
+times could bias conclusions about extreme reaction times and the
+appropriateness of the 0.1-second threshold.
+
+
+The observed differences in reaction times between events are not
+unexpected. Athletes competing in longer sprints, such as the
+200-meter dash, may place less emphasis on reaction time compared to
+those in shorter sprints like the 100-meter dash. Elite athletes at
+the World Championship level often specialize in specific distances,
+and performance across events may vary. Including data from events
+with systematically slower reaction times would inflate the extremity
+of a 0.1-second reaction time, potentially skewing the results of our
+study, which focuses on the likelihood of extreme reaction times
+relative to this threshold.
+
+
+In the revision, we have added explanation about why 100-meter dash
+data for both men and women were included, while 200-meter dash data
+were not included in our analysis in the opening paragraph of Section~2.
+The subsequent analyses in the manuscript have been updated with the
+expanded datasets.
 
 
 \begin{comment}
@@ -120,13 +197,32 @@ or not and are potentially correlated with year and race type, biasing the
 results. Accounting for these additional features (in addition to expanding the
 analysis) should help clarify if there was a specific difference attributable to
 2022.
-\end{comment} 
+\end{comment}
 
 
-The heat effect measures the speed-level of the heat.  We added some additional
-explanations to make it clear what the venue and heat effect refer to. We did
-not want to call it a "race effect" as we were worried that may be interpreted
-to mean the race of the athlete.
+Thank you for this thoughtful suggestion. We apologize for any
+confusion regarding the heat effect. In our model, the heat effect
+captures the speed-level of the heat rather than the type of heat
+(e.g., preliminary vs. final). To clarify this, we have added
+additional explanations Section~3.2 (after Equation (3)) to
+explicitly define the venue and heat effects. We avoided calling it a
+``race effect'' to prevent misinterpretation as referring to the
+athlete's race.
+
+
+We considered adding an effect for an individual runner’s average
+ability; however, many observations in our dataset come from athletes
+with only 1–-3 data points. Taking an average for such small samples
+may not be informative, especially in the presence of outliers or
+cases where an athlete had an atypical start. As such, we opted not to
+include this factor in the model.
+
+
+In the revision, we replaced the Gamma GLMM with a generalized Gamma
+distribution in the GAMLSS framework. The venue effect and heat effect
+were incorporated into two parameters controlling the scale of the
+distribution. This revised model provides an improved and adequate fit
+to the data compared to the original Gamma GLMM.
 
 
 \begin{comment}
@@ -140,21 +236,37 @@ were calibrated in some way to lead to faster reaction times) or just present a
 general framework for studying track and field down the road. I believe the
 former is stronger and of more interest than the latter, so making clear the
 purpose would help.
+\end{comment}
 
-\end{comment}  
-We do not have enough evidence to conclude that the sensors were calibrated
-differently, so thus we make general recommendations for World Athletics.
+We appreciate the feedback, which aligns with concerns raised by
+Reviewer~2. To address this, we completely rewrote the introduction to
+better structure our arguments and focus the problem statements. The
+literature review was streamlined to highlight studies directly
+relevant to our analysis. We clarified the paper’s two main
+objectives: (1) identifying inconsistencies in reaction times at the
+2022 World Championships, and (2) assessing the fairness of the
+0.1-second threshold.
+
+
+We avoided speculation about sensor calibration or implicating Seiko,
+as there is no direct evidence to support such claims. Instead, we
+provide general recommendations for World Athletics while noting that
+the unusually fast reaction times observed in 2022 remain unexplained.
+
 
 \begin{comment}
 Altogether, I see a lot of promising work here and think it would generally
 benefit from expanded scope and analysis.
 \end{comment}
 
+Thank you for the positive feedback. We have expanded both the rank
+comparison and the GAMLSS model sections with additional data to
+strengthen our analysis. These enhancements support our findings of an
+anomaly in 2022 and highlight that the 0.1-second reaction time
+threshold lacks a foundation in formal statistical evidence.
 
-Thank you for these encouraging words.
 
-\subsection*{Reviewer2}
-
+\subsection*{To Reviewer 2}
 
 \begin{comment}
 The paper’s topic is very important, but has significant issues with the writing
@@ -162,12 +274,27 @@ quality and statistical rigor. Right now, the manuscript reads more like report
 than a paper. The text lacks significant direction, and does not explain the
 goals of the study until the 4th page. Even then, “checking for abnormalities”
 is very vague.
-
 \end{comment}
 
 
-We can restructure the paper but doesn't the abstract mention the goals of the
-paper? I suppose the introduction is really more of a background section.
+Thank you for your valuable feedback. We have thoroughly revised the
+Introduction and Discussion sections to clearly articulate the study's
+objectives. As both reviewers noted organizational issues, we
+streamlined the manuscript to focus on its two main goals: (1)
+identifying inconsistencies in reaction times at the 2022 World
+Championships, and (2) assessing whether the 0.1-second threshold is
+statistically justified. Unrelated sections were removed to maintain a
+clear and focused narrative.
+
+
+Regarding the rank comparison and timing devices at the 2022
+Championships, we intentionally used cautious language, as there is no
+direct evidence to suggest miscalibration or faults in Seiko’s timing
+devices. To avoid potential legal risks, we emphasized the observed
+anomaly of unusually fast reaction times in 2022 without making
+unsubstantiated claims. Instead, we presented the data transparently,
+allowing readers to interpret the possible underlying causes of the
+anomaly.
 
 
 \begin{comment}
@@ -178,41 +305,31 @@ There are two questions: 1) Was the venue for the 2022 championships faster than
 usual? 2) Was the final heat for the 2022 championships faster than usual?
 
 If you are trying to answer question (1), you should include reaction times from
-every spring event, not just the hurdles. If you are trying to answer question
-2, why not do the following Monte Carlo test:
-
-1. Sample a single reaction time for each athlete in the final.
-2. Calculate the mean reaction time for the simulated final.
-3. Compute the probability of seeing the observed average reaction time deviate
-as much as it did in the 2022 Championships.
+every spring event, not just the hurdles. If you are trying to answer
+question~2, why not do the following Monte Carlo test:\\
+\indent 1. Sample a single reaction time for each athlete in the final.\\
+\indent 2. Calculate the mean reaction time for the simulated final.\\
+\indent 3. Compute the probability of seeing the observed average reaction time deviate
+as much as it did in the 2022 Championships.\\
 
 This test seems better than a rank sum test, as ranks do not capture the
 differences between times.
-
 \end{comment}
 
-We are attempting to answer question 1 and have included reaction times from
-additional sprinting events from World Championships.  We hypothesized that
-as the length of the race increased, reaction time would be less impactful and
-thus not as important. We started by adding data for the 100 meter dash and that
-is the most similar event in terms of length to the 110 meter hurdles.  When we
-added an additional variable to the model based on whether the observation came
-from a dash event or hurdles event the coefficient was not significant.  An 
-ANOVA test likewise produced a not signficant coefficient indicating to us that
-it seems reasonable to pool the 100 meter dash and 110 meter hurdles.  We
-hypothesized that longer sprinting events (200 meter dash, 400 meter dash, 400
-meter hurdles) would be more difficult to add as those are longer races where
-athletes reactions times are not as important to their overall time in the race.
-When we repeat the procedure we did for the 100 meter dash, now looking at data
-that included the 100 meter dash, 110 meter hurdles, and the 200 meter dash we
-found that the coefficient on event type was signficant, and a p value of 0.01586.
-When we peformed a TukeyHSD test to compare the times in the three categories:
-100 meter dash, 110 meter hurdles, 200 meter dash, we found a p-value of
-0.0020625 comparing the means of the 200 meter dash and the 110 meter hurdles
-and a p-value of 0.0000174 comparing the means of the 100 meter dash and the 200
-meter dash.  This indicated to us that the reaction times for the 200 meter were
-too slow to fit into our study on extreme reaction times and thus we chose to
-exclude 200 meter data.
+Thank you for the feedback. We clarify that our focus is question~(1): 
+evaluating whether the venue in 2022 was unusually fast. To address this, 
+we expanded our analysis to include reaction times from additional sprint 
+events at the World Championships, including both men’s and women’s 
+100-meter dashes. This broader dataset provides a more comprehensive 
+assessment of venue effects in 2022.
+
+
+Your suggestion to include reaction times from more sprint events aligns 
+with feedback from Reviewer~1.  While the 100-meter dash reaction times 
+showed no significant differences from the 110-meter hurdles, we excluded 
+200-meter and longer dashes due to their significantly different reaction 
+times. These longer events represent distinct contexts unsuitable for this 
+analysis.
 
 
 \begin{comment}
@@ -228,14 +345,33 @@ make extrapolating claims about the probability mass in the upsampled tail. I am
 not convinced there is enough data to make a strong argument here, especially
 when the previous literature on reaction time uses different distributions.
 \end{comment}
-Athletes may be disqualified based on PED use, and athletes may not finish a race
-due to injury, thus we did not consider these times.  However, it does seem
-reasonable to include times from people who were disqualified based on their
-reaction time.
 
-In terms of the choice of distribution, Brosnan and Harrison used a exponentially
-modified gaussian distribution using athletes sex, ruling periods, competition
-rounds. The article is now behind a pay wall.
+
+
+Thank you for raising these concerns. Regarding the exclusion of 
+disqualified runners, we chose not to include athletes with negative 
+reaction times, as these represent attempts to predict the starting gun 
+rather than true reactions. Negative reaction times do not align with 
+our objective of evaluating the feasibility of the 0.1-second threshold, 
+as they reflect pre-emptive behavior rather than genuine reaction
+times.
+
+
+The Gamma GLMM model has been replaced with a generalized Gamma 
+distribution within the GAMLSS framework, incorporating random effects 
+at the venue and heat levels in its distributional parameters. This 
+revised model provides improved and adequate fit to the data, as shown 
+by diagnostic plots in Figure~3.
+
+
+For the approximately 20 disqualified athletes with positive reaction
+times, we examined the impact of including them in the analysis. The
+probability of observing a reaction time below 0.1 seconds increased
+slightly from 0.00197 to 0.00276, with similar parameter estimates for
+the random effects. Given these results, we opted to include these
+observations in the dataset presented in the main paper. The analysis without
+the positive disqualified reaction times is included in the Section 3 of 
+the Supplementary Material.  
 
 
 \begin{comment}
@@ -247,50 +383,65 @@ Allen’s DIFFERENCE in reaction time compares to the differences of the other
 competitors (relative to previous heats, or averages, or whatever). If Devon
 Allen’s time improved anomalously in the final heat, this would suggest a false
 start. Based on the fact that he recorded a .101 reaction time earlier, I am
-guessing he did not improve anomalously.  
+guessing he did not improve anomalously.
 \end{comment}
 
-Unfortunately data such as this is not easy to come by.  We found as much as we
-could online, but there is simply not enough data to justify a formal analysis
-of his reaction times across lower level meets.
+
+Thank you for this suggestion. Unfortunately, comprehensive data on 
+Devon Allen’s reaction times is not readily available. While we gathered 
+as much data as possible from publicly available sources, reaction times 
+are typically recorded only at major competitions, such as national and 
+world championships. As a result, the dataset is too limited to support 
+a formal statistical analysis of his reaction times.
+To address this point, we have added a brief discussion in the first 
+paragraph of the Discussion Section, noting the limitations in data 
+availability and the implications of this issue.
+
 
 \begin{comment}
 A point that is not sufficiently emphasized is that the track officials consider
 low reaction times to be false starts because an athlete can ANTICIPATE a start
 faster than they can REACT to the starting gun. I think this is important to
 discuss so that a general audience understands why an athlete might be
-disqualified even through they started running after the race began.  
+disqualified even through they started running after the race began.
 \end{comment}
 
-We added additional explanations to address this in the introductions section.
+We added additional explanations in the second and third paragraph of the
+introduction to address this.
 
-\begin{comment}I have no idea how to interpret the numbers displayed in Table 2. These
+
+\begin{comment}
+I have no idea how to interpret the numbers displayed in Table 2. These
 need to be made interpretable, or they add nothing to the paper.
 \end{comment}
 
-The nomenclature for the greek variables in Table 2 are defined in the GLMM
-subsection of the methods section (3.2)
+Thank you for pointing out the need for clearer interpretation of
+Table~2. The table now contains fitted parameters of the generalized Gamma
+distribution GAMLSS as specified Equations (1)--(3). The table caption has been
+expanded to provide detailed explanations of the fitted parameters.
+
 
 \begin{comment}
 Line 127: Is there a reason you are commenting on the difficult of data
 gathering? I am not sure it adds much.
 \end{comment}
 
-Yes, the comments about the difficulty of data gathering are meant to demostrate
-that we worked hard to find as much data as we could and as a note to World
-Athletics (track and field governing body) that they need to do a better job
-at data standardization.  Currently the races on their website do not include
-reaction times, which meant that we had to look in alternative places to perform
-the analysis that we did.  The data we found from national level meets in 2022
-was difficult to come by as it required searching for every country's championship
-results individually and when we did find it, it was often in the native language
-making it harder to understand and interpret.
+
+Yes, the comments about the difficulty of data gathering are included
+to highlight the effort required to compile a comprehensive
+dataset. This also serves as a note to World Athletics, emphasizing
+the need for better data standardization. Currently, race results on
+their website do not include reaction times, requiring us to search
+alternative sources. Gathering data from national-level meets in 2022
+involved searching each country’s championship results individually,
+often encountering language barriers that complicated interpretation.
+
 
 \begin{comment}
 Line 141: “We compare the times” - do you mean reaction times?
 \end{comment}
 
-Yes, this has been resolved.
+Yes, this has been rephrased for clarification.
 
 \begin{comment}
 Figure 3 is extremely inefficient. Maybe show the deltas on one plot? I'm not
@@ -300,28 +451,18 @@ show that 2022 is anomalous based on a shift in the calculated venue effects
 seems very roundabout.
 \end{comment}
 
-We included this plot to show the venue effect for each year and to visually
-demonstrate how 2022 compares to other years.  We added additional comments
-about the probability of observing an extreme venue effect to provide
-quantitative data supporting our argument.
+
+Given the confusion it may cause, this figure has been removed.
+
+% Thank you for the feedback. The purpose of Figure~3 is to display the venue 
+% effects for each year and visually illustrate how 2022 compares to other years. 
+% To address your concern, we added additional comments quantifying the 
+% probability of observing an extreme venue effect, which strengthens the 
+% argument that 2022 is anomalous. If needed, we are open to revising the plot 
+% further or integrating it into a single panel showing deltas, as suggested.
+% \eds{let's revisit this again after objective 2 analyses are set}
 
 
-
-\subsection*{Associate Editor}
-\begin{comment}
-I encourage you to consider the issues raised by the reviewers carefully. I have
-little additional material to add, other than to emphasize the need to
-re-organize the manuscript to more clearly identify the key goals of the work at
-the start, and to provide a more concise and focused presentation of the key
-findings.
-\end{comment}
-
-\begin{comment}
-We have taken additional steps to streamline the manuscript and enhance the
-presentation of our work. Thank you for your time and we appreciate re-considering
-our submission.
-\end{comment}
-
-%\bibliographystyle{chicago}
-%\bibliography{citations}
+\bibliographystyle{apalike}
+\bibliography{citations}
 \end{document}
