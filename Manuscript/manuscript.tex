@@ -618,9 +618,27 @@ being less than 0.1 seconds in order to gauge if that is a reasonable
 disqualification barrier.
 
 
-
 \subsection{Results}
 \label{sec:results_barrier}
+
+\begin{table}[b]
+  \centering
+  \caption{Estimated fixed-effect parameters with standard errors in
+    parentheses and estimated standard deviations of the random effects from the
+    fitted GG distribution with venue level random
+    effects in $\mu$ and heat level random effects in $\sigma$ in
+    Models~\eqref{eq:gg}--\eqref{eq:sigma}.}
+  \label{tab:ggfit}
+  \begin{tabular}{c c c c c c}
+    \toprule
+    Data set & $\beta_0$ & $\gamma_0$ & $\nu$ & $\tau_v$ & $\tau_h$ \\
+    \midrule
+    Excluding 2022 & $-$1.910 (0.005) & $-$2.200 (0.025) & $-$1.177 (0.442) & 0.043 & 0.326 \\
+    Including 2022 & $-$1.910 (0.005) & $-$2.200 (0.027) & $-$1.178 (0.447) & 0.058 & 0.320 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 
 The results reported in this subsection are from men's data only
 because our investigation found significant gender difference.
@@ -645,24 +663,6 @@ highlight that RTs are influenced by both venue and heat-level
 factors, and that the inclusion of 2022 introduces greater venue-level
 variability, likely due to systematic differences in RTs that year.
 
-
-\begin{table}
-  \centering
-  \caption{Estimated fixed-effect parameters with standard errors in
-    parentheses and estimated standard deviations of the random effects from the
-    fitted GG distribution with venue level random
-    effects in $\mu$ and heat level random effects in $\sigma$ in
-    Models~\eqref{eq:gg}--\eqref{eq:sigma}.}
-  \label{tab:ggfit}
-  \begin{tabular}{c c c c c c}
-    \toprule
-    Data set & $\beta_0$ & $\gamma_0$ & $\nu$ & $\tau_v$ & $\tau_h$ \\
-    \midrule
-    Excluding 2022 & $-$1.910 (0.005) & $-$2.200 (0.025) & $-$1.177 (0.442) & 0.043 & 0.326 \\
-    Including 2022 & $-$1.910 (0.005) & $-$2.200 (0.027) & $-$1.178 (0.447) & 0.058 & 0.320 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
 
 \begin{figure}[tbp]
   \centering
@@ -729,20 +729,6 @@ fast RTs and substantiate the recommendations of \citet{komi2009iaaf}
 to carefully consider the selection of RT thresholds.
 
 
-\begin{table}
-  \centering
-  \caption{Suggested RT barriers based on tail probabilities.}
-  \begin{tabular}{c c c c}
-   \toprule
-   Data Set & Tail probability  $10^{-2}$ & Tail probability  $10^{-3}$ & Tail probability $10^{-4}$ \\
-   \midrule
-   Excluding 2022 & $0.111$ & $0.096$ & $0.083$ \\
-   Including 2022 & $0.108$ & $0.094$ & $0.082$ \\
-   \bottomrule
-  \end{tabular}
-  \label{tab:Sim_time}
-\end{table}
-
 Utilizing the same model, we can determine suitable RT barriers
 based on the probability of observing a time below the barrier. As shown in
 Table~\ref{tab:Sim_time}, including the 2022 data suggests a RT
@@ -757,7 +743,19 @@ thresholds to desired levels of false positive rates, balancing fairness and
 precision in disqualification criteria.
 
 
-
+\begin{table}
+  \centering
+  \caption{Suggested RT barriers based on tail probabilities.}
+  \begin{tabular}{c c c c}
+   \toprule
+   Data Set & Tail probability  $10^{-2}$ & Tail probability  $10^{-3}$ & Tail probability $10^{-4}$ \\
+   \midrule
+   Excluding 2022 & $0.111$ & $0.096$ & $0.083$ \\
+   Including 2022 & $0.108$ & $0.094$ & $0.082$ \\
+   \bottomrule
+  \end{tabular}
+  \label{tab:Sim_time}
+\end{table}
 
 \section{Discussion}\label{sec:disc}
 
