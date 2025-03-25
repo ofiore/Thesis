@@ -141,8 +141,8 @@ Championships, with RTs of 0.123 and 0.101 seconds,
 respectively. However, in the final heat, competing in front of his
 home audience, Allen’s RT was just 0.001 seconds faster
 than the 0.1-second threshold set by the International Association
-of Athletics Federations (IAAF), resulting in his disqualification, a
-decision that was met with widespread public outcry. This 
+of Athletics Federations (IAAF).  His resulting disqualification was
+met with widespread public outcry. This 
 incident highlighted two long-standing issues: variability in the
 measurement of RTs by Start Information Systems (SIS) and the
 appropriateness of the 0.1-second disqualification threshold. As
@@ -198,10 +198,10 @@ competitions, focusing on athletes who competed in multiple
 events. Using a matched-pairs design, we compare RTs across the 2022,
 2019, and 2023 World Championships, as well as 2022 national-level
 competitions. This approach isolates the effect of the competition
- while controlling for individual performance. The clustered
-nature of the data, with the goal of assessing differences across
-competitions within athletes, was analyzed using a rank-based comparison
-approach for clustered data \citep{datta2005rank}. Second, we evaluate
+ while controlling for individual performance. With the goal of assessing 
+differences across competitions within athletes, RTs were analyzed using a 
+rank-based comparison approach for clustered data \citep{datta2005rank}. Second, 
+we evaluate
 the appropriateness of the 0.1-second disqualification threshold by
 modeling RTs from World Championships held from 1999 onward. A
 generalized Gamma (GG) distribution with random effects for both venue and
@@ -216,11 +216,12 @@ current threshold.
 
 %Needs to be looked at
 The rest of this paper is organized as follows. Section~\ref{sec:problem1}
-investigates RTs of athletes who competed at the 2022 World Championships to
-examine differences between other competitions.  Section~\ref{sec:problem2}
+investigates RTs of athletes who competed at both the 2022 World Championships 
+and another competition to examine differences between their RTs.  
+Section~\ref{sec:problem2}
 investigates RTs of athletes from 1999 to 2023 to determine a reaction barrier
 ground in statistical analysis.  Within each of the above sections, the data,
-methods used, and the results are presented.
+methods used, and results are presented.
 Finally, Section~\ref{sec:disc} highlights the
 paper’s impact, limitations, and potential for future research.
 All data and code for our analysis are provided in the Supplementary
@@ -229,7 +230,7 @@ Materials.
 \section{Assessing the 2022 World Championships RTs}
 \label{sec:problem1}
 
-The notable faster RTs at the 2022 World Championships
+The notably faster RTs at the 2022 World Championships
 raised concerns about systematic biases. 
 For example,  the median RTs across multiple sprint events were found
 to be the lowest in recent history; the number of RTs recorded under
@@ -238,10 +239,10 @@ to be the lowest in recent history; the number of RTs recorded under
 suggests a potential systematic difference in RT measurements at the
 2022 World Championships, necessitating a formal statistical
 investigation. We assess whether RTs at the 2022 World Championships
-were systematically faster by comparing them against (1) national
-competitions in 2022 and (2) RTs from the 2019 and 2023 World
-Championships to evaluate deviations from historical norms, using data
-from athletes who competed in both events in the comparison.
+were systematically faster by comparing them against (1) RTs from national
+competitions in 2022, (2) RTs from the 2019 World Championships, and (3) RTs 
+from the 2023 World Championships, using data from athletes who competed in both 
+competitions in the pairwise comparison.
 
 
 \subsection{Data}
@@ -254,12 +255,11 @@ dash, and female athletes in the 100-meter hurdles and 100-meter dash,
 provided they competed in the 2022 World Championships and at least
 one other competition (2022 national championships, 2019 World
 Championships, or 2023 World Championships). Statistical tests showed no
-significant differences in RTs between these events, supporting their
-inclusion in a unified analysis. However, we excluded data from
+significant differences in RTs between these short hurdel and dash events, 
+supporting their inclusion in a unified analysis. However, we excluded data from
 200-meter dashes and longer events, as their RTs were found
-to be significantly different. This exclusion is expected, as reaction
-time plays a smaller role in longer sprint events, where acceleration
-off the blocks is less decisive.
+to be significantly different. This exclusion is expected, as RT plays a smaller 
+role in longer sprint events, where acceleration off the blocks is less decisive.
 Negative RTs were excluded from the analysis, while positive disqualified RTs
 were included due to their low frequency and not being obvious outliers.
 
@@ -268,7 +268,7 @@ were included due to their low frequency and not being obvious outliers.
 
 We first compare RTs from the 2022 World Championships to national
 competitions earlier that year to assess whether the same athletes
-reacted differently across events.
+reacted differently across competitions.
 Prior to a formal analysis, we examined how United States (US) athletes
 performed at the 2022 US Track and Field Championships, held from June 23--26,
 2022, at Hayward Field in Eugene, Oregon. Since this venue also hosted
@@ -293,8 +293,8 @@ websites, with many results recorded in native languages.
 
 
 The final dataset consisted of RTs from athletes who competed
-in both national and international competitions. RTs from
-preliminary heats, semifinals, and finals were included to ensure
+in both a 2022 national competition and the international 2022 World Championships.
+RTs from preliminary heats, semifinals, and finals were included to ensure
 sufficient data for analysis. Excluding preliminary heats would have
 significantly reduced the number of athletes and clusters. Each
 athlete was considered as a cluster, with observed RTs
@@ -329,9 +329,9 @@ Championships.
 To determine whether RTs at the 2022 World Championships were
 anomalous within the World Championships series, we compare them to
 RTs from the 2019 and 2023 events. In the 2019-2022 comparison,
-RTs from 2022 were treated as the `treatment' group, with
+RTs from 2022 were considered as the `treatment' group, with
 2019 serving as the `control' group. Similarly, in the 2022-2023
-comparison, RTs from 2022 were treated as the `treatment'
+comparison, RTs from 2022 were considered as the `treatment'
 group, with 2023 serving as the `control' group. This structure allowed
 us to prepare datasets suitable for examining RTs of athletes
 who competed across multiple World Championships.
@@ -368,16 +368,15 @@ RT precision in elite-level competition.
 To test whether the timing system at the 2022 World Championships 
 systematically produced faster RTs, we compare RTs recorded at this
 event against those from the same athletes in other competitions. In
-this setting, we have clustered data with subunit grouping. Each
-athlete serves as a cluster, with multiple RTs recorded from the same
-athlete across different competitions.
+this setting, we have clustered data with subunit grouping. As discussed in the
+previous section, each athlete serves as a cluster, with multiple RTs recorded 
+from the same athlete across different competitions.
 Let $X_{ij}$ be the $j$th RT of athlete~$i$, $i = 1, \ldots, n$,
 $j = 1, \ldots, m_i$ where $m_i$ is the number of observations from
 athlete~$i$. Let $\delta_{ij}$ be the group indicator of $X_{ij}$; $\delta_{ij}
 = 1$ if $X_{ij}$ is in group~1 (2022 World Championships) and $\delta_{ij} = 0$
-otherwise. Athletes are
-assumed to be independent, while subunit observations from the same athlete are
-not. The null hypothesis $H_0$ to be tested is that there is no difference
+otherwise. Athletes are assumed to be independent, while subunit observations 
+from the same athlete are not. The null hypothesis $H_0$ to be tested is that there is no difference
 between the two groups; i.e., the distribution of $X_{ij}$ remains the same
 regardless of the group indicator $\delta_{ij}$.
 
@@ -406,7 +405,8 @@ simulate the null distribution of the test statistic.
 This method is available from the \texttt{clusWilcox.test()} function
 with \texttt{method = `ds'} (for \underline{D}atta and \underline{S}atten) and
 \texttt{exact = TRUE} from R package
-\texttt{clusrank} \citep{jiang2020wilcoxon}.
+\texttt{clusrank}; with \texttt{exact = FALSE}, the same function implements the 
+asymptotic rank-based test \citep{jiang2020wilcoxon}.
 
 
 \subsection{Results}
