@@ -146,7 +146,7 @@ met with widespread public outcry. This
 incident highlighted two long-standing issues: variability in the
 measurement of RTs by Start Information Systems (SIS) and the
 appropriateness of the 0.1-second disqualification threshold. As
-reaction times are measured in fractions of a second, inconsistencies
+RTs are measured in fractions of a second, inconsistencies
 in timing technologies and rules can significantly affect athlete
 outcomes, raising questions about fairness and standardization.
 
@@ -175,7 +175,7 @@ to predict the start gun, the 0.1-second disqualification threshold
 has been the subject of significant debate.   Partly based on limited
 data from Finnish national-level athletes~\citep{mero1990reaction}, the
 threshold may not adequately represent the capabilities of elite
-sprinters. Controlled experiments have shown that reaction times below
+sprinters. Controlled experiments have shown that RTs below
 0.1 seconds are physiologically plausible \citep{pain2007sprint,
   komi2009iaaf}, while retrospective analyses of competition data
 often advocate for raising the threshold~\citep{brosnan2017effects,
@@ -474,12 +474,11 @@ the Supplementary Material.
 \label{sec:problem2}
 
 This section evaluates whether the 0.1-second RT threshold remains a valid 
-criterion for disqualification in elite sprinting. Using historical RT data from 
+disqualification criterion in elite sprinting. Using historical RT data from 
 World Championships since 1999, we fit a generalized Gamma model with 
 venue- and heat-level random effects to estimate the probability of RTs below 
 0.1 seconds. This statistical framework allows us to assess whether an 
-alternative threshold would better align with observed reaction time 
-distributions.
+alternative threshold would better align with observed RT distributions.
 
 \subsection{Data}
 \label{sec:data_barrier}
@@ -489,8 +488,8 @@ threshold was obtained from World Athletics and covers the men's
 110-meter hurdles and 100-meter dashes from 1999 to 2023. Due to
 possible gender differences \citep{babicc2009reaction,
   lipps2011implications}, data for women's 100-meter hurdles and
-100-meter dashes and their analyses were relegated to the
-Supplementary Material. We focus on the RTs recorded during
+100-meter dashes were collected over the same time period with the analogous 
+analyses relegated to the Supplementary Material. We focus on the RTs recorded during
 semifinal and final heats only, as RTs from preliminary
 heats are often not as fast as those in later heats
 \citep[e.g.,][]{collet1999strategic, tonnessen2013reaction,
@@ -549,7 +548,7 @@ have contributed to variations in RTs across years.
 Based on an exploratory analysis, the RTs are adequately
 modeled by a GG distribution with random effects in
 model parameters. The GG distribution has three parameters, denoted by
-$\text{GG}(\mu, \sigma, \nu),$ has density function
+$\text{GG}(\mu, \sigma, \nu),$ and has density function
 \begin{equation}
   \label{eq:gg}
 f_Y(y \mid \mu, \sigma, \nu) =
@@ -577,8 +576,8 @@ An implementation of this distribution is available from R package
 \texttt{gamlss.dist} \citep{rigby2019distributions}.
 
 
-Random effects at the venue and heat levels are incorporated to the
-parameters in GG distribution in~\eqref{eq:gg}.
+Random effects at the venue and heat levels are incorporated into the
+parameters of the GG distribution in~\eqref{eq:gg}.
 Let $Y_{ijk}$ denote the RT of observation~$k$ in heat~$j$
 of year~$i$. Conditioning on a venue effect $v_i$ for year~$i$
 and a heat effect $h_{i/j}$ nested within each year~$i$, the
@@ -641,7 +640,7 @@ disqualification barrier.
 
 
 The results reported in this subsection are from men's data only
-because our investigation found significant gender difference.
+because our investigation found a significant gender difference.
 Results for women's data are reported in Section~2 of the
 Supplementary Material. The fitted parameters of the GG distribution in the
 GAMLSS framework in Equations~\eqref{eq:gg}--\eqref{eq:sigma} are
@@ -677,7 +676,8 @@ variability, likely due to systematic differences in RTs that year.
 
 
 Figure~\ref{fig:diagnosis} presents diagnostic checks for the fitted
-GG distribution model with random effects. The left
+GG distribution model with random effects. \eds{Is Fig 3 for the analysis with 
+or without 2022?} The left
 panel compares the kernel density estimate of one million simulated reaction
 times from the fitted model to the histogram of the observed RTs.
 The close alignment between the density curve and the histogram suggests that
@@ -730,7 +730,7 @@ to carefully consider the selection of RT thresholds.
 
 
 Utilizing the same model, we can determine suitable RT barriers
-based on the probability of observing a time below the barrier. As shown in
+based on the probability of observing a time below that barrier. As shown in
 Table~\ref{tab:Sim_time}, including the 2022 data suggests a RT
 barrier of 0.094 seconds to maintain a 0.1\% chance of observing an
 exceptionally fast RT, while a stricter threshold of 0.082 seconds
@@ -780,7 +780,7 @@ comparisons.
 This study further assessed whether the 0.1-second RT threshold is a
 fair standard for disqualification. Our analyses of the GAMLSS model
 suggest that while RTs below 0.1 seconds are rare, they may not be
-be as extraordinary as traditionally assumed. For men,
+as extraordinary as traditionally assumed. For men,
 Table~\ref{tab:Sim_time} shows that RTs below 0.1 seconds
 occur with a probability of approximately one in 362 starts when
 including the 2022 data. Lowering the threshold to 0.08 seconds
@@ -794,8 +794,8 @@ barrier for both men and women  is questionable, given numerous
 studies documenting gender differences in reaction  times
 \citep[e.g.,][]{lipps2011implications, babicc2009reaction,
   panoutsakopoulos2020gender}. These studies suggest that the current
-threshold may  unfairly penalize men, for whom sub-0.1-second reaction
-times are more probable. \citet{brosnan2017effects} advocate for
+threshold may  unfairly penalize men, for whom sub-0.1-second RTs are more 
+probable. \citet{brosnan2017effects} advocate for
 gender-specific barriers, a position that  aligns with our findings
 and highlights the importance of tailoring thresholds to biological
 distinctions.
