@@ -1,0 +1,411 @@
+---
+title: "NewAnalysis"
+author: "Owen Fiore"
+date: "2024-07-03"
+output: html_document
+---
+
+# New Work
+To try and keep everything organized, we are going to use this document to test
+anything additional before putting it in `GLMM.Rmd.`  We have several things
+to test before our re-submission.
+
+## Can we pool the dash and hurdles results?
+We need to see how different our results are using a pooled version of the men's
+100 meter dash and men's 110 meter hurdles.  We will also include a random effect
+into our model to compensate for this.
+
+```{r}
+library(tidyverse)
+times <- read.csv("../Data/GLMMData.csv")
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Event")
+```
+
+
+```{r}
+dash_and_hurdles <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS" & Time != "DQ" & Time != "D") |>
+  filter(RxnTime != 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles")
+
+hurdles <- dash_and_hurdles |>
+  filter(Event == "110 Hurdles")
+```
+
+We consider the baseline models:
+```{r}
+library(lme4)
+dash_and_hurdles_one_gamma_log <- glm(RxnTime ~ 1, data = dash_and_hurdles, 
+                                    family = Gamma(link = "log"))
+hurdles_one_gamma_log <- glm(RxnTime ~ 1, data = hurdles, 
+                                family = Gamma(link = "log"))
+```
+To assess whether we we can pool the data, we are going to perform an anova test
+to determine whether the most recently added coefficient to the model was
+significant.
+
+
+
+```{r}
+dash_and_hurdles_three_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
+                                                   (1 | Heat) + Event, 
+                                   data = dash_and_hurdles,
+                                   family = Gamma(link = "log"))
+dash_and_hurdles_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
+                                                   (1 | Heat), 
+                                   data = dash_and_hurdles,
+                                   family = Gamma(link = "log"))
+
+
+
+hurdles_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat), 
+                               data = hurdles,
+                               family = Gamma(link = "log"))
+```
+
+```{r}
+anova(dash_and_hurdles_two_effect_gamma_log, dash_and_hurdles_three_effect_gamma_log)
+```
+What we observe is that there is not a significant difference between these
+models as the p value is quite large. Thus we will not include `Event` as a
+feature in our final model.
+
+
+
+### Residual analysis for the gamma GLMM
+
+Reference:
+<https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html>
+
+
+```{r}
+library("DHARMa")
+
+testDispersion(dash_and_hurdles_two_effect_gamma_log)
+simulationOutput <- simulateResiduals(fittedModel = dash_and_hurdles_two_effect_gamma_log, plot = F)
+
+```
+
+
+
+## 200m test
+Does it make sense to include the 200m dash data as well?
+
+```{r}
+all_events <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS" & Time != "DQ") |>
+  filter(RxnTime != 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles" | Event == "200 Dash") |>
+  mutate(RxnTime = ifelse(RxnTime < 0.1, 0.1, RxnTime))
+```
+
+```{r}
+all_events_three_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
+                                                   (1 | Heat) + Event, 
+                                   data = all_events,
+                                   family = Gamma(link = "log"))
+all_events_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
+                                                   (1 | Heat), 
+                                   data = all_events,
+                                   family = Gamma(link = "log"))
+```
+
+```{r}
+anova(all_events_three_effect_gamma_log, all_events_two_effect_gamma_log)
+```
+Now we see that the event become significant
+
+```{r}
+library(car)
+TukeyHSD(aov(RxnTime ~ Event, data = all_events))
+```
+Using a Tukey's Honestly Significant Difference test, we see that the 200m dash
+differs significantly from 100m dash/hurdles.
+
+Based on all the following evidence we are going to perform our men's analysis
+on data from the 100 meter dash and 110 meter hurdles exclusively.
+
+
+
+## Now for women
+We want to make sure we get similar results when we pool the women's 100m hurdle
+and 100m dash. 
+```{r}
+times <- read.csv("../Data/GLMMData.csv")
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Event")
+```
+
+Again we are going to run an anova test to determine how impactful the coefficient
+on `Event` is.
+```{r}
+women_dash_and_hurdles <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "F") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime != 0) |>
+  filter(Event == "100 Dash" | Event == "100 Hurdles") |>
+  mutate(RxnTime = ifelse(RxnTime < 0.1, 0.1, RxnTime))
+```
+
+```{r}
+women_dash_and_hurdles_three_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
+                                                   (1 | Heat) + (1 | Event), 
+                                   data = women_dash_and_hurdles,
+                                   family = Gamma(link = "log"))
+women_dash_and_hurdles_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
+                                                   (1 | Heat), 
+                                   data = women_dash_and_hurdles,
+                                   family = Gamma(link = "log"))
+```
+
+```{r}
+anova(women_dash_and_hurdles_two_effect_gamma_log, women_dash_and_hurdles_three_effect_gamma_log)
+```
+There seems to be more of a difference but the test is still not significant.
+
+Based on the above evidence it seems reasonable to conclude that it is appropriate
+to pool the men's 110 meter hurdles with the 100 meter dash and pool the women's
+100 meter hurdles with the 100 dash but based on previous studies we are going
+to separate men's and women's data.
+
+## Testing Whether or not to include disqualfications
+```{r}
+dash_and_hurdles <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS" & Time != "DQ" & Time != "D") |>
+  filter(RxnTime != 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles")
+```
+
+```{r}
+cat("The number of entries of the men's 100 meter dash and 110 meter hurdles
+    without disqualifcations is", nrow(dash_and_hurdles))
+```
+
+```{r}
+dash_and_hurdles_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
+                                                   (1 | Heat), 
+                                   data = dash_and_hurdles,
+                                   family = Gamma(link = "log"))
+```
+
+
+We need the baseline model for our analysis as well
+```{r}
+dash_and_hurdles_one_gamma_log <- glm(RxnTime ~ 1, data = dash_and_hurdles, 
+                                    family = Gamma(link = "log"))
+```
+
+```{r}
+sim_two_effect_time <- function(model, base, RxnTime) {
+  simfit <- function(model, n = 10000000) {
+    vc <- as.data.frame(VarCorr(model))
+    sd_Venue <- vc$sdcor[1]
+    sd_Venue_heat <- vc$sdcor[2]
+    
+    z1 <- rnorm(n, sd = sd_Venue)
+    z2 <- rnorm(n, sd = sd_Venue_heat)
+    
+    shape <- 1 / sigma(model)^2
+    mu <- exp(fixef(model) + z1 + z2)
+    
+    x <- rgamma(n, shape = shape, scale = mu / shape)
+    x
+  }
+  
+  sbase <- summary(base)
+  x <- simfit(model)
+  print(mean(x < RxnTime))
+  #print(quantile(x, prob = c(0.00001, 0.0001, 0.0005, 0.001)))
+  ## compare with and without random effect
+  #plot(density(x))  # with random effects
+  #curve(dgamma(x, shape = 1 / sbase$dispersion, 
+   #            scale = exp(coef(base)) * sbase$dispersion), 
+  #      0.08, 0.25, add = TRUE, col = "blue")  # fixed effect only
+}
+```
+
+```{r}
+set.seed(1)
+sim_two_effect_time(dash_and_hurdles_two_effect_gamma_log, dash_and_hurdles_one_gamma_log, 0.1)
+```
+Now lets see how our results change when we include disqualifications
+```{r}
+dash_and_hurdles_with_dq <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(RxnTime != 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles") |>
+  filter(RxnTime > 0)
+  #mutate(RxnTime = ifelse(RxnTime < 0, 0.000001, RxnTime))
+```
+
+```{r}
+cat("The number of entries of the men's 100 meter dash and 110 meter hurdles
+    without disqualifcations is", nrow(dash_and_hurdles_with_dq))
+```
+
+```{r}
+dash_and_hurdles_with_dq_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
+                                                   (1 | Heat), 
+                                   data = dash_and_hurdles_with_dq,
+                                   family = Gamma(link = "log"))
+```
+
+
+We need the baseline model for our analysis as well
+```{r}
+dash_and_hurdles_with_dq_one_gamma_log <- glm(RxnTime ~ 1, data = dash_and_hurdles_with_dq, 
+                                    family = Gamma(link = "log"))
+```
+
+```{r}
+set.seed(1)
+sim_two_effect_time(dash_and_hurdles_with_dq_two_effect_gamma_log, dash_and_hurdles_with_dq_one_gamma_log, 0.1)
+```
+## Comparison of model stats with and without dq
+These are model stats for model without any disqualifications
+```{r}
+summary(dash_and_hurdles_two_effect_gamma_log)
+```
+
+These are model stats for model with positive disqualifications
+```{r}
+summary(dash_and_hurdles_with_dq_two_effect_gamma_log)
+```
+
+
+
+## Lets repeat the previous section but exclude 2022 from our results
+```{r}
+dash_and_hurdles_no2022 <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS" & Time != "DQ" & Time != "D") |>
+  filter(RxnTime != 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles") |>
+  filter(Venue != 2022)
+```
+
+```{r}
+dash_and_hurdles_no2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
+                                                   (1 | Heat), 
+                                   data = dash_and_hurdles_no2022,
+                                   family = Gamma(link = "log"))
+
+dash_and_hurdles_no2022_one_gamma_log <- glm(RxnTime ~ 1, data = dash_and_hurdles_no2022, 
+                                    family = Gamma(link = "log"))
+```
+
+```{r}
+set.seed(1)
+sim_two_effect_time(dash_and_hurdles_no2022_two_effect_gamma_log, dash_and_hurdles_no2022_one_gamma_log, 0.1)
+```
+
+Now we analyze without 2022 but with disqualifications
+```{r}
+dash_and_hurdles_no2022_with_dq <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(RxnTime != 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles") |>
+  filter(Venue != 2022) |>
+  mutate(RxnTime = ifelse(RxnTime < 0, 0.000001, RxnTime))
+```
+
+```{r}
+dash_and_hurdles_no2022_with_dq_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
+                                                   (1 | Heat), 
+                                   data = dash_and_hurdles_no2022_with_dq,
+                                   family = Gamma(link = "log"))
+
+dash_and_hurdles_no2022_with_dq_one_gamma_log <- glm(RxnTime ~ 1, data = dash_and_hurdles_no2022_with_dq, 
+                                    family = Gamma(link = "log"))
+```
+
+```{r}
+sim_two_effect_time(dash_and_hurdles_no2022_with_dq_two_effect_gamma_log, dash_and_hurdles_no2022_with_dq_one_gamma_log, 0.1)
+```
+## Log normal Model?
+```{r}
+library(tidyverse)
+times <- read.csv("../Data/GLMMData.csv")
+colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Event")
+```
+The data we use
+```{r}
+dash_and_hurdles_with_dq <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(RxnTime != 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles") |>
+  filter(RxnTime > 0)
+```
+
+Log normal model
+```{r}
+library(lme4)
+log_normal_model <- lmer(log(RxnTime) ~ (1 | Venue) + (1 | Heat), 
+                                   data = dash_and_hurdles_with_dq)
+log_normal_model
+```
+
+Current best fit model (Included DQs because that is what I believe we will
+use as final model.)
+```{r}
+dash_and_hurdles_with_dq_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) +
+                                                   (1 | Heat), 
+                                   data = dash_and_hurdles_with_dq,
+                                   family = Gamma(link = "log"))
+```
+
+Here is the qq plot for both. It looks very similar in my opinion with only some
+small differences.  I think it is reasonable to keep the gamma model.  Is it not
+possible to compare the AIC's? When I try to find the AIC for log normal model
+I am unable to.
+```{r}
+library(car)
+resids_log_normal <- residuals(log_normal_model)
+resids_gamma <- residuals(dash_and_hurdles_with_dq_two_effect_gamma_log)
+qqPlot(resids_log_normal)
+qqPlot(resids_gamma)
+```
+```{r}
+library(lme4)
+library(lattice)
+dotplot(ranef(dash_and_hurdles_with_dq_two_effect_gamma_log, condVar = TRUE))
+```
+```{r}
+dotplot(ranef(log_normal_model, condVar = TRUE))
+```
+
+```{r}
+random_effects <- ranef(log_normal_model)
+random_effects_df <- as.data.frame(random_effects$Venue)
+qqPlot(random_effects_df$`(Intercept)`, 
+       main = "Normal QQ Plot of Venue effect log normal model")
+```
+
+```{r}
+random_effects <- ranef(log_normal_model)
+random_effects_df <- as.data.frame(random_effects$Heat)
+qqPlot(random_effects_df$`(Intercept)`, 
+       main = "Normal QQ Plot of Heat effect log normal model")
+```
+```{r}
+random_effects <- ranef(dash_and_hurdles_with_dq_two_effect_gamma_log)
+random_effects_df <- as.data.frame(random_effects$Venue)
+qqPlot(random_effects_df$`(Intercept)`, 
+       main = "Normal QQ Plot of Venue effect gamma model")
+```
+```{r}
+random_effects <- ranef(dash_and_hurdles_with_dq_two_effect_gamma_log)
+random_effects_df <- as.data.frame(random_effects$Heat)
+qqPlot(random_effects_df$`(Intercept)`, 
+       main = "Normal QQ Plot of Heat effect gamma model")
+```

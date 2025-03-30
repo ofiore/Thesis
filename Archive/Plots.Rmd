@@ -11,186 +11,312 @@ colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Even
 ```
 
 ```{r}
-with2022 <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & Time != 'DQ' & Event == "Hurdles")
+library(tidyverse)
+df <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime != 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles")
+```
+
+
+# Figure 1
+
+### Mens 2019 vs 2022
+
+```{r}
+library(tidyr)
 library(ggplot2)
-ggplot(with2022, aes(x = Venue, y = RxnTime, group = Venue)) +
+nineteen <- read.csv("../Archive/2019vs2022.csv")
+dash_19 <- read.csv("../Archive/2019vs2022Dash.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(nineteen) <- c("Athlete", "Country", "2019 H", "2019 S", "2019 F", "2022 H", "2022 S", "2022 F")
+colnames(dash_19) <- c("Athlete", "2019 H", "2019 S", "2019 F", "2022 H", "2022 S", "2022 F")
+nineteen <- nineteen[, -c(1,2)]
+dash_19 <- dash_19[, -c(1)]
+nineteen <- rbind(nineteen, dash_19)
+
+df_long <- tidyr::pivot_longer(nineteen, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("2019 H", "2019 S", "2019 F", "2022 H", "2022 S", "2022 F"))
+men_19 <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Reaction Time", x = "") +
+  annotate("text", y = 0.21, x = "2022 S", label = "Men 2019 vs 2022", cex = 3) +
+  ylim(0.08, 0.22) +
+  theme_minimal()
+```
+
+### Womens 2019 vs 2022
+
+```{r}
+library(tidyr)
+library(ggplot2)
+nineteen_w <- read.csv("../Archive/2019vs2022Womens.csv")
+dash_19_w <- read.csv("../Archive/2019vs2022WomensDash.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(nineteen_w) <- c("Athlete", "Country", "2019 H", "2019 S", "2019 F", "2022 H", "2022 S", "2022 F")
+colnames(dash_19_w) <- c("Athlete", "2019 H", "2019 S", "2019 F", "2022 H", "2022 S", "2022 F")
+nineteen_w <- nineteen_w[, -c(1,2, 9)]
+dash_19_w <- dash_19_w[, -c(1)]
+nineteen_w <- rbind(nineteen_w, dash_19_w)
+
+df_long <- tidyr::pivot_longer(nineteen_w, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("2019 H", "2019 S", "2019 F", "2022 H", "2022 S", "2022 F"))
+women_19 <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Reaction Time", x = "") +
+  annotate("text", y = 0.21, x = "2022 S", label = "Women 2019 vs 2022", cex = 3) +
+  ylim(0.08, 0.22) +
+  theme_minimal()
+```
+
+### 2022 Mens National vs International
+
+```{r}
+library(tidyr)
+library(ggplot2)
+df1 <- read.csv("../Archive/NatVSWorld.csv")
+df2 <- read.csv("../Archive/2022NatvsWorldDash.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(df1) <- c("Athlete", "Country", "Nat. H", "Nat. S", "Nat. F", "Inter. H", "Inter. S", "Inter. F")
+colnames(df2) <- c("Athlete", "Country", "Nat. H", "Nat. S", "Nat. F", "Inter. H", "Inter. S", "Inter. F")
+df1 <- df1[, -c(1,2, 9)]
+df2 <- df2[, -c(1, 2)]
+df <- rbind(df1, df2)
+
+df_long <- tidyr::pivot_longer(df, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("Nat. H", "Nat. S", "Nat. F", "Inter. H", "Inter. S", "Inter. F"))
+men_22 <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Reaction Time", x = "") +
+  annotate("text", y = 0.21, x = "Inter. S", label = "Men 2022 Nat. vs Inter.", cex = 3) +
+  ylim(0.08, 0.22) +
+  theme_minimal()
+```
+
+### Womens 2022 National vs International
+
+```{r}
+library(tidyr)
+library(ggplot2)
+df1 <- read.csv("../Archive/2022NatvsWorldWomens.csv")
+df2 <- read.csv("../Archive/2022NatvsWorldWomensDash.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(df1) <- c("Athlete", "Country", "Nat. H", "Nat. S", "Nat. F", "Inter. H", "Inter. S", "Inter. F")
+colnames(df2) <- c("Athlete", "Country", "Nat. H", "Nat. S", "Nat. F", "Inter. H", "Inter. S", "Inter. F")
+df1 <- df1[, -c(1, 2)]
+df2 <- df2[, -c(1, 2)]
+df <- rbind(df1, df2)
+
+df_long <- tidyr::pivot_longer(df, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("Nat. H", "Nat. S", "Nat. F", "Inter. H", "Inter. S", "Inter. F"))
+women_22 <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Reaction Time", x = "") +
+  annotate("text", y = 0.21, x = "Inter. S", label = "Women 2022 Nat. vs Inter.", cex = 3) +
+  ylim(0.08, 0.22) +
+  theme_minimal()
+```
+
+### Men's 2022 vs 2023
+
+```{r}
+library(tidyr)
+library(ggplot2)
+df1 <- read.csv("../Archive/2022vs2023.csv")
+df2 <- read.csv("../Archive/2022vs2023Dash.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(df1) <- c("Athlete", "Country", "2022 H", "2022 S", "2022 F", "2023 H", "2023 S", "2023 F")
+colnames(df2) <- c("Athlete", "2022 H", "2022 S", "2022 F", "2023 H", "2023 S", "2023 F")
+df1 <- df1[, -c(1, 2)]
+df2 <- df2[, -c(1)]
+df <- rbind(df1, df2)
+
+df_long <- tidyr::pivot_longer(df, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("2023 H", "2023 S", "2023 F", "2022 H", "2022 S", "2022 F"))
+men_23 <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Reaction Time", x = "") +
+  annotate("text", y = 0.21, x = "2022 S", label = "Men 2022 vs 2023", cex = 3) +
+  ylim(0.08, 0.22) +
+  theme_minimal()
+```
+
+### Womens 2022 vs 2023
+
+```{r}
+library(tidyr)
+library(ggplot2)
+df1 <- read.csv("../Archive/2022vs2023Womens.csv")
+df2 <- read.csv("../Archive/2022vs2023WomensDash.csv")
+#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
+colnames(df1) <- c("Athlete", "Country", "2022 H", "2022 S", "2022 F", "2023 H", "2023 S", "2023 F")
+colnames(df2) <- c("Athlete", "2022 H", "2022 S", "2022 F", "2023 H", "2023 S", "2023 F")
+df1 <- df1[, -c(1, 2)]
+df2 <- df2[, -c(1)]
+df <- rbind(df1, df2)
+
+df_long <- tidyr::pivot_longer(df, cols = everything(), names_to = "Column", values_to = "Time")
+df_long$Column <- factor(df_long$Column, levels = c("2023 H", "2023 S", "2023 F", "2022 H", "2022 S", "2022 F"))
+women_23 <- ggplot(df_long, aes(x = Column, y = Time)) +
+  geom_point() +
+  labs(y = "Reaction Time", x = "") +
+  annotate("text", y = 0.21, x = "2022 S", label = "Women 2022 vs 2023", cex = 3) +
+  ylim(0.08, 0.22) +
+  theme_minimal()
+```
+
+### Combines the previous 6 graphs onto 1 plot
+
+```{r}
+library(gridExtra)
+rank_scatter <- grid.arrange(men_22, women_22, men_19,women_19, men_23, women_23, ncol = 2)
+ggsave(filename = "RankScatterPlots.pdf", path = "../Manuscript", plot=rank_scatter, height = 7.5, width = 7)
+```
+
+# Figure 2
+
+```{r}
+library(ggplot2)
+ggplot(df, aes(x = Venue, y = RxnTime, group = Venue)) +
   geom_boxplot() +
   labs(x = "Year", y = "Reaction Time (s)") +
-       scale_y_continuous(limits = c(0.1, 0.225),
-                            breaks = seq(0.1, 0.225, 0.025)) +
+       scale_y_continuous(limits = c(0.05, 0.275),
+                            breaks = seq(0.05, 0.275, 0.025)) +
   expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
                                               breaks = seq(1999, 2024, 2))
 #ggsave(filename="Boxplot.pdf", path = "../Manuscript", height = 4, width = 6)
 ```
-
-
-
+# Supplementary Womens Boxplot
 ```{r}
-library(tidyr)
+library(tidyverse)
+dhw <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "F") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime > 0) |>
+  filter(Event == "100 Hurdles" | Event == "110 Hurdles")
 library(ggplot2)
-nineteen <- read.csv("../Data/2019vs2022.csv")
-#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
-colnames(nineteen) <- c("Athlete", "Country", "2019 Heats", "2019 Semifinals", "2019 Finals", "2022 Heats", "2022 Semifinals", "2022 Finals")
-nineteen <- nineteen[, -c(1,2)]
-df_long <- tidyr::pivot_longer(nineteen, cols = everything(), names_to = "Column", values_to = "Time")
-df_long$Column <- factor(df_long$Column, levels = c("2019 Heats", "2019 Semifinals", "2019 Finals", "2022 Heats", "2022 Semifinals", "2022 Finals"))
-rank1 <- ggplot(df_long, aes(x = Column, y = Time)) +
-  geom_point() +
-  labs(y = "Reaction Time", x = "") +
-  annotate("text", y = 0.21, x = "2022 Semifinals", label = "2019 vs 2022", cex = 5) +
-  ylim(0.08, 0.22) +
-  theme_minimal()
+ggplot(dhw, aes(x = Venue, y = RxnTime, group = Venue)) +
+  geom_boxplot() +
+  labs(x = "Year", y = "Reaction Time (s)") +
+       scale_y_continuous(limits = c(0.05, 0.3),
+                            breaks = seq(0.05, 0.3, 0.025)) +
+  expand_limits(y = 0.1) + scale_x_continuous(limits = c(2000,2024),
+                                              breaks = seq(2001, 2024, 2))
+ggsave(filename="WomensBoxplot.pdf", path = "../Manuscript", height = 4, width = 6)
 ```
 
+# Figure 3
+
+setup
 ```{r}
-library(tidyr)
-library(ggplot2)
-twentythree <- read.csv("../Data/2022vs2023.csv")
-#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
-colnames(twentythree) <- c("Athlete", "Country", "2022 Heats", "2022 Semifinals", "2022 Finals", "2023 Heats", "2023 Semifinals", "2023 Finals")
-twentythree <- twentythree[, -c(1,2)]
-df_long <- tidyr::pivot_longer(twentythree, cols = everything(), names_to = "Column", values_to = "Time")
-df_long$Column <- factor(df_long$Column, levels = c("2022 Heats", "2022 Semifinals", "2022 Finals", "2023 Heats", "2023 Semifinals", "2023 Finals"))
-rank2 <- ggplot(df_long, aes(x = Column, y = Time)) +
-  geom_point() +
-  labs(y = "Reaction Time", x = "") +
-  annotate("text", y = 0.21, x = "2023 Semifinals", label = "2022 vs 2023", cex = 5) +
-  ylim(0.08, 0.22) +
-  theme_minimal()
+library("gamlss")
+library("qqconf")
+dhm <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime > 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles")
+
+dhm$Venue <- as.factor(dhm$Venue)
+dhm$Heat <- as.factor(dhm$Heat)
+gg3b  <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat), data = dhm, family = GG, control = gamlss.control(n.cyc = 40))
+
+
+dhm_no2022 <- times |>
+  filter(Type == "F" | Type == "S") |>
+  filter(Gender == "M") |>
+  filter(Time != "DNS") |>
+  filter(RxnTime > 0) |>
+  filter(Event == "100 Dash" | Event == "110 Hurdles") |>
+  filter(Venue != 2022) |>
+  mutate(Venue = as.factor(Venue), Heat = as.factor(Heat))
+
+
+gg3b_no2022  <- gamlss(RxnTime ~ random(Venue), sigma.formula = ~ random(Heat), data = dhm_no2022, family = GG, control = gamlss.control(n.cyc = 40))
+
 ```
 
+plot 1
 ```{r}
-library(tidyr)
-library(ggplot2)
-national <- read.csv("../Data/NatVSWorld.csv")
-#"C:\Users\ofior\Documents\Thesis\Data\2019vs2022.csv"
-colnames(national) <- c("Athlete", "Country", "Nat. Heats", "Nat. Semifinals", "Nat. Finals", "Inter. Heats", "Inter. Semifinals", "Inter. Finals", "Data Source")
-national <- national[, -c(1,2, 9)]
-df_long <- tidyr::pivot_longer(national, cols = everything(), names_to = "Column", values_to = "Time")
-df_long$Column <- factor(df_long$Column, levels = c("Nat. Heats", "Nat. Semifinals", "Nat. Finals", "Inter. Heats", "Inter. Semifinals", "Inter. Finals"))
-rank3 <- ggplot(df_long, aes(x = Column, y = Time)) +
-  geom_point() +
-  labs(y = "Reaction Time", x = "") +
-  ylim(0.08, 0.22) +
-  annotate("text", y = 0.21, x = "Inter. Semifinals", label = "2022 National vs International", cex = 5) +
-  theme_minimal()
+venue_effects <- as.data.frame(gg3b$mu.coefSmo[[1]]$coef)
+colnames(venue_effects) <- c("Effect Value")
+
+venue_plot <- ggplot(venue_effects, aes(x = rownames(venue_effects),
+                                               y = `Effect Value`)) +
+  geom_point() + 
+  labs(x = "Venue", y = "Venue Effect")+
+  scale_y_continuous(limits = c(-0.15, 0.1))
 ```
-
+plot 2
 ```{r}
-library(gridExtra)
-rank_scatter <- grid.arrange(rank1, rank2, rank3, ncol = 1)
-ggsave(filename = "RankScatterPlots.pdf", path = "../Manuscript", plot=rank_scatter, height = 7.5, width = 7)
-```
+venue_effects_no2022 <- as.data.frame(gg3b_no2022$mu.coefSmo[[1]]$coef)
+venue_effects_no2022["2022", ] <- 1 #Arbitrary number out of range of y scale so
+#that the x axis line up
 
-```{r}
-library(lme4)
-library(ggplot2)
-library(dplyr)
-times <- read.csv("../Data/GLMMData.csv")
-colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Event")
-with2022 <- subset(times, (Type == "F" | Type == "S") & 
-                       Gender == "M" & Time != 'DQ' & Event == "Hurdles")
-with2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat), 
-                               data = with2022, family = Gamma(link = "log"))
-ranef_results <- data.frame(ranef(with2022_two_effect_gamma_log))
-venues <- subset(ranef_results, ranef_results["grpvar"] == "Venue")
-venues$year <- as.character(venues$grp)
-venues$year <- as.numeric(venues$year)
+colnames(venue_effects_no2022) <- c("Effect Value")
 
-ggplot(venues, aes(x=year, y = condval)) + geom_point() + 
-  labs(x = "Venue", y = "Venue Effect") +
-  scale_x_continuous(limits = c(1998,2024), breaks = seq(1999, 2024, 2)) +
-  scale_y_continuous(limits = c(-0.1, 0.1))
-```
-
-```{r}
-x_values <- seq(-3, 3, length.out = 1000)  # Generate a sequence of x values
-y_values <- dnorm(x_values, mean = 0, sd = sqrt(0.04))  # Calculate the corresponding y values for the normal distribution
-
-normal_df <- data.frame(x = x_values, y = y_values)
-ggplot(normal_df, aes(x = x, y = y)) +
-  geom_line(color = "black", size = 1) +
-  geom_point(data = venues, aes(x = condval, y = 0), color = "red", size = 2) +
-  labs(title = "Normal Distribution (Mean = 0, SD = sqrt(0.4))",
-       x = "Value",
-       y = "Density") +
-  theme_minimal() + xlim(-1, 1)
-```
-
-
-```{r}
-library(lme4)
-library(ggplot2)
-library(dplyr)
-times <- read.csv("../Data/GLMMData.csv")
-colnames(times) <- c("Venue", "Type", "Time", "RxnTime", "Gender", "Heat", "Event")
-without2022 <- subset(times, (Type == "F" | Type == "S") & 
-                           Gender == "M" & Time != 'DQ' & Venue != 2022 & Event == "Hurdles")
-without2022_two_effect_gamma_log <- glmer(RxnTime ~ (1 | Venue) + (1 | Heat), 
-                               data = without2022, family = Gamma(link = "log"))
-ranef_results <- data.frame(ranef(without2022_two_effect_gamma_log))
-venues <- subset(ranef_results, ranef_results["grpvar"] == "Venue")
-venues$year <- as.character(venues$grp)
-venues$year <- as.numeric(venues$year)
-
-venue_effects_without2022 <- ggplot(venues, aes(x=year, y = condval)) +
+venue_plot_no2022 <- ggplot(venue_effects_no2022,
+                                   aes(x = rownames(venue_effects_no2022),
+                                       y = `Effect Value`)) +
   geom_point() + 
   labs(x = "Venue", y = "Venue Effect") +
-  scale_x_continuous(limits = c(1998,2024), breaks = seq(1999, 2024, 2)) +
-  scale_y_continuous(limits = c(-0.1, 0.1))
+  scale_y_continuous(limits = c(-0.15, 0.1))
 ```
-
+### Now we combine for final product
 ```{r}
 library(gridExtra)
-venue_effects_combined <- grid.arrange(venue_effects_with2022,
-                                       venue_effects_without2022, ncol = 1)
+venue_effects_combined <- grid.arrange(venue_plot,
+                                       venue_plot_no2022, ncol = 1)
 ggsave(filename = "ComparisonOfVenueEffects.pdf", path = "../Manuscript",
        plot=venue_effects_combined, height = 6.5, width = 7)
 ```
 
-### 100 meter dash plots
-```{r}
-dash <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & (Time != 'DQ' | Time != "DNS")
-                   & Event == "Dash")
-library(ggplot2)
-dash_plot <- ggplot(dash, aes(x = Venue, y = RxnTime, group = Venue)) +
-  geom_boxplot() +
-  labs(x = "Year", y = "Reaction Time (s)") +
-       scale_y_continuous(limits = c(0, 0.25),
-                            breaks = seq(0, 0.25, 0.05)) +
-  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
-                                              breaks = seq(1999, 2024, 2))
 
-hurdle_plot <- ggplot(with2022, aes(x = Venue, y = RxnTime, group = Venue)) +
-  geom_boxplot() +
-  labs(x = "Year", y = "Reaction Time (s)") +
-       scale_y_continuous(limits = c(0, 0.25),
-                            breaks = seq(0, 0.25, 0.05)) +
-  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
-                                              breaks = seq(1999, 2024, 2))
-library(gridExtra)
-grid.arrange(dash_plot, hurdle_plot, ncol = 1)
+# Figure 4
+Calculation of curve
+```{r}
+simfit <- function(model, n = 10000000) {
+    set.seed(1)
+    sd_Venue <- model$mu.coefSmo[[1]]$sigb
+    sd_Venue_heat <- model$sigma.coefSmo[[1]]$sigb[1]
+    
+    mu <- exp(model$mu.coefficients[1] + rnorm(n, mean = 0 , sd = sd_Venue))
+    sigma <- exp(model$sigma.coefficients[1] + rnorm(n, mean = 0 , sd = sd_Venue_heat))
+    nu <- model$nu.coefficients[1]
+    
+    rGG(n, mu = mu, sigma = sigma, nu = nu)
+}
+samplefit <- simfit(gg3b)
+samplefit0 <- samplefit[1:1000000]
+kernfit <- density(samplefit0)
+
+
+
 ```
-```{r}
-dash <- subset(times, (Type == "F" | Type == "S") & Gender == "M" & (Time != 'DQ' | Time != "DNS")
-                   & Event == "Dash")
-library(ggplot2)
-dash_plot <- ggplot(dash, aes(x = Venue, y = RxnTime, group = Venue)) +
-  geom_boxplot() +
-  labs(x = "Year", y = "Reaction Time (s)") +
-       scale_y_continuous(limits = c(0.1, 0.25),
-                            breaks = seq(0.1, 0.25, 0.05)) +
-  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
-                                              breaks = seq(1999, 2024, 2))
 
-hurdle_plot <- ggplot(with2022, aes(x = Venue, y = RxnTime, group = Venue)) +
-  geom_boxplot() +
-  labs(x = "Year", y = "Reaction Time (s)") +
-       scale_y_continuous(limits = c(0.1, 0.25),
-                            breaks = seq(0.1, 0.25, 0.05)) +
-  expand_limits(y = 0.1) + scale_x_continuous(limits = c(1998,2024),
-                                              breaks = seq(1999, 2024, 2))
+Now we make the density graph
+```{r}
+make_graph <- function(n = 1000000){
+  plot(density(samplefit, n=n), xlim = c(0, 0.3), ylim = c(0, 25), xlab = "",
+     main = "")
+  curve(dGG(x, mu = exp(gg3b$mu.coefficients[1]),
+          sigma = exp(gg3b$sigma.coefficients[1]),
+          nu = gg3b$nu.coefficients[1]),0, 0.3, add = TRUE, col = "blue",
+      main = "", xlab = "", ylab = "")
+}
+density_plot <- make_graph(1000000)
+```
+
+And combine it with the residuals
+```{r}
 library(gridExtra)
-grid.arrange(dash_plot, hurdle_plot, ncol = 1)
+resid_plot <- qq_conf_plot(residuals(gg3b), dparams = list(mean = 0, sd = 1))
+density_plot <- grid.arrange(resid_plot, density_plot, ncol = 2)
+ggsave(filename = "ResidualsDensityPlot", path = "../Manuscript",
+       plot=resid_density, height = 4, width = 8)
 ```
 
